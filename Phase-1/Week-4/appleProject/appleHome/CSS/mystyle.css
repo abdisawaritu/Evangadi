@@ -1,0 +1,52 @@
+/* ========================== */
+/* global styles */
+/* =========================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+img{
+    width: 100%;
+}
+
+.header-wrapper {
+  background-color: black;
+}
+.header-links-wrapper{
+  width: 70%;
+
+  margin: 0 auto;
+}
+.header-links-wrapper ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.logo-icon img,
+.search-icon img {
+  width: 17px;
+}
+.cart-icon img {
+  width: 16px;
+}
+.internal-wrapper ul li {
+  list-style: none;
+}
+.internal-wrapper .header-links-wrapper ul li a {
+  text-decoration: none;
+  font-size: 15px;
+  color: white
+}
+.internal-wrapper .header-links-wrapper ul li a:hover{
+    opacity: 0.8;
+}
+.first-hero-section-image{
+    background-image: url("../image/home/hero_macbook_air_m5__eb1idggd120y_small_2x.jpg");
+    height: 800px;
+    width: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}

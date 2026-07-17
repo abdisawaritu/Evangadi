@@ -1,0 +1,140 @@
+/* ========================= */
+/* Global CSS */
+/* ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+/* ========================= */
+/* Header  section and footer section */
+/* ========================= */
+
+.blue-background div {
+  background-color: #085070;
+  color: white;
+  text-align: center;
+}
+
+.puppy-lovers h1 {
+  padding: 25px;
+}
+
+/* ========================= */
+/* Banner section  */
+/* ========================= */
+
+
+
+.banner {
+  margin-bottom: 44px;
+}
+
+/* ========================= */
+/* Common Puppy Boxes */
+/* ========================= */
+
+.three-puppies >*,   .two-more-puppies >* {
+  width: 100%;
+  max-width: 490px;
+  margin: 20px auto;
+}
+
+.puppyone {
+  margin: 44px auto 75px;
+}
+
+.puppy-four {
+  margin-top: 67px;
+}
+
+/* Hide missing puppy box on mobile */
+
+.missing-puppies p {
+  display: none;
+}
+
+/* ========================= */
+/* More Puppies */
+/* ========================= */
+
+.more-puppies h2 {
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: bold;
+  padding: 75px 0;
+}
+
+/* ========================= */
+/* Footer */
+/* ========================= */
+
+.footer-parts h2 {
+  padding: 64px 0 80px;
+  margin-top: 84px;
+}
+
+/* ================================================= */
+/* MEDIA QUERY    for tablet and labtop */
+/* ================================================= */
+
+@media (min-width: 768px) {
+  /* Common wrapper */
+
+  .common-puppies {
+    display: flex;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+
+  /* Puppy boxes */
+
+  .puppyone,
+  .puppy-two,
+  .missing-puppies {
+    margin: 0 auto;
+  }
+
+  /* Missing Puppy */
+
+  .missing-puppies {
+    background-color: #f04d64;
+    display: flex;
+  }
+  common-puppies {
+    flex: 1;
+  }
+
+  .missing-puppies p {
+    display: flex;
+    font-size: 2.8rem;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+  }
+
+  /* Bottom Images */
+
+  .puppy-three,
+  .puppy-four {
+    margin: 0;
+  }
+
+  .puppy-four {
+    margin-left: 30px;
+  }
+  
+}

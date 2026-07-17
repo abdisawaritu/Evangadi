@@ -1,0 +1,71 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+.center {
+  background-color: blue;
+  text-align: center;
+}
+/* body{
+    background-color: blue;
+ }  */
+
+.para-contanier p {
+  margin: 2%;
+}
+/* background image from the css */
+
+.image-one {
+  background-image: url(../images/puppy-1.jpg);
+}
+.image-two {
+  background-image: url(../images/puppy-2.jpg);
+}
+.all-images {
+  height: 310px;
+  background-size: cover;
+  width: 308px;
+  margin: 2px auto;
+}
+/* starting of the media query styling using css */
+
+@media (min-width: 700px) {
+  .para-contanier {
+    display: flex;
+
+  }
+  .para-two {
+    display: none;
+  }
+  .image-contanier {
+    display: flex;
+    width: 650px;
+    margin: 0 auto;
+  }
+  .image-two {
+    background-image: url(../images/puppy-3.jpg);
+  }
+  /* .all-images{
+    display: inline-block;
+  } */
+}
+
+/* this the second medai query  */
+@media (min-width: 1000px) {
+  .para-two {
+    display: block;
+  }
+  .para-contanier p{
+    background-color: green;
+    color: white;
+  }
+  .image-contanier{
+    width: 950px;
+  }
+  .para-contanier{
+    width: 950px;
+    margin: 0 auto;
+    /* justify-content: space-between; */
+  }
+}

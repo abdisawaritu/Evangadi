@@ -1,0 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+img{
+  width: 100%;
+}
+
+.blueBG{
+  background-color: #085070 ; 
+  /* font-size: 40px; */
+}
+.missing-puppies{
+  background-color: rgb(164, 80, 92);
+}

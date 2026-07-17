@@ -1,0 +1,546 @@
+/* General Styling*/
+body {
+  font-family: "Montserrat", sans-serif;
+}
+a {
+  color: #06c;
+}
+img {
+  max-width: 100%;
+}
+
+
+
+/* Header */
+
+.apple-header{
+
+    border-bottom:1px solid #e5e5e5;
+
+}
+
+/* Navbar */
+
+.navbar{
+
+    min-height:48px;
+
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.footer-wrapper{
+    background:#f5f5f7;
+    color:#6e6e73;
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* ----------------------------------------------------------
+   Disclaimer
+---------------------------------------------------------- */
+
+.upper-text-container{
+
+    border-bottom:1px solid #d2d2d7;
+    padding-bottom:20px;
+    margin-bottom:30px;
+
+}
+
+.upper-text-container p{
+
+    margin-bottom:15px;
+
+}
+
+.upper-text-container a{
+
+    color:#0066cc;
+    text-decoration:none;
+
+}
+
+.upper-text-container a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ----------------------------------------------------------
+   Desktop Footer
+---------------------------------------------------------- */
+
+.footer-wrapper h6{
+
+    color:#1d1d1f;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:15px;
+
+}
+
+.footer-wrapper ul{
+
+    list-style:none;
+    padding:0;
+    margin:0;
+
+}
+
+.footer-wrapper ul li{
+
+    margin-bottom:8px;
+
+}
+
+.footer-wrapper ul li a{
+
+    color:#515154;
+    text-decoration:none;
+    font-size:12px;
+
+}
+
+.footer-wrapper ul li a:hover{
+
+    color:#000;
+    text-decoration:underline;
+
+}
+
+/* ----------------------------------------------------------
+   More Ways To Shop
+---------------------------------------------------------- */
+
+.footer-wrapper .border-top{
+
+    border-color:#d2d2d7 !important;
+
+}
+
+.footer-wrapper .border-top a{
+
+    color:#0066cc;
+    text-decoration:none;
+
+}
+
+.footer-wrapper .border-top a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ----------------------------------------------------------
+   Bottom Footer
+---------------------------------------------------------- */
+
+.footer-wrapper .row:last-child{
+
+    color:#6e6e73;
+    font-size:12px;
+
+}
+
+.footer-wrapper .row:last-child a{
+
+    color:#515154;
+    text-decoration:none;
+    margin-right:10px;
+
+}
+
+.footer-wrapper .row:last-child a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ----------------------------------------------------------
+   Accordion (Mobile)
+---------------------------------------------------------- */
+
+.accordion{
+
+    --bs-accordion-bg:#f5f5f7;
+    --bs-accordion-border-color:#d2d2d7;
+    --bs-accordion-btn-bg:#f5f5f7;
+    --bs-accordion-active-bg:#f5f5f7;
+    --bs-accordion-active-color:#1d1d1f;
+    --bs-accordion-btn-focus-box-shadow:none;
+
+}
+
+.accordion-item{
+
+    border:none;
+    border-bottom:1px solid #d2d2d7;
+
+}
+
+.accordion-button{
+
+    font-size:13px;
+    font-weight:600;
+    color:#1d1d1f;
+    padding:15px 0;
+
+}
+
+.accordion-button:not(.collapsed){
+
+    box-shadow:none;
+
+}
+
+.accordion-button:focus{
+
+    box-shadow:none;
+
+}
+
+.accordion-body{
+
+    padding:0 0 15px;
+
+}
+
+.accordion-body ul{
+
+    margin:0;
+
+}
+
+.accordion-body li{
+
+    margin-bottom:10px;
+
+}
+
+.accordion-body a{
+
+    color:#515154;
+    text-decoration:none;
+
+}
+
+.accordion-body a:hover{
+
+    color:#000;
+    text-decoration:underline;
+
+}
+
+/* ----------------------------------------------------------
+   Flag
+---------------------------------------------------------- */
+
+.footer-wrapper img{
+
+    vertical-align:middle;
+
+}
+
+/* ----------------------------------------------------------
+   Mobile
+---------------------------------------------------------- */
+
+@media (max-width:991.98px){
+
+    .upper-text-container{
+
+        font-size:11px;
+
+    }
+
+    .border-top{
+
+        margin-top:20px !important;
+
+    }
+
+}
+
+/* ----------------------------------------------------------
+   Desktop
+---------------------------------------------------------- */
+
+@media (min-width:992px){
+
+    .footer-wrapper{
+
+        padding-bottom:20px;
+
+    }
+
+}
+
+/* Apple Logo */
+
+.logo-box{
+
+    width:48px;
+
+    height:48px;
+
+    /* background:#000; */
+
+}
+
+/* All Icons */
+
+.nav-icon{
+
+    width:18px;
+
+    height:18px;
+
+    object-fit:contain;
+
+}
+
+/* Navigation */
+
+.nav-link{
+
+    color:#1d1d1f;
+
+    font-size:12px;
+
+}
+
+.nav-link:hover{
+
+    color:#0066cc;
+
+}
+
+/* Mobile */
+
+@media (max-width:991.98px){
+
+    .navbar-collapse{
+
+        padding:1rem;
+
+    }
+
+    .navbar-nav{
+
+        align-items:start;
+
+    }
+
+    .nav-link{
+
+        font-size:1.6rem;
+
+        color:#000;
+
+    }
+
+}
+
+/* Desktop */
+
+@media (min-width:992px){
+
+    .navbar-nav{
+
+        gap:.35rem;
+
+    }
+
+}
+
+
+/* first hero section */
+/* ===================================================
+   Common Hero Section
+=================================================== */
+
+.hero-section{
+
+    min-height:700px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding-top:55px;
+
+    background-repeat:no-repeat;
+
+    background-position:center;
+
+    background-size:cover;
+
+}
+
+/* ===================================================
+   MacBook Hero Images
+=================================================== */
+
+.hero-macbook{
+
+    background-image:url("../image/home/hero_macbook_air_m5__eb1idggd120y_medium.jpg");
+
+}
+.hero-iphone{
+  background-image: url("../image/home/hero_iphone_family__be5jkzxszb1e_large.jpg");
+}
+.hero-ipad{
+  background-image: url("../image/home/hero_ipad_air_m4__gc1zddfs5tiu_large.jpg");
+}
+
+/* ===================================================
+   Typography
+=================================================== */
+
+.model{
+
+    font-size:17px;
+
+}
+
+
+
+
+
+/* ===================================================
+   Buttons
+=================================================== */
+
+.hero-links .btn{
+
+    font-size:17px;
+
+    border-radius:980px;
+
+    padding:10px 24px;
+
+}
+
+/* Learn More */
+
+.hero-links .btn-primary{
+
+    /* background:#0071e3; */
+
+    border:1px solid #0071e3;
+
+}
+
+.hero-links .btn-primary:hover{
+
+    background:#0077ed;
+
+    border-color:#0077ed;
+
+}
+
+/* Buy */
+
+.hero-links .btn-outline-primary{
+
+    color:#0071e3;
+
+    border:1px solid #0071e3;
+
+    background:transparent;
+
+}
+
+.hero-links .btn-outline-primary:hover{
+
+    background:#0071e3;
+
+    color:#fff;
+
+}
+
+/* ===================================================
+   Mobile Version
+=================================================== */
+
+@media (max-width:767.98px){
+
+    .hero-macbook{
+
+        background-image:url("../image/home/hero_macbook_air_m5__eb1idggd120y_small.jpg");
+
+    }
+    .hero-iphone{
+      background-image: url("../image/home/hero_iphone_17__ekga3xh1n5aq_small_2x.jpg");
+    }
+    /* .hero-ipad{
+       background-image: url("../image/home/hero_ipad_air_m4__gc1zddfs5tiu_large.jpg");
+    } */
+
+    .hero-section{
+
+        min-height:620px;
+
+        padding-top:40px;
+
+    }
+
+    .product-title{
+
+        font-size:40px;
+
+    }
+
+    .brief-description{
+
+        font-size:22px;
+
+    }
+
+}
+/* from section four to six  */
+
+
+}
+.image-one{
+  background-image: url("../images/home/watch-series-5.jpg");
+  height:580px;
+  /* background-position: center; */
+  background-repeat: no-repeat;
+  
+}
+.product-card{
+    min-height:580px;
+    background-repeat:no-repeat;
+    background-position:center bottom;
+    background-size:cover;
+    padding-top:50px;
+}
+.watch-section{
+    background-image:url("../images/home/watch-series-5.jpg");
+}
+.apple-card-section {
+    background-image:url("../images/home/apple-card.jpg");
+}
+.tv-section{
+    background-image:url("../images/home/apple-tv-background.jpg");
+}
+
+.airpods-section{
+    background-image:url("../images/home/air-pods.jpg");
+}
+.macbook-small-section{
+    background-image: url("../images/home/macbook-pro.jpg");
+}
+.ipad-section{
+    background-image: url("../images/home/new-ipad.jpg");
+}
