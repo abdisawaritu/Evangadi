@@ -61,7 +61,11 @@ console.log(product);
 
 let arraysNum = [ 1, 2 , 3, 4, 5, 6  ];
 console.log(arraysNum);
-// accessed through index  starting from 0 to n-1   where n is the length of the array 
+// accessed through index  starting from 0 to n-1   where n is the length of the array  
+
+
+/*let name= "abdisa";
+let  lname=" waritu ";*/
 
 
 
