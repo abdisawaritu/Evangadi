@@ -1,10 +1,13 @@
 // alert(" your js file is connected");
+"use strict";
 
 // Introduction to programming basics - pratice exercise  homework
 console.log(24 > 3); //  true
 // since both are  the same data types js just compare the values
 
-console.log(2 > "12"); // false
+console.log(2 > "12"); 
+console.log(typeof("12"));
+ // false
 // the string 12 is automatically converted to the number 12 then js compare the two number  2 and 12
 
 console.log(0 == 2); // false
@@ -91,7 +94,7 @@ console.log(
 // homework question three
 let numberOne = 1;
 let numberTwo = 2;
-let sum = num1 + num2;
+let sum = numberOne + numberTwo;
 console.log(sum);
 
 
@@ -99,8 +102,32 @@ console.log(sum);
 //homework question four
 let firstName = "abdisa";
 let lastName = "waritu";
-let fullName = firstName + " " + lastName;
+// let fullName = firstName + " " + lastName;
+let fullName = ` My Name is :${firstName} ${lastName}`;  // this is the js logic 
 console.log(fullName);
+
+
 
 // rough paper
 console.log(Number("john "));
+
+
+// let name = prompt("enter your name :");
+// console.log(name);
+
+
+let message = `Hello
+Welcome
+to JavaScript`;
+console.log(message);
+
+
+// template literal 
+let name = `abdisa`;
+console.log(`hello ${name}`);
+
+
+// z =10;
+// console.log(z);
+
+
