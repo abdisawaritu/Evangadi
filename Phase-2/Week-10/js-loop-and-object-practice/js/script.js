@@ -3,6 +3,8 @@
 /*  a loop is a way to execute the same code multiple times without writing it repeatedly*/
 // for ( initialization ;  condition ; update(increment )){code to repeat}
 
+// const { cacheSignal } = require("react");
+
 for (let i = 1; i <= 5; i++) {
   console.log(i);
 }
@@ -288,7 +290,7 @@ class Vehicle {
 let car = new Vehicle("minibus", "rivo ");
 console.log(car);
 
-// built in js objects (the most commmon built in js objects )
+// built in js objects (the most commmon built in js objects ) to  use their built in methods and is js almost everthing is considered as objects  and they have their own
 // String   //
 // Array    //
 // Math     //
@@ -348,3 +350,841 @@ console.log(skills);
 // for ( let i = 0 ;  i<5 ; i++){
 
 // }
+//nested  object
+
+const student = {
+  name: "abdi",
+  address: {
+    country: "ethiopia ",
+    city: "addis ababa",
+  },
+  skills: ["html", "css", "js"],
+};
+// accessing the nested object
+console.log(student.address.city);
+console.log(student);
+console.log(student.skills[1]);
+
+// object can contain array
+// array can contain an object  and object can contain another object  and array can contain another array
+
+// how to create object is javacript
+
+let objectCreation = {
+  //  object creating using the object literal method
+  key1: "value1",
+  key2: "value2",
+  key3: "value3",
+  xx: function () {
+    console.log("this is the function inside the object");
+  },
+};
+// let arrayCreation = [];
+console.log(objectCreation);
+console.log(objectCreation.key1);
+console.log(objectCreation.xx());
+// console.log(arrayCreation);
+// everthing is accessed through the  object all the methods and properties that is the object has .  from the object we can access the methods and properties of the object  using the dot notation and bracket notation   with is the same as the array through the index of the array we can access the element of the array using the index of the array  and we can access the methods and properties of the array using the dot notation and bracket notation  with is the same as the object through the key of the object we can access the value of the object using the key of the object  and we can access the methods and properties of the object using the dot notation and bracket notation  with is the same as the array throught it .
+
+let stud = {
+  id: 111,
+  name: "abebe",
+  age: 22,
+  study: function () {
+    return this.name + " is studying";
+  },
+  submitAssignment: function () {
+    return this.name + " is submitting the assignment";
+  },
+  fullName: function () {
+    return this.name + " " + this.age;
+  },
+};
+console.log(stud["name"]); // bracket accessin similar to the array
+console.log(stud.study());
+console.log(stud.submitAssignment());
+console.log(stud.fullName());
+
+// blueprint for creating the object using the constructor functiin
+function Cars(name, model, year) {
+  this.name = name;
+  this.model = model;
+  this.year = year;
+  this.start = function () {
+    return this.name + " " + this.model + " is starting";
+  };
+}
+
+let car1 = new Cars("toyota", "camry", 2022);
+console.log(car1);
+let car2 = new Cars("honda", "civic", 2021);
+console.log(car2);
+console.log(car1, car2);
+
+car1.mileage = 10000;
+console.log(car1);
+
+car2.color = "red";
+console.log(car2);
+
+// built in  js objects  ( the most commonly used built in js objects )
+// String
+// Array
+
+// let  stringObject = new String("abebe");  this is not recommended way of creating the string oject
+let stringObject2 = "abebe"; // can inherit the properties and methods of the string object
+console.log(stringObject2.length);
+console.log(stringObject2.toUpperCase());
+stringObject2.toLowerCase();
+
+// we use the algorithm thinking to use the different built in methods of the object to solve the problem and we use the object oriented programming to create the object and use the methods and properties of the object to solve the problem and we use the loop ite
+
+// String
+// length
+// let name = "abebe";
+// console.log(name.length); // password length check
+// console.log(name.charAt(0));
+// console.log(name.charCodeAt(0));
+// console.log(name.indexOf("a"));
+// console.log(name.lastIndexOf("b"));
+
+// console.log(name.slice(0, 3));
+// console.log(name.substring(1, 3));
+// console.log(name.trim()); // to remove the while space from the string
+
+// Array object
+// Map();
+// filter();
+// forEach();
+// reduce();
+// find();
+// some();
+// every();
+// sortArray()
+
+// Array functional loop , iteration  array functional method iteration / looping
+
+// practice on the  javascript built in methods
+// String   predefined objects which are commonly used inside  string objects
+// ======================================================
+// JAVASCRIPT STRING OBJECT - MOST COMMON BUILT-IN METHODS
+// ======================================================
+
+// PROPERTY
+// --------
+
+// length
+// Purpose: Returns the number of characters in the string.
+
+// ======================================================
+
+// charAt(index)
+// Purpose: Returns the character at the specified index.
+
+// at(index)
+// Purpose: Returns the character at the specified index.
+// Supports negative indexes.
+
+// charCodeAt(index)
+// Purpose: Returns the Unicode value of the character.
+
+// codePointAt(index)
+// Purpose: Returns the Unicode code point of a character.
+
+// ======================================================
+
+// indexOf(searchValue)
+// Purpose: Returns the index of the first occurrence.
+// Returns -1 if not found.
+
+// lastIndexOf(searchValue)
+// Purpose: Returns the index of the last occurrence.
+
+// includes(searchValue)
+// Purpose: Checks whether a string contains the specified text.
+// Returns true or false.
+
+// startsWith(searchValue)
+// Purpose: Checks whether a string starts with specified text.
+
+// endsWith(searchValue)
+// Purpose: Checks whether a string ends with specified text.
+
+// search(pattern)
+// Purpose: Searches for text or a regular expression.
+// Returns the index or -1.
+
+// ======================================================
+
+// slice(start, end)
+// Purpose: Extracts part of a string.
+// Supports negative indexes.  from the end to  start and it starts from the the index -1 rather than 0 as normal array index
+
+// substring(start, end)
+// Purpose: Extracts part of a string.
+// Does NOT support negative indexes.
+
+// substr(start, length)
+// Purpose: Extracts characters using a starting position and length.
+// Deprecated (avoid using).
+
+// ======================================================
+
+// replace(oldValue, newValue)
+// Purpose: Replaces the first matching text.
+
+// replaceAll(oldValue, newValue)
+// Purpose: Replaces all matching text.
+
+// ======================================================
+
+// toUpperCase()
+// Purpose: Converts all letters to uppercase.
+
+// toLowerCase()
+// Purpose: Converts all letters to lowercase.
+
+// toLocaleUpperCase()
+// Purpose: Converts to uppercase using locale rules.
+
+// toLocaleLowerCase()
+// Purpose: Converts to lowercase using locale rules.
+
+// ======================================================
+
+// trim()
+// Purpose: Removes whitespace from both ends.
+
+// trimStart()
+// Purpose: Removes whitespace from the beginning.
+
+// trimEnd()
+// Purpose: Removes whitespace from the end.
+
+// ======================================================
+
+// split(separator)
+// Purpose: Splits a string into an array.
+
+// concat(string)
+// Purpose: Joins two or more strings.
+
+// repeat(count)
+// Purpose: Repeats the string multiple times.
+
+// ======================================================
+
+// padStart(targetLength, padString)
+// Purpose: Pads the beginning of a string.
+
+// padEnd(targetLength, padString)
+// Purpose: Pads the end of a string.
+
+// ======================================================
+
+// match(regex)
+// Purpose: Returns matches using a regular expression.
+
+// matchAll(regex)
+// Purpose: Returns an iterator containing all matches.
+
+// ======================================================
+
+// localeCompare(otherString)
+// Purpose: Compares two strings alphabetically.
+// Returns:
+//   -1  -> before
+//    0  -> equal
+//    1  -> after
+
+// ======================================================
+
+// normalize()
+// Purpose: Normalizes Unicode characters.
+
+// ======================================================
+
+// valueOf()
+// Purpose: Returns the primitive string value.
+
+// toString()
+// Purpose: Returns the string representation.
+
+// ======================================================
+
+// 1. length          -> Number of characters
+// 2. charAt()        -> Character at an index
+// 3. at()            -> Character at an index (supports negatives)
+// 4. indexOf()       -> First occurrence
+// 5. includes()      -> Check if text exists
+// 6. startsWith()    -> Check beginning
+// 7. endsWith()      -> Check ending
+// 8. slice()         -> Extract part of a string
+// 9. replace()       -> Replace text
+//10. toUpperCase()   -> Convert to uppercase
+//11. toLowerCase()   -> Convert to lowercase
+//12. trim()          -> Remove spaces
+//13. split()         -> Convert string to array
+//14. concat()        -> Join strings
+//15. repeat()        -> Repeat a string
+
+let names = "abdisa"; // space can be counted as charater
+console.log(names.length);
+console.log(names.charAt(2));
+let stringObj = new String("Hello,World");
+console.log(stringObj);
+console.log(names.charCodeAt(2));
+console.log(names.indexOf("a"));
+console.log(names.lastIndexOf("a"));
+console.log(names.includes("abdisa"));
+
+console.log(names.startsWith("a"));
+console.log(names.endsWith("a"));
+
+console.log(names.lastIndexOf());
+console.log(names.slice(0, 3));
+
+console.log(names.substring(0, 4));
+
+console.log(names.split(""));
+
+console.log(names.replace("a", "d"));
+
+console.log(names.toUpperCase());
+console.log(names.toLowerCase());
+// console.log(names.trim())  to remove the white space from the the string very important during the passoworl when the user unintention add the spacae to remove that space
+
+// Array Object
+
+// ======================================================
+// JAVASCRIPT ARRAY OBJECT - MOST COMMON BUILT-IN METHODS
+// ======================================================
+
+// ======================================================
+// PROPERTIES
+// ======================================================
+
+// length
+// Purpose: Returns the number of elements in the array.
+
+// ======================================================
+// ADDING ELEMENTS
+// ======================================================
+
+// push(element)
+// Purpose: Adds one or more elements to the end of the array.
+// Returns: New length of the array.
+
+// unshift(element)
+// Purpose: Adds one or more elements to the beginning of the array.
+// Returns: New length of the array.
+
+// splice(start, deleteCount, item1, item2,...)
+// Purpose: Add, remove, or replace elements.
+// Returns: Removed elements.
+// Modifies the original array.
+
+// ======================================================
+// REMOVING ELEMENTS
+// ======================================================
+
+// pop()
+// Purpose: Removes the last element.
+// Returns: The removed element.
+
+// shift()
+// Purpose: Removes the first element.
+// Returns: The removed element.
+
+// splice(start, deleteCount)
+// Purpose: Removes elements from a specific position.
+// Returns: Removed elements.
+// Modifies the original array.
+
+// ======================================================
+// COPYING / EXTRACTING
+// ======================================================
+
+// slice(start, end)
+// Purpose: Returns a portion of the array.
+// Does NOT modify the original array.
+
+// concat(array1, array2,...)
+// Purpose: Joins two or more arrays.
+// Returns: A new array.
+
+// ======================================================
+// SEARCHING
+// ======================================================
+
+// includes(value)
+// Purpose: Checks if an array contains a value.
+// Returns: true or false.
+
+// indexOf(value)
+// Purpose: Returns the first index of a value.
+// Returns: -1 if not found.
+
+// lastIndexOf(value)
+// Purpose: Returns the last index of a value.
+// Returns: -1 if not found.
+
+// find(callback)
+// Purpose: Returns the first element that satisfies a condition.
+
+// findIndex(callback)
+// Purpose: Returns the index of the first matching element.
+// Returns: -1 if not found.
+
+// ======================================================
+// ITERATION
+// ======================================================
+
+// forEach(callback)
+// Purpose: Executes a function for every element.
+// Returns: undefined.
+
+// map(callback)
+// Purpose: Creates a new array by transforming each element.
+
+// filter(callback)
+// Purpose: Returns a new array containing elements that satisfy a condition.
+
+// reduce(callback, initialValue)
+// Purpose: Reduces the array to a single value.
+
+// reduceRight(callback)
+// Purpose: Reduces the array from right to left.
+
+// every(callback)
+// Purpose: Checks if every element satisfies a condition.
+// Returns: true or false.
+
+// some(callback)
+// Purpose: Checks if at least one element satisfies a condition.
+// Returns: true or false.
+
+// ======================================================
+// SORTING
+// ======================================================
+
+// sort(compareFunction)
+// Purpose: Sorts the array.
+// Modifies the original array.
+
+// reverse()
+// Purpose: Reverses the order of elements.
+// Modifies the original array.
+
+// toSorted(compareFunction)
+// Purpose: Returns a sorted copy.
+// Does NOT modify the original array.
+
+// toReversed()
+// Purpose: Returns a reversed copy.
+// Does NOT modify the original array.
+
+// ======================================================
+// JOINING / CONVERTING
+// ======================================================
+
+// join(separator)
+// Purpose: Converts an array into a string.
+
+// toString()
+// Purpose: Converts the array to a string.
+
+// valueOf()
+// Purpose: Returns the array itself.
+
+// ======================================================
+// FLATTENING
+// ======================================================
+
+// flat(depth)
+// Purpose: Flattens nested arrays.
+
+// flatMap(callback)
+// Purpose: Maps each element and flattens one level.
+
+// ======================================================
+// FILLING / COPYING
+// ======================================================
+
+// fill(value, start, end)
+// Purpose: Fills part or all of an array with one value.
+
+// copyWithin(target, start, end)
+// Purpose: Copies elements to another position within the same array.
+
+// ======================================================
+// CHECKING
+// ======================================================
+
+// Array.isArray(value)
+// Purpose: Checks whether a value is an array.
+// Returns: true or false.
+
+// ======================================================
+// CREATING ARRAYS
+// ======================================================
+
+// Array.of(...elements)
+// Purpose: Creates a new array from arguments.
+
+// Array.from(iterable)
+// Purpose: Creates an array from iterable objects or strings.
+
+// ======================================================
+// ITERATORS
+// ======================================================
+
+// keys()
+// Purpose: Returns an iterator of array indexes.
+
+// values()
+// Purpose: Returns an iterator of array values.
+
+// entries()
+// Purpose: Returns an iterator of index-value pairs.
+
+// ======================================================
+// MODERN ARRAY METHODS (ES2023)
+// ======================================================
+
+// with(index, value)
+// Purpose: Returns a new array with one element replaced.
+
+// toSpliced(start, deleteCount, items)
+// Purpose: Returns a modified copy using splice behavior.
+// Does NOT modify the original array.
+
+// ======================================================
+// END OF ARRAY METHODS
+// ======================================================
+
+// ======================================================
+// TOP 20 MOST IMPORTANT ARRAY METHODS
+// ======================================================
+
+// 1. length
+// Purpose: Get number of elements.
+
+// 2. push()
+// Purpose: Add element to the end.
+
+// 3. pop()
+// Purpose: Remove last element.
+
+// 4. shift()
+// Purpose: Remove first element.
+
+// 5. unshift()
+// Purpose: Add element to the beginning.
+
+// 6. slice()
+// Purpose: Copy part of an array.
+
+// 7. splice()
+// Purpose: Add, remove or replace elements.
+
+// 8. concat()
+// Purpose: Merge arrays.
+
+// 9. includes()
+// Purpose: Check if value exists.
+
+// 10. indexOf()
+// Purpose: Find first index of a value.
+
+// 11. find()
+// Purpose: Find the first matching element.
+
+// 12. findIndex()
+// Purpose: Find the index of the first matching element.
+
+// 13. forEach()
+// Purpose: Loop through every element.
+
+// 14. map()
+// Purpose: Transform every element.
+
+// 15. filter()
+// Purpose: Keep only matching elements.
+
+// 16. reduce()
+// Purpose: Combine array into one value.
+
+// 17. every()
+// Purpose: Check if all elements satisfy a condition.
+
+// 18. some()
+// Purpose: Check if at least one element satisfies a condition.
+
+// 19. sort()
+// Purpose: Sort elements.
+
+// 20. reverse()
+// Purpose: Reverse the array.
+
+let fruitss = ["apple", "mango ", "banana"];
+console.log(fruitss.length);
+console.log(fruitss.push("water melon")); // add  at the ends
+console.log(fruitss.unshift("avacado")); // add at the beggginng
+console.log(fruitss.pop()); // remove from the last
+console.log(fruitss.shift());
+console.log(fruitss);
+
+// console.log(fruitss.slice(1,3))// to take the part of array the same the string   and returns  part of the array
+
+fruitss.splice(0, 0, "pineapple", "grapes");
+
+console.log(fruitss.includes("banana"));
+let vegetable = ["carrot ", "potato"];
+console.log(fruitss.concat(vegetable));
+
+// array functional methods  * iteration / looping
+
+console.log(fruitss);
+fruitss.forEach((element, index, array) =>  {
+  console.log(element, index, array);
+});
+
+let numbers = [ 5,6,19,16];
+// let results = numbers.reduce(num  =>   num>10);
+// let restltsss = numbers.find(function (number){
+//   return number>10;
+let resultss = numbers.reduce(function( acc , curva){
+  return  acc+curva;
+})
+// })
+console.log(resultss);
+
+// some( )  everty ( ) return the boolean value 
+
+console.log(fruitss.sort());
+// to  for sorting the number we use the compare function   with call back of the sort function    that takes two vales and return the difference
+
+
+// ======================================================
+// JAVASCRIPT MATH OBJECT - MOST COMMON BUILT-IN METHODS
+// ======================================================
+
+// NOTE:
+// Math is NOT a constructor.
+// You do NOT create it using new Math().
+// Use it directly:
+// Math.methodName()
+
+// ======================================================
+// MATHEMATICAL CONSTANTS
+// ======================================================
+
+// Math.PI
+// Purpose: Returns the value of π (3.141592653589793).
+
+// Math.E
+// Purpose: Returns Euler's number (2.718...).
+
+// Math.SQRT2
+// Purpose: Returns the square root of 2.
+
+// Math.SQRT1_2
+// Purpose: Returns the square root of 1/2.
+
+// Math.LN2
+// Purpose: Returns the natural logarithm of 2.
+
+// Math.LN10
+// Purpose: Returns the natural logarithm of 10.
+
+// ======================================================
+// ROUNDING METHODS
+// ======================================================
+
+// Math.round(number)
+// Purpose: Rounds to the nearest integer.
+
+// Math.floor(number)
+// Purpose: Rounds DOWN to the nearest integer.
+
+// Math.ceil(number)
+// Purpose: Rounds UP to the nearest integer.
+
+// Math.trunc(number)
+// Purpose: Removes the decimal part.
+
+// ======================================================
+// MINIMUM & MAXIMUM
+// ======================================================
+
+// Math.max(...numbers)
+// Purpose: Returns the largest number.
+
+// Math.min(...numbers)
+// Purpose: Returns the smallest number.
+
+// ======================================================
+// POWER & ROOT
+// ======================================================
+
+// Math.pow(base, exponent)
+// Purpose: Raises a number to a power.
+
+// Math.sqrt(number)
+// Purpose: Returns the square root.
+
+// Math.cbrt(number)
+// Purpose: Returns the cube root.
+
+// ======================================================
+// ABSOLUTE VALUE
+// ======================================================
+
+// Math.abs(number)
+// Purpose: Returns the positive (absolute) value.
+
+// ======================================================
+// RANDOM NUMBERS
+// ======================================================
+
+// Math.random()
+// Purpose: Returns a random number between 0 and 1.
+
+// ======================================================
+// TRIGONOMETRY
+// ======================================================
+
+// Math.sin(angle)
+// Purpose: Returns the sine of an angle.
+
+// Math.cos(angle)
+// Purpose: Returns the cosine of an angle.
+
+// Math.tan(angle)
+// Purpose: Returns the tangent of an angle.
+
+// Math.asin(number)
+// Purpose: Returns the inverse sine.
+
+// Math.acos(number)
+// Purpose: Returns the inverse cosine.
+
+// Math.atan(number)
+// Purpose: Returns the inverse tangent.
+
+// Math.atan2(y, x)
+// Purpose: Returns the angle from x-axis to point (x,y).
+
+// ======================================================
+// LOGARITHMS
+// ======================================================
+
+// Math.log(number)
+// Purpose: Returns the natural logarithm.
+
+// Math.log10(number)
+// Purpose: Returns the base-10 logarithm.
+
+// Math.log2(number)
+// Purpose: Returns the base-2 logarithm.
+
+// ======================================================
+// EXPONENTIAL
+// ======================================================
+
+// Math.exp(number)
+// Purpose: Returns e raised to the given power.
+
+// ======================================================
+// SIGN
+// ======================================================
+
+// Math.sign(number)
+// Purpose: Returns:
+//  1  -> positive
+// -1  -> negative
+//  0  -> zero
+
+// ======================================================
+// HYPOTENUSE
+// ======================================================
+
+// Math.hypot(...numbers)
+// Purpose: Returns the square root of the sum of squares.
+// Useful for distance calculations.
+
+// ======================================================
+// END OF MATH METHODS
+// ======================================================
+
+// ======================================================
+// TOP 15 MOST IMPORTANT MATH METHODS
+// ======================================================
+
+// 1. Math.PI
+// Purpose: Value of π.
+
+// 2. Math.round()
+// Purpose: Round to nearest integer.
+
+// 3. Math.floor()
+// Purpose: Round down.
+
+// 4. Math.ceil()
+// Purpose: Round up.
+
+// 5. Math.trunc()
+// Purpose: Remove decimal part.
+
+// 6. Math.random()
+// Purpose: Generate a random number.
+
+// 7. Math.max()
+// Purpose: Largest number.
+
+// 8. Math.min()
+// Purpose: Smallest number.
+
+// 9. Math.abs()
+// Purpose: Absolute (positive) value.
+
+// 10. Math.pow()
+// Purpose: Raise a number to a power.
+
+// 11. Math.sqrt()
+// Purpose: Square root.
+
+// 12. Math.cbrt()
+// Purpose: Cube root.
+
+// 13. Math.sign()
+// Purpose: Check positive, negative, or zero.
+
+// 14. Math.log()
+// Purpose: Natural logarithm.
+
+// 15. Math.exp()
+// Purpose: e raised to a power.
+
+
+console.log(Math.round(3.2));  // round neares
+console.log(Math.floor(4.9))  // round down 
+console.log(Math.ceil(4.1))   // round up 
+console.log(Math.abs(-2));
+console.log(Math.max(1))
+console.log(Math.random())
+console.log(Math.random());
+console.log(Math.min(1,2,3))
+console.log(Math.pow(2,4))
+console.log(Math.PI)
+console.log(Math.E);
+console.log(Math.LN10);
+console.log(Math.SQRT2);
+console.log(Math.SQRT1_2);
+console.log(Math.LOG2E);
+console.log(Math.abs(-3));
+console.log(Math.trunc(2.333))
+
+ 
+
