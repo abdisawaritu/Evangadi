@@ -25,18 +25,23 @@ firstTenIntiger();
 function nextFive(number) {
   // check if the input is a valid number
   if (!Number.isFinite(number)) {
-    console.log("please provide the valid number");
+    return "please provide the valid number";
   }
   for (let i = 1; i <= 5; i++) {
+    if (i === 3) {
+      return;
+    }
     console.log(number + i);
   }
-  // for(let i = number+1 ; i<= number+5 ; i++){
-  //   console.log(i);
-  // }
 }
+
+// for(let i = number+1 ; i<= number+5 ; i++){
+//   console.log(i);
+// }
+
 nextFive(7);
-nextFive(10);
-nextFive(10.9);
+// nextFive(10);
+// nextFive("2");
 
 // Question 3
 /* write a function  that takes a single number and prints the sum of the nect 10 numbers after the given number. */
@@ -50,7 +55,13 @@ function adder(numbers) {
       // return sum = sum + i
       sum = sum + (numbers + i);
     }
+    // for ( let i = numbers + 1  ; i <=  numbers + 10  ; i++){
+    //   sum+= i;
+    // }
+    
     return sum;
+
+    
   }
 }
 console.log(adder(7));
