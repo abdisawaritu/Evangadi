@@ -9,7 +9,7 @@ const firstTenIntiger = function () {
   }
 };
 firstTenIntiger();
-
+// Question 1 using while loop
 function firstTenInt() {
   let i = 1;
   while (i <= 10) {
@@ -25,7 +25,7 @@ firstTenIntiger();
 function nextFive(number) {
   // check if the input is a valid number
   if (!Number.isFinite(number)) {
-    return "please provide the valid number";
+    console.log("please provide the valid number");
   }
   for (let i = 1; i <= 5; i++) {
     console.log(number + i);
@@ -34,7 +34,9 @@ function nextFive(number) {
   //   console.log(i);
   // }
 }
-console.log(nextFive(7));
+nextFive(7);
+nextFive(10);
+nextFive(10.9);
 
 // Question 3
 /* write a function  that takes a single number and prints the sum of the nect 10 numbers after the given number. */
@@ -74,25 +76,33 @@ array([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 //   // code to execute
 // }
 function arrays(arrs) {
-  if (!Array.isArray(arrs)) {
-    console.log("please provide the valid array :The input is not array");
-  }
+  // if (!Array.isArray(arrs)) {
+  //   console.log("please provide the valid array :The input is not array");
+  // }
   for (const ar of arrs) {
     console.log(ar);
   }
 }
 arrays(["html", " css ", "javascript ", "bootstrap"]);
+arrays([1, 2]);
+arrays([1, "Hello", 8, 44]);
+// using the array built in Method
+let numArray = [1, 2, 3, 4, 6, 7];
+numArray.forEach((element) => {
+  console.log(element);
+});
 
 // Question 5
 /* write a function that takes an array as an argument and prints the total number of elements found in the array */
 function totalNumberOfArray(arr) {
-  if (!Array.isArray(arr)) {
-    console.log("please provide the valid array :The input is not array");
-  } else {
-    console.log(arr.length);
-  }
-  const totalArray = (arr) => console.log(arr.length);
-  totalArray([1, 2, 3, 4, 5]);
+  // if (!Array.isArray(arr)) {
+  //   console.log("please provide the valid array :The input is not array");
+  // } else {
+  //   console.log(arr.length);
+  // }
+  !Array.isArray(arr)
+    ? console.log("please provide the valid array :The input is not array")
+    : console.log(arr.length);
 
   // (!Array.isArray(arr)) ? "please provide the valid array :The input is not array" : console.log(arr.length);
 }
@@ -100,6 +110,9 @@ totalNumberOfArray(["html", " css ", "javascript ", "bootstrap"]);
 totalNumberOfArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 totalNumberOfArray(["world", 13]);
 totalNumberOfArray([1, "Hello", 8, 44]);
+// using the ternary and arrow function
+const totalArray = (arr) => console.log(arr.length);
+totalArray([1, 2, 3, 4, 5]);
 
 // Question 6
 /* write a function that takes an array on numbers as a parameter and log in the console the sum of all the numbers in the array . */
@@ -114,6 +127,9 @@ function sumOfArray(arrayNumber) {
       sum = sum + arrayNumber[i];
     }
     return sum;
+    //     return arrayNumber.reduce(function (sum, currentNumber) {
+    //       return sum + currentNumber;
+    //     }, 0);
   }
 }
 let result = sumOfArray([3, 0]);
@@ -168,7 +184,7 @@ elements that are located on even indexes)*/
 
 let arrarEvenIndexCheck = (array) => {
   if (!Array.isArray(array)) {
-    return "please provide the valid array :The input is not array";
+    console.log("please provide the valid array :The input is not array");
   } else {
     for (let i = 0; i < array.length; i++) {
       if (i % 2 == 0) {
@@ -388,3 +404,48 @@ fizzBuzz();
 /* ● An Evens number is an integer whose digits are all even. For example 2426 is an Evens
 number but 3224 is not. Write a function named isEvens that prints on the console 1 if its
 integer argument is an Evens number. The function prints 0 otherwise */
+function isEvens(integer) {
+  if (!Number.isInteger(integer)) {
+    console.log("please provide the integer numbers");
+  } else {
+    // convert the number to an array to digits
+    const digits = Math.abs(integer).toString().split("");
+    return digits.every((digit) => parseInt(digit, 10) % 2 === 0) ? 1 : 0;
+  }
+}
+console.log(isEvens(2426)); // 1
+console.log(isEvens(3224)); // 0
+console.log(isEvens(86420)); // 1
+console.log(isEvens(1357)); // 0
+console.log(isEvens(-2486)); // 1
+
+// another Number  method without using  the built method ;
+function isEvensNumber(num) {
+  if (!Number.isInteger(num)) {
+    return "please provide the valid integer";
+  }
+
+  num = Math.abs(num);
+
+  while (num > 0) {
+    let digit = num % 10;
+
+    if (digit % 2 !== 0) {
+      return 0;
+    }
+
+    num = Math.floor(num / 10);
+  }
+
+  return 1;
+}
+
+// Test Cases
+console.log("test cases");
+console.log(isEvensNumber(2426)); // 1
+console.log(isEvensNumber(3224.3)); // 0
+console.log(isEvensNumber(86420)); // 1
+console.log(isEvensNumber(1357)); // 0
+console.log(isEvensNumber(-2486)); // 1
+console.log(isEvensNumber(222222222));
+console.log(isEvensNumber("abdisa"));
