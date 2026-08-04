@@ -286,7 +286,8 @@ let evangadiClass = {
 console
 ○ // Use the dot notation "." to call the property you want to change*/
 evangadiClass.lengthOfCourse = "6 Month ";
-console.log(evangadiClass);
+// console.log(evangadiClass);
+console.log(evangadiClass.lengthOfCourse);
 
 // Question 12
 /* ● Add "Bootstrap" at the end of the topicsCovered property and print the new object on the
@@ -294,7 +295,9 @@ console
 ○ // Use an array method
  */
 evangadiClass.topicsCovered.push("Bootstrap");
-console.log(evangadiClass);
+console.log(evangadiClass.topicsCovered[evangadiClass.topicsCovered.length-1]);
+
+console.log(evangadiClass.topicsCovered);
 
 // Question 13
 /* ● Write a function that takes the "evangadiClass" object as an argument and calculates the average
@@ -328,6 +331,18 @@ const totalAge = evangadiClass.students.reduce(function (total, studentAge) {
 const aveAge = totalAge / evangadiClass.students.length;
 console.log("the sum of the age is :", totalAge);
 console.log("the average age is :", aveAge);
+
+
+
+// let  ageMean  = (evangadiClass) =>{
+//   let sum = 0;
+//   let students = evangadiClass.students;
+//   for ( student  of students ){
+//     sum += student.age;
+//   }
+//   console.log(sum / evangadiClass.students.length);
+// }
+// ageMean(evangadiClass);
 
 // Question 14
 /* ● Write a function that takes the "evangadiClass" object as an argument and calculates the
@@ -460,3 +475,8 @@ console.log(isEvensNumber(1357)); // 0
 console.log(isEvensNumber(-2486)); // 1
 console.log(isEvensNumber(222222222));
 console.log(isEvensNumber("abdisa"));
+
+
+
+
+
