@@ -1,4 +1,5 @@
 //  Js advanced algorithm writing
+// Problem #1
 // write  a function that takes a string aand return the hidden word in it .
 /* What is hiding amongest the Crowd   A word in on the  loose  and now has tried to hide amongest to crowd of tall letters help write a function to dected what the word is  , knowing the following rules 
  the wanted word is in lowercase  ,  the crowd of letters is all in uppercase  . Note that the word weill be spread out amongest random leters but their letters  remain   in the same order . */
@@ -28,6 +29,39 @@
 
 // transate the psedocode into js code
 
+let str = "Hello,World";
+console.log(str.charAt(0));
+console.log(str.charAt(1));
+
+// bracket  Notation
+console.log(str[2]);
+console.log(str[3]);
+
+let singleLetter = str.charAt(0); // H
+
+console.log("orginal", singleLetter);
+console.log("After conversion to  lowercase", singleLetter.toLowerCase());
+console.log(singleLetter.toUpperCase());
+
+////    charCodeAt()  return  the unicode of the letter
+//   A - Z   range from decimal  65 to 90
+//   a - z   range from decimal  97  to 122
+console.log(str.charCodeAt(0));
+
+function findHiddenWord(anyString) {
+  let hiddenWordCollector = "";
+  for (let i = 0; i < anyString.length; i++) {
+    // console.log(anyString.charAt(i)); // for testing or debuggin purpose
+
+    let originalLetter = anyString[i];
+    if (originalLetter === originalLetter.toLowerCase()) {
+      // console.log(originalLetter);
+
+      hiddenWordCollector += originalLetter;
+    }
+  }
+}
+
 function detectWord(str) {
   let hiddenWord = "";
   for (char of str) {
@@ -55,7 +89,7 @@ function findHiddenWord(inputString) {
   //     if (string[])
 
   //   }
-
+  // the string character can be accessed using the  similar method to the array  using thier character index
   for (let i = 0; i < inputString.length; i++) {
     //   console.log(inputString[i]);
     //   console.log(inputString[i].toLowerCase());
@@ -77,8 +111,9 @@ function findHiddenWord(inputString) {
   //   console.log(result);
   return result;
 }
-console.log(findHiddenWord("ABD12345ISAabdiWARITU"));
+console.log(findHiddenWord("ABD12345  ,ISAab ,  diWARITU"));
 console.log(findHiddenWord("UcUNFYGatNUH"));
+console.log(findHiddenWord("ASD"));
 // TESTING AND DEBUGGING FOR THE DIFFERENT INPUT
 
 // Method 3
@@ -97,29 +132,34 @@ function findWord(string) {
 }
 console.log(findWord("abdisaABD"));
 
-// problem 2( edabit )
+// problem #2( edabit )
 /*  create a function  that returns  true if the first array can be nested inside the second */
 
 //  array1 can be nested inside arra2   if :
 // array1 min value is greater  than array2 min value   and
 // array1 max value is less thatn arra2 max value
+// arra2 minimum needs to be less than array -1 minimun
+// aaray2 maximum  needs to be greater that  array1 maximum
 
 // array1 , array2
 // check if both input are array
 // return  valid array  using the Array.isArray();
 // finding the array max amd min values
 // using the sort method and comparing the values  of the sort value and differnt index   to get the min and max
-function carNest(array1, array2) {
+function isNest(array1, array2) {
   if (!(Array.isArray(array1) && Array.isArray(array2))) {
     // also check if all the values of the array is number
     return "please provide the valid array ";
   }
 
   let array1Sorted = array1.sort();
+  console.log(array1Sorted); // only compare alphabetically
   let array2Sorted = array2.sort();
-  let array1Min = array1Sorted[0];
+  console.log(array2Sorted);
+  let array1Min = array1Sorted[0];  // to get the first minimam after sorting 
   let array2Min = array2Sorted[0];
-  let array1Max = array1Sorted[array1.length - 1];
+  let array1Max = array1Sorted[array1.length - 1]; // to get the last index through index to make dynamic  for any array
+
   let array2Max = array2Sorted[array2.length - 1];
 
   if (array1Min <= array2Min || array1Max >= array2Max) {
@@ -127,6 +167,8 @@ function carNest(array1, array2) {
   }
   return true;
 }
+console.log(isNest([1,3, 4, 5] , [3,4,5,6]))
+console.log(isNest([6,0,11], [6,1,9]));
 // test and debug and validate the given inputs
 
 // pseudocode
