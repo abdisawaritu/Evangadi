@@ -17,6 +17,7 @@ let student = {
   age: 22,
 };
 
+
 student.toString(student.age);
 console.log(student);
 console.log(student.age);
@@ -164,6 +165,13 @@ setName.forEach(function (value) {
   console.log(value);
 });
 
+
+const friutSet= new Set(["apple","banana","orange","apple"])
+friutSet.add("carrote");
+for(let fruites of friutSet){
+    console.log(fruites);
+}
+
 //  the sytanx for the for loop which used to iterate over the values of differetn objects such as array , string , objects , maps and sets
 // for (const variable of iterable) {
 //   // code
@@ -197,7 +205,7 @@ let studentsssss = {
   department: "ECE",
 };
 for (const key in studentsssss) {
-  console.log(key);
+  console.log(key , studentsssss[key]);
 }
 let numberssss = [10, 20, 30];
 
@@ -238,6 +246,13 @@ for (const index in numberssss) {
 // | `every()`   | Check if all elements satisfy a condition           |
 // | `reduce()`  | Combine all elements into one value                 |
 
+
+const str = "hello, world "
+for (const strs  of str){
+    console.log(strs)
+}
+
+// used to const the character inside string 
 
 
 

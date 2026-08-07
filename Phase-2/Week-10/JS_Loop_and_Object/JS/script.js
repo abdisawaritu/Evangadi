@@ -58,10 +58,8 @@ function adder(numbers) {
     // for ( let i = numbers + 1  ; i <=  numbers + 10  ; i++){
     //   sum+= i;
     // }
-    
-    return sum;
 
-    
+    return sum;
   }
 }
 console.log(adder(7));
@@ -207,6 +205,23 @@ let arrarEvenIndexCheck = (array) => {
 arrarEvenIndexCheck([5, 6, 99, 8, 76, 4, 68, 44]);
 arrarEvenIndexCheck([11, "Sam", 3, 7, "car"]);
 
+function returnEven(arr) {
+  if (!Array.isArray(array)) {
+    console.log("please provide the valid array :The input is not array");
+  } else {
+    return arr.filter((currentValue, index) => index % 2 === 0);
+  }
+  // array.filter(function (element, index) {
+  //   return condition;
+  // });
+
+  // let evenIndexElements = numbers.filter(function (element, index) {
+  //   return index % 2 === 0;
+  // });
+
+  // console.log(evenIndexElements);
+}
+
 // Question on~ built in javascritp methods
 // Question 9
 // Question 9 and 10 are dependent on the sample Array provided below:
@@ -224,7 +239,7 @@ function removeArray(sampleArrry) {
   //   }
   // }
   sampleArrry.pop();
-  sampleArrry.push("32");
+  sampleArrry.push(32);
   return sampleArrry;
 }
 console.log(removeArray(sampleArrry));
@@ -295,7 +310,10 @@ console
 ○ // Use an array method
  */
 evangadiClass.topicsCovered.push("Bootstrap");
-console.log(evangadiClass.topicsCovered[evangadiClass.topicsCovered.length-1]);
+console.log(evangadiClass);
+console.log(
+  evangadiClass.topicsCovered[evangadiClass.topicsCovered.length - 1],
+);
 
 console.log(evangadiClass.topicsCovered);
 
@@ -331,8 +349,6 @@ const totalAge = evangadiClass.students.reduce(function (total, studentAge) {
 const aveAge = totalAge / evangadiClass.students.length;
 console.log("the sum of the age is :", totalAge);
 console.log("the average age is :", aveAge);
-
-
 
 // let  ageMean  = (evangadiClass) =>{
 //   let sum = 0;
@@ -412,16 +428,15 @@ numbers which are multiples of both three and five print "FizzBuzz".
 const fizzBuzz = () => {
   for (let i = 1; i <= 100; i++) {
     // console.log(i);
-    if (i % 3 === 0) {
-      console.log(`Fizz  ${i}`);
+    if (i % 3 === 0 && i % 5 === 0) {
+      console.log(`FizzBuzz ${i}`);
+    } else if (i % 3 === 0) {
+      console.log(`Fizz ${i}`);
     } else if (i % 5 === 0) {
-      console.log(`Buzz  ${i}`);
-    } else if (i % 3 === 0 && i % 5 === 0) {
-      console.log(`FizzBuzz  ${i}`);
+      console.log(`Buzz ${i}`);
+    } else {
+      console.log(i);
     }
-    // else {
-    //   console.log("Neither of them")
-    // }
   }
 };
 fizzBuzz();
@@ -476,7 +491,14 @@ console.log(isEvensNumber(-2486)); // 1
 console.log(isEvensNumber(222222222));
 console.log(isEvensNumber("abdisa"));
 
+let sortarray = ["apple", "banana", "grapes", "pineapple", "abebe"];
+console.log(sortarray.sort());
 
-
-
-
+let student1 = {
+  name: "abdi",
+};
+let student2 = {
+  name: "abdi",
+};
+console.log(student1);
+console.log(student1 === student2); //
