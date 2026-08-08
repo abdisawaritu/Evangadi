@@ -156,7 +156,7 @@ function isNest(array1, array2) {
   console.log(array1Sorted); // only compare alphabetically
   let array2Sorted = array2.sort();
   console.log(array2Sorted);
-  let array1Min = array1Sorted[0];  // to get the first minimam after sorting 
+  let array1Min = array1Sorted[0]; // to get the first minimam after sorting
   let array2Min = array2Sorted[0];
   let array1Max = array1Sorted[array1.length - 1]; // to get the last index through index to make dynamic  for any array
 
@@ -167,8 +167,8 @@ function isNest(array1, array2) {
   }
   return true;
 }
-console.log(isNest([1,3, 4, 5] , [3,4,5,6]))
-console.log(isNest([6,0,11], [6,1,9]));
+console.log(isNest([1, 3, 4, 5], [3, 4, 5, 6]));
+console.log(isNest([6, 0, 11], [6, 1, 9]));
 // test and debug and validate the given inputs
 
 // pseudocode
@@ -489,15 +489,38 @@ console.log("the original array", array);
 // [array[0], array[2]] = [array[2], array[0]];
 // console.log(array);
 
-function bubbleSort(array) {
-  for (let i = 0; i < array.length - 1; i++) {
-    console.log("comparing ", array[i], array[i + 1]);
-    if (array[i] > array[i + 1]) {
-      let temp = array[i];
-      array[i] = array[i + 1];
-      array[i + 1] = temp;
+// function bubbleSort(array) {
+//   for (let i = 0; i < array.length; i++) {
+//     for (let j = 0; j < array.length - i - 1; j++) {
+//       console.log("comparing ", array[j], array[j + 1]);
+//       if (array[j] > array[j + 1]) {
+//         let temp = array[j];
+//         array[j] = array[j + 1];
+//         array[j + 1] = temp;
+//       }
+//       // console.log(array);
+//     }
+//   }
+//   return array;
+// }
+// // bubbleSort([12, 9, 33, 5, 89]);
+// console.log(bubbleSort([5, 3, 8, 1, 9, 7, 10, 34, 2, 4]));
+
+// using the while loop
+function bubbleSorts(array) {
+  let isSorted = true; // they are called flags  to check true or false of given condition
+
+  while (isSorted) {
+    isSorted = false;
+    for (let i = 0; i < array.length - 1; i++) {
+      if (array[i] > array[i + 1]) {
+        isSorted = true;
+        let temp = array[i];
+        array[i] = array[i + 1];
+        array[i + 1] = temp;
+      }
     }
-    console.log(array);
   }
+  return array;
 }
-bubbleSort([12, 9, 33, 5, 89]);
+console.log(bubbleSorts([5, 3, 8, 1, 9, 7, 10, 34, 2, 4]));
