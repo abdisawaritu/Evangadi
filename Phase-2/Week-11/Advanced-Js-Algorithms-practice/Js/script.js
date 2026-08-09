@@ -290,12 +290,14 @@ test(1, 2, 3); // unlimited number of parameter
 // check if the give array is array and contains only numbers  ecaatly the whole number or natural numbers
 // exception validation of the inputs is very important
 
+// Problem #4   (The Magic Array )
+
 // The magic array function
 
-/*  array is defined to be a magica array if the sum of the primes in the array is equal to the friste of the array if there are no primes in the array, the first element must be 0 ;       [21, 3, 7 , 9, 11, 4, 6 ] is the magic array becaseu  of 3, 7 , 11 are  the primes  in the array and they  sum to 21 which is the first  element of tharr ay    ] 13 , 4, 4, 4 is  is also t magic array  arrsy   //   [ 8 ,5, -5, 3 ] is not a magic array  bc the sum of the primes is  13 notes that i4 is not a prie becasue prime number are positive    * /
+//  array is defined to be a magica array if the sum of the primes in the array is equal to the friste of the array if there are no primes in the array, the first element must be 0 ;       [21, 3, 7 , 9, 11, 4, 6 ] is the magic array becaseu  of 3, 7 , 11 are  the primes  in the array and they  sum to 21 which is the first  element of tharr ay    ] 13 , 4, 4, 4 is  is also t magic array  arrsy   //   [ 8 ,5, -5, 3 ] is not a magic array  bc the sum of the primes is  13 notes that i4 is not a prie becasue prime number are positive    * /
 // write a fucntion named isMagicarray that returns 1 if ite integer  array argument is a Magic  array.otherwise is return 0;
-// Prime number 
-//  a prime number an  a natural number greate than 1   that has no posibe divisor other than 1  and itself or  a number that have only  factor 1 and itself 
+// Prime number
+//  a prime number an  a natural number greate than 1   that has no posibe divisor other than 1  and itself or  a number that have only  factor 1 and itself
 // the sum of the prime number of array is equal to   first element   of the array
 // check each element  if  there is a prime or not
 // if prime  stores it on some varaibles  that is result = 0
@@ -323,7 +325,7 @@ function isMagicArray(array) {
           isPrime = false;
         }
       }
-       if (isPrime){
+      if (isPrime) {
         sum += num;
       }
     }
@@ -332,8 +334,89 @@ function isMagicArray(array) {
     return 1;
   }
   return 0;
-}*/
+}
 
+// challenges
+// different perspective is important to view important
+
+// 1  how to access every element of  in the array )((loop statement))
+
+// 2  what is the prime  and how to check if a number is  prime number
+// A prime number  is a natural number greater  than 1 that has exactly two discicnt positive divisors    that is 1 and itself
+// how to check  ???
+
+// manual
+// Number 7
+// 7 %  1 === 0
+// 7 %  2===   1
+// 7 %  3 ===  1
+// 7 %  4 ===  3
+// 7 %  5 ===   2
+// 7 %  6 ===   1
+// 7 %  7 === 0
+// number 8
+// 8%  1 === 0
+// 8 %  1 === 0
+// 8 %  1 === 0
+// 8 %  1 === 0
+// 8 %  1 === 0
+// 8 %  1 === 0 // 7 %  1 === 0
+// 8 %  1 === 0 // 7 %  1 === 0
+
+//  i = 1 2, 3, ....... Number to check to wheather a number is prime or not
+
+// solution
+// helper function
+
+function isPrimes(n) {
+  if (n < 2) {
+    return 0; // return 0;
+  }
+  if (n === 2) {
+    return 1;
+  }
+  if (n % 2 === 0) {
+    return 0;
+  }
+
+  for (let i = 3; i < Math.sqrt(n); i += 2) {
+    if (n % i === 0) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+function isMagicArray(array) {
+  let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    // const element = array[i];
+
+    let isPrimeNumber = isPrimes(a[i]); //  1 or 0 have truth and false
+    if (isPrimeNumber) {
+      console.log(a[i], "prime number ");
+      sum = sum + a[i];
+    } else if (sum > a[0]) {
+      console.log("first element ", a[0]);
+      console.log("sum of prime", sum);
+      return 0;
+      // to make the algorithm effecien if the sum is greater than  first elemetn of the array
+    }
+  }
+  if (sum === a[0]) {
+    console.log("first element ", a[0]);
+    console.log("sum of prime", sum);
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+console.log(isMagicArray([13, 4, 4, 4, 4, 4]));
+console.log(isMagicArray([8, 5, -5, 3, 11]));
+
+// How to solve the Magic aray function
+// Separting the problem into two one function that  identifies  whether number is prime or not   another function that checks  wheather the array is Magic array or not
 // we need two function one check if the array is magic or nor one check if the number is prime or num
 
 // prime number for the positive integer
@@ -344,8 +427,8 @@ function isMagicArray(array) {
 //   - return  false ;
 // if num ===2
 //    return true ; 2 is prime number
-//  if  num % 2 === 0    // even number is not prime number  are
-// step 2: check odd divisors up to (num)* 0.5
+//  if  num % 2 === 0    // even number is not prime number  are we have only one even number which is prime  that is number 2 only
+// step 2: check odd divisors up to (num)^ 0.5
 // for i from 3 to square root of number increent by 2
 // if num % i === 0
 //     return false ;  since its divisisible its not prime number
@@ -354,6 +437,9 @@ function isMagicArray(array) {
 // end if end function
 
 //
+
+// Problem #3
+
 const isPrime = (num) => {
   // checker function have is at the front of name isFunction and return false or trues based on logic
   let iteration = 0;
@@ -424,7 +510,7 @@ function isMagic(array) {
 }
 console.log(isMagic([21, 3, 7, 9, 11, 4, 6]));
 // test using console log if problem happens
-// problem 4
+// problem #4  ( The bubble Sorting Algorithm )
 
 // sorting algorithm  without using the built method  the bubble sorting
 // sort();  // bubble sorting
@@ -453,7 +539,8 @@ console.log(isMagic([21, 3, 7, 9, 11, 4, 6]));
 //}
 
 // function bubbleSort(array) {
-//   let numbers = array;
+//   let numbers = array;  to return the updated array
+// console.log(number);
 
 //   let checker = true;
 //   while (checker) {
@@ -473,13 +560,13 @@ console.log(isMagic([21, 3, 7, 9, 11, 4, 6]));
 // let sortedArray = [12, 9, 33, 5, 89];
 // let tests = bubbleSort(sortedArray);
 // console.log(tests);
-// in interivew question is not permitted to use the  built js method
-// problem  Bubble sorting
+// in most of  interivew  question is not permitted to use the  built js method
+// problem   #4  Bubble Sorting  Algorithm
 // write  a function  that takes an array of numbers and  return another aray by sortin the number in an asceding order . IN  in short write a function that does the same thing the sort( method of the array which is the built in method )
 // using nested loop and   using the while loop method second method
 // swapping  values in javascript
-let array = [12, 9, 33, 5, 89];
-console.log("the original array", array);
+// let array = [12, 9, 33, 5, 89];
+// console.log("the original array", array);
 // let temp = array[0];
 // array[0] = array[1];
 // array[1] = temp;
@@ -488,25 +575,76 @@ console.log("the original array", array);
 
 // [array[0], array[2]] = [array[2], array[0]];
 // console.log(array);
+// challenges 
 
-// function bubbleSort(array) {
-//   for (let i = 0; i < array.length; i++) {
-//     for (let j = 0; j < array.length - i - 1; j++) {
-//       console.log("comparing ", array[j], array[j + 1]);
-//       if (array[j] > array[j + 1]) {
-//         let temp = array[j];
-//         array[j] = array[j + 1];
-//         array[j + 1] = temp;
-//       }
-//       // console.log(array);
-//     }
-//   }
-//   return array;
+//  1 how to access every element in the array by using the loop statement 
+// for (let index = 0; index < array.length; index++) {
+//   const element = array[index]; // accessing each element of the given array through the dynamic array 
+//   //  console.log(array[i]);   element
+//   //  console.log(array[i+1]) // next element
+//    // console.log (ar[i],"-----" ar[i+1]);
 // }
-// // bubbleSort([12, 9, 33, 5, 89]);
-// console.log(bubbleSort([5, 3, 8, 1, 9, 7, 10, 34, 2, 4]));
 
-// using the while loop
+// swapping the two values at element and next elemetn 
+
+// how to swap  array elements  swap algoritj m
+// let temp = arr[0];
+// arr[0]  = arr[1];
+// arr[1]  = temp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function bubbleSort(array) {
+  for (let i = 0; i < array.length; i++) {
+
+    let isSwap = false;
+    for (let j = 0; j < array.length - i - 1; j++) {
+      console.log("comparing ", array[j], array[j + 1]);
+
+      if (array[j] > array[j + 1]) {
+        let temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+        isSwap = true;
+      }
+      if(!isSwap){
+        break;
+      }
+      // console.log(array);
+    }
+  }
+  return array;
+}
+// bubbleSort([12, 9, 33, 5, 89]);
+console.log(bubbleSort([5, 3, 8, 1, 9, 7, 10, 34, 2, 4]));
+
+// using the while loop  since we dont know ther number of iteration until the array element is sorted
 function bubbleSorts(array) {
   let isSorted = true; // they are called flags  to check true or false of given condition
 
