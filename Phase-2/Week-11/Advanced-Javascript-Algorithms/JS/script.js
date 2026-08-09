@@ -3,6 +3,17 @@
 which contains all the even numbers in the original array, which also have even indexes only.
 ○ Test 1: getOnlyEvens([1, 2, 3, 6, 4, 8]) prints [ 4]
 ○ Test 2: getOnlyEvens([0, 1, 2, 3, 4]) prints [0, 2, 4]*/
+// Psudocode
+// Begin
+//  Define the function getonlyEvensIndex   (array)
+// check
+// create array that contains no element   (let  evenValueArray = [];)
+//    for loop
+//    - iterate starting from 0 to increment  by two  to get even index only
+//          - check if the element  is even  using the % element % 2 == 0
+//                   - push  on the new array
+
+// -  return  evenValueArray;
 
 let getOnlyEvensIndex = (array) => {
   if (
@@ -12,8 +23,8 @@ let getOnlyEvensIndex = (array) => {
     return "please provide the valid array with Integer value ";
   } else {
     let evenValueArray = [];
-    for (let i = 0; i < array.length; i++) {
-      if (array[i] % 2 === 0 && i % 2 === 0) {
+    for (let i = 0; i < array.length; i += 2) {
+      if (array[i] % 2 === 0) {
         evenValueArray.push(array[i]);
       }
     }
@@ -24,6 +35,15 @@ let getOnlyEvensIndex = (array) => {
 console.log(getOnlyEvensIndex([1, 2, 3, 6, 4, 8]));
 console.log(getOnlyEvensIndex([0, 1, 2, 3, 4]));
 
+function evenArray(arr) {
+  const updateArray = arr.filter(
+    (element, index) => element % 2 === 0 && index % 2 === 0,
+  );
+
+  return updateArray;
+}
+
+console.log(evenArray([0, 1, 2, 3, 4]));
 // Question 2
 /*● Create a function that takes a two-digit number as an parameter and prints "Ok" in
 the console if the given string is greater than its reversed digit version. If not, the
@@ -32,25 +52,39 @@ function will print "Not ok"
 ○ reverseCompare(23) prints "Not ok", because 23 is not greater than 32  */
 
 function reverseCompare(num) {
+  // using built Method :
   let str = num.toString();
   let swapped = str.split("").reverse().join("");
-  //   console.log(swapped);
+  // console.log(swapped);
+  return str > swapped ? "Ok " : "Not Ok";
 
-  if (str > swapped) {
-    console.log("Ok ");
-  } else {
-    console.log("Not Ok ");
-  }
-  //   console.log(str);
-  //   console.log(str.length);
-  //   let temp = str[0];
-
-  //   str[0] = str[1];
-  //   str[1] = temp;
-  //   console.log(str);
+  // swapping method
+  // console.log(str);
+  // console.log(str.length);
+  // let temp = str[0];
+  // str[0] = str[1];
+  // str[1] = temp;
+  // console.log(str);
+  //  another method
+  // let str = num.toString();
+  // let reverse = str[1] + str[0];
+  // return str > reverse ? "Ok " : "Not Ok ";
 }
-
-reverseCompare(72);
+console.log(reverseCompare(10));
+function reverse(num) {
+  let tenHouse = Math.floor(num / 10);
+  let oneHouse = num % 10;
+  if (oneHouse === 0) {
+    console.log("Not ok");
+    return;
+  }
+  let reversedNumber = oneHouse * 10 + tenHouse;
+  if (num > reversedNumber) {
+    console.log("Ok");
+  } else {
+    console.log("N0t Ok ");
+  }
+}
 
 // Question 3
 /*● Write a function that takes a positive integer and returns the factorial of the number.
@@ -65,15 +99,33 @@ function factorial(num) {
   if (!Number.isInteger(num)) {
     return "please provide Integer number";
   }
-  if (num === 0) {
-    // stopping point or base point
-    return 1;
-  } else if (num < 0) {
-    return "Please provide non-negative number";
-  } else {
-    return num * factorial(num - 1);
+
+  return num == 0 ? 1 : num * factorial(num - 1);
+
+  // if (num === 0) {
+  //   // stopping point or base point
+  //   return 1;
+  // } else if (num < 0) {
+  //   return "Please provide non-negative number";
+  // } else {
+  //   return num * factorial(num - 1);
+  // }
+  function factorial(num) {
+    let result = 1;
+
+    for (let i = 1; i <= num; i++) {
+      result = result * i;
+    }
+
+    return result;
   }
+
+  // return Array.from({ length: num }, (_, i) => i + 1).reduce(
+  //   (product, value) => product * value,
+  //   1,
+  // );
 }
+
 console.log(factorial(5));
 
 // Question 4 (Meera array)
@@ -170,5 +222,3 @@ time as a string. Time should be counted from 00:00:00.
 secs.
 ■ digitalClock(61201) as "17:00:01" No AM/PM. 24h format.
 ■ digitalClock(87000) as "00:10:00" It's 00:10 next day.   */
-
-
