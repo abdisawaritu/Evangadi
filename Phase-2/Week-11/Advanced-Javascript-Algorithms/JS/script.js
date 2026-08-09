@@ -108,37 +108,37 @@ function multArray(array) {
 // let result = multArray([1, 2, 3]);
 // console.log(result);
 
-function meeraArrayChecker(arrayNumber) {
-  let doubleArray = multArray(arrayNumber);
-  let doubleArray = arrayNumber[i] * 2;
+// function meeraArrayChecker(arrayNumber) {
+//   let doubleArrays = multArray(arrayNumber);
+//   let doubleArrays = arrayNumber[i] * 2;
 
-  for (let i = 0; i < doubleArray.length; i++) {
-    // i < array.length
-    let singleValue = doubleArray[i];
-    let foundDoubleNumber = false;
+//   for (let i = 0; i < doubleArrays.length; i++) {
+//     // i < array.length
+//     let singleValue = doubleArrays[i];
+//     let foundDoubleNumber = false;
 
-    // console.log("outer loop iteration ", iteration++);
+//     // console.log("outer loop iteration ", iteration++);
 
-    for (let j = 0; j < arrayNumber.length; j++) {
-      // console.log("innner loop iteration ", iteration++);
+//     for (let j = 0; j < arrayNumber.length; j++) {
+//       // console.log("innner loop iteration ", iteration++);
 
-      if (singleValue === arrayNumber[j]) {
-        // doubleArray === arrayNumber[i]
-        foundDoubleNumber = true;
-        break;
-      }
-    }
-    if (foundDoubleNumber) {
-      console.log("I am NOT a Meera array");
-      return;
-    }
-  }
+//       if (singleValue === arrayNumber[j]) {
+//         // doubleArray === arrayNumber[i]
+//         foundDoubleNumber = true;
+//         break;
+//       }
+//     }
+//     if (foundDoubleNumber) {
+//       console.log("I am NOT a Meera array");
+//       return;
+//     }
+//   }
 
-  console.log("I am a Meera array");
-}
-// meeraArrayChecker([10, 4, 0, 5]);
-// meeraArrayChecker([7, 4, 9]);
-meeraArrayChecker([1, -6, 4, -3]);
+//   console.log("I am a Meera array");
+// }
+// // meeraArrayChecker([10, 4, 0, 5]);
+// // meeraArrayChecker([7, 4, 9]);
+// meeraArrayChecker([1, -6, 4, -3]);
 
 // Question 5 (Dual array)
 /*● Define a Dual array to be an array where every value occurs exactly twice. For example,
@@ -147,28 +147,21 @@ occurs three times instead of two times) {3, 1, 1, 2, 2} (3 occurs once instead 
 times) Write a function named isDual that returns 1 if its array argument is a Dual array.
 Otherwise it returns 0. */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function isDual(array) {
+  for (let i = 0; i < array.length; i++) {
+    let count = 0;
+    for (let j = 0; j < array.length; j++) {
+      if (array[i] === array[j]) {
+        count++;
+      }
+    }
+    if (count !== 2) {
+      return 0;
+    }
+  }
+  return 1;
+}
+console.log(isDual([1, 2, 1, 3, 3, 2]));
 
 // Question 6
 /* ● Write a function that takes the number of seconds and returns the digital format clock
@@ -177,3 +170,5 @@ time as a string. Time should be counted from 00:00:00.
 secs.
 ■ digitalClock(61201) as "17:00:01" No AM/PM. 24h format.
 ■ digitalClock(87000) as "00:10:00" It's 00:10 next day.   */
+
+
