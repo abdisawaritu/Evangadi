@@ -90,35 +90,55 @@ Meera array”
 ○ Test 1: checkMeera([1, -6, 4, -3]) outputs “I am NOT a Meera array” because -3
 *2 is -6 */
 
+function multArray(array) {
+  let updateArray = [];
+  for (let i = 0; i < array.length; i++) {
+    updateArray.push(array[i] * 2);
+    // console.log(updateArray)
+  }
+  return updateArray;
+}
 
+// function muArray(array) {
+//  return  array.map(function (element) {
+//     return element * 2;
+//   });
+// }
 
+// let result = multArray([1, 2, 3]);
+// console.log(result);
 
+function meeraArrayChecker(arrayNumber) {
+  let doubleArray = multArray(arrayNumber);
+  let doubleArray = arrayNumber[i] * 2;
 
+  for (let i = 0; i < doubleArray.length; i++) {
+    // i < array.length
+    let singleValue = doubleArray[i];
+    let foundDoubleNumber = false;
 
+    // console.log("outer loop iteration ", iteration++);
 
+    for (let j = 0; j < arrayNumber.length; j++) {
+      // console.log("innner loop iteration ", iteration++);
 
+      if (singleValue === arrayNumber[j]) {
+        // doubleArray === arrayNumber[i]
+        foundDoubleNumber = true;
+        break;
+      }
+    }
+    if (foundDoubleNumber) {
+      console.log("I am NOT a Meera array");
+      return;
+    }
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  console.log("I am a Meera array");
+}
+// meeraArrayChecker([10, 4, 0, 5]);
+// meeraArrayChecker([7, 4, 9]);
+meeraArrayChecker([1, -6, 4, -3]);
 
 // Question 5 (Dual array)
 /*● Define a Dual array to be an array where every value occurs exactly twice. For example,
@@ -150,13 +170,6 @@ Otherwise it returns 0. */
 
 
 
-
-
-
-
-
-
-
 // Question 6
 /* ● Write a function that takes the number of seconds and returns the digital format clock
 time as a string. Time should be counted from 00:00:00.
@@ -164,5 +177,3 @@ time as a string. Time should be counted from 00:00:00.
 secs.
 ■ digitalClock(61201) as "17:00:01" No AM/PM. 24h format.
 ■ digitalClock(87000) as "00:10:00" It's 00:10 next day.   */
-
-
