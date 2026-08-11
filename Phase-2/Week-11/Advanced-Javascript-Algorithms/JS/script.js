@@ -34,6 +34,7 @@ let getOnlyEvensIndex = (array) => {
 
 console.log(getOnlyEvensIndex([1, 2, 3, 6, 4, 8]));
 console.log(getOnlyEvensIndex([0, 1, 2, 3, 4]));
+console.log(getOnlyEvensIndex(["abebe "]));
 
 function evenArray(arr) {
   const updateArray = arr.filter(
@@ -124,7 +125,7 @@ function factorial(num) {
     return result;
   }
 
-  //  Using the Array Built Method  redue();
+  //  Using the Array Built Method  reduce();
 
   // Array.from () static method of the built-IN array object
   // used to create a new real array from an iterable or array-like object.
@@ -135,10 +136,10 @@ function factorial(num) {
   // function (_, i ){    _ == this parameter isn't important
   //   return i + 1 ;   // to shift the index by one   by default js index starts from 0  ;
   //   }
-  // return Array.from({ length: num }, (_, i) => i + 1).reduce(
-  //   (product, value) => product * value,
-  //   1,
-  // );
+  return Array.from({ length: num }, (_, i) => i + 1).reduce(
+    (product, value) => product * value,
+    1,
+  );
 }
 
 console.log(factorial(5));
@@ -176,7 +177,13 @@ function multArray(array) {
 // console.log(result);
 
 function meeraArrayChecker(arrayNumber) {
-  let doubleArrays = multArray(arrayNumber);
+  if (
+    !Array.isArray(arrayNumber) ||
+    !arrayNumber.every((element) => Number.isFinite(element))
+  ) {
+    return "please provide the valid array number";
+  }
+  let doubleArrays = multArray(arrayNumber); //
   // let doubleArrays = arrayNumber[i] * 2;
 
   for (let i = 0; i < doubleArrays.length; i++) {
@@ -220,11 +227,12 @@ function checkMeera(array) {
   const isMeera = array.every(function (n) {
     return !array.includes(n * 2);
   });
-  if (isMeera) {
-    console.log("I am a  Meera array ");
-  } else {
-    console.log("I am Not a Meera array");
-  }
+  // if (isMeera) {
+  //   console.log("I am a  Meera array ");
+  // } else {
+  //   console.log("I am Not a Meera array");
+  // }
+  isMeera ? "I am a Meera array " : "I am Not Meera array";
 }
 checkMeera([7, 4, 9]);
 checkMeera([10, 4, 0, 5]);
@@ -238,6 +246,13 @@ times) Write a function named isDual that returns 1 if its array argument is a D
 Otherwise it returns 0. */
 
 function isDual(array) {
+  if (
+    !Array.isArray(array) ||
+    !array.every((element) => Number.isFinite(element))
+  ) {
+    return "please provide the valid number array";
+  }
+
   for (let i = 0; i < array.length; i++) {
     let count = 0;
     for (let j = 0; j < array.length; j++) {
@@ -277,23 +292,23 @@ console.log(isDual([1, 2, 1, 3, 3, 2]));
 // END FUNCTION
 
 //But every() will stop as soon as the callback returns false
-// function isDual(array) {
-//   const result = array.every(function (value) {
-//     const occurrences = array.filter(function (element) {
-//       return element === value;
-//     });
+function isDual(array) {
+  const result = array.every(function (value) {
+    const occurrences = array.filter(function (element) {
+      return element === value;
+    });
 
-//     return occurrences.length === 2;
-//   });
+    return occurrences.length === 2;
+  });
 
-//   if (result) {
-//     return 1;
-//   } else {
-//     return 0;
-//   }
-// }
+  if (result) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
 
-// console.log(isDual([1, 2, 1, 3, 3, 2]));
+console.log(isDual([1, 2, 1, 3, 3, 2]));
 
 // using reduce and every
 // FUNCTION isDual(array)
@@ -350,11 +365,11 @@ secs.
 ■ digitalClock(61201) as "17:00:01" No AM/PM. 24h format.
 ■ digitalClock(87000) as "00:10:00" It's 00:10 next day.   */
 
-function digitalClock(seconds) { 
-  // to remove the complele days 
+function digitalClock(seconds) {
+  // to remove the complele days
   let secondsToday = seconds % 86400;
   const hour = Math.floor(secondsToday / 3600);
-  // calculating the remaining seconds after hours 
+  // calculating the remaining seconds after hours
   let remaniningSecond = secondsToday % 3600;
   const minute = Math.floor(remaniningSecond / 60);
   let reminSecond = remaniningSecond % 60;
@@ -366,8 +381,8 @@ function digitalClock(seconds) {
   //   1 minute  = 60 seconds
   // 1 hour    = 60 × 60 = 3,600 seconds
   // 1 day     = 24 × 60 × 60 = 86,400 seconds(one complete day seconds)
-  // 87000 - 864000  = 600 seconds 
-  // 
+  // 87000 - 864000  = 600 seconds
+  //
 }
 
 console.log(digitalClock(5025));
