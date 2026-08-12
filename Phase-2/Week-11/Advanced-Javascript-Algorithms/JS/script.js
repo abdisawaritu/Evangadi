@@ -189,6 +189,9 @@ function meeraArrayChecker(arrayNumber) {
   for (let i = 0; i < doubleArrays.length; i++) {
     // i < array.length
     let singleValueOfDoubleArray = doubleArrays[i];
+    if (singleValueOfDoubleArray === 0) {
+      continue;
+    }
     let foundDoubleNumber = false; //  this is called flag it used to reduce the number of iteration of the instruction for the algorithm effeciency not to check extra loop which is not useful
 
     // console.log("outer loop iteration ", iteration++);
@@ -1298,7 +1301,6 @@ console.log(timestamp);
 // Both give the timestamp in milliseconds.
 // ------------------------------------------------------------
 
-// ------------------------------------------------------------
 // Symbol.toPrimitive
 //
 // Purpose:
