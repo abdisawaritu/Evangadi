@@ -271,6 +271,41 @@ function isDual(array) {
 }
 
 console.log(isDual([1, 2, 1, 3, 3, 2]));
+
+
+
+
+
+function isDual(array) {
+  if (
+    !Array.isArray(array) ||
+    !array.every((element) => Number.isFinite(element))
+  ) {
+    return "please provide the valid number array";
+  }
+
+  let frequency = {};
+
+  // Count each element
+  for (let i = 0; i < array.length; i++) {
+    if (frequency[array[i]] !== undefined) {
+      frequency[array[i]]++;
+    } else {
+      frequency[array[i]] = 1;
+    }
+  }
+
+  // Check each frequency
+  for (let key in frequency) {
+    if (frequency[key] !== 2) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
+console.log(isDual([1, 2, 1, 3, 3, 2]));
 // Using the built-in Array Object Method
 
 // FUNCTION isDual(array)

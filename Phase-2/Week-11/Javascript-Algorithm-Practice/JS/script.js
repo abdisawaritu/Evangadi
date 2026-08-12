@@ -113,3 +113,121 @@ const remainder = (dividend, divisor) => {
 function nameString(string) {
   return `"  ${string}Edabit"`;
 }
+
+// Easy Question
+
+// Js bitwise operator
+console.log(5 & 3);
+console.log(5 | 3);
+console.log(5 ^ 4);
+console.log(~5);
+//  <<  left shift
+//  >>   right shift
+//   >>> zero fill right shift
+console.log(5 & 3);
+console.log(5 | 3);
+console.log(5 ^ 3);
+console.log(~5);
+console.log(5 << 1);
+console.log(20 >> 1);
+
+console.log((1).toString(2));
+console.log((2).toString(2));
+console.log((3).toString(2));
+console.log((4).toString(2));
+console.log((5).toString(2));
+console.log((6).toString(2));
+console.log((7).toString(2));
+console.log((8).toString(2));
+
+console.log((1).toString(2).padStart(8, "0"));
+console.log((5).toString(2).padStart(8, "0"));
+console.log((10).toString(2).padStart(8, "0"));
+console.log((15).toString(2).padStart(8, "0"));
+console.log((255).toString(2).padStart(8, "0"));
+console.log((255).toString(2).padStart(8, "0"));
+
+// function bitwiseOperator(num1, num2) {
+//   let binary1 = num1.toString(2).padStart(8, "0");
+//   let binary2 = num2.toString(2).padStart(8, "0");
+//   // console.log(binary1);
+//   // console.log(binary2);
+//   return `${binary1 & binary2.toString().padStart(8,"0")} ${binary1 | binary2} ${binary1 ^ binary2}`;
+
+// }
+// console.log(bitwiseOperator(6, 23));
+function bitwiseOperator(num1, num2) {
+  let binary1 = num1.toString(2).padStart(8, "0");
+  let binary2 = num2.toString(2).padStart(8, "0");
+
+  let andResult = (num1 & num2).toString(2).padStart(8, "0");
+  let orResult = (num1 | num2).toString(2).padStart(8, "0");
+  let xorResult = (num1 ^ num2).toString(2).padStart(8, "0");
+
+  return `
+num1: ${binary1}
+num2: ${binary2}
+
+AND: ${andResult}
+OR:  ${orResult}
+XOR: ${xorResult}
+`;
+}
+
+console.log(bitwiseOperator(6, 23));
+
+function addUntilNum(num) {
+  let sum = 0;
+  for (let i = 1; i <= num; i++) {
+    sum += i;
+  }
+  return sum;
+}
+console.log(addUntilNum(4));
+
+// left shift operator
+
+//number << positions
+
+function shiftToLeft(number, position) {
+  return number * Math.pow(2, position);
+}
+
+// function findSmallestAndLargest(array) {
+//   let sortedArray = array.sort(function (a, b) {
+//     return a - b;
+//   });
+//   let MandM = [sortedArray[0], sortedArray[sortedArray.length - 1]];
+//   return MandM;
+// }
+// console.log(findSmallestAndLargest ([1,2,3,4,5]))
+
+function maxMin(array) {
+  let max = array[0];
+  let min = array[0];
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] > max) {
+      max = array[i];
+    }
+    if (array[i] < min) {
+      min = array[i];
+    }
+  }
+  let minmax = [min, max];
+  return minmax;
+}
+
+console.log(maxMin([1, 3, 4, 5, 7, 8, 10]));
+
+function timeForMilkAndcookies(date) {
+  return date.getMonth() === 11 && date.getDate() === 24;
+}
+
+
+function whichIsLarger (  ( ) => a , () => b){
+
+}
+// Higher order function and callback function 
+// Important points on these topics 
+// arrow function makes the callbacks shorter 
+
