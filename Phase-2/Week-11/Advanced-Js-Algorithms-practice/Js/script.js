@@ -368,52 +368,52 @@ function isMagicArray(array) {
 // solution
 // helper function
 
-function isPrimes(n) {
-  if (n < 2) {
-    return 0; // return 0;
-  }
-  if (n === 2) {
-    return 1;
-  }
-  if (n % 2 === 0) {
-    return 0;
-  }
+// function isPrimes(n) {
+//   if (n < 2) {
+//     return 0; // return 0;
+//   }
+//   if (n === 2) {
+//     return 1;
+//   }
+//   if (n % 2 === 0) {
+//     return 0;
+//   }
 
-  for (let i = 3; i < Math.sqrt(n); i += 2) {
-    if (n % i === 0) {
-      return 0;
-    }
-  }
-  return 1;
-}
+//   for (let i = 3; i < Math.sqrt(n); i += 2) {
+//     if (n % i === 0) {
+//       return 0;
+//     }
+//   }
+//   return 1;
+// }
 
-function isMagicArray(array) {
-  let sum = 0;
-  for (let i = 0; i < array.length; i++) {
-    // const element = array[i];
+// function isMagicArray(array) {
+//   let sum = 0;
+//   for (let i = 0; i < array.length; i++) {
+//     // const element = array[i];
 
-    let isPrimeNumber = isPrimes(a[i]); //  1 or 0 have truth and false
-    if (isPrimeNumber) {
-      console.log(a[i], "prime number ");
-      sum = sum + a[i];
-    } else if (sum > a[0]) {
-      console.log("first element ", a[0]);
-      console.log("sum of prime", sum);
-      return 0;
-      // to make the algorithm effecien if the sum is greater than  first elemetn of the array
-    }
-  }
-  if (sum === a[0]) {
-    console.log("first element ", a[0]);
-    console.log("sum of prime", sum);
-    return 1;
-  } else {
-    return 0;
-  }
-}
+//     let isPrimeNumber = isPrimes(a[i]); //  1 or 0 have truth and false
+//     if (isPrimeNumber) {
+//       console.log(a[i], "prime number ");
+//       sum = sum + a[i];
+//     } else if (sum > a[0]) {
+//       console.log("first element ", a[0]);
+//       console.log("sum of prime", sum);
+//       return 0;
+//       // to make the algorithm effecien if the sum is greater than  first elemetn of the array
+//     }
+//   }
+//   if (sum === a[0]) {
+//     console.log("first element ", a[0]);
+//     console.log("sum of prime", sum);
+//     return 1;
+//   } else {
+//     return 0;
+//   }
+// }
 
-console.log(isMagicArray([13, 4, 4, 4, 4, 4]));
-console.log(isMagicArray([8, 5, -5, 3, 11]));
+// console.log(isMagicArray([13, 4, 4, 4, 4, 4]));
+// console.log(isMagicArray([8, 5, -5, 3, 11]));
 
 // How to solve the Magic aray function
 // Separting the problem into two one function that  identifies  whether number is prime or not   another function that checks  wheather the array is Magic array or not
@@ -504,7 +504,7 @@ function isMagic(array) {
   }
   if (sumOfPrime === array[0]) {
     return 1;
-    // curlbrace can be ignored
+    // curlbrace can be ignored  if we have one statement inside if statement  and other braced statement
   }
   return 0;
 }
@@ -575,54 +575,25 @@ console.log(isMagic([21, 3, 7, 9, 11, 4, 6]));
 
 // [array[0], array[2]] = [array[2], array[0]];
 // console.log(array);
-// challenges 
+// challenges
 
-//  1 how to access every element in the array by using the loop statement 
+//  1 how to access every element in the array by using the loop statement
 // for (let index = 0; index < array.length; index++) {
-//   const element = array[index]; // accessing each element of the given array through the dynamic array 
+//   const element = array[index]; // accessing each element of the given array through the dynamic array
 //   //  console.log(array[i]);   element
 //   //  console.log(array[i+1]) // next element
 //    // console.log (ar[i],"-----" ar[i+1]);
 // }
 
-// swapping the two values at element and next elemetn 
+// swapping the two values at element and next elemetn
 
 // how to swap  array elements  swap algoritj m
 // let temp = arr[0];
 // arr[0]  = arr[1];
 // arr[1]  = temp;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function bubbleSort(array) {
   for (let i = 0; i < array.length; i++) {
-
     let isSwap = false;
     for (let j = 0; j < array.length - i - 1; j++) {
       console.log("comparing ", array[j], array[j + 1]);
@@ -633,7 +604,7 @@ function bubbleSort(array) {
         array[j + 1] = temp;
         isSwap = true;
       }
-      if(!isSwap){
+      if (!isSwap) {
         break;
       }
       // console.log(array);
@@ -662,3 +633,160 @@ function bubbleSorts(array) {
   return array;
 }
 console.log(bubbleSorts([5, 3, 8, 1, 9, 7, 10, 34, 2, 4]));
+
+function detectWord(str) {
+  let smallLetter = "";
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] >= "a" || str[i] <= "z" === str.toUpperCase()) {
+      smallLetter += str[i];
+    }
+  }
+  return smallLetter;
+}
+
+console.log(detectWord("ABDI124512SAabDIdi"));
+
+// create function that takes an array of number  and return  both the min and max number  in that order inside order
+
+function minamx(array) {
+  return [Math.min(...array), Math.max(...array)];
+}
+
+function minAndMax(array) {
+  let min = Math.min(...array); // [1,,3,4,4]   ()
+  let max = Math.max(...array);
+  return [min, max];
+  // we can also solve this problem using the sorting  sort(function (a, b )  return a - b ;)
+}
+// console.log(minAndMax([2, 4, 5, 6, 6, 8, 9]));
+
+function minamx(array) {
+  let min = array[0];
+  let max = array[0];
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] > max) {
+      max = array[i];
+    }
+    if (array[i] < min) {
+      min = array[i];
+    }
+  }
+  return [min, max];
+}
+console.log(minamx([2, 4, 5, 6, 6, 8, 9]));
+
+function factor(num) {
+  let factors = [];
+  for (let i = 1; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) {
+      // if that number divisible other without the remainder that number is the factor of the given number  if the number leaves the reminder zero it became the factor of the given number
+      factors.push(i);
+      if (i !== num / i) {
+        factors.push(num / i);
+      }
+    }
+  }
+  return factors;
+}
+console.log(factor(12));
+
+// the Magic array
+
+// function decomposition
+
+const isPrimeNumber = (num) => {
+  if (num === 1) {
+    return false;
+  }
+  if (num < 0) {
+    return false;
+  }
+  if (num === 2) {
+    return true;
+  }
+  if (num % 2 === 0) {
+    return false;
+  }
+  for (let i = 3; i <= Math.sqrt(num); i = i + 2) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
+let isPri = isPrimeNumber(16);
+console.log(isPri);
+
+const magicArrayFinding = (array) => {
+  let sumOfPrimes = 0;
+  for (let i = 0; i < array.length; i++) {
+    let primeNumber = isPrimeNumber(array[i]);
+    if (primeNumber) {
+      sumOfPrimes += array[i];
+    }
+    if (sumOfPrimes > array[0]) {
+      return " I am Not Magic array";
+    }
+  }
+  if (sumOfPrimes === array[0]) {
+    return " I am  Magic array";
+  }
+};
+let isMagicArrays = magicArrayFinding([0, 6, 8, 20]);
+console.log(isMagicArrays);
+
+// Question6
+
+function halfOfNumber(number) {
+  if (number % 2 === 0) {
+    return [number / 2, number / 2];
+  } else {
+    return [Math.floor(number / 2), Math.floor(number / 2) + 1];
+  }
+}
+console.log(halfOfNumber(188));
+
+// Without if else statmenent
+function halveNumber(num) {
+  let left = Math.floor(num / 2);
+  let right = num - left;
+
+  return [left, right];
+}
+
+console.log(halveNumber(10)); // [5, 5]
+console.log(halveNumber(7)); // [3, 4]
+console.log(halveNumber(9)); // [4, 5]
+console.log(halveNumber(11)); // [5, 6]
+
+// question 2
+
+const nestedArrays = (array1, array2) => {
+  let sortedArrayOne = array1.sort((a, b) => {
+    return a - b;
+  });
+  let sortedArrayTwo = array2.sort((a, b) => {
+    return a - b;
+  });
+  let maximamValueOfarr1 = sortedArrayOne[sortedArrayOne.length - 1];
+  let maximamValueOfarr2 = sortedArrayTwo[sortedArrayTwo.length - 1];
+  let minValueArr1 = sortedArrayOne[0];
+  let minValueArr2 = sortedArrayTwo[0];
+  if (minValueArr1 > minValueArr2 && maximamValueOfarr1 < maximamValueOfarr2) {
+    return "I am nested array";
+  } else {
+    ("I am Not a Nested Array");
+  }
+
+  // function nestedArray(arr1, arr2) {
+  // using the spread operator
+  //   let arrayONeMin = Math.min(...arr1);
+  //   let arrayONemax = Math.max(...arr1);
+  //   let arrayTwoMin = Math.min(...arr2);
+  //   let arrayTwoMax = Math.max(...arr2);
+  //   // check the condition
+  // }
+};
+let checkNested = nestedArrays([3, 4, 5, 2], [2, 5, 7, 8]);
+console.log(checkNested);

@@ -1694,3 +1694,16 @@ console.log(typeof todayNow);
 //  year          hour        milliseconds
 //  month         minute
 //  day            second
+
+
+// Algorithm Question 
+
+function   detectWord (string){
+
+}
+detectWord("ABDISAabWARITUdi")
+
+
+
+
+
