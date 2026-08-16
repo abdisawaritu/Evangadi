@@ -704,14 +704,13 @@ studentssss("Abdisa", 80, 90, 75, 95);
 //   console.log(hobbies);
 // }
 
-
 // 6. Rest and the arguments Object
 function test() {
   console.log(arguments);
 }
-// rest with destruction  destrcuturing  and array destructuring 
-// rest with objects 
-// rest vs spread 
+// rest with destruction  destrcuturing  and array destructuring
+// rest with objects
+// rest vs spread
 
 // // Right now:
 // Promise → pending
@@ -783,9 +782,171 @@ const promise = new Promise(() => {});
 // For example:
 
 // const promise = new Promise(() => {
-  // const promise = new Promise();
-
+// const promise = new Promise((resolve, reject) => {});
+// const promise = new Promise();
+// const promise = new Promise((resolve, reject) => {
+//   resolve("Success");
+// // });
+// const promise = new Promise((resolve, reject) => {
+//     reject("Something went wrong");
+// });
+//
 
 // });
 
 // This:
+// resolve;
+// reject;
+//
+
+// medium Question
+
+const countTrue = (array) => {
+  if (
+    Array.isArray(array) &&
+    array.every((element) => typeof element === "boolean")
+  ) {
+    let count = 0; // local variables
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === true) {
+        count++;
+      }
+    }
+    return count;
+    // } else if (array.length === 0) {
+    //   return 0;
+  } else {
+    return "please enter the valid array with boolean value";
+  }
+};
+
+console.log(countTrue([true, false, false, true, false]));
+console.log(countTrue([]));
+console.log(countTrue([false, false, false, false]));
+console.log(countTrue([]));
+
+function myFunction() {
+  let a = 4; // local variable is private var defined inside a function
+  return a * a;
+}
+let a = 4; // global variable
+function myFunction() {
+  return a * a;
+}
+// In a web page, global variables belong to the page.
+
+// Global variables can be used (or changed) by all scripts in the page.
+
+// A local variable can only be used inside the function where it is defined. It is private and hidden from other functions and other scripting code.
+//
+
+// Undeclared variables (created without a keyword var, let, const), are always global, even if they are created inside a function.
+
+function myFunctions() {
+  a = 4; // local variable is private var defined inside a function  (if its undeclared it considered as global variabe even if its defined inside the function )
+  return a * a;
+}
+function myFunctionss() {
+  a = 4; // global variable
+}
+
+// Global variables live until the page is discarded, like when you navigate to another page or close the window.
+
+// Local variables have short lives. They are created when the function is invoked(called), and deleted when the function is finished.
+// Nested Js functions
+// all the function is js have access to  global scope variables
+// JavaScript supports nested functions. Nested functions have access to the scope "above" them.
+
+// // function add() {
+//   let counter = 0;
+//   function plus() {counter += 1;}
+//   plus();
+//   return counter;
+// }
+
+// function myCounter() {
+//   let counter = 0;
+//   return function() {
+//     counter++;
+//     return counter;
+//   };
+// }
+// const add = myCounter();
+// add();
+// add();
+// add();
+
+// the counter is now 3
+
+// A closure is a function that has access to the parent scope, after the parent function has closed.
+
+// Old JavaScript code often contains closures, but modern JavaScript will not use closures as frequently.
+
+// ECMAScript 2015 and subsequent JavaScript versions have introduced new language features that provide alternatives to closures
+
+// Modern Alternative: Private Class Fields
+// class Counter {
+//   #count = 0;  // # indicate that the vairable is private
+
+//   increment() {
+//     this.#count++;
+//     return this.#count;
+//   }
+// }
+
+// const myCounter = new Counter();
+// myCounter.increment();
+
+// Nested function   a function insde another function
+function outer() {
+  let message = "hello";
+  function inner() {
+    console.log(message);
+  }
+  inner();
+}
+outer();
+// the innner function can access the outer vairables
+
+// A closure is created when a function remembers and can access variables from its surrounding lexical scope, even after the outer function has finished executing.
+// function outer() {
+//   let message = "Hello";
+
+//   function inner() {
+//     console.log(message);
+//   }
+
+//   return inner;
+// }
+// const myFunction = outer();
+// myFunction();
+// closure  mean closes over 
+// The word closure comes from the idea that the function "closes over" the variables it needs from its surrounding environment
+function createCounter() {
+  let count = 0;
+
+  return function () {
+    count++;
+    return count;
+  };
+}
+const counter = createCounter();
+console.log(counter());
+console.log(counter());
+console.log(counter());
+// 
+function greet(name) {
+  setTimeout(function () {
+    console.log("Hello " + name);
+  }, 1000);
+}
+
+greet("Abdisa");
+// This is one reason closures are extremely important when learning asynchronous JavaScript.
+// Part 11 — Function Factory
+
+// Closures are also useful for creating functions dynamically.
+// "When a function finishes, all its local variables immediately disappear."  // this is not always true
+
+// closure in event handling = frontend
+// closures for private data  // modern js private class
