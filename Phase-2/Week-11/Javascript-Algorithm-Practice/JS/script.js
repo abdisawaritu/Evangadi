@@ -920,7 +920,7 @@ outer();
 // }
 // const myFunction = outer();
 // myFunction();
-// closure  mean closes over 
+// closure  mean closes over
 // The word closure comes from the idea that the function "closes over" the variables it needs from its surrounding environment
 function createCounter() {
   let count = 0;
@@ -934,14 +934,14 @@ const counter = createCounter();
 console.log(counter());
 console.log(counter());
 console.log(counter());
-// 
-function greet(name) {
-  setTimeout(function () {
-    console.log("Hello " + name);
-  }, 1000);
-}
+//
+// function greet(name) {
+//   setTimeout(function () {
+//     console.log("Hello " + name);
+//   }, 1000);
+// }
 
-greet("Abdisa");
+// greet("Abdisa");
 // This is one reason closures are extremely important when learning asynchronous JavaScript.
 // Part 11 — Function Factory
 
@@ -950,3 +950,169 @@ greet("Abdisa");
 
 // closure in event handling = frontend
 // closures for private data  // modern js private class
+
+function redundant(string) {
+  return function retStr() {
+    console.log(string);
+    return string;
+  };
+}
+const f1 = redundant("apple");
+
+f1();
+
+function possibleBonus(a, b) {
+  let distance = b - a;
+  if (distance >= 1 && distance <= 6) {
+    return true;
+  }
+  return false;
+}
+console.log(possibleBonus(3, 7));
+
+// right shift operator
+//
+// 80 >>3  =  floor (80/2  ^3  = = follor (80/8 )= 10)
+
+function shiftToRight(a, b) {
+  if (b < 0) {
+    return "b cannot be negative ";
+  }
+  return Math.floor(a / Math.pow(2, b));
+}
+console.log(shiftToRight(80, 3));
+
+function perimeter(letter, sideOrRadius) {
+  let perimeter =
+    letter === "s"
+      ? 4 * sideOrRadius
+      : letter === "c"
+        ? 2 * Math.PI * sideOrRadius
+        : "please provide valid number";
+  return perimeter;
+  // condition 1 ? value1 :
+  // condition 2 ? value2 :
+  // condition 3 ? value3 :
+  // default value
+}
+console.log(perimeter("s", 7));
+console.log(perimeter("c", 4));
+
+function num_of_digits(num) {
+  let count = 0;
+  // for (let i = 0  ; i < num ; i++){
+  //    if (i === num){
+  //     count++;
+  //    }
+  // }
+  if (num === 0) {
+    return 1; // only one number of integer
+  }
+
+  while (num > 0) {
+    num = Math.floor(num / 10);
+    count++;
+  }
+  return count;
+}
+console.log(num_of_digits(1000));
+console.log(num_of_digits(12));
+console.log(num_of_digits(1305981031));
+console.log(num_of_digits(0));
+
+function addNames(object, key, value) {
+  return { ...object, [key]: value };
+}
+function addName(obj, name, value) {
+  obj[name] = value;
+
+  return obj;
+}
+
+console.log(addName({}, "Brutus", 300));
+
+console.log(addName({ piano: 500 }, "Brutus", 400));
+
+console.log(addName({ piano: 500, stereo: 300 }, "Caligula", 440));
+
+function powerDerivative(b, m) {
+  //  f'm  =  ( b m)^ b- 1
+  return b * Math.pow(m, b - 1);
+}
+console.log(powerDerivative(1, 4));
+console.log(powerDerivative(3, -2));
+console.log(powerDerivative(4, -3));
+
+function basefun(number) {
+  // validate all the number be become valid numbers
+  return function (numbers) {
+    return number + numbers;
+  };
+}
+const plusNUmber = basefun(5);
+console.log(plusNUmber(2));
+
+// common sytanx
+// Object.method(object)
+// Object.keys (user)  // calling keys () from the object
+
+// // Object.keys() //
+// Object.keys () return an array contaning  all enumerable propery name (keys)  of an object
+
+// sytanx     Object.keys(object)
+const user = {
+  name: "abebe",
+  age: 22,
+  city: "addis ababa",
+};
+
+console.log(Object.keys(user));
+console.log(Object.keys(user).length);
+//
+const product = {
+  name: "laptop",
+  price: 50000,
+  brand: "HP",
+};
+console.log(Object.keys(product));
+
+// // Object.values();
+// return an array containing the values of the object ;
+// Object.values(object)  object -> array contatin the values of the object
+
+console.log(Object.values(user));
+// we use this method when we wan to calculate somethign from all number values of the object by converting into the array then   we work with the array
+
+// Object.entries
+
+// Object.entries() converts an object into an array  of key-values pairs
+
+console.log(Object.entries(user));
+// it very usefull when we want to loop through both the keys anf values.
+
+for (const [key, value] of Object.entries(user)) {
+  console.log(key, value);
+}
+// extremely userful when processing the API data.
+
+// Object.fromEntries();   array to object it works in reverse ways 
+// it converts an array of key-values pairs back into an object
+
+const entries = [
+  ["name", "abebe"],
+  ["age", 22],
+];
+const users = Object.fromEntries(entries);
+console.log(users);
+
+// Object.assign();  // used for copies properites 
+// // copies properties from one or more objects into another object.
+
+// syntax  Object.assign(Target, source);
+
+const additionInfo = {
+    gender :  "M"
+}
+
+ Object.assign(user, additionInfo)
+ console.log(user)
