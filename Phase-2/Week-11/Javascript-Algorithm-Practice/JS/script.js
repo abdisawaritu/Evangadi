@@ -1116,3 +1116,97 @@ const additionInfo = {
 
  Object.assign(user, additionInfo)
  console.log(user)
+ // used to combine the objects 
+
+ const persons ={
+   introduce(){
+    console.log("hello")
+  },
+  name: "abebe"
+ }
+ const address = {
+  city:" addis ababa"
+ }
+ const resultss = Object.assign({} , persons, address);
+ console.log(resultss);
+
+ // the first argumetn is rage , the secong is the source 
+ // Object.hasOwn ();
+//  check whether an object has a particular property as its won property
+
+// Object.hasOwn( object, property)
+console.log(Object.hasOwn(user, "name"))
+console.log(Object.hasOwn(user, "email"));
+
+// Object.create();
+// creates a New Object with a specidfeid prototype//
+// question what is Prototype Js system mean how we can define and wht 
+// Object.create(prototype)
+
+const studentsss = Object.create(persons)
+studentsss.introduce();
+
+// Object.freeze();
+// prevent object from being modified.
+
+Object.freeze(object);
+// Useful when you have configuration or constant data that should not be modified.
+const config = {
+  appName: "My App",
+  version: 1,
+};
+
+Object.freeze(config);
+// After freezing, you cannot normally:
+
+// add properties
+// remove properties
+// change existing properties
+
+// For example:
+
+// config.version = 2;
+
+// will not successfully change the frozen object.
+
+Object.seal()//  similar to freeze but less restrictive 
+Object.is(); // determines wherther two values are the same according to js samvalue comparsion 
+// Object.is(10 , 10)/
+Object.getOwnPropertyNames();// 
+Object.getOwnPropertyNames(object) // return an array contating the objecto won properti name, including the non-enumerab properites 
+Object.getOwnPropertyDescriptors(object)//  advanced object method gives as  detialed information about the object's properites 
+Object.getPrototypeOf(object); // gets the  prototype of an object // prototype chain 
+// Object - > prototype - > inheritace -  >classes
+Object.setPrototypeOf();// change the prototype of an existicing object.
+Object.setPrototypeOf(object, prototype);
+Object.preventExtensitons();
+// preventExtension , freeze , seal related but they are different 
+Object.isFrozen(object);
+Object.isSealed();
+Object.isExtensible();
+// Object.keys()	Get object's keys
+// Object.values()	Get object's values
+// Object.entries()	Get key-value pairs
+// Object.fromEntries()	Convert key-value pairs into object
+// Object.assign()	Copy/combine object properties
+// Object.hasOwn()	Check whether object has its own property
+// Object.freeze()	Prevent modifications
+// Object.seal()	Prevent adding/deleting properties
+// Object.create()	Create object with a specific prototyp
+// // Object.keys(obj)
+// Object.values(obj)
+// Object.entries(obj)
+
+      //           OBJECT
+      //             │
+      //   ┌─────────┼─────────┐
+      //   ↓         ↓         ↓
+      // keys()   values()  entries()
+      //   ↓         ↓         ↓
+      // keys      values    key + value
+
+
+
+
+
+
