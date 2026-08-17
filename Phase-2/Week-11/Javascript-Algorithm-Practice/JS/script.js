@@ -1095,7 +1095,7 @@ for (const [key, value] of Object.entries(user)) {
 }
 // extremely userful when processing the API data.
 
-// Object.fromEntries();   array to object it works in reverse ways 
+// Object.fromEntries();   array to object it works in reverse ways
 // it converts an array of key-values pairs back into an object
 
 const entries = [
@@ -1105,59 +1105,59 @@ const entries = [
 const users = Object.fromEntries(entries);
 console.log(users);
 
-// Object.assign();  // used for copies properites 
+// Object.assign();  // used for copies properites
 // // copies properties from one or more objects into another object.
 
 // syntax  Object.assign(Target, source);
 
 const additionInfo = {
-    gender :  "M"
-}
+  gender: "M",
+};
 
- Object.assign(user, additionInfo)
- console.log(user)
- // used to combine the objects 
+Object.assign(user, additionInfo);
+console.log(user);
+// used to combine the objects
 
- const persons ={
-   introduce(){
-    console.log("hello")
+const persons = {
+  introduce() {
+    console.log("hello");
   },
-  name: "abebe"
- }
- const address = {
-  city:" addis ababa"
- }
- const resultss = Object.assign({} , persons, address);
- console.log(resultss);
+  name: "abebe",
+};
+const address = {
+  city: " addis ababa",
+};
+const resultss = Object.assign({}, persons, address);
+console.log(resultss);
 
- // the first argumetn is rage , the secong is the source 
- // Object.hasOwn ();
+// the first argumetn is rage , the secong is the source
+// Object.hasOwn ();
 //  check whether an object has a particular property as its won property
 
 // Object.hasOwn( object, property)
-console.log(Object.hasOwn(user, "name"))
+console.log(Object.hasOwn(user, "name"));
 console.log(Object.hasOwn(user, "email"));
 
 // Object.create();
 // creates a New Object with a specidfeid prototype//
-// question what is Prototype Js system mean how we can define and wht 
+// question what is Prototype Js system mean how we can define and wht
 // Object.create(prototype)
 
-const studentsss = Object.create(persons)
-studentsss.introduce();
+// const studentsss = Object.create(persons);
+// studentsss.introduce();
 
-// Object.freeze();
-// prevent object from being modified.
+// // Object.freeze();
+// // prevent object from being modified.
 
-Object.freeze(object);
-// Useful when you have configuration or constant data that should not be modified.
-const config = {
-  appName: "My App",
-  version: 1,
-};
+// Object.freeze(object);
+// // Useful when you have configuration or constant data that should not be modified.
+// const config = {
+//   appName: "My App",
+//   version: 1,
+// };
 
-Object.freeze(config);
-// After freezing, you cannot normally:
+// Object.freeze(config);
+// // After freezing, you cannot normally:
 
 // add properties
 // remove properties
@@ -1169,21 +1169,7 @@ Object.freeze(config);
 
 // will not successfully change the frozen object.
 
-Object.seal()//  similar to freeze but less restrictive 
-Object.is(); // determines wherther two values are the same according to js samvalue comparsion 
-// Object.is(10 , 10)/
-Object.getOwnPropertyNames();// 
-Object.getOwnPropertyNames(object) // return an array contating the objecto won properti name, including the non-enumerab properites 
-Object.getOwnPropertyDescriptors(object)//  advanced object method gives as  detialed information about the object's properites 
-Object.getPrototypeOf(object); // gets the  prototype of an object // prototype chain 
-// Object - > prototype - > inheritace -  >classes
-Object.setPrototypeOf();// change the prototype of an existicing object.
-Object.setPrototypeOf(object, prototype);
-Object.preventExtensitons();
-// preventExtension , freeze , seal related but they are different 
-Object.isFrozen(object);
-Object.isSealed();
-Object.isExtensible();
+//
 // Object.keys()	Get object's keys
 // Object.values()	Get object's values
 // Object.entries()	Get key-value pairs
@@ -1197,16 +1183,138 @@ Object.isExtensible();
 // Object.values(obj)
 // Object.entries(obj)
 
-      //           OBJECT
-      //             │
-      //   ┌─────────┼─────────┐
-      //   ↓         ↓         ↓
-      // keys()   values()  entries()
-      //   ↓         ↓         ↓
-      // keys      values    key + value
+//           OBJECT
+//             │
+//   ┌─────────┼─────────┐
+//   ↓         ↓         ↓
+// keys()   values()  entries()
+//   ↓         ↓         ↓
+// keys      values    key + value
+
+//  1. Object
+//  2 Prototype
+//  3 prototype chain
+//   4 inheritace
+
+//  A prototype is another object that an object can use as a source of properties and methods.
+// a backup object
+
+//       object A
+//    ↓
+// prototype object
+// In programming, inheritance means that one object can access properties and methods provided by another object.
+// Parent object
+//       ↓
+// Child object
+// object
+//    ↓
+// prototype
+// prototype-based inheritance.prototype-based inheritance.
+
+// ES6 classes also use prototypes
+
+// You might think that class replaced the prototype system.
+
+// It didn't.
+
+// JavaScript classes are built on top of the existing prototype-based inheritance system.
+
+// For example:
+
+// class Person {
+//     constructor(name) {
+//         this.name = name;
+//     }
+
+//     sayHello() {
+//         console.log("Hello");
+//     }
+// }
+// If JavaScript cannot find a property or method directly on an object, it looks at that object's prototype.
+// Non-enumerable does NOT mean the property doesn't exist.
+
+// // // It means that the property is excluded from certain enumeration operations
+// A non-enumerable property still exists on the object, but it is hidden from certain property-listing operations.
+// Question
+//
+function toArray(object) {
+  let array = Object.entries(object);
+  return array;
+}
+console.log(toArray({ a: 1, b: 2 }));
+console.log(toArray({ shrimp: 15, tots: 12 }));
+console.log(toArray({}));
+
+function add(n) {
+  return (m) => n + m;
+}
+// function add(n) {
+//   return function (y) {
+//     return n + y;
+//   };
+// }
+
+function arraCont(...arrays) {
+  // rest operator
+  return [].concat(...arrays);
+}
+// array containing arrays
+function combineArrays(...arrays) {
+  return arrays.flat();
+}
+
+// object creating
+function Circe(radius) {
+  this.radius = radius;
+  this.getArea = function () {
+    return Math.PI * Math.pow(this.radius, 2);
+  };
+  this.getPerimeter = function () {
+    return Math.PI * 2 * this.radius;
+  };
+}
+
+let circleObje1 = new Circe(11);
+console.log(circleObje1.getArea());
+
+let circeObjec2 = new Circe(4.44);
+console.log(circeObjec2.getPerimeter());
+
+function sevenBoom(array) {
+  // validate the input is array as well as all the elemetn must be number
+
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === 7) {
+      return "Boom";
+    } if (array[i] % 10 === 7){
+      return "Boom"
+    }
+    if (Math.floor(array[i]/ 10)  === 7){
+      return "Boom"
+    }
+  }
+  return " there is no  7 in the array";
+}
+console.log(sevenBoom([1, 2, 3, 4, 5, 6, 7]));
+// console.log(sevenBoom([8, 6, 33, 100])
+// console.log(sevenBoom([2, 55, 60, 97, 86]));
+console.log(sevenBoom([2, 55, 60, 97, 86]));
+console.log(sevenBoom([8, 6, 73, 100]));
 
 
+// function sevenBoom(array) {
+//   for (let i = 0; i < array.length; i++) {
+//     if (String(array[i]).includes("7")) {
+//       return "Boom";
+//     }
+//   }
 
+//   return "there is no 7 in the array";
 
+// function sevenBoom(array) {
+//   return array.some((num) => String(num).includes("7"))
+//     ? "Boom"
+//     : "there is no 7 in the array";
+// }
 
 
