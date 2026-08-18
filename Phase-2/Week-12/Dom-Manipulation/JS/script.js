@@ -30,19 +30,165 @@ console.log(somePerson);
 // objects. How do they work together then?
 
 let abebe = {
-    prt1: 2,
-    prt2: 4
-
-}
-abebe.prt1 = 55;
-// DOM HTML DOCUMENT
+  // if I have abebe object
+  prt1: 2,
+  prt2: 4,
+};
+abebe.prt1 = 55; // updating the properties of the abebe object
+// DOM HTML DOCUMENT  // like the above the html document also  changed to the following dom object
 // let document  = {
 //     html: {
 //         head:{
 //           title:{
 //             value: " The title "
-//           }  
+//           }
 //         }
 //     }
 // }
-// document.html.head.value = "abebe";  // browser build from start after updating that is called re rendering  the whole page not only the updated element 
+// document.html.head.value = "abebe";// updating the properties    // browser build from start after updating that is called re rendering  the whole page not only the updated element  when the webiste is render is gonna apply the change by rebuilding the whole page of webpage that is called re rendering
+// document is the root node for the whole html documents
+
+// accessing the elements of the  html   using the dom manipulation throught Js object accessing
+// DOM tree
+
+// 1. document node
+// 2  element node
+// 3 attribute node
+// 4 text node
+// DOM stands for:
+
+// Document Object Model
+
+// When the browser loads an HTML page, it does not treat the HTML source code simply as text. The browser parses the HTML and creates an object representation of the document.
+// Document
+// │
+// └── html
+//     │
+//     ├── head
+//     │   │
+//     │   └── title
+//     │       │
+//     │       └── "My Page"
+//     │
+//     └── body
+//         │
+//         ├── h1
+//         │   │
+//         │   └── "Hello"
+//         │
+//         └── p
+//             │
+//             └── "Welcome to my page."  this is called  DOM tree
+// tree like data structure
+// a node
+//      a parent
+//             childern
+//                     sibilings  // the same parent childern
+
+// HTML
+//   ↓
+// parsed by browser
+//   ↓
+// DOM
+//   ↓
+// organized as
+//   ↓
+// DOM Tree
+// // Grandparent
+//     │
+//     ├── Parent 1
+//     │    ├── Child 1
+//     │    └── Child 2
+//     │
+//     └── Parent 2
+//          └── Child 3
+
+//              HTML
+//                ↓
+//         Browser parses it
+//                ↓
+//               DOM
+//                ↓
+//         ┌──── DOM Tree ────┐
+//         │                  │
+//       html                ...
+//         │
+//       body
+//      /    \
+//    h1      p
+//    │       │
+//  "Hello" "Welcome"
+//         │
+//         ↓
+//  JavaScript manipulates it
+//         │
+//         ↓
+//  Updated webpage
+
+// document = root node
+// html = root element
+// element node =  html tags
+// text node =  text writtein
+// attribute node =   attribute
+// comment node =  for comments
+console.dir(document);
+console.log(document.body.children);
+console.log(document.body.childNodes);
+
+// DOM manipulation
+// manipulation takes two steps
+//  1. finding or selecting  the element we want to work with
+//  2. altering the text  or attributes of that element   throught js and document
+//  document object  in js  to acees the roo noe of dom tree
+// document.html.body.head.div.text
+
+// manipulation  dom involves
+//  1  finding / selection the element  we want to work with  (Js Needs to find)
+//  2  altering the text  or attributes of that elemetn
+//  3 Event listening  (user action  to update the element )(trigger ) user action js  responds
+// document.getElementById();
+// document.getElementsByClassName();
+// document.getElementsByTagName();
+// document.querySelector();
+// document.querySelectorAll();
+
+// update method
+// element.textContent;
+// element.innerHTML;
+// element.innerText;
+
+// element.style;
+// element.classList;
+
+// element.setAttribute();
+// element.getAttribute();
+// element.removeAttribute();
+// document.createElement();
+// element.append();
+// element.appendChild();
+// element.remove();
+// element.removeChild();
+//                    DOM MANIPULATION
+//                        │
+//         ┌──────────────┼──────────────┐
+//         ↓              ↓              ↓
+//     SELECT          MODIFY        CREATE/REMOVE
+//         │              │              │
+//         │              │              │
+//  querySelector     textContent     createElement
+//  querySelectorAll  innerHTML       append
+//  getElementById    style           prepend
+//  getElements...    classList       remove
+//                    attributes
+
+// selecting elements  like we have done for css // css selector 
+// selection the individual element 
+// selection  of the multiple element 
+//  traverstin  between muliple element 
+// selection the individual element 
+
+
+
+
+
+

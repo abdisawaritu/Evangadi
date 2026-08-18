@@ -31,3 +31,9 @@
 h2{
      margin: 20px;
 }
+li{
+    border-bottom: 1px solide #ccc;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}

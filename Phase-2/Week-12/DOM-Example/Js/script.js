@@ -24,6 +24,10 @@ console.dir(document)  // insted of console.log
 console.log(document.body.children[0].textContent)
 let test = document.body.children[0];
 test.textContent = "Evangadi May batch "
-// we have another method to update without getting the element or text by nestingn like the object by using the different Js object method method on the document to select and manipulate like document.getElementById ().
+// we have another method to update without getting the element or text by nestingn like the object by using the different Js object method method on the document to select and manipulate like document.getElementById (). without using the hiearirach one by one using the document 
+
+// without doing the manipulation   we have to do two things 
+// 1. selection the DOM elements  ( it simply mean locating  the element  we want to work with )
+// 2 updating the DOM elements ( it means interacting  with the element ,  the text of the element ,  attributes of the element,  with its child elements )
 
 
