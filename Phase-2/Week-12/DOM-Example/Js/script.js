@@ -24,76 +24,215 @@
 // // console.log(document.body.children[0].textContent)
 // // let test = document.body.children[0];
 // // test.textContent = "Evangadi May batch "
-// // we have another method to update without getting the element or text by nestingn like the object by using the different Js object method method on the document to select and manipulate like document.getElementById (). without using the hiearirach one by one using the document
+// // // we have another method to update without getting the element or text by nestingn like the object by using the different Js object method method on the document to select and manipulate like document.getElementById (). without using the hiearirach one by one using the document
 
-// // without doing the manipulation   we have to do two things
-// // 1. selection the DOM elements  ( it simply mean locating  the element  we want to work with )
-// // 2 updating the DOM elements ( it means interacting  with the element ,  the text of the element ,  attributes of the element,  with its child elements )
+// // // without doing the manipulation   we have to do two things
+// // // 1. selection the DOM elements  ( it simply mean locating  the element  we want to work with )
+// // // 2 updating the DOM elements ( it means interacting  with the element ,  the text of the element ,  attributes of the element,  with its child elements )
 
-// // selecting the elements
-// // tranversing between elements
+// // // selecting the elements
+// // // tranversing between elements
 
-// // getElementById() // select single element of html using the unique id of tags or element
-// // selection using the unique id of the element or tag
+// // // getElementById() // select single element of html using the unique id of tags or element
+// // // selection using the unique id of the element or tag
 
-// const test1 = document.getElementById("one");
-// console.log(test1); // only id passed to the method
+// // const test1 = document.getElementById("one");
+// // console.log(test1); // only id passed to the method
 
-// // querySelector()  method
-// const test2 = document.querySelector("#tech h1"); // only return first matching element although we have multiple element
-// console.log(test2);
-// const test = document.querySelector(".red");
-// const tests = document.querySelector("h1");
-// // querySelector() is flexible more works  tagName, className, idName
-// // getElementByClassName () method return muliple elemtn usng the html collection  and access like that of the array  or item method inside the document
+// // // querySelector()  method
+// // const test2 = document.querySelector("#tech h1"); // only return first matching element although we have multiple element
+// // console.log(test2);
+// // const test = document.querySelector(".red");
+// // const tests = document.querySelector("h1");
+// // // querySelector() is flexible more works  tagName, className, idName
+// // // getElementByClassName () method return muliple elemtn usng the html collection  and access like that of the array  or item method inside the document
 
-// const test3 = document.getElementsByClassName("red");
-// console.log(test3); // return html collection accessed thorugh like the array structure  we dont apply al lthe array so they are array like strctuur so
-// console.log(test3[0]);
-// console.log(test3[1]);
+// // const test3 = document.getElementsByClassName("red");
+// // console.log(test3); // return html collection accessed thorugh like the array structure  we dont apply al lthe array so they are array like strctuur so
+// // console.log(test3[0]);
+// // console.log(test3[1]);
 
+// // // getElementsByTagName();
+// // const test4 = document.getElementsByTagName("h1");
+// // console.log(test4);
+
+// // const test5 = document.querySelectorAll("h1"); // as node list  static  they are not live
+// // console.log(test5); // static  its not live
+
+// // // getElementByName()   we use on the form   we use mostly   for the form   and return  the nodeList   which is different form the querySelect nodeList  unlike that is live for the getElementbyName which is not for the querySelector ()
+// // const test6 = document.getElementsByName("h1"); // as node list  static  they are not live
+// // console.log(test6); // live like that of the html collection updated at live
+
+// // getElementsByClassName(); // attributes by class Name just we give  the class name  and return the HTML collection  which is accessed by similar method with the array  array like html collection  structure   they are
+// // getElementsByTagName(); // return the  all the matching element return the html collection as array like structure and to be accessed
+
+// // querySelectorAll(); // return  the nodeList  not the html collection which is static
+
+// // // each of the document method have their own properties   to access thier text
+
+// // // individual element selector vs  multiple element selector
+
+// // // Html collection vs NodeList
+
+// // // html collection ?
+// // // it alwatys live mean when there is a change in the document,   they  will automatically update  to reflect the change
+// // // selectors that return  HTML collectin
+// // getElementsByClassName();
 // // getElementsByTagName();
-// const test4 = document.getElementsByTagName("h1");
-// console.log(test4);
+// // // return the dom element (only things that has opening tag and closing tag inside
+// // // the returned list is live
 
-// const test5 = document.querySelectorAll("h1"); // as node list  static  they are not live
-// console.log(test5); // static  its not live
+// // // NodeList
+// // // selectors that return the nodelist
+// // querySelectorAll();
+// // // return DOM NODE  ( every thing inside selected element )
+// // // the returned list is static
 
-// // getElementByName()   we use on the form   we use mostly   for the form   and return  the nodeList   which is different form the querySelect nodeList  unlike that is live for the getElementbyName which is not for the querySelector ()
-// const test6 = document.getElementsByName("h1"); // as node list  static  they are not live
-// console.log(test6); // live like that of the html collection updated at live
+// // const items = document.getElementsByClassName("red");
+// // console.log("before Update", items.length);
+// // console.log("after Update", items);
+// // console.log("after Update", items.length);
 
-// getElementsByClassName(); // attributes by class Name just we give  the class name  and return the HTML collection  which is accessed by similar method with the array  array like html collection  structure   they are
-// getElementsByTagName(); // return the  all the matching element return the html collection as array like structure and to be accessed
+// // for (let i = 0; i < items.length; i++) {
+// //   items[i].className = "yellow";
+// // }
+// // changing the html collection into actual array to avoid live update throught temp array
 
-// querySelectorAll(); // return  the nodeList  not the html collection which is static
+// // selection elements (traversing between muliple elements )
+// // examples
 
-// // each of the document method have their own properties   to access thier text
+// // properties
+// // firstElementChild;
+// const parentElement = document.getElementById("tech");
+// console.log(parentElement);
+// console.log(parentElement.firstElementChild);
+// // console.log(parentElement.childNodes);
+// console.log(parentElement.firstChild);
 
-// // individual element selector vs  multiple element selector
+// // lastElementChild\
 
-// // Html collection vs NodeList
+// console.log(parentElement.lastElementChild);
+// // parentElement
 
-// // html collection ?
-// // it alwatys live mean when there is a change in the document,   they  will automatically update  to reflect the change
-// // selectors that return  HTML collectin
-// getElementsByClassName();
-// getElementsByTagName();
-// // return the dom element (only things that has opening tag and closing tag inside
-// // the returned list is live
+// const apple = document.getElementById("one");
+// console.log(apple.parentElement);
+// //  sibiling selection from parent
 
-// // NodeList
-// // selectors that return the nodelist
-// querySelectorAll();
-// // return DOM NODE  ( every thing inside selected element )
-// // the returned list is static
+// newElement.textContent = "new element "; 
 
-const items = document.getElementsByClassName("red");
-console.log("before Update", items.length);
-console.log("after Update", items);
-console.log("after Update", items.length);
+// // nextElementSibling
+// const newElement = document.createElement("h1");
+// const referenceElement = document.getElementById("two");
 
-for (let i = 0; i < items.length; i++) {
-  items[i].className = "yellow";
-}
-// changing the html collection into actual array to avoid live update throught temp array
+
+// referenceElement.before(newElement)
+// console.log(referenceElement.nextElementSibling);
+// // previsous element
+// console.log(referenceElement.previousElementSibling);
+
+// // nth child
+// const secondChild = document.querySelector(".red:nth-child(2");
+// console.log(secondChild); // similar to css selector works for the css selector method to js elements selector it give more flexible for css selector  less faster than  getById which is more fater interms of performaces
+
+// // Altering the html elements
+// //  createElement;
+
+
+// // content inside  created tags or element
+// // innerText, textContent, innerHTML   TO GET THE CONTENT INSIDE THE TAGE WHAT IS IS THE DIFFEREN BETWEEN THTEM
+// console.dir(newElement);
+// newElement.innerHTML = "new"; 
+// the nested para is like a text or a tag when we use the inner text to create contents inside the created tags
+// console.log(newElement);
+// only support the text not the inner tag like that of the innerHTML
+// newElement.outerHTML = "new"
+
+// append(); at the final child of the parent 
+
+// const parent = document.getElementById("tech");
+// console.log(parent);
+// parent.append(newElement)
+
+// preappend();
+// const parent = document.getElementById("tech");
+// console.log(parent)
+// // parent.prepend(newElement);
+
+// // // before and after
+// const createNewelement = document.createElement("h1")
+// createNewelement.textContent= "this is paragraph"
+
+
+// createNewelement.innerText = "this is paragraph"
+// const ref = document.getElementById("two");
+// console.log(ref)
+// ref.before(createNewelement);
+// ref.replaceChild(createNewelement);
+// createNewelement.remove();
+// // for built method and prporties 
+// how to use them focus on 
+// their paramter 
+// what they are returning
+
+// insertBefore()  it asks the parent element and the refernce element 
+// selection the pareent tlemetn
+// selction the refere element 
+// insertBefore(createNewelement, refereceElemtn); it asks both the referece elemtn and parent element
+
+// the method takes the parent element as well as the reference elemetn after selecting these two things 
+// 
+
+// working with attributes(class name , id , classList)
+
+// update the attributes of the elements
+// className classList id
+// hasAttributes, 
+// getAttributes, 
+// setattrobies. 
+// removAtttribues  
+// classList works with multiple classess
+
+// html attributes addition information about the elemtn of tags of the html 
+
+// const amazon = document.getElementById("two");
+// console.log(amazon);
+// amazon.className = "yellow";
+// // add class Name
+
+// amazon.classList.add("test") // without overdding  we use the class list to add muliple  class without removing the first on e
+
+//  2 id 
+// const amazon = document.getElementById("two");
+// console.log(amazon.id);
+// console.log(amazon.id= "new id");
+
+// // getAttributes 
+// console.log(amazon.getAttribute("id")); // class , test 
+// // setAttributes  ( ) to add attributes 
+
+const amazon = document.getElementById("two");
+amazon.setAttribute("name" , "amazon")
+console.log(amazon);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

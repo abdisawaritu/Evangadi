@@ -288,7 +288,66 @@
 
 // live dom Object which is change which affected the orginal object 
 // querySelectorAll()  static not live 
-// by changing into actal array to loop through that temp array  changing into the static array 
+// // by changing into actal array to loop through that temp array  changing into the static array 
+
+// // traversing between  multiple element 
+// const test = document.getElementsByTagName("li");
+// console.log(test)
+
+// const yellowClass = document.querySelector(".yellow");
+// console.log(yellowClass);
+// let  talekWondim = yellowClass.nextElementSibling;
+// console.log(talekWondim)
+// // here is different properties that is used during the tranversing selection 
+// // parentNode
+// // previousElementSibiling
+// //  nestSibling
+// let parentE = yellowClass.parentNode;
+// console.log(parentE);
+
+// Update or changing the values of the element 
+// any thiings can be changed from the html we change using the js anythings 
+
+// changing directoly on broswer withoug changing the html documents  from the browser rathen that going goto the file 
+
+// let mango = document.getElementById("two");
+// console.log(mango); // for debugging purpose 
+// mango.className = "pink"
+// mango.textContent = "Ice Cream"
+
+// working with Html content 
+// this is when we want to add, remove an entire block of html code from our page 
+// we can use these built object method to do the above things 
+// we can use the following properties and method to dot that 
+// createElement();
+// innerHTML:
+// textContent
+// appendChild();
+// removeChild();  other method and properties are they  do this the above importatn things 
+
+let somePara = document.createElement("p");
+console.log(somePara);
+somePara.textContent ="Abebe Beso Bela ";
+// if I want on the webpage rather than console 
+
+document.body.appendChild(somePara); // only changes on browser on the fly not inside the actual html documet  or code 
+let mango = document.getElementById("two");
+console.log(mango);
+mango.className = "pink";
+mango.classList.add("abebe");
+console.log(mango.classList);
+console.log(mango.getAttribute("id"));
+
+
+
+
+
+
+
+
+
+
+
 
 
 
