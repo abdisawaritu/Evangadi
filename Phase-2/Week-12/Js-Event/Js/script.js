@@ -97,18 +97,33 @@ function changeBackground() {
 // selection method of the dom
 
 //
-const button = document.getElementById("change-bg");
-button.onclick = changeBackground;
+// const button = document.getElementById("change-bg");
+// button.onclick = changeBackground;
 
-function removeBackground() {
-  document.body.style.backgroundColor = "";
-}
+// function removeBackground() {
+//   document.body.style.backgroundColor = "";
+// }
 
-const removeBack = document.getElementById("removebg");
-removeBack.onmouseover = removeBackground;
-//  modern method of event listener 
+// const removeBack = document.getElementById("removebg");
+// removeBack.onmouseover = removeBackground;
+// //  modern method of event listener 
 
-// addEventListener ();
+// // addEventListener ();
 
-// const but = document.getElementById("change-bg-listener");
-// but.addEventListener("click", changeBackground);
+// // const but = document.getElementById("change-bg-listener");
+// // but.addEventListener("click", changeBackground);
+
+
+// halting default browser
+// js default behaviors  to stop the defualt  html behaviors 
+// - preventDeafult()
+// - preventDeafult()
+// -pr   we use most of the time in the form   to stop the default be
+
+
+// form 
+// form validation 
+// this is the assingment of for this week  to do for 
+// registration form 
+// for checker to submit  
+

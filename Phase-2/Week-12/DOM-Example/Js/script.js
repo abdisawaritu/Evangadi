@@ -118,12 +118,11 @@
 // console.log(apple.parentElement);
 // //  sibiling selection from parent
 
-// newElement.textContent = "new element "; 
+// newElement.textContent = "new element ";
 
 // // nextElementSibling
 // const newElement = document.createElement("h1");
 // const referenceElement = document.getElementById("two");
-
 
 // referenceElement.before(newElement)
 // console.log(referenceElement.nextElementSibling);
@@ -137,17 +136,16 @@
 // // Altering the html elements
 // //  createElement;
 
-
 // // content inside  created tags or element
 // // innerText, textContent, innerHTML   TO GET THE CONTENT INSIDE THE TAGE WHAT IS IS THE DIFFEREN BETWEEN THTEM
 // console.dir(newElement);
-// newElement.innerHTML = "new"; 
+// newElement.innerHTML = "new";
 // the nested para is like a text or a tag when we use the inner text to create contents inside the created tags
 // console.log(newElement);
 // only support the text not the inner tag like that of the innerHTML
 // newElement.outerHTML = "new"
 
-// append(); at the final child of the parent 
+// append(); at the final child of the parent
 
 // const parent = document.getElementById("tech");
 // console.log(parent);
@@ -162,37 +160,36 @@
 // const createNewelement = document.createElement("h1")
 // createNewelement.textContent= "this is paragraph"
 
-
 // createNewelement.innerText = "this is paragraph"
 // const ref = document.getElementById("two");
 // console.log(ref)
 // ref.before(createNewelement);
 // ref.replaceChild(createNewelement);
 // createNewelement.remove();
-// // for built method and prporties 
-// how to use them focus on 
-// their paramter 
+// // for built method and prporties
+// how to use them focus on
+// their paramter
 // what they are returning
 
-// insertBefore()  it asks the parent element and the refernce element 
+// insertBefore()  it asks the parent element and the refernce element
 // selection the pareent tlemetn
-// selction the refere element 
+// selction the refere element
 // insertBefore(createNewelement, refereceElemtn); it asks both the referece elemtn and parent element
 
-// the method takes the parent element as well as the reference elemetn after selecting these two things 
-// 
+// the method takes the parent element as well as the reference elemetn after selecting these two things
+//
 
 // working with attributes(class name , id , classList)
 
 // update the attributes of the elements
 // className classList id
-// hasAttributes, 
-// getAttributes, 
-// setattrobies. 
-// removAtttribues  
+// hasAttributes,
+// getAttributes,
+// setattrobies.
+// removAtttribues
 // classList works with multiple classess
 
-// html attributes addition information about the elemtn of tags of the html 
+// html attributes addition information about the elemtn of tags of the html
 
 // const amazon = document.getElementById("two");
 // console.log(amazon);
@@ -201,21 +198,21 @@
 
 // amazon.classList.add("test") // without overdding  we use the class list to add muliple  class without removing the first on e
 
-//  2 id 
+//  2 id
 // const amazon = document.getElementById("two");
 // console.log(amazon.id);
 // console.log(amazon.id= "new id");
 
-// // getAttributes 
-// console.log(amazon.getAttribute("id")); // class , test 
-// // setAttributes  ( ) to add attributes 
+// // getAttributes
+// console.log(amazon.getAttribute("id")); // class , test
+// // setAttributes  ( ) to add attributes
 
 // const amazon = document.getElementById("two");
 // amazon.setAttribute("name" , "amazon")
 // console.log(amazon);
 
 // append vs appendChild
-// inline styling 
+// inline styling
 
 // const apple = document.getElementById("one");
 // console.dir(apple)  // all the object hier inside the apple
@@ -224,50 +221,82 @@
 // apple.style.fontSize = "60px"
 // apple.style.color = "white"
 
-// html collection and altering 
+// html collection and altering
 // when the dom updated the collection of the html also upadted
 // html collection vs nodeList  video
 
-
 // Live vs Static DOM
 
-const boxes = document.getElementsByClassName("box");
-console.log(boxes)
-console.log(boxes.length) // 3
-document.body.innnerHTML += '<div class="box">box4</div>'
-console.log(boxes);
+// const boxes = document.getElementsByClassName("box");
+// console.log(boxes)
+// console.log(boxes.length) // 3
+// document.body.innnerHTML += '<div class="box">box4</div>'
+// console.log(boxes);
 
-// getElementByTagName();
-const par = document.getElementsByTagName("p");
-console.log(par);
+// // getElementByTagName();
+// const par = document.getElementsByTagName("p");
+// console.log(par);
 
+//  ways to bind an event (html event handlers)
+// three ways to assing/bind  event handersl to an event
+// 1. html event handlers attribute
+// 2.traditional  dom event handlers
+// 3 dom level  event listeners
 
+// 1. HTML  event handers attribute
+//     - define  a function on you js that does something
+//   - go to html file  and attach the functin using the  event attributes
+// examples    on js file
+// function  showClickedAlert(){
+//                   alert("button is click ")}
 
+// on html file
+//  < button  onclick  = "showClickedAlert()" <button save</button >
+//   const apple = document.getElementById("one");
 
+// traditionnal dom event handers
+// const apple = document.getElementById("one");
+// const btn = document.getElementById("btn");
 
+// function changeColor() {
+//   apple.style.color = "white";
+//   apple.style.backgroundColor = "green";
+//   // // selection is not needed because alread we have binded our element to the  event
+//   // alert("the button is clicked")
+// }
 
+// function removeColor() {
+//   apple.style.color = "";
+//   apple.style.backgroundColor = "";
+// }
 
+// btn.onclick = changeColor; // withoug calling  only the name of funcin here binding in inside the js  the connection binding method different here
+// btn.ondblclick = removeColor; // here binding is different
 
+// btn.addEventListener("click", changeColor);
+// muliple event on  the one event handers
 
+// traditional method
+// btn.onclick = function () {
+//   apple.style.backgroundColor = "green";
+// };
+// btn.onclick = function () {
+//   apple.style.color = "white"; // only this executes trad cannot work with multile handers
+// };
+//   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES 
+// btn.addEventListener("click" , function (){  // anonumou function usnig connection 
+//     apple.style.backgroundColor = "green"
+// })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// btn.addEventListener("click", function () {
+//   apple.style.color = "white";
+// });
+ // halting the default behavaris inside event objects 
+const link = document.getElementById("evangadi-link");
+link.addEventListener("click" , function (e){
+    e.preventDefault();
+    console.log(e)
+    link.innerHTML = "<h1>   Hello world </h1>"
+})
 
 
