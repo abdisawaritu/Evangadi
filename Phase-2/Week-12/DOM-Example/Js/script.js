@@ -210,9 +210,44 @@
 // console.log(amazon.getAttribute("id")); // class , test 
 // // setAttributes  ( ) to add attributes 
 
-const amazon = document.getElementById("two");
-amazon.setAttribute("name" , "amazon")
-console.log(amazon);
+// const amazon = document.getElementById("two");
+// amazon.setAttribute("name" , "amazon")
+// console.log(amazon);
+
+// append vs appendChild
+// inline styling 
+
+// const apple = document.getElementById("one");
+// console.dir(apple)  // all the object hier inside the apple
+
+// apple.style.backgroundColor = "green"
+// apple.style.fontSize = "60px"
+// apple.style.color = "white"
+
+// html collection and altering 
+// when the dom updated the collection of the html also upadted
+// html collection vs nodeList  video
+
+
+// Live vs Static DOM
+
+const boxes = document.getElementsByClassName("box");
+console.log(boxes)
+console.log(boxes.length) // 3
+document.body.innnerHTML += '<div class="box">box4</div>'
+console.log(boxes);
+
+// getElementByTagName();
+const par = document.getElementsByTagName("p");
+console.log(par);
+
+
+
+
+
+
+
+
 
 
 

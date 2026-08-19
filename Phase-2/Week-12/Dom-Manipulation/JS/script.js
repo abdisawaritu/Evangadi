@@ -325,18 +325,34 @@
 // appendChild();
 // removeChild();  other method and properties are they  do this the above importatn things 
 
-let somePara = document.createElement("p");
-console.log(somePara);
-somePara.textContent ="Abebe Beso Bela ";
-// if I want on the webpage rather than console 
+// let somePara = document.createElement("p");
+// console.log(somePara);
+// somePara.textContent ="Abebe Beso Bela ";
+// // if I want on the webpage rather than console 
 
-document.body.appendChild(somePara); // only changes on browser on the fly not inside the actual html documet  or code 
-let mango = document.getElementById("two");
-console.log(mango);
-mango.className = "pink";
-mango.classList.add("abebe");
-console.log(mango.classList);
-console.log(mango.getAttribute("id"));
+// document.body.appendChild(somePara); // only changes on browser on the fly not inside the actual html documet  or code 
+// let mango = document.getElementById("two");
+// console.log(mango);
+// mango.className = "pink";
+// mango.classList.add("abebe");
+// console.log(mango.classList);
+// console.log(mango.getAttribute("id"));
+
+// changing  the css stle using the style properties  it self 
+// js equiavalent style of css properties 
+// css propertoes  ===  Javascript Reference 
+
+// in js we use the came case  naming convention
+
+
+// let element=  document.querySelector("h1");
+// element.style.backgroundColor = 'blue'
+// element.style.padding = " 10px";
+// element.style.color = "white";
+// element.style.borderBottom = "2px solid black"
+// // without doing 
+
+
 
 
 
