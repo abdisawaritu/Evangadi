@@ -184,17 +184,17 @@
 // //  getElements...    classList       remove
 // //                    attributes
 
-// // selecting elements  like we have done for css // css selector 
-// // selection the individual element  using id 
-// // selection  of the multiple element  
-// //  traverstin  between muliple element 
-// // selection the individual element 
-// // selection of the specific elements 
-// // using the 
+// // selecting elements  like we have done for css // css selector
+// // selection the individual element  using id
+// // selection  of the multiple element
+// //  traverstin  between muliple element
+// // selection the individual element
+// // selection of the specific elements
+// // using the
 // // document.getElementById()
-// // document.querySelector(); // uses the css selector syntax 
-// // finding the muliple html elemetns that match a partiduclar condition 
-// // important method 
+// // document.querySelector(); // uses the css selector syntax
+// // finding the muliple html elemetns that match a partiduclar condition
+// // important method
 // // document.querySelectorAll()
 // //documement.getElementsByClassName();
 // // document.getElementsByTagName()
@@ -205,7 +205,7 @@
 // // querySelectorAll()	CSS selector	All matching elements
 // // getElementsByClassName()	Class	HTMLCollection
 // // getElementsByTagName()	Tag	HTMLCollection
-// // parent child selector 
+// // parent child selector
 
 // // element.parentElement;
 
@@ -225,9 +225,9 @@
 
 // // document.querySelector(".container > p");
 
-// // selecting individual elements 
+// // selecting individual elements
 
-// // document object method 
+// // document object method
 
 // let mango =  document.getElementById("two");
 // console.log(mango);
@@ -240,7 +240,7 @@
 // const allSelector = document.querySelectorAll(".yellow");
 // console.log(allSelector);
 // le.className = "pink";
-// // muiliple element selector 
+// // muiliple element selector
 
 // //getElementbyClassName();
 // // getElementByTagsName();
@@ -252,17 +252,43 @@
 // console.log(gebyT);
 
 // // returns NodeList ro HTML collection return as array like structure which are found on our browser
-// after return from NodeList or HtMl collection 
-// like we applied for array we use the index of the element 
+// after return from NodeList or HtMl collection
+// like we applied for array we use the index of the element
 // from the collection we use array index to indefies  the one element  or using the item method
 
+// const test1 = document.getElementsByClassName   ("yellow");
+// // // reference is affected
+// // test1[0].className = "pink"; 
+// console.log(test1);
+// test1[0].className = "pink";  // we changed  after the console changed by reference rather than values as we have seen before 
+// // we change the value after the console
+// let temp = [];
+// for (let i = 0; i < test1.length; i++) {
+//   // let selectedItem = test1[i];
+//   // selectedItem.className = "pink";  // updated lively at each iteration  because live dom element it changed immediately its array like structure  not actual array 
+//   temp.push(test1[i])
+// }
+// console.log(temp);
 
+// for(let i = 0 ; i<temp.length ; i++){
+//   let selectedItem = temp[i];
+//   selectedItem.className = "pink";
+// }
 
+// let test2 = document.getElementsByTagName("li"); // loop is possible because its not lived 
+// console.log(test2)
 
+// for (let i = 0; i < test2.length; i++) {
+//   let selectedItem = test2[i];
+//   selectedItem.className = "pink";
+  
+//  }  
+//   live vs non live in dom manipulation 
+// // accessing by values and reference 
 
-
-
-
+// live dom Object which is change which affected the orginal object 
+// querySelectorAll()  static not live 
+// by changing into actal array to loop through that temp array  changing into the static array 
 
 
 
