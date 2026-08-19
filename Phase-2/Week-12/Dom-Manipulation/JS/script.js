@@ -2,19 +2,22 @@
 // DOM   the connection between html and jss
 // if we want to implement the js to the html text  we need some connection between them  that connection is called the DOM
 // example
-let somePerson = {
-  name: "abdisa",
-  age: 30,
-  eduction: {
-    school: "evangadi",
-    field: " Full stack appliction development",
-    grade: 3.9,
-  },
-};
-// we can access the above object using the  dot notation or bracket notation
-console.log(somePerson);
-somePerson.eduction.grade = 4.0;
-console.log(somePerson);
+// let somePerson = {
+//   name: "abdisa",
+//   age: 30,
+//   eduction: {
+//     school: "evangadi",
+//     field: " Full stack appliction development",
+//     grade: 3.9,
+//   },
+//   getName: function (){
+//     return this.name;
+//   }
+// };
+// // we can access the above object using the  dot notation or bracket notation
+// console.log(somePerson);
+// somePerson.eduction.grade = 4.0;
+// console.log(somePerson);
 
 // Very Important question is what if we have a way to convert the html text   into a structured object like the above somePerson object  ? if we do that  we can apply the Javascript techniquestion we know on the object right?
 // DOM is th  answer for that ? a protocol (standard) that the browser understand
@@ -29,12 +32,12 @@ console.log(somePerson);
 // HTML is a markup language. JavaScript is a programing language that usually deals with
 // objects. How do they work together then?
 
-let abebe = {
-  // if I have abebe object
-  prt1: 2,
-  prt2: 4,
-};
-abebe.prt1 = 55; // updating the properties of the abebe object
+// let abebe = {
+//   // if I have abebe object
+//   prt1: 2,
+//   prt2: 4,
+// };
+// abebe.prt1 = 55; // updating the properties of the abebe object
 // DOM HTML DOCUMENT  // like the above the html document also  changed to the following dom object
 // let document  = {
 //     html: {
@@ -131,9 +134,9 @@ abebe.prt1 = 55; // updating the properties of the abebe object
 // text node =  text writtein
 // attribute node =   attribute
 // comment node =  for comments
-console.dir(document);
-console.log(document.body.children);
-console.log(document.body.childNodes);
+// console.dir(document);
+// console.log(document.body.children);
+// console.log(document.body.childNodes);
 
 // DOM manipulation
 // manipulation takes two steps
@@ -154,38 +157,109 @@ console.log(document.body.childNodes);
 
 // update method
 // element.textContent;
-// element.innerHTML;
-// element.innerText;
+// // element.innerHTML;
+// // element.innerText;
 
-// element.style;
-// element.classList;
+// // element.style;
+// // element.classList;
 
-// element.setAttribute();
-// element.getAttribute();
-// element.removeAttribute();
-// document.createElement();
-// element.append();
-// element.appendChild();
-// element.remove();
-// element.removeChild();
-//                    DOM MANIPULATION
-//                        │
-//         ┌──────────────┼──────────────┐
-//         ↓              ↓              ↓
-//     SELECT          MODIFY        CREATE/REMOVE
-//         │              │              │
-//         │              │              │
-//  querySelector     textContent     createElement
-//  querySelectorAll  innerHTML       append
-//  getElementById    style           prepend
-//  getElements...    classList       remove
-//                    attributes
+// // element.setAttribute();
+// // element.getAttribute();
+// // element.removeAttribute();
+// // document.createElement();
+// // element.append();
+// // element.appendChild();
+// // element.remove();
+// // element.removeChild();
+// //                    DOM MANIPULATION
+// //                        │
+// //         ┌──────────────┼──────────────┐
+// //         ↓              ↓              ↓
+// //     SELECT          MODIFY        CREATE/REMOVE
+// //         │              │              │
+// //         │              │              │
+// //  querySelector     textContent     createElement
+// //  querySelectorAll  innerHTML       append
+// //  getElementById    style           prepend
+// //  getElements...    classList       remove
+// //                    attributes
 
-// selecting elements  like we have done for css // css selector 
-// selection the individual element 
-// selection  of the multiple element 
-//  traverstin  between muliple element 
-// selection the individual element 
+// // selecting elements  like we have done for css // css selector 
+// // selection the individual element  using id 
+// // selection  of the multiple element  
+// //  traverstin  between muliple element 
+// // selection the individual element 
+// // selection of the specific elements 
+// // using the 
+// // document.getElementById()
+// // document.querySelector(); // uses the css selector syntax 
+// // finding the muliple html elemetns that match a partiduclar condition 
+// // important method 
+// // document.querySelectorAll()
+// //documement.getElementsByClassName();
+// // document.getElementsByTagName()
+// // Comparing Multiple Selection Methods
+// // Method	Selection	Result
+// // getElementById()	ID	One element
+// // querySelector()	CSS selector	First matching element
+// // querySelectorAll()	CSS selector	All matching elements
+// // getElementsByClassName()	Class	HTMLCollection
+// // getElementsByTagName()	Tag	HTMLCollection
+// // parent child selector 
+
+// // element.parentElement;
+
+// // element.children;
+
+// // element.firstElementChild;
+
+// // element.lastElementChild;
+
+// // element.nextElementSibling;
+
+// // element.previousElementSibling;
+
+// // container.querySelector("p");
+
+// // container.querySelectorAll(".item");
+
+// // document.querySelector(".container > p");
+
+// // selecting individual elements 
+
+// // document object method 
+
+// let mango =  document.getElementById("two");
+// console.log(mango);
+// console.log(mango.className);
+// mango.className = "red"
+
+// // querySelector () return the html elements using the css selector  similar to the css selector  only return  the first element eventhough we have muliple elements that satisfeis the selecction criteria
+// const le = document.querySelector(".yellow")
+// console.log(le);
+// const allSelector = document.querySelectorAll(".yellow");
+// console.log(allSelector);
+// le.className = "pink";
+// // muiliple element selector 
+
+// //getElementbyClassName();
+// // getElementByTagsName();
+
+// const cllNa= document.getElementsByClassName("green")
+// console.log(cllNa)
+
+// const gebyT = document.getElementsByTagName("li")
+// console.log(gebyT);
+
+// // returns NodeList ro HTML collection return as array like structure which are found on our browser
+// after return from NodeList or HtMl collection 
+// like we applied for array we use the index of the element 
+// from the collection we use array index to indefies  the one element  or using the item method
+
+
+
+
+
 
 
 
