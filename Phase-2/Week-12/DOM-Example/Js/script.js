@@ -283,20 +283,52 @@
 // btn.onclick = function () {
 //   apple.style.color = "white"; // only this executes trad cannot work with multile handers
 // };
-//   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES 
-// btn.addEventListener("click" , function (){  // anonumou function usnig connection 
+//   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES
+// btn.addEventListener("click" , function (){  // anonumou function usnig connection
 //     apple.style.backgroundColor = "green"
 // })
 
 // btn.addEventListener("click", function () {
 //   apple.style.color = "white";
 // });
- // halting the default behavaris inside event objects 
-const link = document.getElementById("evangadi-link");
-link.addEventListener("click" , function (e){
-    e.preventDefault();
-    console.log(e)
-    link.innerHTML = "<h1>   Hello world </h1>"
-})
+//  // halting the default behavaris inside event
+// const link = document.getElementById("evangadi-link");
+// link.addEventListener("click" , function (e){
+//     e.preventDefault();
+//     console.log(e)
+//     link.innerHTML = "<h1>   Hello world </h1>"
+// })
 
+const form = document.getElementById("registration-form");
+const firstName = document.getElementById("first");
 
+console.dir(firstName);
+const lastName = document.getElementById("last");
+console.log(lastName);
+console.log(form);
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (firstName.value.length === 0) {
+    firstName.style.backgroundColor = "red";
+  }
+  if (lastName.value.length === 0) {
+    lastName.style.backgroundColor = "red";
+  }
+  if (firstName.value && lastName.value) {
+    alert(` thankyou ${firstName.value}`);
+  }
+};
+form.addEventListener("submit", handleSubmit);
+
+// event propagation
+
+// Bonus  Event Propagation 4
+document.getElementById("parent").addEventListener("click", () => {
+  alert("Parent Clicked");
+});
+// bubbling phase to stop the propagation of event from the parent element to child element
+document.getElementById("child").addEventListener("click", (e) => {
+  e.stopPropagation();
+  alert("child clicked");
+});

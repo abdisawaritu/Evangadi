@@ -126,4 +126,9 @@ function changeBackground() {
 // this is the assingment of for this week  to do for 
 // registration form 
 // for checker to submit  
+// prevent the link from propagagion from default value usnig the differnt method  form the object pointer   different  properties 
 
+//  function  formSubmitChecker (e){
+    // pseducode 
+    
+// }
