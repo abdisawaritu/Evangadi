@@ -237,11 +237,31 @@
 // const par = document.getElementsByTagName("p");
 // console.log(par);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //  ways to bind an event (html event handlers)
 // three ways to assing/bind  event handersl to an event
 // 1. html event handlers attribute
 // 2.traditional  dom event handlers
-// 3 dom level  event listeners
+// 3 dom level  event listeners(addEventListener())  method takes evetn and the handersl function on th the selection element 
 
 // 1. HTML  event handers attribute
 //     - define  a function on you js that does something
@@ -255,20 +275,20 @@
 //   const apple = document.getElementById("one");
 
 // traditionnal dom event handers
-// const apple = document.getElementById("one");
-// const btn = document.getElementById("btn");
+const apples = document.getElementById("one");
+const btn = document.getElementById("btn");
 
-// function changeColor() {
-//   apple.style.color = "white";
-//   apple.style.backgroundColor = "green";
-//   // // selection is not needed because alread we have binded our element to the  event
-//   // alert("the button is clicked")
-// }
+function changeColor() {
+  apples.style.color = "white";
+  apples.style.backgroundColor = "green";
+  // // selection is not needed because alread we have binded our element to the  event
+  // alert("the button is clicked")
+}
 
-// function removeColor() {
-//   apple.style.color = "";
-//   apple.style.backgroundColor = "";
-// }
+function removeColor() {
+  apple.style.color = "";
+  apple.style.backgroundColor = "";
+}
 
 // btn.onclick = changeColor; // withoug calling  only the name of funcin here binding in inside the js  the connection binding method different here
 // btn.ondblclick = removeColor; // here binding is different
@@ -276,17 +296,27 @@
 // btn.addEventListener("click", changeColor);
 // muliple event on  the one event handers
 
-// traditional method
+// //traditional method
+
+// during bindint the function does not have the parenthtesis
+
+// Element.eventType = function ;
+// function is not called just the name of th efunction if we call it does not wait the function event just watit to event 
+
 // btn.onclick = function () {
 //   apple.style.backgroundColor = "green";
+// };
+// btn.onclick = function () {
+//   apple.style.color = "white"; // only this executes trad cannot work with multile handers here only the second element event happens   big limiatation only one handlers  we cant apply the multiple    so we use the dom event listener to 
 // // };
-// // btn.onclick = function () {
-// //   apple.style.color = "white"; // only this executes trad cannot work with multile handers
-// // };
-// //   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES
+// //   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES  avoid the limititation of traditional dom event listenere 
+
 // // btn.addEventListener("click" , function (){  // anonumou function usnig connection
 // //     apple.style.backgroundColor = "green"
 // // })
+// elements.addEventListener(event. handler)
+// here binding and attaching are at the same time 
+
 
 // // btn.addEventListener("click", function () {
 // //   apple.style.color = "white";
@@ -295,12 +325,21 @@
 // // const link = document.getElementById("evangadi-link");
 // // link.addEventListener("click" , function (e){
 // //     e.preventDefault();
+
+// on one event we can attach multiple handlers for the dom 
 // //     console.log(e)
 // //     link.innerHTML = "<h1>   Hello world </h1>"
 // // })
+// "When the click happens, call this function.";
+// element.removeEventListener("event", function);
 
+// when we call the function  it exectures the code wheneven if the user takes the event   the function executes so that we cant call the function  just give the function name either name , anu , indepeende function to the  add event list method  
+
+// function (event) eve e  e.preventdefaultO()
+  // here event is the object of even 
 // // const form = document.getElementById("registration-form");
 // // const firstName = document.getElementById("first");
+// element.addEventListener("event", function);
 
 // // console.dir(firstName);
 // // const lastName = document.getElementById("last");
@@ -324,14 +363,14 @@
 // // // event propagation
 
 // // // Bonus  Event Propagation 4
-// // document.getElementById("parent").addEventListener("click", () => {
-// //   alert("Parent Clicked");
-// // });
-// // // bubbling phase to stop the propagation of event from the parent element to child element
-// // document.getElementById("child").addEventListener("click", (e) => {
-// //   e.stopPropagation();
-// //   alert("child clicked");
-// // });
+document.getElementById("parent").addEventListener("click", () => {
+  alert("Parent Clicked");
+});
+// bubbling phase to stop the propagation of event from the parent element to child element
+document.getElementById("child").addEventListener("click", (e) => {
+  e.stopPropagation();
+  alert("child clicked");
+});
 
 // // Altering  and multiple selection
 
@@ -436,7 +475,6 @@
 // }
 // console.log(itemss.length);
 
-
 // let parentElements = document.getElementById("tech");
 // console.log(parentElements);
 // console.log(parentElements.firstElementChild);
@@ -447,121 +485,284 @@
 // console.log(parentElements.firstChild);
 // console.log(parentElements.lastChild); // return the first node the text node  the differen between the childNode and childern as well elementnode v
 
-// // from child to parent starting from the childern to get the parentElement using the different properties  and by using the different method 
+// // from child to parent starting from the childern to get the parentElement using the different properties  and by using the different method
 
 // const apple = document.getElementById("one");
 // console.log(apple);
 // console.log(apple.parentElement);
 
-// // selection between the sibling  fo the same parents to get the next element to the selected element 
+// // selection between the sibling  fo the same parents to get the next element to the selected element
 
 // console.log(apple.nextElementSibling);
 // console.log(apple.previousElementSibling);
 // console.log(document.querySelector(".red:nth-child(1)"));
 
-// everthing we apppled for css selector to the queryselector();
+// // everthing we apppled for css selector to the queryselector();
 
-// Altering (any html properties ())
-// any thing we can do on the html can be done using  js on the fly on the browser 
-// Most common used method for altering the DOM
-// 1.createElement();
-// 2.appendChild();
-// 3.prepend();
-// 4.innerHTML();
-// 5.textContent();
-// 6.removeChild();
-// 7after()
-// 8 before  ();
+// // Altering (any html properties ())
+// // any thing we can do on the html can be done using  js on the fly on the browser
+// // Most common used method for altering the DOM
+// // 1.createElement();
+// // 2.appendChild();
+// // 3.prepend();
+// // 4.innerHTML();
+// // 5.textContent();
+// // 6.removeChild();
+// // 7after()
+// // 8 before  ();
 
-// examples
+// // examples
 
-// creating new element using js
+// // creating new element using js
+
+// const newElement = document.createElement("p");
+// console.log(newElement);
+
+// newElement.innerHTML = " this is new element "; // adding contents to the created element (innerText, innerHTML, textContent)
+// // we can use also textContent and inner HTML
+
+// // outer html
+// // inner html give the html inside the element or selected element
+
+// const box = document.getElementById("box");
+// console.log(box.outerHTML);
+// console.log(box.outerText);
+// console.log(box.innerHTML);
+
+// // innerHTML  → HTML inside
+// // outerHTML  → element + HTML inside
+
+// // innerText  → rendered text inside
+// // outerText  → rendered text representation of the element
+
+// // append (To append means to add something to the very end of a piece of writing, document, or data set)
+
+// // as last child   of the parent
+// // before appending the element first we have select the place we wanna to append the  element
+
+// const parent = document.getElementById("tech");
+// console.log(parent);
+
+// parent.append(newElement , "hey");
+
+// // prepen() as the first child of the parend adding
+
+// // parent.prepend(newElement);
+
+// // to get full control of the the place we want to add or append  we use before and after
+
+// //  before ()   and after();
+
+// const referenceElement = document.getElementById("two");
+// console.log(referenceElement);
+// // referenceElement.before(newElement);
+// referenceElement.after(newElement);
+
+// // we get full control where we want
+
+// //   to remove the element
+// // removeChild() and  remove()  // these two method are used to remove the newly created element from the given page
+
+// // parent.removeChild(newElement);
+// newElement.remove();
+// // here we dont need the parent just remove it
+
+// // insertBefore() method   the same as before must it need the selection of the parent element as well the   reference element
+// // it requires the selection of the parent as well refer
+
+// parent.insertBefore(newElement, referenceElement);
+
+// // very important points here  selection of the reference element  and parent element  to create and append or insert into our page
+
+// // Altering Attributes ( HTML attributes) are the found on the the opening tags of the html
+// // className
+// // id
+// // classList
+// // different attribute of the html
+// //
+// const amazon = document.getElementById("two");
+// // const apple = document.getElementById("one");
+// // amazon.append(apple);// question
+
+// // console.log(document.getElementById("tech"))
+
+// // className  and classList properties
+// console.log(amazon);
+// amazon.className = "yellow";
+// // className override the first class name it does not add the new multiple class name
+
+// amazon.classList.add("test");
+// amazon.classList.remove("red")
+
+// //  id
+
+// // amazon.id = "new ID "
+// // console.log(amazon )
+
+// // getAttributes  to get the values of the selected elemt attributes
+
+// console.log(amazon.getAttribute("id"));
+
+// amazon.setAttribute("name" , "amazaon ")  // link can be also inserted
+
+// // appendHCILd vs append
+// // their differencees append and appendChild  append to add new element or noder other than created one append have more advantage  thatn appendchild
+
+// // update or changin the css behavirou using the js using the style object  and different method and properites of the
+
+const apple = document.getElementById("two");
+apple.style.backgroundColor = "green";
+apple.style.color = "white";
+apple.style.border = "black solid";
+// apple.style.display = "none";
+
+// html collection vs node list
+// html collection they are live
+//  node list either they are live or static
+
+const boxes = document.getElementsByClassName("box");
+console.log(boxes.length); //3
+
+// modifying the dom  affects the live collection of teh htmls
+document.body.innerHTML += '<div class="box">box 4</div>';
+console.log(boxes); // leng 4
+
+// the same is true for the getElement by Tag name it return html collection which update  the element lively
+
+// with dom traversal  you have to first parent element or the referece element selection
+
+// element.parentElement;  give the htm element that direct contaitn this elemetn
+
+// createElement() creates the element, but does not insert it into the page.
+
+const paragraph = document.createElement("p");
+paragraph.textContent = "Hello , Abdisa!";
+
+paragraph.classList.add("message");
+paragraph.id = "welcome";
+
+const body = document.body;
+body.append(paragraph);
+
+// let imagcreat = document.createElement("img")
+// imagcreat.setAttribute("src"  , "sourse of the image ")
+// parent.append(image);
+// we can also change the
+
+// element.style.property = "value";
+// JavaScript uses camelCase:
+
+const button = document.querySelector("#changeBtn");
+const box = document.querySelector("#box");
+
+button.addEventListener("click", function () {
+  box.style.backgroundColor = "red";
+  box.style.color = "white";
+  box.style.width = "300px";
+  box.style.height = "200px";
+});
 
 
-const newElement =  document.createElement("p")
-console.log(newElement)
+const buttons = document.querySelector("#darkBtn");
 
-newElement.innerHTML = " this is new element "; // adding contents to the created element (innerText, innerHTML, textContent)
-// we can use also textContent and inner HTML 
+buttons.addEventListener("click", function () {
+  document.body.classList.toggle("dark");
+});
 
-// outer html 
-// inner html give the html inside the element or selected element 
+  //                USER ACTION
+  //                    ↓
+  //                 EVENT
+  //                    ↓
+  //             EVENT LISTENER
+  //                    ↓
+  //            CALLBACK FUNCTION
+  //                    ↓
+  //       ┌────────────┼────────────┐
+  //       ↓            ↓            ↓
+  //     HTML       ATTRIBUTE       CSS
+  //       ↓            ↓            ↓
+  //  textContent   setAttribute   classList
+  //  innerHTML     removeAttr     style
+  //  createElement dataset        toggle
+  //       ↓            ↓            ↓
+  // //       └────────────┼────────────┘
+  // //                    ↓
+  // //               PAGE UPDATES
 
-const box = document.getElementById("box");
-console.log(box.outerHTML);
-console.log(box.outerText);
-console.log(box.innerHTML)
+  // const buttonss = document.querySelector("#button");
+  // const message = document.querySelector("#message");
 
-// innerHTML  → HTML inside
-// outerHTML  → element + HTML inside
+  // buttonss.addEventListener("click", function () {
+  //   message.textContent = "The message has changed!";
+  // });
 
-// innerText  → rendered text inside
-// outerText  → rendered text representation of the element
+  // const themeButton = document.querySelector("#themeButton");
 
-// append (To append means to add something to the very end of a piece of writing, document, or data set)
+  // themeButton.addEventListener("click", function () {
+  //   document.body.classList.toggle("dark");
 
-// as last child   of the parent 
-// before appending the element first we have select the place we wanna to append the  element 
+  //   if (document.body.classList.contains("dark")) {
+  //     themeButton.textContent = "Light Mode";
+  //   } else {
+  //     themeButton.textContent = "Dark Mode";
+  //   }
+  // });
 
-const parent = document.getElementById("tech");
-console.log(parent);
+  const menuButton = document.querySelector("#menuButton");
+  const menu = document.querySelector("#menu");
 
-// parent.append(newElement);
+  menuButton.addEventListener("click", function () {
+    menu.classList.toggle("open");
+  });
 
-// prepen() as the first child of the parend adding 
+  const email = document.querySelector("#email");
+  const submit = document.querySelector("#submit");
+  const error = document.querySelector("#error");
 
-parent.prepend(newElement)  
+  submit.addEventListener("click", function () {
+    if (email.value === "") {
+      error.textContent = "Email is required";
+      error.classList.add("error");
+    } else {
+      error.textContent = "Email is valid";
+      error.classList.add("success");
+    }
+  });
 
-// to get full control of the the place we want to add or append  we use before and after 
-
-//  before ()   and after();
-
-const referenceElement = document.getElementById("two");
-console.log(referenceElement);
-// referenceElement.before(newElement);
-referenceElement.after(newElement);
-
-// we get full control where we want 
-
-//   to remove the element 
-// removeChild() and  remove()  // these two method are used to remove the newly created element from the given page
-
-// parent.removeChild(newElement);
-newElement.remove(); 
-// here we dont need the parent just remove it 
-
-// insertBefore() method   the same as before must it need the selection of the parent element as well the   reference element 
-// it requires the selection of the parent as well refer 
-
-parent.insertBefore(newElement , referenceElement)
-
-// very important points here  selection of the reference element  and parent element  to create and append or insert into our page
-
-// Altering Attributes ( HTML attributes)
-// className
-// id 
-// classList
-// different attribute of the html
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //                     USER
+  //                    │
+  //                    ↓
+  //             User interaction
+  //                    │
+  //                    ↓
+  //            s      EVENT
+  //                    │
+  //                    ↓
+  //            Event listener
+  //                    │
+  //                    ↓
+  //             Callback function
+  //                    │
+  //       ┌────────────┼────────────┐
+  //       ↓            ↓            ↓
+  //      DOM        ATTRIBUTES      CSS
+  //       │            │            │
+  //       ↓            ↓            ↓
+  // textContent    setAttribute   classList
+  // innerHTML      dataset        style
+  // createElement
+  // append
+  // remove
+  //       │            │            │
+  //       └────────────┼────────────┘
+  //                    ↓
+  //               USER INTERFACE
+  //                    │
+  //                    ↓
+  //              Backend/API
+  //                    │
+  //                    ↓
+  //                Database
 
 
+  
