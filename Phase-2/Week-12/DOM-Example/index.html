@@ -17,12 +17,25 @@ Continues parsing the HTML -->
   </head>
   <body>
     <h1>Document Object MODEL (DOM) Manipulation</h1>
-    <div id="tech">
+    <div id="tech" class="parent">
       <h1 id="one" class="red" name="test">Apple</h1>
       <h1 id="two" class="red">Amazon</h1>
       <h1 id="three" class="red">Tesla</h1>
       <h1 id="four" class="red">Microsoft <b>Windows</b></h1>
     </div>
+
+    <p class="para" id="paragraph">Welcome</p>
+    <p class="secondPara">Hello</p>
+
+    <p class="product">Phone</p>
+    <p class="product">Laptop</p>
+    <p class="product">Keyboard</p>
+
+    <div class="card">Phone</div>
+
+    <div class="card active">Laptop</div>
+
+    <div class="card">Tablet</div>
     <!-- // js event -->
     <!-- <button onclick="changeColor()"  ondblclick="removeColor()">change Color</button>  we use this on react -->
 
@@ -36,25 +49,56 @@ Continues parsing the HTML -->
     <!-- <a href="https://evangadi.com/" id="evangadi-link">Evangadi Networks</a> -->
 
     <h3>Enter your Name</h3>
-    <form action=""  id="registration-form"  class="form">
-      <input type="text" placeholder="First Name"  id="first"  required/> <br /><br />
+    <form action="" id="registration-form" class="form">
+      <input type="text" placeholder="First Name" id="first" required />
+      <br /><br />
       <input type="text" placeholder="Last Name" id="last" /> <br />
       <br />
       <button type="submit">Submit</button>
-    </form> 
+    </form>
     <!-- // use custom validation  -->
-     
 
     <!-- event propagation  -->
 
-  <h3>Event Propagation </h3>
-  <div id="parent">
-    <button id="child">
-      Click Me
-    </button>
-  </div>
+    <h3>Event Propagation</h3>
+    <div id="parent">
+      <button id="child">Click Me</button>
+    </div>
 
+    <input type="text" />
 
+    <input type="email" />
+
+    <input type="password" />
+
+    <div class="container">
+      <p>Phone</p>
+
+      <p>Laptop</p>
+    </div>
+
+    <p>Outside</p>
+
+    <div class="products">
+      <p>Phone</p>
+
+      <section>
+        <p>Laptop</p>
+      </section>
+    </div>
+
+    <h2>Products</h2>
+    <p>Phone</p>
+    <p>Laptop</p>
+
+    <div class="card">
+      <h2>Phone</h2>
+      <button>Buy</button>
+    </div>
+
+    <div class="card">
+      <h2>Laptop</h2>
+    </div>
 
     <!-- <script src="Js/script.js"></script> -->
   </body>

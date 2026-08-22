@@ -279,56 +279,176 @@
 // traditional method
 // btn.onclick = function () {
 //   apple.style.backgroundColor = "green";
-// };
-// btn.onclick = function () {
-//   apple.style.color = "white"; // only this executes trad cannot work with multile handers
-// };
-//   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES
-// btn.addEventListener("click" , function (){  // anonumou function usnig connection
-//     apple.style.backgroundColor = "green"
+// // };
+// // btn.onclick = function () {
+// //   apple.style.color = "white"; // only this executes trad cannot work with multile handers
+// // };
+// //   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES
+// // btn.addEventListener("click" , function (){  // anonumou function usnig connection
+// //     apple.style.backgroundColor = "green"
+// // })
+
+// // btn.addEventListener("click", function () {
+// //   apple.style.color = "white";
+// // });
+// //  // halting the default behavaris inside event
+// // const link = document.getElementById("evangadi-link");
+// // link.addEventListener("click" , function (e){
+// //     e.preventDefault();
+// //     console.log(e)
+// //     link.innerHTML = "<h1>   Hello world </h1>"
+// // })
+
+// // const form = document.getElementById("registration-form");
+// // const firstName = document.getElementById("first");
+
+// // console.dir(firstName);
+// // const lastName = document.getElementById("last");
+// // console.log(lastName);
+// // console.log(form);
+
+// // const handleSubmit = (e) => {
+// //   e.preventDefault();
+// //   if (firstName.value.length === 0) {
+// //     firstName.style.backgroundColor = "red";
+// //   }
+// //   if (lastName.value.length === 0) {
+// //     lastName.style.backgroundColor = "red";
+// //   }
+// //   if (firstName.value && lastName.value) {
+// //     alert(` thankyou ${firstName.value}`);
+// //   }
+// // };
+// // form.addEventListener("submit", handleSubmit);
+
+// // // event propagation
+
+// // // Bonus  Event Propagation 4
+// // document.getElementById("parent").addEventListener("click", () => {
+// //   alert("Parent Clicked");
+// // });
+// // // bubbling phase to stop the propagation of event from the parent element to child element
+// // document.getElementById("child").addEventListener("click", (e) => {
+// //   e.stopPropagation();
+// //   alert("child clicked");
+// // });
+
+// // Altering  and multiple selection
+
+// const test1 = document.getElementById("one");
+// console.log(test1.innerHTML);
+
+// //QUERY SELECOTOR METHOD  only first method matching element
+
+// const test2 = document.querySelector(".red");
+// console.log(test2);
+
+// const test3 = document.getElementsByClassName("red");
+// console.log(test3.length); // it return array like structure   it can inherit  some method and properties from the array  but actual they are not array
+
+// // quarySelectorAll();
+// const paragraph = document.querySelector("p");
+// // console.log(paragraph);
+
+// const paragraphs = document.querySelectorAll("p");  // it return the nodeList contain all the matching element  which accessed using index
+// console.log(paragraphs); // only for the debugging purpose
+// console.log(paragraphs[0]);
+
+// paragraphs.forEach(function (paragraph){
+//   console.log(paragraph)
 // })
+// console.log(paragraphs[1]);
+// console.log(paragraphs.length)
+// console.log(paragraphs.item(0))
+// console.log(paragraphs.item(1));
+// console.log(paragraphs[0].childNodes);
+// // # + ID
+// // .  +  ClassName
+// //
 
-// btn.addEventListener("click", function () {
-//   apple.style.color = "white";
-// });
-//  // halting the default behavaris inside event
-// const link = document.getElementById("evangadi-link");
-// link.addEventListener("click" , function (e){
-//     e.preventDefault();
-//     console.log(e)
-//     link.innerHTML = "<h1>   Hello world </h1>"
-// })
+// const para = document.querySelector("#paragraph");
+// console.log(para)
 
-const form = document.getElementById("registration-form");
-const firstName = document.getElementById("first");
+// const product = document.querySelector(".product")
+// // for debugging
+// console.log(product)
 
-console.dir(firstName);
-const lastName = document.getElementById("last");
-console.log(lastName);
-console.log(form);
+// const division = document.querySelector(".card.active"); // card and active with no space
+// console.log(division);
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if (firstName.value.length === 0) {
-    firstName.style.backgroundColor = "red";
-  }
-  if (lastName.value.length === 0) {
-    lastName.style.backgroundColor = "red";
-  }
-  if (firstName.value && lastName.value) {
-    alert(` thankyou ${firstName.value}`);
-  }
-};
-form.addEventListener("submit", handleSubmit);
+// // const divisions = document.querySelector(".card .active");  // find .active element  inside a .card
 
-// event propagation
+// // const   techs = document.querySelector(".parent  .red")
+// // console.log(techs.innerHTML)
 
-// Bonus  Event Propagation 4
-document.getElementById("parent").addEventListener("click", () => {
-  alert("Parent Clicked");
-});
-// bubbling phase to stop the propagation of event from the parent element to child element
-document.getElementById("child").addEventListener("click", (e) => {
-  e.stopPropagation();
-  alert("child clicked");
-});
+// // attributes selector
+// const attributeselector = document.querySelector("input[type = 'email']");
+// console.log(attributeselector);
+
+// document.querySelector("button[type='submit']");
+
+// Descendant Selector
+// complex Selector
+
+// const complexSelector = document.querySelectorAll(".container p "); // totally differ from .con.p
+// // // p;             one element
+// //                    with BOTH classes
+// //                      container and p
+// // // inside;
+// // // // container;
+// console.log(complexSelector)
+
+// // childSelector  > selection direct child
+// const directChildselector = document.querySelectorAll(".products > p")
+// console.log(directChildselector)
+
+// Select <p> elements that are direct children of .products.
+
+// adjacent sibling
+// All matching B siblings after A.
+// The immediately following B.
+
+// console.log(document.querySelector("h2 + p "))
+// console.log(document.querySelectorAll("h2 ~ p"));
+
+// console.log(document.querySelectorAll("h1, p"))
+
+// console.log(document.querySelector(".products p:first-child"));
+// console.log(document.querySelector(".products p:last-child"));
+// document.querySelector(".products p:nth-child(2)");
+// document.querySelectorAll(".card:has(button)");
+
+// // combining everthings
+// document.querySelectorAll(
+//     ".products > article.card.active:has(button[type='submit'])"
+// );
+
+// const items = document.getElementsByClassName("red");
+// console.log(items.length);
+// console.log(items);
+
+
+// console.log(items.length)  // it update lively so the length of items decreased 
+
+const itemss = document.querySelectorAll(".red")
+console.log(itemss.length)
+for (let i = 0; i < itemss.length; i++) {
+  itemss[i].className = "yellow";
+}
+console.log(itemss.length);
+// Most common used method for altering the DOM
+// 1.createElement();
+// 2.appendChild();
+// 3.prepend();
+// 4.innerHTML();
+// 5.textContent();
+// 6.removeChild();
+// 7after()
+// 8 before  ();
+
+// examples 
+
+
+
+
+
