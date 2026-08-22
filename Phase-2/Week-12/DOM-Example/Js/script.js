@@ -427,15 +427,42 @@
 // console.log(items.length);
 // console.log(items);
 
+// console.log(items.length)  // it update lively so the length of items decreased
 
-// console.log(items.length)  // it update lively so the length of items decreased 
+// const itemss = document.querySelectorAll(".red");
+// console.log(itemss.length);
+// for (let i = 0; i < itemss.length; i++) {
+//   itemss[i].className = "yellow";
+// }
+// console.log(itemss.length);
 
-const itemss = document.querySelectorAll(".red")
-console.log(itemss.length)
-for (let i = 0; i < itemss.length; i++) {
-  itemss[i].className = "yellow";
-}
-console.log(itemss.length);
+
+// let parentElements = document.getElementById("tech");
+// console.log(parentElements);
+// console.log(parentElements.firstElementChild);
+// console.log(parentElements.lastElementChild);
+
+// console.log(parentElements.childNodes);
+
+// console.log(parentElements.firstChild);
+// console.log(parentElements.lastChild); // return the first node the text node  the differen between the childNode and childern as well elementnode v
+
+// // from child to parent starting from the childern to get the parentElement using the different properties  and by using the different method 
+
+// const apple = document.getElementById("one");
+// console.log(apple);
+// console.log(apple.parentElement);
+
+// // selection between the sibling  fo the same parents to get the next element to the selected element 
+
+// console.log(apple.nextElementSibling);
+// console.log(apple.previousElementSibling);
+// console.log(document.querySelector(".red:nth-child(1)"));
+
+// everthing we apppled for css selector to the queryselector();
+
+// Altering (any html properties ())
+// any thing we can do on the html can be done using  js on the fly on the browser 
 // Most common used method for altering the DOM
 // 1.createElement();
 // 2.appendChild();
@@ -446,7 +473,93 @@ console.log(itemss.length);
 // 7after()
 // 8 before  ();
 
-// examples 
+// examples
+
+// creating new element using js
+
+
+const newElement =  document.createElement("p")
+console.log(newElement)
+
+newElement.innerHTML = " this is new element "; // adding contents to the created element (innerText, innerHTML, textContent)
+// we can use also textContent and inner HTML 
+
+// outer html 
+// inner html give the html inside the element or selected element 
+
+const box = document.getElementById("box");
+console.log(box.outerHTML);
+console.log(box.outerText);
+console.log(box.innerHTML)
+
+// innerHTML  → HTML inside
+// outerHTML  → element + HTML inside
+
+// innerText  → rendered text inside
+// outerText  → rendered text representation of the element
+
+// append (To append means to add something to the very end of a piece of writing, document, or data set)
+
+// as last child   of the parent 
+// before appending the element first we have select the place we wanna to append the  element 
+
+const parent = document.getElementById("tech");
+console.log(parent);
+
+// parent.append(newElement);
+
+// prepen() as the first child of the parend adding 
+
+parent.prepend(newElement)  
+
+// to get full control of the the place we want to add or append  we use before and after 
+
+//  before ()   and after();
+
+const referenceElement = document.getElementById("two");
+console.log(referenceElement);
+// referenceElement.before(newElement);
+referenceElement.after(newElement);
+
+// we get full control where we want 
+
+//   to remove the element 
+// removeChild() and  remove()  // these two method are used to remove the newly created element from the given page
+
+// parent.removeChild(newElement);
+newElement.remove(); 
+// here we dont need the parent just remove it 
+
+// insertBefore() method   the same as before must it need the selection of the parent element as well the   reference element 
+// it requires the selection of the parent as well refer 
+
+parent.insertBefore(newElement , referenceElement)
+
+// very important points here  selection of the reference element  and parent element  to create and append or insert into our page
+
+// Altering Attributes ( HTML attributes)
+// className
+// id 
+// classList
+// different attribute of the html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
