@@ -61,23 +61,21 @@ result.textContent = `Number of blue companies: ${blueClass.length}`;
 // attach the function you wrote to alter the background color when the respective element
 // is clicked on
 
-const  addBackgroundButton = document.getElementById("yes");
+const addBackgroundButton = document.getElementById("yes");
 // console.log(addBackgroundButton);
 
 const removeBackgroundButton = document.getElementById("No");
 // console.log(removeBackgroundButton);
 
-
-function addBackground (){
-    document.body.style.backgroundColor="lightblue";
+function addBackground() {
+  document.body.style.backgroundColor = "lightblue";
 }
-function removeBackground (){
-     document.body.style.backgroundColor = "";
+function removeBackground() {
+  document.body.style.backgroundColor = "";
 }
 
-addBackgroundButton.addEventListener("click" , addBackground);
-removeBackgroundButton.addEventListener("click" , removeBackground);
-
+addBackgroundButton.addEventListener("click", addBackground);
+removeBackgroundButton.addEventListener("click", removeBackground);
 
 // addBackgroundButton.addEventListener("click" ,  () => {
 //     document.body.style.backgroundColor = "green"
@@ -87,8 +85,6 @@ removeBackgroundButton.addEventListener("click" , removeBackground);
 //   document.body.style.backgroundColor = "";
 // });
 
-
-
 // Question 4:
 // A form with two text fields is provided under the section which says "For question 4".
 // Write a JavaScript code which takes the values of the two fields, checks if they are
@@ -97,18 +93,68 @@ removeBackgroundButton.addEventListener("click" , removeBackground);
 // 2. Display the result underneath the form
 // 3. If any of the numbers provided is not a number, display a message that says
 // "Please enter numerical values only" underneath the form
+const form = document.getElementById("adder");
+
+const firstInputField = document.getElementsByName("first-value");
+
+const secondInputField = document.getElementsByName("second-value");
+
+const resultArea = document.getElementById("sum");
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const firstInput = firstInputField[0].value.trim();
+  const secondInput = secondInputField[0].value.trim();
+
+  if (firstInput === "" || secondInput === "") {
+    resultArea.textContent = "Please enter numerical values only";
+
+    return;
+  }
+
+  const firstValue = Number(firstInput);
+  const secondValue = Number(secondInput);
+
+  if (Number.isFinite(firstValue) && Number.isFinite(secondValue)) {
+    const sum = firstValue + secondValue;
+
+    console.log(sum);
+
+    resultArea.textContent = `The sum is: ${sum}`;
+  } else {
+    resultArea.textContent = "Please enter numerical values only";
+  }
+});
 
 
+// const form = document.getElementById("adder");
 
+// const firstInput = document.querySelector('[name="first-value"]');
 
+// //  attribute selector
+// //  find an element  whose name attribute is equal to "first-value"
+// //[ attribute = "value" ]
+// //n CSS selectors, square brackets are used to select elements based on their attributes.
+// // it return first matching element 
 
+// const secondInput = document.querySelector('[name="second-value"]');
 
+// const resultDisplay = document.getElementById("sum");
 
+// form.addEventListener("submit", function (event) {
+//   event.preventDefault();
 
+//   const firstValue = Number(firstInput.value);
+//   const secondValue = Number(secondInput.value);
 
+//   if (Number.isFinite(firstValue) && Number.isFinite(secondValue)) {
+//     const sum = firstValue + secondValue;
 
+//     console.log(sum);
 
-
-
-
-
+//     resultDisplay.textContent = `The sum is: ${sum}`;
+//   } else {
+//     resultDisplay.textContent = "Please enter numerical values only";
+//   }
+// });
