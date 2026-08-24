@@ -42,6 +42,9 @@ newCompany.className = "blue";
 
 techCompany.append(newCompany);
 
+// const sony  = document.querySelector("#techCompanies li:last-child");
+// sony.insertAdjacentElement(newCompany);
+
 const blueClass = document.querySelectorAll("#techCompanies .blue");
 console.log(blueClass.length);
 
@@ -61,21 +64,25 @@ result.textContent = `Number of blue companies: ${blueClass.length}`;
 // attach the function you wrote to alter the background color when the respective element
 // is clicked on
 
-const addBackgroundButton = document.getElementById("yes");
-// console.log(addBackgroundButton);
 
-const removeBackgroundButton = document.getElementById("No");
-// console.log(removeBackgroundButton);
 
-function addBackground() {
-  document.body.style.backgroundColor = "lightblue";
-}
-function removeBackground() {
-  document.body.style.backgroundColor = "";
-}
+// const addBackgroundButton = document.getElementById("yes");
 
-addBackgroundButton.addEventListener("click", addBackground);
-removeBackgroundButton.addEventListener("click", removeBackground);
+// function addBackground() {
+//   document.body.style.backgroundColor = "lightblue";
+// }
+
+// function removeBackground() {
+//   document.body.style.backgroundColor = "";
+// }
+
+// addBackgroundButton.addEventListener("click", function () {
+//   if (document.body.style.backgroundColor === "") {
+//     addBackground();
+//   } else {
+//     removeBackground();
+//   }
+// });
 
 // addBackgroundButton.addEventListener("click" ,  () => {
 //     document.body.style.backgroundColor = "green"
@@ -158,3 +165,8 @@ form.addEventListener("submit", (event) => {
 //     resultDisplay.textContent = "Please enter numerical values only";
 //   }
 // });
+
+
+
+
+
