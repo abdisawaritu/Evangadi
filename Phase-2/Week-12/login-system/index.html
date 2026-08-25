@@ -1,21 +1,20 @@
-```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta
-      name="description"
-      content="Student Portal login system"
-    />
+    <meta name="description" content="Student Portal login system" />
 
     <title>Student Portal | Login</title>
 
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Information about the page  -->
   </head>
 
   <body>
+    <!-- Everything visible on the webpage  -->
     <!-- Header / Branding -->
     <header class="site-header">
       <div class="logo">
@@ -26,7 +25,6 @@
     <!-- Main Content -->
     <main class="login-page">
       <section class="login-container">
-
         <!-- Login Introduction -->
         <div class="login-header">
           <h1>Welcome Back</h1>
@@ -35,7 +33,6 @@
 
         <!-- Login Form -->
         <form id="loginForm" class="login-form">
-
           <!-- Email -->
           <div class="form-group">
             <label for="email">Email Address</label>
@@ -89,51 +86,31 @@
 
           <!-- Login Options -->
           <div class="login-options">
-
             <label class="remember-me">
-              <input
-                type="checkbox"
-                id="rememberMe"
-                name="rememberMe"
-              />
+              <input type="checkbox" id="rememberMe" name="rememberMe" />
 
               <span>Remember me</span>
             </label>
 
-            <a href="#" class="forgot-password">
-              Forgot password?
-            </a>
-
+            <a href="#" class="forgot-password"> Forgot password? </a>
           </div>
 
           <!-- General Form Message -->
-          <div
-            id="formMessage"
-            class="form-message"
-            aria-live="polite"
-          ></div>
+          <div id="formMessage" class="form-message" aria-live="polite"></div>
 
           <!-- Login Button -->
-          <button
-            type="submit"
-            id="loginButton"
-            class="login-button"
-          >
+          <button type="submit" id="loginButton" class="login-button">
             Login
           </button>
-
         </form>
 
         <!-- Registration Link -->
         <div class="register-section">
           <p>
             Don't have an account?
-            <a href="#" class="register-link">
-              Create an account
-            </a>
+            <a href="#" class="register-link"> Create an account </a>
           </p>
         </div>
-
       </section>
     </main>
 
@@ -146,4 +123,3 @@
     <script src="js/script.js"></script>
   </body>
 </html>
-```
