@@ -16,58 +16,160 @@ const passwordError = document.getElementById("passwordError");
 
 const formMessage = document.getElementById("formMessage");
 
-const loginButton = document.getElementById("loginButton");
-
 // =====================================================
 // SHOW / HIDE PASSWORD
 // =====================================================
 
 togglePassword.addEventListener("click", function () {
   if (passwordInput.type === "password") {
-    // Make password visible
     passwordInput.type = "text";
 
-    // Change button text
     togglePassword.textContent = "Hide";
+
+    togglePassword.setAttribute("aria-label", "Hide password");
   } else {
-    // Hide password again
     passwordInput.type = "password";
 
-    // Change button text
     togglePassword.textContent = "Show";
+
+    togglePassword.setAttribute("aria-label", "Show password");
   }
 });
+
+// =====================================================
+// EMAIL VALIDATION
+// =====================================================
+
+function validateEmail() {
+  const email = emailInput.value.trim();
+
+  // Clear previous error
+  emailError.textContent = "";
+
+  emailInput.classList.remove("is-invalid");
+  emailInput.classList.remove("is-valid");
+
+  // Check empty email
+  if (email === "") {
+    emailError.textContent = "Email address is required.";
+
+    emailInput.classList.add("is-invalid");
+
+    return false;
+  }
+
+  // Email format
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailPattern.test(email)) {
+    emailError.textContent = "Please enter a valid email address.";
+
+    emailInput.classList.add("is-invalid");
+
+    return false;
+  }
+
+  // Email is valid
+  emailInput.classList.add("is-valid");
+
+  return true;
+}
+
+// =====================================================
+// PASSWORD VALIDATION
+// =====================================================
+
+function validatePassword() {
+  const password = passwordInput.value;
+
+  // Clear previous error
+  passwordError.textContent = "";
+
+  passwordInput.classList.remove("is-invalid");
+  passwordInput.classList.remove("is-valid");
+
+  // Check empty password
+  if (password === "") {
+    passwordError.textContent = "Password is required.";
+
+    passwordInput.classList.add("is-invalid");
+
+    return false;
+  }
+
+  // Check password length
+  if (password.length < 8) {
+    passwordError.textContent = "Password must be at least 8 characters.";
+
+    passwordInput.classList.add("is-invalid");
+
+    return false;
+  }
+
+  // Password is valid
+  passwordInput.classList.add("is-valid");
+
+  return true;
+}
 
 // =====================================================
 // EMAIL INPUT EVENT
 // =====================================================
 
 emailInput.addEventListener("input", function () {
-  console.log("Email:", emailInput.value);
+  validateEmail();
 });
 
 // =====================================================
-// REMEMBER ME EVENT
+// PASSWORD INPUT EVENT
 // =====================================================
 
-rememberMe.addEventListener("change", function () {
-  console.log("Remember me:", rememberMe.checked);
+passwordInput.addEventListener("input", function () {
+  validatePassword();
 });
 
 // =====================================================
-// LOGIN FORM SUBMIT EVENT
+// FORM SUBMIT EVENT
 // =====================================================
 
 loginForm.addEventListener("submit", function (event) {
+  // Stop browser's default validation/submission
   event.preventDefault();
 
-  console.log("Login form submitted");
-});
+  // Clear previous general message
+  formMessage.textContent = "";
 
-// =====================================================
-// LOGIN BUTTON CLICK
-// =====================================================
+  formMessage.className = "form-message";
 
-loginButton.addEventListener("click", function () {
-  console.log("Login button clicked");
+  // Validate email
+  const isEmailValid = validateEmail();
+
+  // Validate password
+  const isPasswordValid = validatePassword();
+
+  // Stop if any field is invalid
+  if (!isEmailValid || !isPasswordValid) {
+    formMessage.textContent = "Please correct the errors above.";
+
+    formMessage.classList.add("text-danger");
+
+    return;
+  }
+
+  // ===================================================
+  // FORM IS VALID
+  // ===================================================
+
+  formMessage.textContent = "Form validation successful.";
+
+  formMessage.classList.add("text-success");
+
+  // Read values
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const remember = rememberMe.checked;
+
+  console.log("Email:", email);
+  console.log("Password:", password);
+  console.log("Remember me:", remember);
 });
