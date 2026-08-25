@@ -19,31 +19,43 @@ const formMessage = document.getElementById("formMessage");
 const loginButton = document.getElementById("loginButton");
 
 // =====================================================
-// CLICK EVENT
+// SHOW / HIDE PASSWORD
 // =====================================================
 
 togglePassword.addEventListener("click", function () {
-  console.log("Password toggle button clicked");
+  if (passwordInput.type === "password") {
+    // Make password visible
+    passwordInput.type = "text";
+
+    // Change button text
+    togglePassword.textContent = "Hide";
+  } else {
+    // Hide password again
+    passwordInput.type = "password";
+
+    // Change button text
+    togglePassword.textContent = "Show";
+  }
 });
 
 // =====================================================
-// INPUT EVENT
+// EMAIL INPUT EVENT
 // =====================================================
 
 emailInput.addEventListener("input", function () {
-  console.log("Email is being typed");
+  console.log("Email:", emailInput.value);
 });
 
 // =====================================================
-// CHANGE EVENT
+// REMEMBER ME EVENT
 // =====================================================
 
 rememberMe.addEventListener("change", function () {
-  console.log("Remember me changed:", rememberMe.checked);
+  console.log("Remember me:", rememberMe.checked);
 });
 
 // =====================================================
-// SUBMIT EVENT
+// LOGIN FORM SUBMIT EVENT
 // =====================================================
 
 loginForm.addEventListener("submit", function (event) {
@@ -53,7 +65,7 @@ loginForm.addEventListener("submit", function (event) {
 });
 
 // =====================================================
-// BUTTON CLICK TEST
+// LOGIN BUTTON CLICK
 // =====================================================
 
 loginButton.addEventListener("click", function () {
