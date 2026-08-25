@@ -2,67 +2,60 @@
 // DOM SELECTION
 // =====================================================
 
-// Login form
 const loginForm = document.getElementById("loginForm");
 
-// Form inputs
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
-// Password visibility button
 const togglePassword = document.getElementById("togglePassword");
 
-// Remember-me checkbox
 const rememberMe = document.getElementById("rememberMe");
 
-// Error message elements
 const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 
-// General form message
 const formMessage = document.getElementById("formMessage");
 
-// Login button
 const loginButton = document.getElementById("loginButton");
 
 // =====================================================
-// READING INPUT VALUES
+// CLICK EVENT
 // =====================================================
 
-// Read email value
-const emailValue = emailInput.value;
-
-// Read password value
-const passwordValue = passwordInput.value;
-
-// Read checkbox state
-const rememberMeValue = rememberMe.checked;
+togglePassword.addEventListener("click", function () {
+  console.log("Password toggle button clicked");
+});
 
 // =====================================================
-// READING ELEMENT PROPERTIES
+// INPUT EVENT
 // =====================================================
 
-// Read password input type
-const passwordType = passwordInput.type;
-
-// Read login button text
-const loginButtonText = loginButton.textContent;
-
-// Read password toggle button text
-const toggleButtonText = togglePassword.textContent;
+emailInput.addEventListener("input", function () {
+  console.log("Email is being typed");
+});
 
 // =====================================================
-// DISPLAY VALUES IN CONSOLE
+// CHANGE EVENT
 // =====================================================
 
-console.log("Email value:", emailValue);
+rememberMe.addEventListener("change", function () {
+  console.log("Remember me changed:", rememberMe.checked);
+});
 
-console.log("Password value:", passwordValue);
+// =====================================================
+// SUBMIT EVENT
+// =====================================================
 
-console.log("Remember me checked:", rememberMeValue);
+loginForm.addEventListener("submit", function (event) {
+  event.preventDefault();
 
-console.log("Password input type:", passwordType);
+  console.log("Login form submitted");
+});
 
-console.log("Login button text:", loginButtonText);
+// =====================================================
+// BUTTON CLICK TEST
+// =====================================================
 
-console.log("Toggle button text:", toggleButtonText);
+loginButton.addEventListener("click", function () {
+  console.log("Login button clicked");
+});
