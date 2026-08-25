@@ -1,312 +1,253 @@
 /* =====================================================
-   1. GLOBAL RESET
+   GLOBAL
 ===================================================== */
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
+  margin: 0;
 
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
 
   font-family: Arial, Helvetica, sans-serif;
 
-  background-color: #f4f7fb;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+
   color: #1f2937;
 }
 
 /* =====================================================
-   2. HEADER
-===================================================== */
-
-.site-header {
-  padding: 20px 0;
-
-  background-color: #ffffff;
-
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.logo a {
-  color: #2563eb;
-
-  font-size: 1.4rem;
-  font-weight: 700;
-
-  text-decoration: none;
-}
-
-.logo a:hover {
-  color: #1d4ed8;
-}
-
-/* =====================================================
-   3. LOGIN PAGE
+   LOGIN PAGE
 ===================================================== */
 
 .login-page {
-  flex: 1;
+  min-height: 100vh;
 
   display: flex;
+
   align-items: center;
 
-  padding: 50px 0;
+  justify-content: center;
+
+  padding: 30px 15px;
 }
 
 /* =====================================================
-   4. LOGIN CARD
+   LOGIN CARD
 ===================================================== */
 
-.login-container {
+.login-card {
   width: 100%;
+
+  max-width: 450px;
 
   padding: 40px;
 
   background-color: #ffffff;
 
-  border: 1px solid #e5e7eb;
-
   border-radius: 16px;
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
 }
 
 /* =====================================================
-   5. LOGIN HEADER
+   HEADER
 ===================================================== */
 
 .login-header {
   margin-bottom: 30px;
+}
 
-  text-align: center;
+.login-icon {
+  width: 60px;
+
+  height: 60px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: #eef2ff;
+
+  font-size: 28px;
 }
 
 .login-header h1 {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 
-  color: #111827;
+  font-size: 28px;
 
-  font-size: 2rem;
   font-weight: 700;
 }
 
 .login-header p {
+  margin: 0;
+
   color: #6b7280;
 
-  font-size: 0.95rem;
+  font-size: 15px;
 }
 
 /* =====================================================
-   6. FORM
+   FORM LABEL
 ===================================================== */
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-
-  margin-bottom: 8px;
+.form-label {
+  font-weight: 600;
 
   color: #374151;
-
-  font-size: 0.9rem;
-  font-weight: 600;
 }
 
 /* =====================================================
-   7. BOOTSTRAP INPUT CUSTOMIZATION
+   INPUTS
 ===================================================== */
 
-/*
-   Bootstrap already provides .form-control.
-
-   We customize its appearance here.
-*/
-
 .form-control {
-  padding: 12px 14px;
+  min-height: 48px;
 
   border: 1px solid #d1d5db;
 
   border-radius: 8px;
 
-  font-size: 1rem;
-
-  background-color: #ffffff;
-  color: #111827;
-
-  box-shadow: none;
+  padding: 10px 14px;
 
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
-/* Input focus */
-
 .form-control:focus {
-  border-color: #2563eb;
+  border-color: #4f46e5;
 
-  background-color: #ffffff;
-
-  color: #111827;
-
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-}
-
-/* Placeholder */
-
-.form-control::placeholder {
-  color: #9ca3af;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
 /* =====================================================
-   8. PASSWORD AREA
+   PASSWORD
 ===================================================== */
 
 .password-wrapper {
   position: relative;
-
-  display: flex;
-  align-items: center;
 }
 
 .password-wrapper .form-control {
-  padding-right: 75px;
+  padding-right: 70px;
 }
-
-/* Password visibility button */
 
 .password-toggle {
   position: absolute;
 
   right: 10px;
 
+  top: 50%;
+
+  transform: translateY(-50%);
+
   border: none;
 
   background: transparent;
 
-  color: #2563eb;
+  color: #4f46e5;
 
-  font-size: 0.85rem;
   font-weight: 600;
 
   cursor: pointer;
+
+  padding: 5px;
 }
 
 .password-toggle:hover {
-  color: #1d4ed8;
+  color: #3730a3;
 }
 
 /* =====================================================
-   9. LOGIN OPTIONS
+   VALIDATION
+===================================================== */
+
+.invalid-feedback {
+  display: block;
+
+  min-height: 20px;
+
+  margin-top: 6px;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
+
+  background-image: none;
+}
+
+.form-control.is-valid {
+  border-color: #198754;
+
+  background-image: none;
+}
+
+/* =====================================================
+   LOGIN OPTIONS
 ===================================================== */
 
 .login-options {
   display: flex;
 
-  justify-content: space-between;
   align-items: center;
 
-  gap: 15px;
+  justify-content: space-between;
 
-  margin-bottom: 25px;
-
-  font-size: 0.85rem;
+  margin: 15px 0 20px;
 }
 
-/* Remember me */
-
-.remember-me {
-  display: flex;
-  align-items: center;
-
-  gap: 7px;
-
-  margin: 0;
-
+.form-check-label {
   color: #4b5563;
 
-  cursor: pointer;
+  font-size: 14px;
 }
-
-.remember-me input {
-  width: 15px;
-  height: 15px;
-
-  cursor: pointer;
-}
-
-/* Forgot password */
 
 .forgot-password {
-  color: #2563eb;
-
-  font-weight: 600;
+  color: #4f46e5;
 
   text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 600;
 }
 
 .forgot-password:hover {
-  color: #1d4ed8;
-
   text-decoration: underline;
 }
 
 /* =====================================================
-   10. FORM MESSAGE
-===================================================== */
-
-.error-message {
-  display: block;
-
-  min-height: 18px;
-
-  margin-top: 6px;
-
-  color: #dc2626;
-
-  font-size: 0.8rem;
-}
-
-.form-message {
-  min-height: 20px;
-
-  margin-bottom: 15px;
-
-  text-align: center;
-
-  font-size: 0.9rem;
-}
-
-/* =====================================================
-   11. LOGIN BUTTON
+   LOGIN BUTTON
 ===================================================== */
 
 .login-button {
-  width: 100%;
-
-  padding: 13px 20px;
+  min-height: 48px;
 
   border: none;
 
   border-radius: 8px;
 
-  background-color: #2563eb;
+  background-color: #4f46e5;
 
   color: #ffffff;
 
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 16px;
 
-  cursor: pointer;
+  font-weight: 600;
 
   transition:
     background-color 0.2s ease,
@@ -314,7 +255,9 @@ body {
 }
 
 .login-button:hover {
-  background-color: #1d4ed8;
+  background-color: #4338ca;
+
+  color: #ffffff;
 }
 
 .login-button:active {
@@ -322,84 +265,59 @@ body {
 }
 
 /* =====================================================
-   12. REGISTER SECTION
+   GENERAL FORM MESSAGE
 ===================================================== */
 
-.register-section {
-  margin-top: 25px;
+.form-message {
+  min-height: 24px;
 
-  padding-top: 20px;
+  margin-bottom: 15px;
 
-  border-top: 1px solid #e5e7eb;
+  padding: 0;
+
+  font-size: 14px;
+
+  font-weight: 600;
 
   text-align: center;
+}
+
+/* =====================================================
+   REGISTER
+===================================================== */
+
+.register-text {
+  margin-top: 25px;
+
+  margin-bottom: 0;
 
   color: #6b7280;
 
-  font-size: 0.9rem;
+  font-size: 14px;
 }
 
-.register-section p {
-  margin-bottom: 0;
-}
-
-.register-link {
-  color: #2563eb;
+.register-text a {
+  color: #4f46e5;
 
   font-weight: 600;
 
   text-decoration: none;
 }
 
-.register-link:hover {
-  color: #1d4ed8;
-
+.register-text a:hover {
   text-decoration: underline;
 }
 
 /* =====================================================
-   13. FOOTER
-===================================================== */
-
-.site-footer {
-  padding: 20px 0;
-
-  background-color: #ffffff;
-
-  border-top: 1px solid #e5e7eb;
-
-  color: #6b7280;
-
-  font-size: 0.8rem;
-
-  text-align: center;
-}
-
-.site-footer p {
-  margin-bottom: 0;
-}
-
-/* =====================================================
-   14. MOBILE REFINEMENT
+   RESPONSIVE
 ===================================================== */
 
 @media (max-width: 576px) {
-  .login-page {
-    padding: 30px 0;
-  }
-
-  .login-container {
+  .login-card {
     padding: 30px 20px;
-
-    border-radius: 12px;
   }
 
   .login-header h1 {
-    font-size: 1.7rem;
-  }
-
-  .login-options {
-    flex-direction: column;
-    align-items: flex-start;
+    font-size: 24px;
   }
 }

@@ -5,6 +5,7 @@
 const loginForm = document.getElementById("loginForm");
 
 const emailInput = document.getElementById("email");
+
 const passwordInput = document.getElementById("password");
 
 const togglePassword = document.getElementById("togglePassword");
@@ -12,9 +13,12 @@ const togglePassword = document.getElementById("togglePassword");
 const rememberMe = document.getElementById("rememberMe");
 
 const emailError = document.getElementById("emailError");
+
 const passwordError = document.getElementById("passwordError");
 
 const formMessage = document.getElementById("formMessage");
+
+const loginButton = document.getElementById("loginButton");
 
 // =====================================================
 // SHOW / HIDE PASSWORD
@@ -43,22 +47,26 @@ togglePassword.addEventListener("click", function () {
 function validateEmail() {
   const email = emailInput.value.trim();
 
-  // Clear previous error
+  // Reset previous state
+
+  emailInput.classList.remove("is-invalid", "is-valid");
+
   emailError.textContent = "";
 
-  emailInput.classList.remove("is-invalid");
-  emailInput.classList.remove("is-valid");
+  // Empty email
 
-  // Check empty email
   if (email === "") {
     emailError.textContent = "Email address is required.";
 
     emailInput.classList.add("is-invalid");
 
+    emailInput.setAttribute("aria-invalid", "true");
+
     return false;
   }
 
-  // Email format
+  // Email pattern
+
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailPattern.test(email)) {
@@ -66,11 +74,16 @@ function validateEmail() {
 
     emailInput.classList.add("is-invalid");
 
+    emailInput.setAttribute("aria-invalid", "true");
+
     return false;
   }
 
-  // Email is valid
+  // Valid email
+
   emailInput.classList.add("is-valid");
+
+  emailInput.setAttribute("aria-invalid", "false");
 
   return true;
 }
@@ -82,34 +95,53 @@ function validateEmail() {
 function validatePassword() {
   const password = passwordInput.value;
 
-  // Clear previous error
+  // Reset previous state
+
+  passwordInput.classList.remove("is-invalid", "is-valid");
+
   passwordError.textContent = "";
 
-  passwordInput.classList.remove("is-invalid");
-  passwordInput.classList.remove("is-valid");
+  // Empty password
 
-  // Check empty password
   if (password === "") {
     passwordError.textContent = "Password is required.";
 
     passwordInput.classList.add("is-invalid");
 
+    passwordInput.setAttribute("aria-invalid", "true");
+
     return false;
   }
 
-  // Check password length
+  // Minimum length
+
   if (password.length < 8) {
-    passwordError.textContent = "Password must be at least 8 characters.";
+    passwordError.textContent = "Password must contain at least 8 characters.";
 
     passwordInput.classList.add("is-invalid");
 
+    passwordInput.setAttribute("aria-invalid", "true");
+
     return false;
   }
 
-  // Password is valid
+  // Valid password
+
   passwordInput.classList.add("is-valid");
 
+  passwordInput.setAttribute("aria-invalid", "false");
+
   return true;
+}
+
+// =====================================================
+// CLEAR GENERAL MESSAGE
+// =====================================================
+
+function clearFormMessage() {
+  formMessage.textContent = "";
+
+  formMessage.className = "form-message";
 }
 
 // =====================================================
@@ -117,6 +149,8 @@ function validatePassword() {
 // =====================================================
 
 emailInput.addEventListener("input", function () {
+  clearFormMessage();
+
   validateEmail();
 });
 
@@ -125,51 +159,73 @@ emailInput.addEventListener("input", function () {
 // =====================================================
 
 passwordInput.addEventListener("input", function () {
+  clearFormMessage();
+
   validatePassword();
 });
 
 // =====================================================
-// FORM SUBMIT EVENT
+// FORM SUBMIT
 // =====================================================
 
 loginForm.addEventListener("submit", function (event) {
-  // Stop browser's default validation/submission
   event.preventDefault();
 
   // Clear previous general message
-  formMessage.textContent = "";
 
-  formMessage.className = "form-message";
+  clearFormMessage();
 
-  // Validate email
+  // Validate fields
+
   const isEmailValid = validateEmail();
 
-  // Validate password
   const isPasswordValid = validatePassword();
 
-  // Stop if any field is invalid
+  // Stop if invalid
+
   if (!isEmailValid || !isPasswordValid) {
-    formMessage.textContent = "Please correct the errors above.";
+    formMessage.textContent = "Please correct the highlighted fields.";
 
     formMessage.classList.add("text-danger");
+
+    // Focus first invalid field
+
+    if (!isEmailValid) {
+      emailInput.focus();
+    } else if (!isPasswordValid) {
+      passwordInput.focus();
+    }
 
     return;
   }
 
-  // ===================================================
-  // FORM IS VALID
-  // ===================================================
+  // =================================================
+  // SUCCESS
+  // =================================================
 
-  formMessage.textContent = "Form validation successful.";
+  formMessage.textContent = "All fields are valid.";
 
   formMessage.classList.add("text-success");
 
   // Read values
+
   const email = emailInput.value.trim();
+
   const password = passwordInput.value;
+
   const remember = rememberMe.checked;
 
   console.log("Email:", email);
+
   console.log("Password:", password);
+
   console.log("Remember me:", remember);
+});
+
+// =====================================================
+// REMEMBER ME
+// =====================================================
+
+rememberMe.addEventListener("change", function () {
+  console.log("Remember me:", rememberMe.checked);
 });
