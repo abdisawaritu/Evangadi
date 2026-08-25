@@ -26,15 +26,43 @@ const formMessage = document.getElementById("formMessage");
 const loginButton = document.getElementById("loginButton");
 
 // =====================================================
-// TEST DOM SELECTION
+// READING INPUT VALUES
 // =====================================================
 
-console.log("Login Form:", loginForm);
-console.log("Email Input:", emailInput);
-console.log("Password Input:", passwordInput);
-console.log("Toggle Password Button:", togglePassword);
-console.log("Remember Me:", rememberMe);
-console.log("Email Error:", emailError);
-console.log("Password Error:", passwordError);
-console.log("Form Message:", formMessage);
-console.log("Login Button:", loginButton);
+// Read email value
+const emailValue = emailInput.value;
+
+// Read password value
+const passwordValue = passwordInput.value;
+
+// Read checkbox state
+const rememberMeValue = rememberMe.checked;
+
+// =====================================================
+// READING ELEMENT PROPERTIES
+// =====================================================
+
+// Read password input type
+const passwordType = passwordInput.type;
+
+// Read login button text
+const loginButtonText = loginButton.textContent;
+
+// Read password toggle button text
+const toggleButtonText = togglePassword.textContent;
+
+// =====================================================
+// DISPLAY VALUES IN CONSOLE
+// =====================================================
+
+console.log("Email value:", emailValue);
+
+console.log("Password value:", passwordValue);
+
+console.log("Remember me checked:", rememberMeValue);
+
+console.log("Password input type:", passwordType);
+
+console.log("Login button text:", loginButtonText);
+
+console.log("Toggle button text:", toggleButtonText);
