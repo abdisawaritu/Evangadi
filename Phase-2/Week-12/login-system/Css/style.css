@@ -1,5 +1,5 @@
 /* =====================================================
-   1. RESET & GLOBAL STYLES
+   1. GLOBAL RESET
 ===================================================== */
 
 * {
@@ -10,12 +10,14 @@
 
 body {
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f7fb;
-  color: #1f2937;
 
   display: flex;
   flex-direction: column;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background-color: #f4f7fb;
+  color: #1f2937;
 }
 
 /* =====================================================
@@ -23,106 +25,112 @@ body {
 ===================================================== */
 
 .site-header {
-  width: 100%;
-  padding: 20px 8%;
-  background: #ffffff;
+  padding: 20px 0;
+
+  background-color: #ffffff;
+
   border-bottom: 1px solid #e5e7eb;
 }
 
 .logo a {
   color: #2563eb;
+
   font-size: 1.4rem;
   font-weight: 700;
+
   text-decoration: none;
 }
 
+.logo a:hover {
+  color: #1d4ed8;
+}
+
 /* =====================================================
-   3. MAIN LOGIN AREA
+   3. LOGIN PAGE
 ===================================================== */
 
 .login-page {
   flex: 1;
 
   display: flex;
-  justify-content: center;
   align-items: center;
 
-  padding: 50px 20px;
+  padding: 50px 0;
 }
+
+/* =====================================================
+   4. LOGIN CARD
+===================================================== */
 
 .login-container {
   width: 100%;
-  max-width: 430px;
-
-  background: #ffffff;
 
   padding: 40px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e5e7eb;
 
   border-radius: 16px;
 
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-
-  border: 1px solid #e5e7eb;
 }
 
 /* =====================================================
-   4. LOGIN HEADER
+   5. LOGIN HEADER
 ===================================================== */
 
 .login-header {
-  text-align: center;
   margin-bottom: 30px;
+
+  text-align: center;
 }
 
 .login-header h1 {
   margin-bottom: 10px;
 
+  color: #111827;
+
   font-size: 2rem;
   font-weight: 700;
-
-  color: #111827;
 }
 
 .login-header p {
   color: #6b7280;
+
   font-size: 0.95rem;
 }
 
 /* =====================================================
-   5. FORM
+   6. FORM
 ===================================================== */
-
-.login-form {
-  width: 100%;
-}
 
 .form-group {
   margin-bottom: 20px;
 }
-
-/* =====================================================
-   6. LABELS
-===================================================== */
 
 .form-group label {
   display: block;
 
   margin-bottom: 8px;
 
+  color: #374151;
+
   font-size: 0.9rem;
   font-weight: 600;
-
-  color: #374151;
 }
 
 /* =====================================================
-   7. INPUTS
+   7. BOOTSTRAP INPUT CUSTOMIZATION
 ===================================================== */
 
-.form-group input[type="email"],
-.form-group input[type="password"] {
-  width: 100%;
+/*
+   Bootstrap already provides .form-control.
 
+   We customize its appearance here.
+*/
+
+.form-control {
   padding: 12px 14px;
 
   border: 1px solid #d1d5db;
@@ -131,10 +139,10 @@ body {
 
   font-size: 1rem;
 
-  background: #ffffff;
+  background-color: #ffffff;
   color: #111827;
 
-  outline: none;
+  box-shadow: none;
 
   transition:
     border-color 0.2s ease,
@@ -143,16 +151,19 @@ body {
 
 /* Input focus */
 
-.form-group input[type="email"]:focus,
-.form-group input[type="password"]:focus {
+.form-control:focus {
   border-color: #2563eb;
+
+  background-color: #ffffff;
+
+  color: #111827;
 
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 /* Placeholder */
 
-.form-group input::placeholder {
+.form-control::placeholder {
   color: #9ca3af;
 }
 
@@ -167,11 +178,11 @@ body {
   align-items: center;
 }
 
-.password-wrapper input {
+.password-wrapper .form-control {
   padding-right: 75px;
 }
 
-/* Show/Hide button */
+/* Password visibility button */
 
 .password-toggle {
   position: absolute;
@@ -211,15 +222,19 @@ body {
   font-size: 0.85rem;
 }
 
+/* Remember me */
+
 .remember-me {
   display: flex;
   align-items: center;
 
   gap: 7px;
 
-  cursor: pointer;
+  margin: 0;
 
   color: #4b5563;
+
+  cursor: pointer;
 }
 
 .remember-me input {
@@ -229,55 +244,24 @@ body {
   cursor: pointer;
 }
 
+/* Forgot password */
+
 .forgot-password {
   color: #2563eb;
 
-  text-decoration: none;
-
   font-weight: 600;
+
+  text-decoration: none;
 }
 
 .forgot-password:hover {
+  color: #1d4ed8;
+
   text-decoration: underline;
 }
 
 /* =====================================================
-   10. LOGIN BUTTON
-===================================================== */
-
-.login-button {
-  width: 100%;
-
-  padding: 13px 20px;
-
-  border: none;
-
-  border-radius: 8px;
-
-  background: #2563eb;
-
-  color: #ffffff;
-
-  font-size: 1rem;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
-}
-
-.login-button:hover {
-  background: #1d4ed8;
-}
-
-.login-button:active {
-  transform: scale(0.98);
-}
-
-/* =====================================================
-   11. ERROR & FORM MESSAGES
+   10. FORM MESSAGE
 ===================================================== */
 
 .error-message {
@@ -293,11 +277,48 @@ body {
 }
 
 .form-message {
+  min-height: 20px;
+
   margin-bottom: 15px;
 
   text-align: center;
 
   font-size: 0.9rem;
+}
+
+/* =====================================================
+   11. LOGIN BUTTON
+===================================================== */
+
+.login-button {
+  width: 100%;
+
+  padding: 13px 20px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background-color: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.login-button:hover {
+  background-color: #1d4ed8;
+}
+
+.login-button:active {
+  transform: scale(0.98);
 }
 
 /* =====================================================
@@ -313,9 +334,13 @@ body {
 
   text-align: center;
 
-  font-size: 0.9rem;
-
   color: #6b7280;
+
+  font-size: 0.9rem;
+}
+
+.register-section p {
+  margin-bottom: 0;
 }
 
 .register-link {
@@ -327,6 +352,8 @@ body {
 }
 
 .register-link:hover {
+  color: #1d4ed8;
+
   text-decoration: underline;
 }
 
@@ -335,30 +362,30 @@ body {
 ===================================================== */
 
 .site-footer {
-  padding: 20px;
+  padding: 20px 0;
 
-  text-align: center;
-
-  background: #ffffff;
+  background-color: #ffffff;
 
   border-top: 1px solid #e5e7eb;
 
   color: #6b7280;
 
   font-size: 0.8rem;
+
+  text-align: center;
+}
+
+.site-footer p {
+  margin-bottom: 0;
 }
 
 /* =====================================================
-   14. RESPONSIVE DESIGN
+   14. MOBILE REFINEMENT
 ===================================================== */
 
 @media (max-width: 576px) {
-  .site-header {
-    padding: 18px 20px;
-  }
-
   .login-page {
-    padding: 30px 15px;
+    padding: 30px 0;
   }
 
   .login-container {
