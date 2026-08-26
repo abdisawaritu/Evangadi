@@ -175,6 +175,9 @@ loginForm.addEventListener("submit", function (event) {
 
   clearFormMessage();
 
+
+
+  
   // Validate fields
 
   const isEmailValid = validateEmail();

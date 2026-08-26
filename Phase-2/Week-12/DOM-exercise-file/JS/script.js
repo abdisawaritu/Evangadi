@@ -110,6 +110,7 @@ const resultArea = document.getElementById("sum");
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+   console.log(event);
 
   const firstInput = firstInputField[0].value.trim();
   const secondInput = secondInputField[0].value.trim();

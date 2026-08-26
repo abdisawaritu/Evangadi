@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    form {
+      width: 300px;
+      margin: auto;
+      padding: 25px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    #message {
+      text-align: center;
+      font-size: 25px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form id="loginForm">
+
+    <h1>Login</h1>
+
+    <div class="input-group">
+      <label for="fullName">User Full Name</label>
+      <input
+        type="text"
+        id="fullName"
+        placeholder="user full name"
+      >
+    </div>
+
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="password"
+      >
+    </div>
+
+    <button type="submit">Submit</button>
+
+  </form>
+
+  <div id="message">
+    
+  </div>
+
+  <script>
+    const loginForm = document.querySelector("#loginForm");
+    const fullName = document.querySelector("#fullName");
+    const password = document.querySelector("#password");
+    const message = document.querySelector("#message");
+
+    loginForm.addEventListener("submit", function (event) {
+
+      event.preventDefault();
+
+      let isValid = true;
+
+      // Reset the background first
+      fullName.style.backgroundColor = "";
+      password.style.backgroundColor = "";
+
+      // Check full name
+      if (fullName.value.trim() === "") {
+        fullName.style.backgroundColor = "pink";
+        isValid = false;
+      }
+
+      // Check password
+      if (password.value.trim() === "") {
+        password.style.backgroundColor = "pink";
+        isValid = false;
+      }
+
+      // If everything is valid
+      if (isValid) {
+        message.textContent = "Form submitted";
+
+        loginForm.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>

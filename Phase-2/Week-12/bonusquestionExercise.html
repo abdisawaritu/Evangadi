@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .counter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    button {
+      width: 50px;
+      height: 50px;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    #number {
+      font-size: 30px;
+      min-width: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Counter</h1>
+
+  <div class="counter">
+    <button id="minus">−</button>
+
+    <span id="number">0</span>
+
+    <button id="plus">+</button>
+  </div>
+
+  <script>
+    const minusButton = document.querySelector("#minus");
+    const plusButton = document.querySelector("#plus");
+    const numberDisplay = document.querySelector("#number");
+
+    let number = 0;
+
+    plusButton.addEventListener("click", function () {
+      if (number < 20) {
+        number++;
+        numberDisplay.textContent = number;
+      }
+    });
+
+    minusButton.addEventListener("click", function () {
+      if (number > 0) {
+        number--;
+        numberDisplay.textContent = number;
+      }
+    });
+  </script>
+
+</body>
+</html>

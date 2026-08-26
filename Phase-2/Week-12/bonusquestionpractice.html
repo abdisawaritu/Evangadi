@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Changer</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+
+    .color-options {
+      background-color: white;
+      padding: 20px;
+      width: 250px;
+      border-radius: 10px;
+      
+    }
+
+    .color-option {
+      display: block;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="color-options">
+    <h2>Choose a Color</h2>
+
+    <label class="color-option">
+      <input type="radio" name="color" value="#5ab5ff" />
+      Blue
+    </label>
+
+    <label class="color-option">
+      <input type="radio" name="color" value="#03c4a1" />
+      Green
+    </label>
+
+    <label class="color-option">
+      <input type="radio" name="color" value="#c300ff" />
+      Purple
+    </label>
+
+    <label class="color-option">
+      <input type="radio" name="color" value="#FFEB3B" />
+      Sunny mode
+    </label>
+
+    <label class="color-option">
+      <input type="radio" name="color" value="#000" />
+      Night mode
+    </label>
+
+    <label class="color-option">
+      <input type="radio" name="color" value="#fff" />
+      White
+    </label>
+  </div>
+
+  <script>
+    const colorOptions = document.querySelectorAll(
+      'input[name="color"]'
+    );
+
+    colorOptions.forEach(function (radio) {
+      radio.addEventListener("change", function () {
+        document.body.style.backgroundColor = radio.value;
+      });
+    });
+  </script>
+
+</body>
+</html>
