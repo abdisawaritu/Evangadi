@@ -1,0 +1,239 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    ```
+    <meta
+      name="description"
+      content="TaskFlow is a responsive To-Do List application for managing daily tasks."
+    />
+
+    <title>TaskFlow - To-Do List</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    ```
+  </head>
+
+  <body>
+    <header class="app-header">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="#">TaskFlow</a>
+
+          ```
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavigation"
+            aria-controls="mainNavigation"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="mainNavigation">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Tasks</a>
+              </li>
+
+              <li class="nav-item">
+                <button
+                  type="button"
+                  id="themeToggle"
+                  class="btn btn-outline-secondary ms-lg-3"
+                >
+                  Dark Mode
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container py-4">
+      <div class="row g-4">
+        <aside class="col-lg-3">
+          <div class="sidebar">
+            <h2 class="h5 mb-4">TaskFlow</h2>
+
+            <nav>
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <button
+                    type="button"
+                    class="nav-link active text-start w-100"
+                    id="allTasksButton"
+                  >
+                    All Tasks
+                  </button>
+                </li>
+
+                <li class="nav-item">
+                  <button
+                    type="button"
+                    class="nav-link text-start w-100"
+                    id="activeTasksButton"
+                  >
+                    Active
+                  </button>
+                </li>
+
+                <li class="nav-item">
+                  <button
+                    type="button"
+                    class="nav-link text-start w-100"
+                    id="completedTasksButton"
+                  >
+                    Completed
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </aside>
+
+        <section class="col-lg-9">
+          <div class="task-dashboard">
+            <div class="mb-4">
+              <p class="text-secondary mb-1">Task Management</p>
+
+              <h1 class="display-6 fw-bold">My Tasks</h1>
+
+              <p class="text-secondary">
+                Organize your tasks and keep track of your progress.
+              </p>
+            </div>
+
+            <section class="row g-3 mb-4" aria-label="Task statistics">
+              <div class="col-md-4">
+                <div class="stat-card">
+                  <span>Total Tasks</span>
+                  <strong id="totalTasks">0</strong>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="stat-card">
+                  <span>Active Tasks</span>
+                  <strong id="activeTasks">0</strong>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="stat-card">
+                  <span>Completed</span>
+                  <strong id="completedTasks">0</strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="add-task-section mb-4">
+              <form id="taskForm">
+                <div class="row g-2">
+                  <div class="col-md-9">
+                    <label for="taskInput" class="visually-hidden">
+                      Enter a new task
+                    </label>
+
+                    <input
+                      type="text"
+                      id="taskInput"
+                      class="form-control"
+                      placeholder="What do you need to accomplish?"
+                      autocomplete="off"
+                    />
+
+                    <div
+                      id="taskError"
+                      class="invalid-feedback"
+                      aria-live="polite"
+                    ></div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <button
+                      type="submit"
+                      id="addTaskButton"
+                      class="btn btn-primary w-100"
+                    >
+                      Add Task
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </section>
+
+            <section class="task-list-section">
+              <div
+                class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3"
+              >
+                <h2 class="h4 mb-0">My Tasks</h2>
+
+                <div class="btn-group" role="group" aria-label="Task filters">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary active"
+                    id="filterAll"
+                  >
+                    All
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    id="filterActive"
+                  >
+                    Active
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    id="filterCompleted"
+                  >
+                    Completed
+                  </button>
+                </div>
+              </div>
+
+              <div
+                id="taskContainer"
+                class="task-container"
+                aria-live="polite"
+              ></div>
+
+              <div id="emptyState" class="empty-state text-center">
+                <h3 class="h5">No tasks yet</h3>
+
+                <p class="text-secondary mb-0">
+                  Create your first task to get started.
+                </p>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <div class="container text-center py-4">
+        <p class="mb-0">&copy; 2026 TaskFlow. Built for frontend learning.</p>
+      </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    ```
+  </body>
+</html>
