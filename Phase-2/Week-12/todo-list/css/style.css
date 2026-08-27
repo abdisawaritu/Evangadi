@@ -10,8 +10,6 @@ body {
   color: #1f2937;
 }
 
-/* Header */
-
 .app-header {
   background-color: #ffffff;
   border-bottom: 1px solid #e5e7eb;
@@ -36,8 +34,6 @@ body {
 .nav-link.active {
   color: #4f46e5;
 }
-
-/* Sidebar */
 
 .sidebar {
   padding: 24px;
@@ -69,8 +65,6 @@ body {
   color: #4f46e5;
 }
 
-/* Dashboard */
-
 .task-dashboard {
   padding: 30px;
   background-color: #ffffff;
@@ -79,15 +73,10 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
-.task-dashboard h1 {
-  color: #111827;
-}
-
+.task-dashboard h1,
 .task-dashboard h2 {
   color: #111827;
 }
-
-/* Statistics */
 
 .stat-card {
   min-height: 110px;
@@ -112,8 +101,6 @@ body {
   font-size: 28px;
   font-weight: 700;
 }
-
-/* Add task */
 
 .add-task-section {
   padding: 20px;
@@ -146,8 +133,6 @@ body {
   border-color: #4338ca;
 }
 
-/* Filters */
-
 .task-list-section {
   margin-top: 10px;
 }
@@ -163,20 +148,61 @@ body {
   color: #ffffff;
 }
 
-/* Task container */
-
 .task-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
-/* Empty state */
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.task-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.task-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1f2937;
+  word-break: break-word;
+}
+
+.task-title.completed {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
 
 .empty-state {
-  padding: 50px 20px;
+  padding: 40px 20px;
   border: 1px dashed #d1d5db;
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: #f9fafb;
 }
 
@@ -185,14 +211,15 @@ body {
   color: #374151;
 }
 
-/* Validation */
-
 .invalid-feedback {
   margin-top: 6px;
   font-size: 13px;
 }
 
-/* Footer */
+.form-control.is-invalid {
+  border-color: #dc3545;
+  background-image: none;
+}
 
 .app-footer {
   margin-top: 20px;
@@ -204,8 +231,6 @@ body {
   color: #6b7280;
   font-size: 14px;
 }
-
-/* Responsive */
 
 @media (max-width: 991.98px) {
   .sidebar {
@@ -263,5 +288,18 @@ body {
 
   .empty-state {
     padding: 40px 15px;
+  }
+
+  .task-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .task-actions {
+    width: 100%;
+  }
+
+  .task-actions button {
+    flex: 1;
   }
 }
