@@ -30,3 +30,19 @@ let tasks = [
     completed: false,
   },
 ];
+
+const taskContainer = document.getElementById("taskContainer");
+
+const totalTasksElement = document.getElementById("totalTasks");
+
+const activeTasksElement = document.getElementById("activeTasks");
+
+const completedTasksElement = document.getElementById("completedTasks");
+
+console.log("Task container:", taskContainer);
+
+console.log("Total tasks element:", totalTasksElement);
+
+console.log("Active tasks element:", activeTasksElement);
+
+console.log("Completed tasks element:", completedTasksElement);
