@@ -1,78 +1,145 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Color Changer</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Changer</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 30px;
-    }
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 30px;
+      }
 
-    .color-options {
-      background-color: white;
-      padding: 20px;
-      width: 250px;
-      border-radius: 10px;
-      
-    }
+      .color-options {
+        background-color: white;
+        padding: 20px;
+        width: 250px;
+        border-radius: 10px;
+      }
 
-    .color-option {
-      display: block;
-      margin: 10px 0;
-    }
-  </style>
-</head>
+      .color-option {
+        display: block;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
 
-<body>
+  <body>
+    <div class="color-options">
+      <h2>Choose a Color</h2>
 
-  <div class="color-options">
-    <h2>Choose a Color</h2>
+      <label class="color-option">
+        <input type="radio" name="color" value="#5ab5ff" />
+        Blue
+      </label>
 
-    <label class="color-option">
-      <input type="radio" name="color" value="#5ab5ff" />
-      Blue
-    </label>
+      <label class="color-option">
+        <input type="radio" name="color" value="#03c4a1" />
+        Green
+      </label>
 
-    <label class="color-option">
-      <input type="radio" name="color" value="#03c4a1" />
-      Green
-    </label>
+      <label class="color-option">
+        <input type="radio" name="color" value="#c300ff" />
+        Purple
+      </label>
 
-    <label class="color-option">
-      <input type="radio" name="color" value="#c300ff" />
-      Purple
-    </label>
+      <label class="color-option">
+        <input type="radio" name="color" value="#FFEB3B" />
+        Sunny mode
+      </label>
 
-    <label class="color-option">
-      <input type="radio" name="color" value="#FFEB3B" />
-      Sunny mode
-    </label>
+      <label class="color-option">
+        <input type="radio" name="color" value="#000" />
+        Night mode
+      </label>
 
-    <label class="color-option">
-      <input type="radio" name="color" value="#000" />
-      Night mode
-    </label>
+      <label class="color-option">
+        <input type="radio" name="color" value="#fff" />
+        White
+      </label>
+    </div>
 
-    <label class="color-option">
-      <input type="radio" name="color" value="#fff" />
-      White
-    </label>
-  </div>
+    <div id="parent">
+      <button id="child">Click Me</button>
+    </div>
 
-  <script>
-    const colorOptions = document.querySelectorAll(
-      'input[name="color"]'
-    );
+    <div id="products">
+      <button data-product="Laptop">Laptop</button>
 
-    colorOptions.forEach(function (radio) {
-      radio.addEventListener("change", function () {
-        document.body.style.backgroundColor = radio.value;
+      <button data-product="Phone">Phone</button>
+
+      <button data-product="Keyboard">Keyboard</button>
+    </div>
+    <div id="grandparent">
+      Grandparent
+
+      <div id="parents">
+        Parent
+
+        <button id="childs">Click Me</button>
+      </div>
+    </div>
+
+    <script>
+      const grandparent = document.querySelector("#grandparent");
+      const parents = document.querySelector("#parent");
+      const childs = document.querySelector("#child");
+
+      grandparent.addEventListener("click", function () {
+        console.log("Grandparent");
       });
-    });
-  </script>
 
-</body>
+      parents.addEventListener("click", function () {
+        console.log("Parent");
+      });
+
+      childs.addEventListener("click", function () {
+        console.log("Child");
+      });
+      const products = document.querySelector("#products");
+
+      products.addEventListener("click", function (event) {
+        if (event.target.tagName === "BUTTON") {
+          console.log(event.target.dataset.product);
+        }
+      });
+
+      products.addEventListener("click", function (event) {
+        console.log(event.target);
+      });
+      const parent = document.querySelector("#parent");
+      const child = document.querySelector("#child");
+
+      parent.addEventListener("click", function () {
+        console.log("Parent");
+      });
+
+      child.addEventListener("click", function () {
+        console.log("Child");
+      });
+      // const parent = document.querySelector("#parent");
+      // const child = document.querySelector("#child");
+
+      // parent.addEventListener(
+      //   "click",
+      //   function () {
+      //     console.log("Parent");
+      //   },
+      //   true,
+      // );
+
+      // child.addEventListener("click", function () {
+      //   console.log("Child");
+      // });
+
+      const colorOptions = document.querySelectorAll('input[name="color"]');
+
+      colorOptions.forEach(function (radio) {
+        radio.addEventListener("change", function () {
+          document.body.style.backgroundColor = radio.value;
+        });
+      });
+    </script>
+  </body>
 </html>
