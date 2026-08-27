@@ -39,10 +39,68 @@ const activeTasksElement = document.getElementById("activeTasks");
 
 const completedTasksElement = document.getElementById("completedTasks");
 
-console.log("Task container:", taskContainer);
+function renderTasks() {
+  taskContainer.innerHTML = "";
 
-console.log("Total tasks element:", totalTasksElement);
+  tasks.forEach(function (task) {
+    const taskElement = document.createElement("div");
 
-console.log("Active tasks element:", activeTasksElement);
+    
+taskElement.className = "task-item";
 
-console.log("Completed tasks element:", completedTasksElement);
+const taskContent = document.createElement("div");
+
+taskContent.className = "task-content";
+
+const checkbox = document.createElement("input");
+
+checkbox.type = "checkbox";
+
+checkbox.className = "task-checkbox";
+
+checkbox.checked = task.completed;
+
+const taskTitle = document.createElement("span");
+
+taskTitle.className = "task-title";
+
+taskTitle.textContent = task.title;
+
+const taskActions = document.createElement("div");
+
+taskActions.className = "task-actions";
+
+const editButton = document.createElement("button");
+
+editButton.type = "button";
+
+editButton.className = "btn btn-sm btn-outline-secondary";
+
+editButton.textContent = "Edit";
+
+const deleteButton = document.createElement("button");
+
+deleteButton.type = "button";
+
+deleteButton.className = "btn btn-sm btn-outline-danger";
+
+deleteButton.textContent = "Delete";
+
+taskContent.append(checkbox);
+
+taskContent.append(taskTitle);
+
+taskActions.append(editButton);
+
+taskActions.append(deleteButton);
+
+taskElement.append(taskContent);
+
+taskElement.append(taskActions);
+
+taskContainer.append(taskElement);
+;
+  });
+}
+
+renderTasks();
