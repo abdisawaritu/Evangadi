@@ -42,57 +42,78 @@ const activeTasksElement = document.getElementById("activeTasks");
 const completedTasksElement = document.getElementById("completedTasks");
 
 function updateStatistics() {
-  const totalTasks = tasks.length;
+  const total = tasks.length;
 
-  const completedTasks = tasks.filter(function (task) {
-    return task.completed === true;
+  const completed = tasks.filter(function (task) {
+    return task.completed;
   }).length;
 
-  const activeTasks = tasks.filter(function (task) {
-    return task.completed === false;
+  const active = tasks.filter(function (task) {
+    return !task.completed;
   }).length;
 
-  totalTasksElement.textContent = totalTasks;
-  activeTasksElement.textContent = activeTasks;
-  completedTasksElement.textContent = completedTasks;
+  totalTasksElement.textContent = total;
+  activeTasksElement.textContent = active;
+  completedTasksElement.textContent = completed;
+}
+
+function showTaskError(message) {
+  taskError.textContent = message;
+  taskInput.classList.add("is-invalid");
+}
+
+function clearTaskError() {
+  taskError.textContent = "";
+  taskInput.classList.remove("is-invalid");
+}
+
+function toggleTask(taskId) {
+  const task = tasks.find(function (task) {
+    return task.id === taskId;
+  });
+
+  if (!task) {
+    return;
+  }
+
+  task.completed = !task.completed;
+
+  renderTasks();
 }
 
 function createTaskElement(task) {
   const taskElement = document.createElement("div");
-
   taskElement.className = "task-item";
 
   const taskContent = document.createElement("div");
-
   taskContent.className = "task-content";
 
   const checkbox = document.createElement("input");
-
   checkbox.type = "checkbox";
   checkbox.className = "task-checkbox";
   checkbox.checked = task.completed;
 
-  const taskTitle = document.createElement("span");
+  checkbox.addEventListener("change", function () {
+    toggleTask(task.id);
+  });
 
+  const taskTitle = document.createElement("span");
   taskTitle.className = "task-title";
   taskTitle.textContent = task.title;
 
-  if (task.completed === true) {
+  if (task.completed) {
     taskTitle.classList.add("completed");
   }
 
   const taskActions = document.createElement("div");
-
   taskActions.className = "task-actions";
 
   const editButton = document.createElement("button");
-
   editButton.type = "button";
   editButton.className = "btn btn-sm btn-outline-secondary";
   editButton.textContent = "Edit";
 
   const deleteButton = document.createElement("button");
-
   deleteButton.type = "button";
   deleteButton.className = "btn btn-sm btn-outline-danger";
   deleteButton.textContent = "Delete";
@@ -129,36 +150,22 @@ function renderTasks() {
   updateStatistics();
 }
 
-function showTaskError(message) {
-  taskError.textContent = message;
-
-  taskInput.classList.add("is-invalid");
-}
-
-function clearTaskError() {
-  taskError.textContent = "";
-
-  taskInput.classList.remove("is-invalid");
-}
-
 function addTask(event) {
   event.preventDefault();
 
   clearTaskError();
 
-  const taskTitle = taskInput.value.trim();
+  const title = taskInput.value.trim();
 
-  if (taskTitle === "") {
+  if (title === "") {
     showTaskError("Please enter a task.");
-
     taskInput.focus();
-
     return;
   }
 
   const newTask = {
     id: Date.now(),
-    title: taskTitle,
+    title: title,
     completed: false,
   };
 
