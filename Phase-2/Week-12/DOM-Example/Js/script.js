@@ -1,4 +1,3 @@
-// // How to add Js into the HTML
 // // including Js code inline (related to event Js code);
 // // internal using script tags   script script
 // // external  Using the dedicated file (recommended)
@@ -237,31 +236,11 @@
 // const par = document.getElementsByTagName("p");
 // console.log(par);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //  ways to bind an event (html event handlers)
 // three ways to assing/bind  event handersl to an event
 // 1. html event handlers attribute
 // 2.traditional  dom event handlers
-// 3 dom level  event listeners(addEventListener())  method takes evetn and the handersl function on th the selection element 
+// 3 dom level  event listeners(addEventListener())  method takes evetn and the handersl function on th the selection element
 
 // 1. HTML  event handers attribute
 //     - define  a function on you js that does something
@@ -275,22 +254,22 @@
 //   const apple = document.getElementById("one");
 
 // traditionnal dom event handers
-const apples = document.getElementById("one");
-const btn = document.getElementById("btn");
+// const apples = document.getElementById("one");
+// const btn = document.getElementById("btn");
 
-function changeColor() {
-  apples.style.color = "white";
-  apples.style.backgroundColor = "green";
-  // // selection is not needed because alread we have binded our element to the  event
-  // alert("the button is clicked")
-}
+// function changeColor() {
+//   apples.style.color = "white";
+//   apples.style.backgroundColor = "green";
+//   // // selection is not needed because alread we have binded our element to the  event
+//   // alert("the button is clicked")
+// }
 
-function removeColor() {
-  apple.style.color = "";
-  apple.style.backgroundColor = "";
-}
+// function removeColor() {
+//   apple.style.color = "";
+//   apple.style.backgroundColor = "";
+// }
 
-// btn.onclick = changeColor; // withoug calling  only the name of funcin here binding in inside the js  the connection binding method different here
+// // btn.onclick = changeColor; // withoug calling  only the name of funcin here binding in inside the js  the connection binding method different here
 // btn.ondblclick = removeColor; // here binding is different
 
 // btn.addEventListener("click", changeColor);
@@ -301,22 +280,21 @@ function removeColor() {
 // during bindint the function does not have the parenthtesis
 
 // Element.eventType = function ;
-// function is not called just the name of th efunction if we call it does not wait the function event just watit to event 
+// function is not called just the name of th efunction if we call it does not wait the function event just watit to event
 
 // btn.onclick = function () {
 //   apple.style.backgroundColor = "green";
 // };
 // btn.onclick = function () {
-//   apple.style.color = "white"; // only this executes trad cannot work with multile handers here only the second element event happens   big limiatation only one handlers  we cant apply the multiple    so we use the dom event listener to 
+//   apple.style.color = "white"; // only this executes trad cannot work with multile handers here only the second element event happens   big limiatation only one handlers  we cant apply the multiple    so we use the dom event listener to
 // // };
-// //   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES  avoid the limititation of traditional dom event listenere 
+// //   // DOM LEVEL EVENT HANDLERS WORKS WITH MULTIPLE  HANDLERES  avoid the limititation of traditional dom event listenere
 
 // // btn.addEventListener("click" , function (){  // anonumou function usnig connection
 // //     apple.style.backgroundColor = "green"
 // // })
 // elements.addEventListener(event. handler)
-// here binding and attaching are at the same time 
-
+// here binding and attaching are at the same time
 
 // // btn.addEventListener("click", function () {
 // //   apple.style.color = "white";
@@ -326,17 +304,17 @@ function removeColor() {
 // // link.addEventListener("click" , function (e){
 // //     e.preventDefault();
 
-// on one event we can attach multiple handlers for the dom 
+// on one event we can attach multiple handlers for the dom
 // //     console.log(e)
 // //     link.innerHTML = "<h1>   Hello world </h1>"
 // // })
 // "When the click happens, call this function.";
 // element.removeEventListener("event", function);
 
-// when we call the function  it exectures the code wheneven if the user takes the event   the function executes so that we cant call the function  just give the function name either name , anu , indepeende function to the  add event list method  
+// when we call the function  it exectures the code wheneven if the user takes the event   the function executes so that we cant call the function  just give the function name either name , anu , indepeende function to the  add event list method
 
 // function (event) eve e  e.preventdefaultO()
-  // here event is the object of even 
+// here event is the object of even
 // // const form = document.getElementById("registration-form");
 // // const firstName = document.getElementById("first");
 // element.addEventListener("event", function);
@@ -362,15 +340,15 @@ function removeColor() {
 
 // // // event propagation
 
-// // // Bonus  Event Propagation 4
-document.getElementById("parent").addEventListener("click", () => {
-  alert("Parent Clicked");
-});
-// bubbling phase to stop the propagation of event from the parent element to child element
-document.getElementById("child").addEventListener("click", (e) => {
-  e.stopPropagation();
-  alert("child clicked");
-});
+// // // // Bonus  Event Propagation 4
+// document.getElementById("parent").addEventListener("click", () => {
+//   alert("Parent Clicked");
+// });
+// // bubbling phase to stop the propagation of event from the parent element to child element
+// document.getElementById("child").addEventListener("click", (e) => {
+//   e.stopPropagation();
+//   alert("child clicked");
+// });
 
 // // Altering  and multiple selection
 
@@ -563,206 +541,241 @@ document.getElementById("child").addEventListener("click", (e) => {
 // //   to remove the element
 // // removeChild() and  remove()  // these two method are used to remove the newly created element from the given page
 
-// // parent.removeChild(newElement);
-// newElement.remove();
-// // here we dont need the parent just remove it
+// // // parent.removeChild(newElement);
+// // newElement.remove();
+// // // here we dont need the parent just remove it
 
-// // insertBefore() method   the same as before must it need the selection of the parent element as well the   reference element
-// // it requires the selection of the parent as well refer
+// // // insertBefore() method   the same as before must it need the selection of the parent element as well the   reference element
+// // // it requires the selection of the parent as well refer
 
-// parent.insertBefore(newElement, referenceElement);
+// // parent.insertBefore(newElement, referenceElement);
 
-// // very important points here  selection of the reference element  and parent element  to create and append or insert into our page
+// // // very important points here  selection of the reference element  and parent element  to create and append or insert into our page
 
-// // Altering Attributes ( HTML attributes) are the found on the the opening tags of the html
-// // className
-// // id
-// // classList
-// // different attribute of the html
-// //
-// const amazon = document.getElementById("two");
-// // const apple = document.getElementById("one");
-// // amazon.append(apple);// question
+// // // Altering Attributes ( HTML attributes) are the found on the the opening tags of the html
+// // // className
+// // // id
+// // // classList
+// // // different attribute of the html
+// // //
+// // const amazon = document.getElementById("two");
+// // // const apple = document.getElementById("one");
+// // // amazon.append(apple);// question
 
-// // console.log(document.getElementById("tech"))
+// // // console.log(document.getElementById("tech"))
 
-// // className  and classList properties
-// console.log(amazon);
-// amazon.className = "yellow";
-// // className override the first class name it does not add the new multiple class name
+// // // className  and classList properties
+// // console.log(amazon);
+// // amazon.className = "yellow";
+// // // className override the first class name it does not add the new multiple class name
 
-// amazon.classList.add("test");
-// amazon.classList.remove("red")
+// // amazon.classList.add("test");
+// // amazon.classList.remove("red")
 
-// //  id
+// // //  id
 
-// // amazon.id = "new ID "
-// // console.log(amazon )
+// // // amazon.id = "new ID "
+// // // console.log(amazon )
 
-// // getAttributes  to get the values of the selected elemt attributes
+// // // getAttributes  to get the values of the selected elemt attributes
 
-// console.log(amazon.getAttribute("id"));
+// // console.log(amazon.getAttribute("id"));
 
-// amazon.setAttribute("name" , "amazaon ")  // link can be also inserted
+// // amazon.setAttribute("name" , "amazaon ")  // link can be also inserted
 
-// // appendHCILd vs append
-// // their differencees append and appendChild  append to add new element or noder other than created one append have more advantage  thatn appendchild
+// // // appendHCILd vs append
+// // // their differencees append and appendChild  append to add new element or noder other than created one append have more advantage  thatn appendchild
 
-// // update or changin the css behavirou using the js using the style object  and different method and properites of the
+// // // update or changin the css behavirou using the js using the style object  and different method and properites of the
 
-const apple = document.getElementById("two");
-apple.style.backgroundColor = "green";
-apple.style.color = "white";
-apple.style.border = "black solid";
-// apple.style.display = "none";
+// const apple = document.getElementById("two");
+// apple.style.backgroundColor = "green";
+// apple.style.color = "white";
+// apple.style.border = "black solid";
+// // apple.style.display = "none";
 
-// html collection vs node list
-// html collection they are live
-//  node list either they are live or static
+// // html collection vs node list
+// // html collection they are live
+// //  node list either they are live or static
 
-const boxes = document.getElementsByClassName("box");
-console.log(boxes.length); //3
+// const boxes = document.getElementsByClassName("box");
+// console.log(boxes.length); //3
 
-// modifying the dom  affects the live collection of teh htmls
-document.body.innerHTML += '<div class="box">box 4</div>';
-console.log(boxes); // leng 4
+// // modifying the dom  affects the live collection of teh htmls
+// document.body.innerHTML += '<div class="box">box 4</div>';
+// console.log(boxes); // leng 4
 
-// the same is true for the getElement by Tag name it return html collection which update  the element lively
+// // the same is true for the getElement by Tag name it return html collection which update  the element lively
 
-// with dom traversal  you have to first parent element or the referece element selection
+// // with dom traversal  you have to first parent element or the referece element selection
 
-// element.parentElement;  give the htm element that direct contaitn this elemetn
+// // element.parentElement;  give the htm element that direct contaitn this elemetn
 
-// createElement() creates the element, but does not insert it into the page.
+// // createElement() creates the element, but does not insert it into the page.
 
-const paragraph = document.createElement("p");
-paragraph.textContent = "Hello , Abdisa!";
+// const paragraph = document.createElement("p");
+// paragraph.textContent = "Hello , Abdisa!";
 
-paragraph.classList.add("message");
-paragraph.id = "welcome";
+// paragraph.classList.add("message");
+// paragraph.id = "welcome";
 
-const body = document.body;
-body.append(paragraph);
+// const body = document.body;
+// body.append(paragraph);
 
-// let imagcreat = document.createElement("img")
-// imagcreat.setAttribute("src"  , "sourse of the image ")
-// parent.append(image);
-// we can also change the
+// // let imagcreat = document.createElement("img")
+// // imagcreat.setAttribute("src"  , "sourse of the image ")
+// // parent.append(image);
+// // we can also change the
 
-// element.style.property = "value";
-// JavaScript uses camelCase:
+// // element.style.property = "value";
+// // JavaScript uses camelCase:
 
-const button = document.querySelector("#changeBtn");
-const box = document.querySelector("#box");
+// const button = document.querySelector("#changeBtn");
+// const box = document.querySelector("#box");
 
-button.addEventListener("click", function () {
-  box.style.backgroundColor = "red";
-  box.style.color = "white";
-  box.style.width = "300px";
-  box.style.height = "200px";
-});
+// button.addEventListener("click", function () {
+//   box.style.backgroundColor = "red";
+//   box.style.color = "white";
+//   box.style.width = "300px";
+//   box.style.height = "200px";
+// });
 
+// const buttons = document.querySelector("#darkBtn");
 
-const buttons = document.querySelector("#darkBtn");
+// buttons.addEventListener("click", function () {
+//   document.body.classList.toggle("dark");
+// });
 
-buttons.addEventListener("click", function () {
-  document.body.classList.toggle("dark");
-});
+//   //                USER ACTION
+//                    ↓
+//                 EVENT
+//                    ↓
+//             EVENT LISTENER
+//                    ↓
+//            CALLBACK FUNCTION
+//                    ↓
+//       ┌────────────┼────────────┐
+//       ↓            ↓            ↓
+//     HTML       ATTRIBUTE       CSS
+//       ↓            ↓            ↓
+//  textContent   setAttribute   classList
+//  innerHTML     removeAttr     style
+//  createElement dataset        toggle
+//       ↓            ↓            ↓
+// //       └────────────┼────────────┘
+// //                    ↓
+// //               PAGE UPDATES
 
-  //                USER ACTION
-  //                    ↓
-  //                 EVENT
-  //                    ↓
-  //             EVENT LISTENER
-  //                    ↓
-  //            CALLBACK FUNCTION
-  //                    ↓
-  //       ┌────────────┼────────────┐
-  //       ↓            ↓            ↓
-  //     HTML       ATTRIBUTE       CSS
-  //       ↓            ↓            ↓
-  //  textContent   setAttribute   classList
-  //  innerHTML     removeAttr     style
-  //  createElement dataset        toggle
-  //       ↓            ↓            ↓
-  // //       └────────────┼────────────┘
-  // //                    ↓
-  // //               PAGE UPDATES
+// const buttonss = document.querySelector("#button");
+// const message = document.querySelector("#message");
 
-  // const buttonss = document.querySelector("#button");
-  // const message = document.querySelector("#message");
+// buttonss.addEventListener("click", function () {
+//   message.textContent = "The message has changed!";
+// });
 
-  // buttonss.addEventListener("click", function () {
-  //   message.textContent = "The message has changed!";
-  // });
+// const themeButton = document.querySelector("#themeButton");
 
-  // const themeButton = document.querySelector("#themeButton");
+// themeButton.addEventListener("click", function () {
+//   document.body.classList.toggle("dark");
 
-  // themeButton.addEventListener("click", function () {
-  //   document.body.classList.toggle("dark");
+//   if (document.body.classList.contains("dark")) {
+//     themeButton.textContent = "Light Mode";
+//   } else {
+//     themeButton.textContent = "Dark Mode";
+//   }
+// });
 
-  //   if (document.body.classList.contains("dark")) {
-  //     themeButton.textContent = "Light Mode";
-  //   } else {
-  //     themeButton.textContent = "Dark Mode";
-  //   }
-  // });
+// const menuButton = document.querySelector("#menuButton");
+// const menu = document.querySelector("#menu");
 
-  const menuButton = document.querySelector("#menuButton");
-  const menu = document.querySelector("#menu");
+// menuButton.addEventListener("click", function () {
+//   menu.classList.toggle("open");
+// });
 
-  menuButton.addEventListener("click", function () {
-    menu.classList.toggle("open");
-  });
+// const email = document.querySelector("#email");
+// const submit = document.querySelector("#submit");
+// const error = document.querySelector("#error");
 
-  const email = document.querySelector("#email");
-  const submit = document.querySelector("#submit");
-  const error = document.querySelector("#error");
+// submit.addEventListener("click", function () {
+//   if (email.value === "") {
+//     error.textContent = "Email is required";
+//     error.classList.add("error");
+//   } else {
+//     error.textContent = "Email is valid";
+//     error.classList.add("success");
+//   }
+// });
 
-  submit.addEventListener("click", function () {
-    if (email.value === "") {
-      error.textContent = "Email is required";
-      error.classList.add("error");
-    } else {
-      error.textContent = "Email is valid";
-      error.classList.add("success");
-    }
-  });
+//                     USER
+//                    │
+//                    ↓
+//             User interaction
+//                    │
+//                    ↓
+//            s      EVENT
+//                    │
+//                    ↓
+//            Event listener
+//                    │
+//                    ↓
+//             Callback function
+//                    │
+//       ┌────────────┼────────────┐
+//       ↓            ↓            ↓
+//      DOM        ATTRIBUTES      CSS
+//       │            │            │
+//       ↓            ↓            ↓
+// textContent    setAttribute   classList
+// innerHTML      dataset        style
+// createElement
+// append
+// remove
+//       │            │            │
+//       └────────────┼────────────┘
+//                    ↓
+//               USER INTERFACE
+//                    │
+//                    ↓
+//              Backend/API
+//                    │
+//                    ↓
+//                Database
 
-  //                     USER
-  //                    │
-  //                    ↓
-  //             User interaction
-  //                    │
-  //                    ↓
-  //            s      EVENT
-  //                    │
-  //                    ↓
-  //            Event listener
-  //                    │
-  //                    ↓
-  //             Callback function
-  //                    │
-  //       ┌────────────┼────────────┐
-  //       ↓            ↓            ↓
-  //      DOM        ATTRIBUTES      CSS
-  //       │            │            │
-  //       ↓            ↓            ↓
-  // textContent    setAttribute   classList
-  // innerHTML      dataset        style
-  // createElement
-  // append
-  // remove
-  //       │            │            │
-  //       └────────────┼────────────┘
-  //                    ↓
-  //               USER INTERFACE
-  //                    │
-  //                    ↓
-  //              Backend/API
-  //                    │
-  //                    ↓
-  //                Database
+// Jquery Libray 
 
+let redClass = $(".red");
+console.log(redClass);
 
-  
+let apple = $("#one");
+console.log(apple);
+
+let listItem = $("li");
+console.log(listItem);
+// selecting elements with jQuery 
+
+// method for filtering and the css attributes 
+// first()     :first
+//  last()    : last
+
+// | Method           | Purpose                          | Example                                |
+// | ---------------- | -------------------------------- | -------------------------------------- |
+// | `.text()`        | Get/set **text content**         | `$("#title").text("Hello");`           |
+// | `.html()`        | Get/set **HTML content**         | `$("#box").html("<b>Hello</b>");`      |
+// | `.val()`         | Get/set **form input value**     | `$("#name").val("Abdisa");`            |
+// | `.attr()`        | Get/set **HTML attributes**      | `$("#img").attr("src", "photo.jpg");`  |
+// | `.removeAttr()`  | Remove an attribute              | `$("#input").removeAttr("disabled");`  |
+// | `.css()`         | Change CSS property              | `$("#box").css("color", "red");`       |
+// | `.addClass()`    | Add CSS class                    | `$("#box").addClass("active");`        |
+// | `.removeClass()` | Remove CSS class                 | `$("#box").removeClass("active");`     |
+// | `.toggleClass()` | Add/remove class automatically   | `$("#box").toggleClass("active");`     |
+// | `.show()`        | Show hidden element              | `$("#box").show();`                    |
+// | `.hide()`        | Hide element                     | `$("#box").hide();`                    |
+// | `.toggle()`      | Show/hide element                | `$("#box").toggle();`                  |
+// | `.append()`      | Add content at the **end**       | `$("#list").append("<li>New</li>");`   |
+// | `.prepend()`     | Add content at the **beginning** | `$("#list").prepend("<li>New</li>");`  |
+// | `.before()`      | Add content before element       | `$("#box").before("<p>Hello</p>");`    |
+// | `.after()`       | Add content after element        | `$("#box").after("<p>Hello</p>");`     |
+// | `.empty()`       | Remove all content inside        | `$("#box").empty();`                   |
+// | `.remove()`      | Remove the element itself        | `$("#box").remove();`                  |
+// | `.replaceWith()` | Replace an element               | `$("#box").replaceWith("<p>New</p>");` |
+
