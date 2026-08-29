@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.form-registration {
+  margin: 20px;
+}
+button {
+  background-color: blue;
+}
+.fruits {
+  background-color: blue;
+  margin: 20px;
+}
+#list-of-fruits {
+  width: 50rem;
+  margin: 40px;
+  list-style: none;
+}
+.red {
+  background-color: red;
+  padding: 15px;
+}
+.yellow {
+  background-color: yellow;
+  padding: 15px;
+}
+.pink {
+  background-color: pink;
+  padding: 15px;
+}
+.green {
+  background-color: green;
+  padding: 15px;
+}
+h2 {
+  margin: 20px;
+}
+li {
+  border-bottom: 1px solide #ccc;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.kebede {
+  color: white !important;
+  padding: 40px !important;
+}
+.fruits-menu{
+    background-color:  pink;
+    margin: 30px;
+    width: 100px;
+    padding: 5px;
+}
+/* #two{
+    background-color: yellow;
+} */
