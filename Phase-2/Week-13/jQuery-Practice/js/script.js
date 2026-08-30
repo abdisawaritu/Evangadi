@@ -172,12 +172,12 @@ $("#clickMe2").on("click", function () {
   $("#clickMe1").hide();
 });
 
-// mutiple events  one action or function
+// mutiple events  one action or function  on element that handles event  or that listens  the multiple event  using one  function 
 $("#btn-4").on("mouseenter   mouseleave", function () {
   console.log("mouse hovered over or left a div or button ");
 });
 
-// multiple events multiple function or handlers
+// multiple events multiple function or handlers here   we have  one selected event  on that event  we handle event  multiple events using different function or handlers  with multiple event 
 
 $("#btn-3").on({
   mouseenter: function () {
@@ -225,10 +225,13 @@ $("#formID").on("submit", function (e) {
 //   $("#companies").fadeToggle(1000);
 // });
 
-$("#btn-1").click(function () {
-  $("#one").animate({
-    fontSize: "50px",
-    color:  " white",
-    width:  "50%"
-  } ,2000);
-});
+// $("#btn-1").click(function () {
+//   $("#one").animate({
+//     fontSize: "50px",
+//     color:  " white",
+//     width:  "50%"
+//   } ,2000);
+// });
+
+// jQuery()  ====  $();  //  
+
