@@ -59,6 +59,11 @@ console.log(samplePara.html()); // If  we need the element tags and content we u
 
 // $("#techCompanies").append(newCompany);
 
+
+
+
+
+
 // // jQuery element create
 // const facebook = $("<li>facebook</li>");
 // console.log(facebook);
@@ -185,34 +190,35 @@ that checks if all the fields are provided. If not, it should show an error mess
 If the user provides all the values, hide the form input fields, and display all the values provided
 by the user on the browser*/
 
-// const secondForm = $("form").last();
-// // console.log(secondForm)
-// const firstName = $("#forF");
-// const lastName = $("#forL");
-// const email = $("#email");
+const secondForm = $("form").last();
+// console.log(secondForm)
+const firstName = $("#forF");
+const lastName = $("#forL");
+const email = $("#email");
 
-// const resultArea = $(".result");
-// // const buttons = $("#btns");
+const resultArea = $(".result");
+// const buttons = $("#btns");
 
-// secondForm.on("submit", function (event) {
-//   event.preventDefault();
-//   const firstN = firstName.val().trim();
-//   const lastN = lastName.val().trim();
-//   const emailv = email.val().trim();
+secondForm.on("submit", function (event) {
+  event.preventDefault();
+  const firstN = firstName.val().trim();
+  const lastN = lastName.val().trim();
+  const emailv = email.val().trim();
 
-//   if (firstN === "" || lastN === "" || emailv === "") {
-//     resultArea.text("please enter all required fields ");
-//   } else {
-//     secondForm.hide();
-//     resultArea.html(`
+  if (firstN === "" || lastN === "" || emailv === "") {
+    resultArea.text("please enter all required fields ");
+    return;
+  }  {
+    secondForm.hide();
+    resultArea.html(`
 
-//       <p>Your First Name: ${firstN}</p>
-//             <p>Your Last Name: ${lastN}</p>
-//             <p>Your Email: ${emailv}</p>
+      <p>Your First Name: ${firstN}</p>
+            <p>Your Last Name: ${lastN}</p>
+            <p>Your Email: ${emailv}</p>
 
-//       `);
-//   }
-// });
+      `);
+  }
+});
 
 // const form = $("form").last();
 // const result = $(".result");
@@ -239,137 +245,137 @@ by the user on the browser*/
 //     `);
 // });
 
-const forms = $("#userForm");
+// const forms = $("#userForm");
 
-const firstNameInput = $("#forF");
-const lastNameInput = $("#forL");
-const emailInput = $("#email");
+// const firstNameInput = $("#forF");
+// const lastNameInput = $("#forL");
+// const emailInput = $("#email");
 
-const firstNameError = $("#firstNameError");
-const lastNameError = $("#lastNameError");
-const emailError = $("#emailError");
+// const firstNameError = $("#firstNameError");
+// const lastNameError = $("#lastNameError");
+// const emailError = $("#emailError");
 
-const formError = $("#formError");
-const result = $("#result");
+// const formError = $("#formError");
+// const result = $("#result");
 
-// ==============================
-// FIRST NAME VALIDATION
-// ==============================
+// // ==============================
+// // FIRST NAME VALIDATION
+// // ==============================
 
-function validateFirstName() {
-  const value = firstNameInput.val().trim();
+// function validateFirstName() {
+//   const value = firstNameInput.val().trim();
 
-  if (value === "") {
-    firstNameError.text("First name is required.");
-    firstNameInput.addClass("input-error");
+//   if (value === "") {
+//     firstNameError.text("First name is required.");
+//     firstNameInput.addClass("input-error");
 
-    return false;
-  }
+//     return false;
+//   }
 
-  firstNameError.text("");
-  firstNameInput.removeClass("input-error");
-  firstNameInput.addClass("input-success");
+//   firstNameError.text("");
+//   firstNameInput.removeClass("input-error");
+//   firstNameInput.addClass("input-success");
 
-  return true;
-}
+//   return true;
+// }
 
-// ==============================
-// LAST NAME VALIDATION
-// ==============================
+// // ==============================
+// // LAST NAME VALIDATION
+// // ==============================
 
-function validateLastName() {
-  const value = lastNameInput.val().trim();
+// function validateLastName() {
+//   const value = lastNameInput.val().trim();
 
-  if (value === "") {
-    lastNameError.text("Last name is required.");
-    lastNameInput.addClass("input-error");
+//   if (value === "") {
+//     lastNameError.text("Last name is required.");
+//     lastNameInput.addClass("input-error");
 
-    return false;
-  }
+//     return false;
+//   }
 
-  lastNameError.text("");
-  lastNameInput.removeClass("input-error");
-  lastNameInput.addClass("input-success");
+//   lastNameError.text("");
+//   lastNameInput.removeClass("input-error");
+//   lastNameInput.addClass("input-success");
 
-  return true;
-}
+//   return true;
+// }
 
-// ==============================
-// EMAIL VALIDATION
-// ==============================
+// // ==============================
+// // EMAIL VALIDATION
+// // ==============================
 
-function validateEmail() {
-  const value = emailInput.val().trim();
+// function validateEmail() {
+//   const value = emailInput.val().trim();
 
-  if (value === "") {
-    emailError.text("Email address is required.");
-    emailInput.addClass("input-error");
+//   if (value === "") {
+//     emailError.text("Email address is required.");
+//     emailInput.addClass("input-error");
 
-    return false;
-  }
+//     return false;
+//   }
 
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!emailPattern.test(value)) {
-    emailError.text("Please enter a valid email address.");
-    emailInput.addClass("input-error");
+//   if (!emailPattern.test(value)) {
+//     emailError.text("Please enter a valid email address.");
+//     emailInput.addClass("input-error");
 
-    return false;
-  }
+//     return false;
+//   }
 
-  emailError.text("");
-  emailInput.removeClass("input-error");
-  emailInput.addClass("input-success");
+//   emailError.text("");
+//   emailInput.removeClass("input-error");
+//   emailInput.addClass("input-success");
 
-  return true;
-}
+//   return true;
+// }
 
-// ==============================
-// FORM SUBMISSION
-// ==============================
+// // ==============================
+// // FORM SUBMISSION
+// // ==============================
 
-forms.on("submit", function (event) {
-  event.preventDefault();
+// forms.on("submit", function (event) {
+//   event.preventDefault();
 
-  const firstValid = validateFirstName();
-  const lastValid = validateLastName();
-  const emailValid = validateEmail();
+//   const firstValid = validateFirstName();
+//   const lastValid = validateLastName();
+//   const emailValid = validateEmail();
 
-  // If any field is invalid
-  if (!firstValid || !lastValid || !emailValid) {
-    formError.text("Please correct the errors above.").show();
+//   // If any field is invalid
+//   if (!firstValid || !lastValid || !emailValid) {
+//     formError.text("Please correct the errors above.").show();
 
-    return;
-  }
+//     return;
+//   }
 
-  // All fields are valid
-  formError.hide();
+//   // All fields are valid
+//   formError.hide();
 
-  // Get the final values
-  const firstName = firstNameInput.val().trim();
-  const lastName = lastNameInput.val().trim();
-  const email = emailInput.val().trim();
+//   // Get the final values
+//   const firstName = firstNameInput.val().trim();
+//   const lastName = lastNameInput.val().trim();
+//   const email = emailInput.val().trim();
 
-  // Hide the form
-  forms.hide();
+//   // Hide the form
+//   forms.hide();
 
-  // Display user information
-  result.html(`
-        <h3>User Information</h3>
+//   // Display user information
+//   result.html(`
+//         <h3>User Information</h3>
 
-        <p>
-            <strong>First Name:</strong>
-            ${firstName}
-        </p>
+//         <p>
+//             <strong>First Name:</strong>
+//             ${firstName}
+//         </p>
 
-        <p>
-            <strong>Last Name:</strong>
-            ${lastName}
-        </p>
+//         <p>
+//             <strong>Last Name:</strong>
+//             ${lastName}
+//         </p>
 
-        <p>
-            <strong>Email:</strong>
-            ${email}
-        </p>
-    `);
-});
+//         <p>
+//             <strong>Email:</strong>
+//             ${email}
+//         </p>
+//     `);
+// });

@@ -321,35 +321,123 @@ body {
 }
 
 /* Footer responsive */
+/* =========================================================
+   FOOTER RESPONSIVE - STAGE 1
+   Mobile footer preparation
+   ========================================================= */
+
 @media (max-width: 768px) {
+  /* ---------------------------------------------------------
+     1. Make every footer column occupy the full width
+     --------------------------------------------------------- */
+
+  .footer-links-wrapper {
+    display: block;
+    padding-top: 10px;
+  }
+
+  .footer-links-wrapper .col {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* ---------------------------------------------------------
+     2. Hide footer sub-links on mobile
+     --------------------------------------------------------- */
+
   .footer-links-wrapper ul {
     display: none;
+    margin: 0;
+    padding: 0;
   }
+
+  /* ---------------------------------------------------------
+     3. Style each footer heading
+     --------------------------------------------------------- */
+
   .footer-links-wrapper h3 {
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
+    position: relative;
+
+    margin: 0;
+    padding: 12px 30px 12px 0;
+
+    border-bottom: 1px solid #d2d2d7;
+
+    color: #1d1d1f;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
   }
-  .footer-links-wrapper h3:after {
-    font-family: "FontAwesome";
-    content: "\f067";
-    padding-left: 10px;
-    position: absolute;
-    right: 25px;
 
-    /* transform: rotate(0deg);
-			transition: .3s;   */
+  /* ---------------------------------------------------------
+     4. Create the mathematical > chevron
+     
+     This is NOT Font Awesome.
+     
+     We use CSS borders to create:
+     
+          >
+     
+     The border creates two diagonal lines.
+     --------------------------------------------------------- */
+
+  .footer-links-wrapper h3::after {
+    content: "";
+
+    position: absolute;
+
+    right: 8px;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    border-right: 1.5px solid #1d1d1f;
+    border-top: 1.5px solid #1d1d1f;
+
+    transform: translateY(-50%) rotate(-45deg);
+
+    transition: transform 0.25s ease;
   }
 
-  .footer-links-wrapper h3.expanded:after {
-    font-family: "FontAwesome";
-    content: "\0058";
-    padding-left: 10px;
-    position: absolute;
-    right: 25px;
+  /* ---------------------------------------------------------
+     5. Prepare the expanded state
+     
+     This class will be added by jQuery in Stage 2.
+     
+     >  becomes  <
+     --------------------------------------------------------- */
 
-    /* transform: rotate(-180deg);
-    /*transform: rotate(180deg);*/
-    /* transition: .3s; */
+  .footer-links-wrapper h3.expanded::after {
+    transform: translateY(-50%) rotate(135deg);
+  }
+
+  /* ---------------------------------------------------------
+     6. Make the footer comfortable on small screens
+     --------------------------------------------------------- */
+
+  .footer-wrapper {
+    padding-bottom: 20px;
+  }
+
+  .footer-wrapper .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* ---------------------------------------------------------
+     7. Improve the upper footer text on mobile
+     --------------------------------------------------------- */
+
+  .upper-text-container {
+    padding: 15px 0;
+    font-size: 12px;
+    line-height: 1.5;
   }
 }
 
