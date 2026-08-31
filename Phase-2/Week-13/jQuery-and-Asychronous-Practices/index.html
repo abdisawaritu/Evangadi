@@ -74,7 +74,7 @@
     <span class="err"></span>
     <br />
     <hr />
-    <form action="#" style="border: 2px solid black; width: 500px">
+    <!-- <form action="#" style="border: 2px solid black; width: 500px">
       <br />
       <label for="forF">First Name</label>
       <input id="forF" type="text" />
@@ -90,7 +90,55 @@
       <br />
       <button id="btns">submit</button>
     </form>
-    <span class="result"></span>
+    <span class="result"></span> -->
+
+    <div class="form-container">
+      <!-- General error message -->
+      <div id="formError" class="form-error"></div>
+
+      <form id="userForm">
+        <h2>User Information</h2>
+        <p class="form-description">Please provide your information below.</p>
+
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="forF"> First Name <span class="required">*</span> </label>
+
+          <input id="forF" type="text" placeholder="Enter your first name" />
+
+          <span id="firstNameError" class="error"></span>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="forL"> Last Name <span class="required">*</span> </label>
+
+          <input id="forL" type="text" placeholder="Enter your last name" />
+
+          <span id="lastNameError" class="error"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">
+            Email Address <span class="required">*</span>
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter your email address"
+          />
+
+          <span id="emailError" class="error"></span>
+        </div>
+
+        <button id="btns" type="submit">Submit</button>
+      </form>
+
+      <!-- Result displayed after successful validation -->
+      <div id="result" class="result"></div>
+    </div>
     <!-- link the jQuery library and  custom script at the bottom -->
     <script src="js/jquery-4.0.0.js"></script>
     <script src="js/script.js"></script>
