@@ -73,102 +73,102 @@
 
 // is the function passed ot another function as an argument to be executed later   and so that ther other functin can call it later or at an appropriate time and it is a way to handle asychronous code in javascript  and it is a way to handle the response of an asychronous function in synchronous code because it is executed immediately after the function is called and the setTimeout function is executed after the specified time has passed.
 
-function processUser(name, callback) {
-  callback(name);
-}
+// function processUser(name, callback) {
+//   callback(name);
+// }
 
-function showUser(name) {
-  console.log(name);
-}
+// function showUser(name) {
+//   console.log(name);
+// }
 
-processUser("Abdisa", showUser);
+// processUser("Abdisa", showUser);
 
-// here the function showUser is passed as an argument to the function processUser and it is called inside the function processUser  and its called the callback function .
+// // here the function showUser is passed as an argument to the function processUser and it is called inside the function processUser  and its called the callback function .
 
-// the differece between argument and parameter is that the argument is the value that is passed to the function when it is called and the parameter is the variable that is used to receive the value that is passed to the function when it is called.
+// // the differece between argument and parameter is that the argument is the value that is passed to the function when it is called and the parameter is the variable that is used to receive the value that is passed to the function when it is called.
 
-// showUser()  // the callback function
-//      ↓
-// passed into
-//      ↓
-// processUser()
-//      ↓
-// processUser calls it after executes its code or task .
+// // showUser()  // the callback function
+// //      ↓
+// // passed into
+// //      ↓
+// // processUser()
+// //      ↓
+// // processUser calls it after executes its code or task .
 
-// A call back is not automatically asychrounous or not all the call back function is asychrouncous .
+// // A call back is not automatically asychrounous or not all the call back function is asychrouncous .
 
-function process(callback) {
-  console.log("A");
+// function process(callback) {
+//   console.log("A");
 
-  callback();
+//   callback();
 
-  console.log("B");
-}
+//   console.log("B");
+// }
 
-process(function () {
-  console.log("Callback");
-});  // this callback function is not asychroucous because  everthings happens sychronously .
-// A
-// Callback
-// B
-//There is no timer, network request, event waiting, or other asynchronous mechanism.
+// process(function () {
+//   console.log("Callback");
+// }); // this callback function is not asychroucous because  everthings happens sychronously .
+// // A
+// // Callback
+// // B
+// //There is no timer, network request, event waiting, or other asynchronous mechanism.
 
-// when does  a call back function become asychronous 
-//  a callback becomees asychronous when the function receiving it arranges for the callback  to execute later , agter the current sychrous execution has finsihde or after soem asncdronu opeation competes 
+// // when does  a call back function become asychronous
+// //  a callback becomees asychronous when the function receiving it arranges for the callback  to execute later , agter the current sychrous execution has finsihde or after soem asncdronu opeation competes
 
-function processs(callback) {
-  setTimeout(function () {
-    callback();
-  }, 2000);
-}
-  processs(function () {
-    console.log("Finished");
-});  // here it call back does not execute immediately instead
-// process()
-//    ↓
-// setTimeout()
-//    ↓
-// Browser timer
-//    ↓
-// 2 seconds
-//    ↓
-// callback becomes ready
-//    ↓
-// callback executes
+// function processs(callback) {
+//   setTimeout(function () {
+//     callback();
+//   }, 2000);
+// }
+// processs(function () {
+//   console.log("Finished");
+// }); // here it call back does not execute immediately instead
+// // process()
+// //    ↓
+// // setTimeout()
+// //    ↓
+// // Browser timer
+// //    ↓
+// // 2 seconds
+// //    ↓
+// // callback becomes ready
+// //    ↓
+// // callback executes
 
-function calculate(callback) {
-  console.log("Start");
+// function calculate(callback) {
+//   console.log("Start");
 
-  callback();  //   run immeditately
+//   callback(); //   run immeditately
 
-  console.log("End");
-}
+//   console.log("End");
+// }
 
-calculate(function () {
-  console.log("Callback");
-}); // this is the sychronous callback function .  start -> callbac -> end 
+// calculate(function () {
+//   console.log("Callback");
+// }); // this is the sychronous callback function .  start -> callbac -> end
 
-function calculate(callback) {
-  console.log("Start");
+// function calculate(callback) {
+//   console.log("Start");
 
-  setTimeout(function () {
-    callback();
-  }, 2000);
+//   setTimeout(function () {
+//     callback();
+//   }, 2000);
 
-  console.log("End");
-}
+//   console.log("End");
+// }
 
-calculate(function () {
-  console.log("Callback");
-});
+// calculate(function () {
+//   console.log("Callback");
+// });
 // this is the asychronous callback function .  start -> end -> callbac  after 2 seconds(wait)
 
-// what makes it asychronous 
+// what makes it asychronous
 // timer setTimeout(callback, 2000);
 
 // user event   button.addEventListener("click", callback);
-//fetch("/api/students"); 
-  // other broswser api
+//fetch("/api/students");
+// other broswser api
 // Timers
 // Network requests
 // DOM events
@@ -182,8 +182,8 @@ calculate(function () {
 
 // "Do this after this operation finishes."
 
-// real life example 
-// login page 
+// real life example
+// login page
 
 // loading the data (students)
 // Get/api/students   frontend requeest
@@ -195,7 +195,7 @@ calculate(function () {
 // Immediately?
 //    │
 //    └── YES → synchronous callback
-       
+
 // // Later? // after taking some time (await) by those mechanisem later must caused Timer
 // Event
 // Network operation
@@ -204,7 +204,7 @@ calculate(function () {
 //    │
 //    └── YES → asynchronous callback
 
-// the major limitation of callbacks is that 
+// the major limitation of callbacks is that
 // callback hell   or pyramid of doom .
 // difficult to read
 
@@ -212,7 +212,7 @@ calculate(function () {
 // error handling is difficult
 // difficult to maintain
 
-// // 
+// //
 // login(function (user) {
 //   getProfile(user, function (profile) {
 //     getOrders(user, function (orders) {
@@ -222,7 +222,6 @@ calculate(function () {
 //     });
 //   });
 // })
-
 
 // window.addEventListener("click", function () {
 //   console.log("window  click");
@@ -246,3 +245,328 @@ calculate(function () {
 // }, 2000);
 
 // console.log("C");
+
+// callbacks  function
+
+// function step1(step2) {
+//   console.log(" Step 1 done");
+//   step2();
+// }
+// step1(function () {
+//   console.log(" Step 2 done");
+// }); // this callback is not asychronous since it immediately
+
+// // to solve the above issues
+// function fetchData(callback) {
+//   setTimeout(() => {
+//     const data = { name: "john doe", age: 30 };
+//     callback(data); // simulate a 2 - seconds dealy
+//   });
+// }
+
+// fetchData(function (data) {
+//   console.log(data);
+// });
+
+// the big analogy to understand the asychronous callback.
+
+// function orderPizza(callback) {
+//   console.log("order pizza");
+//   setTimeout(() => {
+//     const pizza = "🍕";
+//     console.log(`Your ${pizza} is  ready`);
+//     callback(pizza);
+//   }, 2000);
+// }
+
+// function pizzaReady(pizza) {
+//   console.log(`Eat your ${pizza}`);
+// }
+
+// orderPizza(pizzaReady);
+// console.log("call a friend");
+// console.log("meet your friend"); // sychronous code
+
+// // it have an isseues of the callback hell.
+
+// // example of callback hell
+
+// function firstTask(callback) {
+//   setTimeout(() => {
+//     console.log("First task done");
+//     callback();
+//   }, 1000);
+// }
+
+// function secondTask(callback) {
+//   setTimeout(() => {
+//     console.log("Second task done");
+//     callback();
+//   }, 1000);
+// }
+
+// function thirdTask(callback) {
+//   setTimeout(() => {
+//     console.log("Third task done");
+//     callback();
+//   }, 1000);
+// }
+
+// firstTask(() => {
+//   secondTask(() => {
+//     thirdTask(() => {
+//       console.log("All tasks completed");
+//     });
+//   });
+// });
+
+// () => {
+//   secondTask(() => {
+// //     thirdTask(() => {
+// //       console.log("All tasks completed");
+// //     });
+// //   });
+// // };  // which is passed to to firstTask.
+
+// // Promise
+// // Promise object
+// // Promise constructor
+// // custom constructor
+
+// // fetch("https://jsonplaceholder.typicode.com/todos/1")
+// // return promises  to get the data from some server
+
+// // fetching data from a server
+// // reading files or
+// // dealing with time  -consuming time operation
+// // are fundamentally tool for handling asychronous opeation in a more strucuted and manae way in the above scenario we can use promise to handle the asychronous operation in a more structured and
+// // 3 states of promise
+
+// // pending
+// // fulfilled
+// // rejected
+// // example of promise
+// // using the fetch Web API  EXAMPLE
+// //  - CONSUME THE RESULT USING .then()
+// //   -handle the error using .catch()
+// let response = fetch("https://randomuser.me/api");
+// console.log(response);
+
+// // fulfilled state
+
+// fetch("https://randomuser.me/api")
+//   .then((response) => {
+
+//     // let  text = response.json();
+//     // console.log(test);
+//     // console.log("fulfilled state");
+//     console.log(response);  // additional information about the response object.
+//     console.log(response.json());
+//     return response.json();
+
+//     // parse the response as JSON
+//   })
+//   .then((data) => {
+//     console.log("fulfilled state");
+//     console.log(data.results[0]);
+//     // handle the data
+//   })  // chain the other
+
+//   .catch((error) => {
+//     console.log("rejected state");
+//     console.log("somethings went Wrong:", error);  // informing the error to the user by wriring the custom and descriptive error message handling  for the
+//     // used for the rejecting response  from the response
+//     // catch handles all the error which are above happnded ins the above chainin of fech and then
+
+//   });  // handles all the errors address error , all the error , it reports the error to the catch method . one catch method handlers every level found in the promise chain.
+
+// fetch ("https://randomuser.me/api") return  a promise that resovlies ot the response of the request
+
+// console.log(fetch("https://randomuser.me/api"));  // it returns a promise that resolves to the response of the request.  the promise is in pending state until the request is completed.  once the request is completed the promise is either fulfilled or rejected.  if the request is successful the promise is fulfilled and if the request fails the promise is rejected.  we can handle the fulfilled state using .then() method and we can handle the rejected state using .catch() method.
+// to get real data we follow some process
+// error handling  is important  points  me must show the error to the user and we must handler the error  description error to user  by making
+// how we can handle the response   the user data  then catch chaninig to get real data to show or render the resonsded data .
+// chaining one on others
+
+// async and await
+
+// async -await  is a modern js stntac for working with promises in a simpler and  more readabil way
+//  async/await is built on top of Promises
+
+// getStudent()
+//   .then((student) => {
+//     console.log(student);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+async function showStudent() {
+  try {
+    const student = await getStudent();
+    console.log(student);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// async  is used for definnig a function     the basic syntax
+async function functionName() {}
+
+async function getData() {
+  // console.log("abdisa");
+  return "abdisa";
+} // the function is now called aync function
+// an async  function always  returns a promise.
+// this method return a promise
+const result = getData();
+console.log(result); // which return the promise not the result or data
+getData().then((name) => {
+  console.log(name);
+});
+
+// since the ayschronous function may produce the result later is give or return as promise
+// example
+
+async function getStudent() {
+  return {
+    name: "Abdisa",
+    age: 23,
+  };
+}
+//  async function always return a  promise
+const res = getStudent();
+console.log(res);
+
+// await
+
+// await is used to wait  for a promise resutlt
+// basix syntax
+
+// const  result = await  Promise;
+// const student = await  getStudent();
+// "wait for the promise returned  by getStudent()" to settel successfully , then put its result into student
+
+///  await must normally be inside an async function
+
+async function showStudent() {
+  const student = await getStudent();
+
+  console.log(student);
+}
+
+// async
+//  ↓
+// allows the function to use await
+//  ↓
+// await
+//  ↓
+// waits for Promise result
+
+async function functionName() {
+  const result = await somePromise();
+}
+
+async function functionName() {
+  try {
+    const result = await somePromise();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// full stack example application
+//  Login
+// create the login function
+// make the api request
+// check the response
+//  If (!response .ok){
+// throw new Error("Login failed")
+//}
+
+// to convert the response to JSON
+// const data =  await Response.json();
+
+// response.json()  return a Promise
+
+// response.json()
+//       ↓
+// Promise
+//       ↓
+// JSON processing
+//       ↓
+// JavaScript object
+
+//       ASYNCHRONOUS OPERATION
+//                ↓
+//             Promise
+//                ↓
+//     ┌──────────┴──────────┐
+//     ↓                     ↓
+//  Success                Failure
+//     ↓                     ↓
+//  resolve                 reject
+//     ↓                     ↓
+// .then()                .catch()
+//     │
+//     │
+//     └────── OR ──────────┐
+//                           ↓
+//                     async function
+//                           ↓
+//                         await
+//                           ↓
+//                     result obtained
+//                           ↓
+//                       try/catch
+
+// async	Makes a function return a Promise
+// await	Waits for a Promise inside an async function
+// resolve()	Successfully completes a Promise
+// reject()	Fails a Promise
+// .then()	Handles a successful Promise result
+// .catch()	Handles a rejected Promise
+// try/catch	Common error-handling mechanism with async/await
+// return in async function	Produces a fulfilled Promise
+// await promise	Gives you the fulfilled value
+// fetch()	Returns a Promise for an HTTP request
+// response.json()	Returns a Promise for parsed JSON
+
+// User action
+//     ↓
+// Frontend JavaScript
+//     ↓
+// fetch()
+//     ↓
+// Promise
+//     ↓
+// Backend API
+//     ↓
+// Database
+//     ↓
+// Response
+//     ↓
+// await
+//     ↓
+// JSON data
+//     ↓
+// Update DOM/UI
+
+// async/await does not replace Promises; it gives you a cleaner way to write code that works with Promises.
+
+// async function logData() {
+//   try {
+//     let response = await fetch("");
+//     console.log(response);
+//     let data = await response.json();
+//     const user = data.results[0];
+//     console.log(user);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// logData();
+
+// promises and asychronouse operation is done using the above methods  is have normal function writing method  sytanx 
+// the promise is handled using the async await rather than using  then catch as promise  the async  keyword is added to  fornted of te fucntion 
+
