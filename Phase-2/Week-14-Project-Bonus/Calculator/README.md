@@ -49,7 +49,7 @@ The calculator will provide:
 
 The calculator uses a 5-row × 4-column button layout:
 
-    ( )     ⌫      %      X
+     C      ()     %      X
      7      8      9      ÷
      4      5      6      −
      1      2      3      +
