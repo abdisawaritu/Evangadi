@@ -998,101 +998,378 @@
 //   });
 // }
 
-// getUser()
-//   .then((user) => {
-//     console.log(user.name);
-//   })
-//   .catch((error) => {
-//     console.log(error.message);
-//   })
-//   .finally(() => {
-//     console.log("Request finished");
-//   });
+// // getUser()
+// //   .then((user) => {
+// //     console.log(user.name);
+// //   })
+// //   .catch((error) => {
+// //     console.log(error.message);
+// //   })
+// //   .finally(() => {
+// //     console.log("Request finished");
+// //   });
 
-// // creating a promise
-// const promis = new Promise((resolve, reject) => {
-//   // operation
+// // // creating a promise
+// // const promis = new Promise((resolve, reject) => {
+// //   // operation
 
-//   if (success) {
-//     resolve(result);
-//   } else {
-//     reject(error);
-//   }
+// //   if (success) {
+// //     resolve(result);
+// //   } else {
+// //     reject(error);
+// //   }
+// // });
+
+// // // consume a promise
+
+// // promise
+// //   .then((result) => {
+// //     // success
+// //   })
+// //   .catch((error) => {
+// //     // failure
+// //   })
+// //   .finally(() => {
+// //     // always runs
+// //   });
+
+// //   // creating custom promise based function
+// //   function myFunction() {
+// //     return new Promise((resolve, reject) => {
+// //       // asynchronous operation
+
+// //       if (success) {
+// //         resolve(result);
+// //       } else {
+// //         reject(error);
+// //       }
+// //     });
+// //   }
+
+// //   myFunction()
+// //     .then((result) => {
+// //       console.log(result);
+// //     })
+// //     .catch((error) => {
+// //       console.log(error);
+// //     });
+
+// //     // promise () constructor function
+
+// let test = new Promise((resolve, reject) => {
+//   resolve("the promise is resolved");
+//   reject("somethings went wrong "); // is ignored after resovle and  viceversa
 // });
 
-// // consume a promise
+// console.log(test);
 
-// promise
-//   .then((result) => {
-//     // success
+// // alarm api system
+
+// function alarm(person, delay) {
+//   return new Promise((resolve, reject) => {
+//     if (delay < 0) {
+//       reject("Alarm delay cannot be negative ");
+//     }
+//     setTimeout(() => {
+//       resolve(` Wake up ,  ${person} `);
+//     }, delay);
+//   });
+// }
+
+// // console.log(alarm("bob" , 2000));
+
+// alarm("bob", 2000)
+//   .then((data) => {
+//     console.log(data);
 //   })
 //   .catch((error) => {
-//     // failure
-//   })
-//   .finally(() => {
-//     // always runs
+//     console.log(error);
 //   });
 
-//   // creating custom promise based function
-//   function myFunction() {
-//     return new Promise((resolve, reject) => {
-//       // asynchronous operation
+// // async function getUp() {
+// //   try {
+// //     let data = await alarm("bob", 2000);
+// //     console.log(data);
+// //   } catch (error) {
+// //     console.log(error);
+// //     // alert("error happnes")
+// //   }
+// // }
+// // getUp();.
 
-//       if (success) {
-//         resolve(result);
+// async function displayData() {
+//   try {
+//     let response = await fetch("https:randomuser.me/api");
+//     let data = await response.json();
+//     const user = data.results[0];
+
+//     const userContanier = document.getElementById("user-contanier");
+//     userContanier.innerHTML = `
+//        <img src="${user.picture.large}" alt="user picture">
+//      <h3>Name: ${user.name.first}  ${user.name.last}</h3>
+//      <h3>Email : $ {user.email}</h3>
+//      <h3>Location :  ${user.location.city}</h3>
+
+//      `;
+//   } catch (error) {}
+// }
+// displayData();
+
+// const myPromise = new Promise((resolve, reject) => {
+//   const success = Math.random() > 0.5;
+//   if (success) {
+//     resolve(" ➡️Promise resolved");
+//   } else {
+//     reject("❌ promise rejected");
+//   }
+// });
+// // consumeing using then , catch , finally
+
+// myPromise
+//   .then((result) => {
+//     console.log("then", result);
+//   })
+//   .catch((error) => {
+//     console.log("catch", error);
+//   })
+//   .finally(() => {
+//     console.log("Finally: this run on what of what.");
+//   });
+
+// function checkWeather() {
+//   return new Promise((resolve, reject) => {
+//     const isSunny = Math.random() > 0.5;
+//     setTimeout(() => {
+//       if (isSunny) {
+//         resolve("Its sunny today ☀️");
 //       } else {
-//         reject(error);
+//         reject("its ranny today 🌧️");
+//       }
+//     }, 1500);
+//   });
+// }
+// checkWeather().then((weather) => {
+//   console.log(weather)
+// }). catch((badWeather) => {
+//   console.log(badWeather)
+// })
+
+// // chaining from the exercise question
+// // Chaining
+// Promise.resolve("Start")
+//   .then((val) => {
+//     console.log(val);
+//     return "Next";
+//   })
+//   .then((val) => {
+//     throw new Error("Something went wrong");
+//   })
+//   .catch((err) => {
+//     console.log("Caught error:", err.message);
+//     return "Recovered";
+//   })
+//   .then((val) => {
+//     console.log("Final value:", val);
+//   });
+
+//   // when a .then()  callback return a normal values,  that values become fulfilled value of  the new Promise returned by  that .then()
+
+//   // chaining jumping effectively
+//   // when .catch method return a noarmal values  the promise chain becomes fulfilled again
+
+// //   Error
+// //   ↓
+// // .catch()
+// //   ↓
+// // handle error
+// //   ↓
+// // return "Recovered"
+// //   ↓
+// // Promise fulfilled again
+
+// // return passed a vale forward to next .then method
+// // throw changes the chain to rejected
+// // .then(() => {
+// //     throw new Error("Error");
+// // })
+
+// // .then()
+// //   ↓
+// // throw
+// //   ↓
+// // ❌ rejected Promise
+// //   ↓
+// // find .catch()
+
+// // catch can recover the chain
+
+// function job() {
+//   return new Promise(function (resolve, reject) {
+//     reject();
+//   });
+// }
+
+// let promise = job();
+
+// promise
+
+//   .then(function () {
+//     console.log("Success 1");
+//   })
+
+//   .then(function () {
+//     console.log("Success 2");
+//   })
+
+//   .then(function () {
+//     console.log("Success 3");
+//   })
+
+//   .catch(function () {
+//     console.log("Error 1");
+//   })
+
+//   .then(function () {
+//     console.log("Success 4");
+//   });
+//   // Error 1
+//   // Success 4
+
+//   // Because the .catch() callback finishes normally and does not throw another error, the Promise becomes fulfilled/recovered
+
+//   function job(state) {
+//     return new Promise(function (resolve, reject) {
+//       if (state) {
+//         resolve("success");
+//       } else {
+//         reject("error");
 //       }
 //     });
 //   }
 
-//   myFunction()
-//     .then((result) => {
-//       console.log(result);
+//   let promises= job(true);
+
+//   promises
+
+//     .then(function (data) {
+//       console.log(data);
+
+//       return job(false);
 //     })
-//     .catch((error) => {
+
+//     .catch(function (error) {
+//       console.log(error);
+
+//       return "Error caught"; //"I successfully handled the error. Continue the Promise chain."
+//     })
+
+//     .then(function (data) {
+//       console.log(data);
+
+//       return job(true);
+//     })
+
+//     .catch(function (error) {
 //       console.log(error);
 //     });
+// 1.success
+//  2.error
+//  3. Error caught;
+//No — the Promise does not go back and repeat the previous steps. It continues forward from the .catch() one way road it does not loop backward
 
-//     // promise () constructor function
+// .catch(function(error) {
+//     console.log(error);
+//     throw new Error("Another error");
+// })   // .catch() does not automatically mean the Promise is fulfilled .
+// it depens on what happes inside the .catch()
 
-let test = new Promise((resolve, reject) => {
-  resolve("the promise is resolved");
-  reject("somethings went wrong "); // is ignored after resovle and  viceversa
-});
+// return "Recovered";  //  chain becomes fulfilled and continues
+//throw new Error("Failed again");   the chain becomes rejected and continues to the next .catch();
 
-console.log(test);
+//It never goes backward. It always moves forward through the Promise chain
 
-// alarm api system
-
-function alarm(person, delay) {
-  return new Promise((resolve, reject) => {
-    if (delay < 0) {
-      reject("Alarm delay cannot be negative ");
+function job(state) {
+  return new Promise(function (resolve, reject) {
+    if (state) {
+      resolve("success");
+    } else {
+      reject("error");
     }
-    setTimeout(() => {
-      resolve(` Wake up ,  ${person} `);
-    }, delay);
   });
 }
 
-// console.log(alarm("bob" , 2000));
+let promisess = job(true);
 
-alarm("bob", 2000)
-  .then((data) => {
+promisess
+
+  .then(function (data) {
     console.log(data);
+
+    return job(true);
   })
-  .catch((error) => {
+
+  .then(function (data) {
+    if (data !== "victory") {
+      throw "Defeat";
+    }
+
+    return job(true);   // this line of code is never executed  the throw stop  immedialtel stops the function  then we directely jump to the .catch()
+  })
+
+  .then(function (data) {   // this the previs is rejected is then also skipped
+    console.log(data);  // since its skipped this line of code is not executed
+  })
+
+  .catch(function (error) {
     console.log(error);
+
+    return job(false);
+  })
+
+  .then(function (data) {
+    console.log(data);
+
+    return job(true);
+  })
+
+  .catch(function (error) {
+    console.log(error);
+
+    return "Error caught";
+  })
+
+  .then(function (data) {
+    console.log(data);
+
+    return new Error("test");
+  })
+
+  .then(function (data) {
+    console.log("Success:", data.message);
+  })
+
+  .catch(function (data) {
+    console.log("Error:", data.message);
   });
 
-async function getUp() {
-  try {
-    let data = await alarm("bob", 2000);
-    console.log(data);
-  } catch (error) {
-    console.log(error);
-    // alert("error happnes")
-  }
-}
-getUp();
+// 1. success
+// 2.  defeat
+// 3 error
+// 4  return caught
+// 5 sucees
+//  6  error   : test
+
+//   es. This one is more difficult because it demonstrates several Promise rules at the same time:
+
+// a .then() can return another Promise
+// a .then() can throw an error
+// .catch() can recover the chain
+// .catch() can also return a rejected Promise
+// returning an Error object is not the same as throwing an error
+// the chain can move from success → error → success → error
+
+
+// what does throw 'defeat ' do 
+
+//  stop this .then() and make the promise chain rejected
+
