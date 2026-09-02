@@ -1,0 +1,310 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background-color: #f2f2f2;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   CALCULATOR CONTAINER
+========================================= */
+
+.calculator {
+  width: 360px;
+
+  padding: 20px;
+
+  background-color: #1c1c1c;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.2);
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   DISPLAY
+========================================= */
+
+.calculator-display {
+  width: 100%;
+
+  min-height: 110px;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  background-color: #1c1c1c;
+
+  overflow: hidden;
+}
+
+
+#display {
+  width: 100%;
+
+  text-align: right;
+
+  font-size: 48px;
+
+  font-weight: 300;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   BUTTON AREA
+========================================= */
+
+.calculator-buttons {
+  width: 100%;
+}
+
+
+/* =========================================
+   BUTTON ROW
+========================================= */
+
+.button-row {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+
+  margin-bottom: 10px;
+}
+
+
+/* =========================================
+   ALL CALCULATOR BUTTONS
+========================================= */
+
+.button-row button,
+#backspaceButton {
+  height: 60px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  font-size: 22px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease;
+}
+
+
+/* =========================================
+   NUMBER BUTTONS
+========================================= */
+
+.number-button,
+#decimalButton {
+  background-color: #505050;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   NUMBER HOVER
+========================================= */
+
+.number-button:hover,
+#decimalButton:hover {
+  background-color: #6a6a6a;
+}
+
+
+/* =========================================
+   OPERATOR BUTTONS
+========================================= */
+
+#addButton,
+#subtractButton,
+#multiplyButton,
+#divideButton,
+#equalsButton {
+  background-color: #ff9500;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   OPERATOR HOVER
+========================================= */
+
+#addButton:hover,
+#subtractButton:hover,
+#multiplyButton:hover,
+#divideButton:hover,
+#equalsButton:hover {
+  background-color: #ffad33;
+}
+
+
+/* =========================================
+   SPECIAL BUTTONS
+========================================= */
+
+#clearButton,
+#parenthesesButton,
+#percentButton {
+  background-color: #d4d4d2;
+
+  color: #000000;
+}
+
+
+/* =========================================
+   SPECIAL BUTTON HOVER
+========================================= */
+
+#clearButton:hover,
+#parenthesesButton:hover,
+#percentButton:hover {
+  background-color: #eeeeec;
+}
+
+
+/* =========================================
+   BUTTON PRESS EFFECT
+========================================= */
+
+.button-row button:active,
+#backspaceButton:active {
+  transform: scale(0.94);
+}
+
+
+/* =========================================
+   BACKSPACE
+========================================= */
+
+#backspaceButton {
+  width: 60px;
+
+  height: 60px;
+
+  display: block;
+
+  margin: 5px auto 0;
+
+  background-color: #505050;
+
+  color: #ffffff;
+}
+
+
+#backspaceButton:hover {
+  background-color: #6a6a6a;
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 480px) {
+  .calculator {
+    width: 95%;
+
+    max-width: 360px;
+
+    padding: 15px;
+
+    border-radius: 20px;
+  }
+
+
+  .calculator-display {
+    min-height: 100px;
+
+    padding: 15px;
+  }
+
+
+  #display {
+    font-size: 40px;
+  }
+
+
+  .button-row button,
+  #backspaceButton {
+    height: 58px;
+
+    font-size: 20px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE DEVICES
+========================================= */
+
+@media (max-width: 350px) {
+  .calculator {
+    padding: 12px;
+  }
+
+
+  .button-row {
+    gap: 7px;
+
+    margin-bottom: 7px;
+  }
+
+
+  .button-row button,
+  #backspaceButton {
+    height: 52px;
+
+    font-size: 18px;
+  }
+
+
+  #display {
+    font-size: 34px;
+  }
+}
