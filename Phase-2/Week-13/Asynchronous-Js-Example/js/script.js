@@ -390,90 +390,90 @@
 
 // async and await
 
-// async -await  is a modern js stntac for working with promises in a simpler and  more readabil way
-//  async/await is built on top of Promises
+// // async -await  is a modern js stntac for working with promises in a simpler and  more readabil way
+// //  async/await is built on top of Promises
 
-// getStudent()
-//   .then((student) => {
+// // getStudent()
+// //   .then((student) => {
+// //     console.log(student);
+// //   })
+// //   .catch((error) => {
+// //     console.log(error);
+// //   });
+
+// async function showStudent() {
+//   try {
+//     const student = await getStudent();
 //     console.log(student);
-//   })
-//   .catch((error) => {
+//   } catch (error) {
 //     console.log(error);
-//   });
+//   }
+// }
 
-async function showStudent() {
-  try {
-    const student = await getStudent();
-    console.log(student);
-  } catch (error) {
-    console.log(error);
-  }
-}
+// // async  is used for definnig a function     the basic syntax
+// async function functionName() {}
 
-// async  is used for definnig a function     the basic syntax
-async function functionName() {}
+// async function getData() {
+//   // console.log("abdisa");
+//   return "abdisa";
+// } // the function is now called aync function
+// // an async  function always  returns a promise.
+// // this method return a promise
+// const result = getData();
+// console.log(result); // which return the promise not the result or data
+// getData().then((name) => {
+//   console.log(name);
+// });
 
-async function getData() {
-  // console.log("abdisa");
-  return "abdisa";
-} // the function is now called aync function
-// an async  function always  returns a promise.
-// this method return a promise
-const result = getData();
-console.log(result); // which return the promise not the result or data
-getData().then((name) => {
-  console.log(name);
-});
+// // since the ayschronous function may produce the result later is give or return as promise
+// // example
 
-// since the ayschronous function may produce the result later is give or return as promise
-// example
+// async function getStudent() {
+//   return {
+//     name: "Abdisa",
+//     age: 23,
+//   };
+// }
+// //  async function always return a  promise
+// const res = getStudent();
+// console.log(res);
 
-async function getStudent() {
-  return {
-    name: "Abdisa",
-    age: 23,
-  };
-}
-//  async function always return a  promise
-const res = getStudent();
-console.log(res);
+// // await
 
-// await
+// // await is used to wait  for a promise resutlt
+// // basix syntax
 
-// await is used to wait  for a promise resutlt
-// basix syntax
+// // const  result = await  Promise;
+// // const student = await  getStudent();
+// // "wait for the promise returned  by getStudent()" to settel successfully , then put its result into student
 
-// const  result = await  Promise;
-// const student = await  getStudent();
-// "wait for the promise returned  by getStudent()" to settel successfully , then put its result into student
+// ///  await must normally be inside an async function
 
-///  await must normally be inside an async function
+// async function showStudent() {
+//   const student = await getStudent();
 
-async function showStudent() {
-  const student = await getStudent();
+//   console.log(student);
+// }
 
-  console.log(student);
-}
+// // async
+// //  ↓
+// // allows the function to use await
+// //  ↓
+// // await
+// //  ↓
+// // waits for Promise result
 
-// async
-//  ↓
-// allows the function to use await
-//  ↓
-// await
-//  ↓
-// waits for Promise result
+// async function functionName() {
+//   const result = await somePromise();
+// }
 
-async function functionName() {
-  const result = await somePromise();
-}
-
-async function functionName() {
-  try {
-    const result = await somePromise();
-  } catch (error) {
-    console.log(error);
-  }
-}
+// async function functionName() {
+//   try {
+//     const result = await somePromise();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 // full stack example application
 //  Login
@@ -567,6 +567,532 @@ async function functionName() {
 // }
 // logData();
 
-// promises and asychronouse operation is done using the above methods  is have normal function writing method  sytanx 
-// the promise is handled using the async await rather than using  then catch as promise  the async  keyword is added to  fornted of te fucntion 
+// promises and asychronouse operation is done using the above methods  is have normal function writing method  sytanx
+// the promise is handled using the async await rather than using  then catch as promise  the async  keyword is added to  fornted of te fucntion
 
+// // example
+// async function test() {
+//   try {
+//     let response = await fetch("https://randomuser.me/api"); // await for time taking and returning the promose
+//     console.log(response);
+
+//     let data = await response.json();
+//     console.log(data);
+//     const user = data.results[0];
+//   } catch (error) {
+//     alert("sorry, try again ");
+//     console.log(error);
+//   }
+// }
+
+// test();
+
+// // try {
+
+// // } catch (error) {
+
+// // }
+
+// // Promise() constructor function
+
+// // async function myFunction ()  " this function works with asychrocouns  operation and will return a promise"
+
+// // why does an async funtion  will return a Promise
+
+// // this is due to the javascript treate
+
+// async function greets() {
+//   return "Hello";
+// }
+// // the above asyc opeation will appromixatelly treate as
+
+// function greet() {
+//   return Promise.resolve("Hello");
+// }
+// // we can consume the data it then () and catch
+// // every async function returns a Promise "
+// // "
+
+// // await    is used to obtain the result of a promise
+// // const result = await promise;
+
+// async function showName() {
+//   const name = await getName();
+
+//   console.log(name);
+// }
+
+// console.log("A");
+
+// showName();
+
+// console.log("B");
+// // await doent block  the entire javascript engine
+
+// async function showStudent() {
+//   try {
+//     const student = await getStudent();
+
+//     console.log(student);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+// async / await is the cleaner syntax of consuming the promises
+
+// real full stack example : Login API
+
+// calling the backend ape
+// POST/ api/login      suppose the backend provides
+// suppose the fronted needs to senc
+
+// {
+//     "username": "Abdisa",
+//     "password": "12345"
+// }
+
+// and receive
+
+// {
+//     "message": "Login successful",
+//     "token": "abc123"
+// // }
+// async function login(username, password) {
+//   try {
+//     const response = await fetch("/api/login", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         username: username,
+//         password: password,
+//       }),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Login failed");
+//     }
+
+//     const data = await response.json();
+
+//     console.log(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+// User clicks Login
+//        ↓
+// login()
+//        ↓
+// fetch()
+//        ↓
+// Promise
+//        ↓
+// HTTP request
+//        ↓
+// Backend
+//        ↓
+// Database
+//        ↓
+// Backend response
+//        ↓
+// fetch Promise fulfilled
+//        ↓
+// response
+//        ↓
+// response.json()
+//        ↓
+// another Promise
+//        ↓
+// JSON parsed
+//        ↓
+// data
+//        ↓
+// update UI
+
+// every asych function return a Promise
+
+// create custom promisese
+
+// JavaScript asks for data
+//         ↓
+//      Promise
+//         ↓
+//    "Wait for result"
+//         ↓
+//  ┌───────────────┐
+//  │               │
+// Success        Failure
+//  │               │
+// resolve()      reject()
+//  │               │
+// value           error
+
+// Why do we need Promises?
+
+// Consider an operation that takes time:
+
+// requesting data from a backend
+// reading a file
+// querying a database
+// waiting for a timer
+// uploading a file
+// downloading data
+// authenticating a user
+
+// how to create  a Promise
+// js provides the built in constructor called.
+
+// Promise
+// new Promise()
+
+// the basic sytack
+//  creating the new object using the constuctor
+// const person = new Person();
+// const promise = new Promise();
+
+// // (resolve , reject) => {}  the function passed to the Promise constructor is called the exector function
+// //
+// console.log("before");
+// const myPromise = new Promise((resolve, reject) => {
+//   console.log("executor function is running ");
+// });
+// // the passed function as argumenent or the executor function runs immediatel when the promise is created
+// //
+// console.log("after");
+
+// //   when js create the promise object , it atuomaticaly provides two function to the exector.
+
+// // resolve();
+// // mean the asychronous opeation succeeded.
+// // reject()
+// // JavaScript gives your executor function two functions that you can use to tell the Promise whether the operation succeeded or failed
+// const myPromises = new Promise((resolve, reject) => {
+//   resolve("Operation successful"); // fulfillement value
+// });
+
+// // reject() mean  operation failed
+
+// // const myPromise = new Promise((resolve, reject) => {
+// //   reject("Something went wrong");
+// // });
+
+// // reject(new Error("Something went wrong"));
+
+// // because the Error object contains useful debugging information
+
+// const myProm = new Promise((resolve, reject) => {
+//   resolve("Hello");
+// });
+
+// // how to consume the result from the promise using the  .then()
+// myPromise.then((result) => {
+//   console.log(result);
+// });
+
+// // const myPromise = new Promise((resolve, reject) => {
+// //   reject(new Error("Something went wrong"));
+// // });
+
+// myPromise.catch((error) => {
+//   console.log(error.message);
+// });
+
+// // myPromise
+// //   .then((result) => {
+// //     console.log(result);
+// //   })
+// //   .catch((error) => {
+// //     console.log(error);
+// //   });
+
+// //                   ┌── success ──→ .then()
+// // // Promise ──────────┤
+// // //                   └── failure ──→ .catch()
+
+// function getStudent() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve("Student data");
+//     }, 2000);
+//   });
+// }
+
+// getStudent()
+//   .then((student) => {
+//     console.log(student);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// // A custom Promise with success and failure
+
+// function login(username, password) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       if (username === "admin" && password === "1234") {
+//         resolve("Login successful");
+//       } else {
+//         reject(new Error("Invalid username or password"));
+//       }
+//     }, 2000);
+//   });
+// }
+
+// login("admin", "1234")
+//   .then((message) => {
+//     console.log(message);
+//   })
+//   .catch((error) => {
+//     console.log(error.message);
+//   });
+
+// // custom promise function
+// //     function getStudent() {
+// //     return new Promise(...);
+// // }
+
+// // so a pomise can eventually provide almost any js values  boolean   object, numbers  array , srting
+
+// function getStudent() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const student = {
+//         id: 1,
+//         name: "Abdisa",
+//         department: "Computer Engineering",
+//       };
+
+//       resolve(student);
+//     }, 2000);
+//   });
+// }
+
+// getStudent().then((student) => {
+//   console.log(student.name);
+// });
+
+// function getStudents() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const students = ["Abdisa", "Ahmed", "Ali"];
+
+//       resolve(students);
+//     }, 2000);
+//   });
+// }
+
+// getStudents().then((students) => {
+//   console.log(students);
+// });
+
+// console.log("A");
+
+// const promise = new Promise((resolve, reject) => {
+//   console.log("B");
+
+//   setTimeout(() => {
+//     console.log("C");
+//     resolve();
+//   }, 1000);
+// });
+
+// console.log("D");
+
+// promise.then(() => {
+//   console.log("E");
+// });
+
+// const promises = Promise.resolve("Hello");
+
+// promises.then((value) => {
+//   console.log(value);
+// });
+
+// console.log("World");
+
+// // custom asychronous opeation
+// function getStudent() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve("Student data");
+//     }, 2000);
+//   });
+// }
+
+// const promisewert = new Promise((resolve, reject) => {
+//   resolve("Success");
+
+//   reject(new Error("Failure"));
+// });
+
+// // the promise can only settle once in the above examples once the promise fulilled ther ohter code ignored
+// const promise123 = new Promise((resolve, reject) => {
+//   reject(new Error("Failure"));
+
+//   resolve("Success");
+// });
+
+// login("admin", "1234")
+//   .then((message) => {
+//     console.log(message);
+//   })
+//   .catch((error) => {
+//     console.log(error.message);
+//   })
+//   .finally(() => {
+//     console.log("Login process finished");
+//   });
+
+// // .finally() it run whether the promise succeeds or fials
+
+// //   finally() is useful for things such as:
+
+// // hiding loading indicators
+// // enabling buttons again
+// // cleaning up resources
+// // // closing a dialog
+
+// // promises chaining  the promise can be chained
+// getStudent()
+//   .then((student) => {
+//     console.log(student);
+//     return getCourses(student.id);
+//   })
+//   .then((courses) => {
+//     console.log(courses);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// fetch("/api/students")
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((students) => {
+//     console.log(students);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// function getUser() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const success = true;
+
+//       if (success) {
+//         resolve({
+//           id: 1,
+//           name: "Abdisa",
+//         });
+//       } else {
+//         reject(new Error("Could not get user"));
+//       }
+//     }, 2000);
+//   });
+// }
+
+// getUser()
+//   .then((user) => {
+//     console.log(user.name);
+//   })
+//   .catch((error) => {
+//     console.log(error.message);
+//   })
+//   .finally(() => {
+//     console.log("Request finished");
+//   });
+
+// // creating a promise
+// const promis = new Promise((resolve, reject) => {
+//   // operation
+
+//   if (success) {
+//     resolve(result);
+//   } else {
+//     reject(error);
+//   }
+// });
+
+// // consume a promise
+
+// promise
+//   .then((result) => {
+//     // success
+//   })
+//   .catch((error) => {
+//     // failure
+//   })
+//   .finally(() => {
+//     // always runs
+//   });
+
+//   // creating custom promise based function
+//   function myFunction() {
+//     return new Promise((resolve, reject) => {
+//       // asynchronous operation
+
+//       if (success) {
+//         resolve(result);
+//       } else {
+//         reject(error);
+//       }
+//     });
+//   }
+
+//   myFunction()
+//     .then((result) => {
+//       console.log(result);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+
+//     // promise () constructor function
+
+let test = new Promise((resolve, reject) => {
+  resolve("the promise is resolved");
+  reject("somethings went wrong "); // is ignored after resovle and  viceversa
+});
+
+console.log(test);
+
+// alarm api system
+
+function alarm(person, delay) {
+  return new Promise((resolve, reject) => {
+    if (delay < 0) {
+      reject("Alarm delay cannot be negative ");
+    }
+    setTimeout(() => {
+      resolve(` Wake up ,  ${person} `);
+    }, delay);
+  });
+}
+
+// console.log(alarm("bob" , 2000));
+
+alarm("bob", 2000)
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+async function getUp() {
+  try {
+    let data = await alarm("bob", 2000);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+    // alert("error happnes")
+  }
+}
+getUp();
