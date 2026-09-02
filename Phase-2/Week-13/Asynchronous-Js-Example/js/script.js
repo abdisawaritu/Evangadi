@@ -1269,107 +1269,252 @@
 //       return job(true);
 //     })
 
-//     .catch(function (error) {
-//       console.log(error);
+// //     .catch(function (error) {
+// //       console.log(error);
+// //     });
+// // 1.success
+// //  2.error
+// //  3. Error caught;
+// //No — the Promise does not go back and repeat the previous steps. It continues forward from the .catch() one way road it does not loop backward
+
+// // .catch(function(error) {
+// //     console.log(error);
+// //     throw new Error("Another error");
+// // })   // .catch() does not automatically mean the Promise is fulfilled .
+// // it depens on what happes inside the .catch()
+
+// // return "Recovered";  //  chain becomes fulfilled and continues
+// //throw new Error("Failed again");   the chain becomes rejected and continues to the next .catch();
+
+// //It never goes backward. It always moves forward through the Promise chain
+
+// // function job(state) {
+// //   return new Promise(function (resolve, reject) {
+// //     if (state) {
+// //       resolve("success");
+// //     } else {
+// //       reject("error");
+// //     }
+// //   });
+// // }
+
+// // let promisess = job(true);
+
+// // promisess
+
+// //   .then(function (data) {
+// //     console.log(data);
+
+// //     return job(true);
+// //   })
+
+// //   .then(function (data) {
+// //     if (data !== "victory") {
+// //       throw "Defeat"; // this stops the function execution immediately
+// //     }
+
+// //     return job(true); // this line of code is never executed  the throw stop  immedialtel stops the function  then we directely jump to the .catch()
+// //   })
+
+// //   .then(function (data) {
+// //     // this the previs is rejected is then also skipped
+// //     console.log(data); // since its skipped this line of code is not executed
+// //   })
+
+// //   .catch(function (error) {
+// //     console.log(error);
+
+// //     return job(false);
+// //   })
+
+// //   .then(function (data) {
+// //     console.log(data);
+
+// //     return job(true); // this block of line of this function is not executed since we does reach this
+// //   }) // we skipped this code since the promise is rejected
+
+// //   .catch(function (error) {
+// //     console.log(error);
+
+// //     return "Error caught";
+// //   })
+
+// //   .then(function (data) {
+// //     console.log(data);
+
+// //     return new Error("test"); // return an Error object  as a normal value and there the promise is reamin s fulfilled rather than  catcht we go for
+// //   })
+
+// //   .then(function (data) {
+// //     console.log("Success:", data.message);
+// //   })
+
+// //   .catch(function (data) {
+// //     console.log("Error:", data.message);
+// //   });
+// // success
+// // Defeat
+// // error
+// // Error caught
+// // Success: test
+
+// //   es. This one is more difficult because it demonstrates several Promise rules at the same time:
+
+// // a .then() can return another Promise
+// // a .then() can throw an error
+// // .catch() can recover the chain
+// // .catch() can also return a rejected Promise
+// // returning an Error object is not the same as throwing an error
+// // the chain can move from success → error → success → error
+
+// // what does throw 'defeat ' do
+
+// //  stop this .then() and make the promise chain rejected
+
+// // throw new Error("test");  // create an error and reject the promise
+
+// // Error Object
+
+// // throw "Defeat"; the normal execution  stops  the js looks for the an error handler  that is the catch blocks
+
+// // Creates/signals the value "Defeat" as an exception.
+// // Stops normal execution and transfers control to catch
+// try {
+//   throw "Defeat";
+// } catch (error) {
+//   console.log(error);
+// }
+
+// try {
+//   throw new Error("Defeat");
+// } catch (error) {
+//   console.log(error);
+//   console.log(error.message);
+//   console.log(error.name);
+// }
+
+// try {
+//   throw new Error("Defeat");
+// } catch (error) {
+//   console.log(error);
+//   console.log(error.message);
+//   console.log(error.name);
+// }
+
+// try {
+//   throw "Defeat";
+// } catch (error) {
+//   console.log(error);
+//   console.log(error.message); // undefined
+// }
+
+// // throw new Error("error");
+// // new Error("error");
+
+// // creates an error objects  but you didnet throw it   only creates the error but it does not throw the error
+
+// const error = new Error("Database connection failed");
+
+// console.log(error);
+// console.log(error.message);
+
+// // Error object
+// // │
+// // ├── name
+// // │     "Error"
+// // │
+// // ├── message
+// // │     "Database connection failed"
+// // │
+// // └── stack
+// //       information about where the error happened
+
+// // new Error("Database connection failed")
+
+// // means:
+
+// // "Create an object that describes an error."
+
+// // It does not, by itself, mean:
+
+// // "Stop the program and send this error to catch."
+
+// // throw  stop the normal execution here and signal an exception /error
+
+// async function loginUser(username, password) {
+//   const user = await database.findUser(username);
+
+//   if (!user) {
+//     throw new Error("User not found");
+//   }
+
+//   if (user.password !== password) {
+//     throw new Error("Invalid password");
+//   }
+
+//   return user;
+// }
+
+// async function login() {
+//   try {
+//     const user = await loginUser("Abdi", "12345");
+
+//     console.log("Login successful");
+//     console.log(user);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+// // data base failure
+// async function getProducts() {
+//   const products = await database.getProducts();
+
+//   if (!products) {
+//     throw new Error("Could not retrieve products");
+//   }
+
+//   return products;
+// }
+
+// app.get("/products", async (req, res) => {
+//   try {
+//     const products = await getProducts();
+
+//     res.json(products);
+//   } catch (error) {
+//     console.error(error);
+
+//     res.status(500).json({
+//       message: error.message,
 //     });
-// 1.success
-//  2.error
-//  3. Error caught;
-//No — the Promise does not go back and repeat the previous steps. It continues forward from the .catch() one way road it does not loop backward
+//   }
+// });
 
-// .catch(function(error) {
-//     console.log(error);
-//     throw new Error("Another error");
-// })   // .catch() does not automatically mean the Promise is fulfilled .
-// it depens on what happes inside the .catch()
+// validation
+// real full stack examples
+// autothriztion
 
-// return "Recovered";  //  chain becomes fulfilled and continues
-//throw new Error("Failed again");   the chain becomes rejected and continues to the next .catch();
+// // created error objects
+// // throws
+//  promise become rejected
+//  .message aviaabi
 
-//It never goes backward. It always moves forward through the Promise chain
+// Callback function   is the function that is exectued after the function is finites another function  executing  hence it names called  the callback function
+// In javascript  functions can take functions as arguments , and can be returned by other fucntiosn  any function that is passed as an argument is called callback function .
 
-function job(state) {
-  return new Promise(function (resolve, reject) {
-    if (state) {
-      resolve("success");
-    } else {
-      reject("error");
-    }
-  });
-}
+// example
+console.log("Abebe");
+console.log("kebede");
+setTimeout(abebe, 0);
+console.log("Almaz");
+function abebe() {
+  console.log("chala");
+}  // this function is called immediately after the setTimeout finishes itworks 
+// Hey setTimeout , here is the function I want to execute later 
 
-let promisess = job(true);
+// using the web api  setTimeout 
 
-promisess
-
-  .then(function (data) {
-    console.log(data);
-
-    return job(true);
-  })
-
-  .then(function (data) {
-    if (data !== "victory") {
-      throw "Defeat";
-    }
-
-    return job(true);   // this line of code is never executed  the throw stop  immedialtel stops the function  then we directely jump to the .catch()
-  })
-
-  .then(function (data) {   // this the previs is rejected is then also skipped
-    console.log(data);  // since its skipped this line of code is not executed
-  })
-
-  .catch(function (error) {
-    console.log(error);
-
-    return job(false);
-  })
-
-  .then(function (data) {
-    console.log(data);
-
-    return job(true);
-  })
-
-  .catch(function (error) {
-    console.log(error);
-
-    return "Error caught";
-  })
-
-  .then(function (data) {
-    console.log(data);
-
-    return new Error("test");
-  })
-
-  .then(function (data) {
-    console.log("Success:", data.message);
-  })
-
-  .catch(function (data) {
-    console.log("Error:", data.message);
-  });
-
-// 1. success
-// 2.  defeat
-// 3 error
-// 4  return caught
-// 5 sucees
-//  6  error   : test
-
-//   es. This one is more difficult because it demonstrates several Promise rules at the same time:
-
-// a .then() can return another Promise
-// a .then() can throw an error
-// .catch() can recover the chain
-// .catch() can also return a rejected Promise
-// returning an Error object is not the same as throwing an error
-// the chain can move from success → error → success → error
+// Promises 
 
 
-// what does throw 'defeat ' do 
-
-//  stop this .then() and make the promise chain rejected
 
