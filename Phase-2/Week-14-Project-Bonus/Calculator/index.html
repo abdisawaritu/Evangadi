@@ -1,11 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="A simple responsive calculator built with HTML, CSS, and JavaScript."
+    />
+
+    <title>Calculator</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <main class="calculator">
+      <!-- Calculator Display -->
+      <section class="calculator-display">
+        <div id="display">0</div>
+      </section>
+
+      <!-- Calculator Buttons -->
+      <section class="calculator-buttons">
+        <!-- Row 1 -->
+        <div class="button-row">
+          <button type="button" id="clearButton">C</button>
+
+          <button type="button" id="parenthesesButton">( )</button>
+
+          <button type="button" id="percentButton">%</button>
+
+          <button type="button" id="multiplyButton">×</button>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="button-row">
+          <button type="button" class="number-button">7</button>
+
+          <button type="button" class="number-button">8</button>
+
+          <button type="button" class="number-button">9</button>
+
+          <button type="button" id="divideButton">÷</button>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="button-row">
+          <button type="button" class="number-button">4</button>
+
+          <button type="button" class="number-button">5</button>
+
+          <button type="button" class="number-button">6</button>
+
+          <button type="button" id="subtractButton">−</button>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="button-row">
+          <button type="button" class="number-button">1</button>
+
+          <button type="button" class="number-button">2</button>
+
+          <button type="button" class="number-button">3</button>
+
+          <button type="button" id="addButton">+</button>
+        </div>
+
+        <!-- Row 5 -->
+        <div class="button-row">
+          <button type="button" class="number-button">00</button>
+
+          <button type="button" class="number-button">0</button>
+
+          <button type="button" id="decimalButton">.</button>
+
+          <button type="button" id="equalsButton">=</button>
+        </div>
+      </section>
+
+      <!-- Backspace -->
+      <button
+        type="button"
+        id="backspaceButton"
+        aria-label="Delete last character"
+      >
+        ⌫
+      </button>
+    </main>
+
+    <script src="js/script.js"></script>
+  </body>
 </html>
