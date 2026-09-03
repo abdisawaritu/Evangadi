@@ -1,18 +1,20 @@
-// ==========================================
+// ========================================
 // CALCULATOR STATE
-// ==========================================
+// ========================================
 
-let currentInput = "0";
+let currentValue = "";
+let previousValue = "";
+let currentOperator = null;
 
-let firstNumber = null;
+let shouldResetDisplay = false;
 
-let operator = null;
-
-// ==========================================
-// SELECT CALCULATOR DOM ELEMENTS
-// ==========================================
+// ========================================
+// GET HTML ELEMENTS
+// ========================================
 
 const display = document.getElementById("display");
+
+const numberButtons = document.querySelectorAll(".number-button");
 
 const clearButton = document.getElementById("clearButton");
 
@@ -34,161 +36,208 @@ const equalsButton = document.getElementById("equalsButton");
 
 const backspaceButton = document.getElementById("backspaceButton");
 
-// ==========================================
-// NUMBER BUTTONS
-// ==========================================
-
-const numberButtons = document.querySelectorAll(".number-button");
-
-// ==========================================
-// UPDATE DISPLAY
-// ==========================================
+// ========================================
+// DISPLAY
+// ========================================
 
 function updateDisplay() {
-  if (firstNumber !== null && operator !== null) {
-    display.textContent =
-      String(firstNumber) +
-      " " +
-      getDisplayOperator(operator) +
-      " " +
-      currentInput;
-  } else {
-    display.textContent = currentInput;
-  }
-}
+  // If there is a complete calculation
+  // being prepared, show first number + operator.
+  if (previousValue !== "" && currentOperator !== null && currentValue === "") {
+    display.textContent = previousValue + " " + currentOperator;
 
-// ==========================================
-// CONVERT JAVASCRIPT OPERATOR
-// TO CALCULATOR DISPLAY OPERATOR
-// ==========================================
-
-function getDisplayOperator(operator) {
-  if (operator === "*") {
-    return "×";
-  }
-
-  if (operator === "/") {
-    return "÷";
-  }
-
-  return operator;
-}
-
-// ==========================================
-// HANDLE NUMBER INPUT
-// ==========================================
-
-function handleNumberInput(value) {
-  // If we are entering the second number,
-  // currentInput starts from 0.
-  if (currentInput === "0") {
-    if (value === "00") {
-      currentInput = "0";
-    } else {
-      currentInput = value;
-    }
-  } else {
-    currentInput = currentInput + value;
-  }
-
-  updateDisplay();
-}
-
-// ==========================================
-// NUMBER BUTTON EVENTS
-// ==========================================
-
-numberButtons.forEach(function (button) {
-  button.addEventListener("click", function () {
-    const value = button.textContent;
-
-    handleNumberInput(value);
-  });
-});
-
-// ==========================================
-// DECIMAL BUTTON
-// ==========================================
-
-decimalButton.addEventListener("click", function () {
-  if (currentInput.includes(".")) {
     return;
   }
 
-  currentInput = currentInput + ".";
+  // If there is a first number,
+  // an operator and a second number,
+  // show the complete expression.
+  if (previousValue !== "" && currentOperator !== null && currentValue !== "") {
+    display.textContent =
+      previousValue + " " + currentOperator + " " + currentValue;
 
-  updateDisplay();
-});
+    return;
+  }
 
-// ==========================================
-// HANDLE ARITHMETIC OPERATOR
-// ==========================================
+  // Normal display.
+  if (currentValue === "") {
+    display.textContent = "0";
+  } else {
+    display.textContent = currentValue;
+  }
+}
 
-function handleOperator(selectedOperator) {
-  // Save the number currently on the display
-  // as the first number.
-  firstNumber = Number(currentInput);
+// ========================================
+// NUMBER INPUT
+// ========================================
 
-  // Save the selected operator.
-  operator = selectedOperator;
+function handleNumber(number) {
+  // ----------------------------------------
+  // If the calculator is showing Error,
+  // start a completely new calculation.
+  // ----------------------------------------
 
-  // Prepare the input for the second number.
-  currentInput = "0";
+  if (currentValue === "Error") {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+    shouldResetDisplay = false;
+  }
 
-  // IMPORTANT:
-  // updateDisplay() now shows:
-  //
-  // firstNumber + operator + currentInput
-  //
-  // instead of showing only 0.
+  // ----------------------------------------
+  // If a result was just calculated,
+  // pressing a number starts a new calculation.
+  // ----------------------------------------
+
+  if (shouldResetDisplay === true) {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+
+    shouldResetDisplay = false;
+  }
+
+  // ----------------------------------------
+  // Prevent 0000...
+  // ----------------------------------------
+
+  if (currentValue === "0" && number === "0") {
+    return;
+  }
+
+  // ----------------------------------------
+  // If current value is 0 and user enters
+  // another number, replace the 0.
+  // ----------------------------------------
+
+  if (currentValue === "0" && number !== "0") {
+    currentValue = number;
+  } else {
+    currentValue += number;
+  }
+
   updateDisplay();
 }
 
-// ==========================================
-// ADDITION
-// ==========================================
+// ========================================
+// DECIMAL
+// ========================================
 
-addButton.addEventListener("click", function () {
-  handleOperator("+");
-});
+function handleDecimal() {
+  // If Error is displayed, start fresh.
+  if (currentValue === "Error") {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+  }
 
-// ==========================================
-// SUBTRACTION
-// ==========================================
+  // If result was already calculated,
+  // start a new number.
+  if (shouldResetDisplay === true) {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
 
-subtractButton.addEventListener("click", function () {
-  handleOperator("-");
-});
+    shouldResetDisplay = false;
+  }
 
-// ==========================================
-// MULTIPLICATION
-// ==========================================
+  // Do not allow two decimal points.
+  if (currentValue.includes(".")) {
+    return;
+  }
 
-multiplyButton.addEventListener("click", function () {
-  handleOperator("*");
-});
+  // If user starts with decimal,
+  // create 0.
+  if (currentValue === "") {
+    currentValue = "0.";
+  } else {
+    currentValue += ".";
+  }
 
-// ==========================================
-// DIVISION
-// ==========================================
+  updateDisplay();
+}
 
-divideButton.addEventListener("click", function () {
-  handleOperator("/");
-});
+// ========================================
+// OPERATOR
+// ========================================
 
-// ==========================================
+function handleOperator(operator) {
+  // ----------------------------------------
+  // If Error is displayed,
+  // reset the calculator.
+  // ----------------------------------------
+
+  if (currentValue === "Error") {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+    shouldResetDisplay = false;
+  }
+
+  // ----------------------------------------
+  // Cannot select an operator
+  // without a number.
+  // ----------------------------------------
+
+  if (currentValue === "") {
+    return;
+  }
+
+  // ----------------------------------------
+  // If there is already a complete operation,
+  // calculate it before selecting another operator.
+  // ----------------------------------------
+
+  if (previousValue !== "" && currentOperator !== null && currentValue !== "") {
+    calculateResult();
+  }
+
+  // ----------------------------------------
+  // Save current number as previous number.
+  // ----------------------------------------
+
+  previousValue = currentValue;
+
+  // ----------------------------------------
+  // Save operator.
+  // ----------------------------------------
+
+  currentOperator = operator;
+
+  // ----------------------------------------
+  // Clear currentValue.
+  //
+  // IMPORTANT:
+  // We use "" here, NOT "0".
+  //
+  // This means the second number has not
+  // been entered yet.
+  // ----------------------------------------
+
+  currentValue = "";
+
+  shouldResetDisplay = false;
+
+  updateDisplay();
+}
+
+// ========================================
 // CALCULATE RESULT
-// ==========================================
+// ========================================
 
 function calculateResult() {
-  // Do nothing if an operation has not
-  // been selected yet.
-  if (firstNumber === null || operator === null) {
+  // ----------------------------------------
+  // Make sure calculation has everything
+  // it needs.
+  // ----------------------------------------
+
+  if (previousValue === "" || currentOperator === null || currentValue === "") {
     return;
   }
 
-  // currentInput is the second number.
-  const secondNumber = Number(currentInput);
+  const firstNumber = Number(previousValue);
+
+  const secondNumber = Number(currentValue);
 
   let result;
 
@@ -196,36 +245,35 @@ function calculateResult() {
   // ADDITION
   // ----------------------------------------
 
-  if (operator === "+") {
+  if (currentOperator === "+") {
     result = firstNumber + secondNumber;
   }
 
   // ----------------------------------------
   // SUBTRACTION
   // ----------------------------------------
-  else if (operator === "-") {
+  // IMPORTANT:
+  // The HTML button uses the mathematical
+  // minus character "−", not the normal
+  // keyboard hyphen "-".
+  // ----------------------------------------
+  else if (currentOperator === "−") {
     result = firstNumber - secondNumber;
   }
 
   // ----------------------------------------
   // MULTIPLICATION
   // ----------------------------------------
-  else if (operator === "*") {
+  else if (currentOperator === "×") {
     result = firstNumber * secondNumber;
   }
 
   // ----------------------------------------
   // DIVISION
   // ----------------------------------------
-  else if (operator === "/") {
+  else if (currentOperator === "÷") {
     if (secondNumber === 0) {
-      currentInput = "Error";
-
-      firstNumber = null;
-
-      operator = null;
-
-      updateDisplay();
+      showError();
 
       return;
     }
@@ -234,76 +282,249 @@ function calculateResult() {
   }
 
   // ----------------------------------------
-  // SAVE RESULT
+  // SAFETY CHECK
   // ----------------------------------------
 
-  currentInput = String(result);
+  if (!Number.isFinite(result)) {
+    showError();
 
-  // The previous operation is finished.
-  firstNumber = null;
+    return;
+  }
 
-  operator = null;
+  // ----------------------------------------
+  // Show result
+  // ----------------------------------------
 
-  // Display the result.
+  currentValue = String(result);
+
+  previousValue = "";
+
+  currentOperator = null;
+
+  shouldResetDisplay = true;
+
   updateDisplay();
 }
 
-// ==========================================
-// EQUALS BUTTON
-// ==========================================
+// ========================================
+// CLEAR
+// ========================================
 
-equalsButton.addEventListener("click", function () {
-  calculateResult();
-});
+function clearCalculator() {
+  currentValue = "";
 
-// ==========================================
-// CLEAR BUTTON
-// ==========================================
+  previousValue = "";
 
-clearButton.addEventListener("click", function () {
-  currentInput = "0";
+  currentOperator = null;
 
-  firstNumber = null;
-
-  operator = null;
+  shouldResetDisplay = false;
 
   updateDisplay();
-});
+}
 
-// ==========================================
-// BACKSPACE BUTTON
-// ==========================================
+// ========================================
+// BACKSPACE
+// ========================================
 
-backspaceButton.addEventListener("click", function () {
-  if (currentInput === "Error") {
-    currentInput = "0";
-  } else if (currentInput.length > 1) {
-    currentInput = currentInput.slice(0, -1);
-  } else {
-    currentInput = "0";
+function handleBackspace() {
+  // ----------------------------------------
+  // If Error is displayed,
+  // clear the calculator.
+  // ----------------------------------------
+
+  if (currentValue === "Error") {
+    clearCalculator();
+
+    return;
   }
 
+  // ----------------------------------------
+  // If there is a current number,
+  // remove its last character.
+  // ----------------------------------------
+
+  if (currentValue !== "") {
+    currentValue = currentValue.slice(0, -1);
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ----------------------------------------
+  // If currentValue is empty but an operator
+  // exists, remove the operator and restore
+  // the previous number.
+  // ----------------------------------------
+
+  if (currentValue === "" && currentOperator !== null) {
+    currentValue = previousValue;
+
+    previousValue = "";
+
+    currentOperator = null;
+
+    shouldResetDisplay = false;
+
+    updateDisplay();
+
+    return;
+  }
+}
+
+// ========================================
+// ERROR
+// ========================================
+
+function showError() {
+  currentValue = "Error";
+
+  previousValue = "";
+
+  currentOperator = null;
+
+  shouldResetDisplay = false;
+
   updateDisplay();
+}
+
+// ========================================
+// PERCENT
+// ========================================
+
+function handlePercent() {
+  // Do nothing if there is no number.
+  if (currentValue === "") {
+    return;
+  }
+
+  // Do nothing if Error.
+  if (currentValue === "Error") {
+    return;
+  }
+
+  const number = Number(currentValue);
+
+  if (!Number.isFinite(number)) {
+    showError();
+
+    return;
+  }
+
+  currentValue = String(number / 100);
+
+  updateDisplay();
+}
+
+// ========================================
+// PARENTHESES
+// ========================================
+
+function handleParentheses() {
+  // Parentheses calculation is not yet
+  // implemented in this calculator stage.
+  //
+  // We keep the button safely connected
+  // so clicking it does not cause an error.
+
+  if (currentValue === "Error") {
+    clearCalculator();
+  }
+}
+
+// ========================================
+// NUMBER BUTTON EVENTS
+// ========================================
+
+numberButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    // We get the value directly from the
+    // button text instead of dataset.number.
+
+    const number = button.textContent.trim();
+
+    handleNumber(number);
+  });
 });
 
-// ==========================================
-// PARENTHESES BUTTON
-// ==========================================
+// ========================================
+// DECIMAL BUTTON
+// ========================================
 
-parenthesesButton.addEventListener("click", function () {
-  console.log("Parentheses will be implemented later.");
-});
+if (decimalButton) {
+  decimalButton.addEventListener("click", handleDecimal);
+}
 
-// ==========================================
+// ========================================
+// OPERATOR BUTTON EVENTS
+// ========================================
+
+if (multiplyButton) {
+  multiplyButton.addEventListener("click", function () {
+    handleOperator("×");
+  });
+}
+
+if (divideButton) {
+  divideButton.addEventListener("click", function () {
+    handleOperator("÷");
+  });
+}
+
+if (subtractButton) {
+  subtractButton.addEventListener("click", function () {
+    handleOperator("−");
+  });
+}
+
+if (addButton) {
+  addButton.addEventListener("click", function () {
+    handleOperator("+");
+  });
+}
+
+// ========================================
+// EQUAL BUTTON
+// ========================================
+
+if (equalsButton) {
+  equalsButton.addEventListener("click", calculateResult);
+}
+
+// ========================================
+// CLEAR BUTTON
+// ========================================
+
+if (clearButton) {
+  clearButton.addEventListener("click", clearCalculator);
+}
+
+// ========================================
+// BACKSPACE BUTTON
+// ========================================
+
+if (backspaceButton) {
+  backspaceButton.addEventListener("click", handleBackspace);
+}
+
+// ========================================
 // PERCENT BUTTON
-// ==========================================
+// ========================================
 
-percentButton.addEventListener("click", function () {
-  console.log("Percentage will be implemented later.");
-});
+if (percentButton) {
+  percentButton.addEventListener("click", handlePercent);
+}
 
-// ==========================================
+// ========================================
+// PARENTHESES BUTTON
+// ========================================
+
+if (parenthesesButton) {
+  parenthesesButton.addEventListener("click", handleParentheses);
+}
+
+// ========================================
 // INITIAL DISPLAY
-// ==========================================
+// ========================================
 
 updateDisplay();
