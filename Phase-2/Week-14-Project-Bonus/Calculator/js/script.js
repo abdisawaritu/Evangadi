@@ -1,4 +1,10 @@
 // ==========================================
+// CALCULATOR STATE
+// ==========================================
+
+let currentInput = "0";
+
+// ==========================================
 // SELECT CALCULATOR DOM ELEMENTS
 // ==========================================
 
@@ -31,21 +37,67 @@ const backspaceButton = document.getElementById("backspaceButton");
 const numberButtons = document.querySelectorAll(".number-button");
 
 // ==========================================
-// NUMBER BUTTON CLICK
+// UPDATE DISPLAY
+// ==========================================
+
+function updateDisplay() {
+  display.textContent = currentInput;
+}
+
+// ==========================================
+// HANDLE NUMBER INPUT
+// ==========================================
+
+function handleNumberInput(value) {
+  // If the current input is 0,
+  // replace it with the clicked value.
+  if (currentInput === "0") {
+    if (value === "00") {
+      currentInput = "0";
+    } else {
+      currentInput = value;
+    }
+  } else {
+    currentInput = currentInput + value;
+  }
+
+  updateDisplay();
+
+  console.log("Current input:", currentInput);
+}
+
+// ==========================================
+// NUMBER BUTTON CLICK EVENTS
 // ==========================================
 
 numberButtons.forEach(function (button) {
   button.addEventListener("click", function () {
     const value = button.textContent;
 
-    display.textContent = value;
-
-    console.log("Number button clicked:", value);
+    handleNumberInput(value);
   });
 });
 
 // ==========================================
-// OPERATOR BUTTON CLICKS
+// DECIMAL INPUT
+// ==========================================
+
+decimalButton.addEventListener("click", function () {
+  // Do not allow another decimal point
+  // if the current number already contains one.
+  if (currentInput.includes(".")) {
+    return;
+  }
+
+  currentInput = currentInput + ".";
+
+  updateDisplay();
+
+  console.log("Current input:", currentInput);
+});
+
+// ==========================================
+// OTHER BUTTONS
 // ==========================================
 
 addButton.addEventListener("click", function () {
@@ -80,10 +132,12 @@ percentButton.addEventListener("click", function () {
   console.log("Percentage button clicked");
 });
 
-decimalButton.addEventListener("click", function () {
-  console.log("Decimal button clicked");
-});
-
 backspaceButton.addEventListener("click", function () {
   console.log("Backspace button clicked");
 });
+
+// ==========================================
+// INITIAL DISPLAY
+// ==========================================
+
+updateDisplay();
