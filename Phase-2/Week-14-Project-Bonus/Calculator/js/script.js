@@ -1,554 +1,955 @@
-// ===============================
-// Calculator State
-// ===============================
+// ========================================
+// CALCULATOR STATE
+// ========================================
 
-let currentInput = "";
+let currentValue = "";
+let previousValue = "";
+let currentOperator = null;
+
+let shouldResetDisplay = false;
+
+// New state for parentheses expressions
 let expression = "";
-let justCalculated = false;
+let expressionMode = false;
 
-// ===============================
-// DOM Elements
-// ===============================
+// ========================================
+// GET HTML ELEMENTS
+// ========================================
 
 const display = document.getElementById("display");
 
 const numberButtons = document.querySelectorAll(".number-button");
 
-const addButton = document.getElementById("addButton");
-const subtractButton = document.getElementById("subtractButton");
-const multiplyButton = document.getElementById("multiplyButton");
-const divideButton = document.getElementById("divideButton");
-
-const equalsButton = document.getElementById("equalsButton");
-
 const clearButton = document.getElementById("clearButton");
-
-const backspaceButton = document.getElementById("backspaceButton");
-
-const decimalButton = document.getElementById("decimalButton");
-
-const percentButton = document.getElementById("percentButton");
 
 const parenthesesButton = document.getElementById("parenthesesButton");
 
-// ===============================
-// Display
-// ===============================
+const percentButton = document.getElementById("percentButton");
 
-function updateDisplay(value) {
-  display.textContent = value;
+const multiplyButton = document.getElementById("multiplyButton");
+
+const divideButton = document.getElementById("divideButton");
+
+const subtractButton = document.getElementById("subtractButton");
+
+const addButton = document.getElementById("addButton");
+
+const decimalButton = document.getElementById("decimalButton");
+
+const equalsButton = document.getElementById("equalsButton");
+
+const backspaceButton = document.getElementById("backspaceButton");
+
+// ========================================
+// DISPLAY
+// ========================================
+
+function updateDisplay() {
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    if (expression === "") {
+      display.textContent = "0";
+    } else {
+      display.textContent = expression;
+    }
+
+    return;
+  }
+
+  // ======================================
+  // NORMAL CALCULATOR MODE
+  // ======================================
+
+  // First number + operator
+  if (previousValue !== "" && currentOperator !== null && currentValue === "") {
+    display.textContent = previousValue + " " + currentOperator;
+
+    return;
+  }
+
+  // First number + operator + second number
+  if (previousValue !== "" && currentOperator !== null && currentValue !== "") {
+    display.textContent =
+      previousValue + " " + currentOperator + " " + currentValue;
+
+    return;
+  }
+
+  // Normal number
+  if (currentValue === "") {
+    display.textContent = "0";
+  } else {
+    display.textContent = currentValue;
+  }
 }
 
-// ===============================
-// Number Input
-// ===============================
+// ========================================
+// NUMBER INPUT
+// ========================================
 
 function handleNumber(number) {
-  // If a result was just calculated,
-  // starting a number begins a new calculation.
-  if (justCalculated) {
-    expression = "";
-    currentInput = "";
-    justCalculated = false;
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    // If expression is empty, start with number
+    if (expression === "") {
+      expression = number;
+    }
+
+    // If expression ends with a closing parenthesis,
+    // automatically add multiplication.
+    else if (expression.endsWith(")")) {
+      expression += "×" + number;
+    }
+
+    // Otherwise add number normally
+    else {
+      expression += number;
+    }
+
+    updateDisplay();
+
+    return;
   }
 
-  currentInput += number;
+  // ======================================
+  // NORMAL MODE
+  // ======================================
 
-  expression += number;
+  // If Error is displayed,
+  // start a new calculation.
+  if (currentValue === "Error") {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+    shouldResetDisplay = false;
+  }
 
-  updateDisplay(expression);
+  // If result was just calculated,
+  // start a new calculation.
+  if (shouldResetDisplay === true) {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+
+    shouldResetDisplay = false;
+  }
+
+  // Prevent multiple zeros.
+  if (currentValue === "0" && number === "0") {
+    return;
+  }
+
+  // Replace initial zero.
+  if (currentValue === "0" && number !== "0") {
+    currentValue = number;
+  } else {
+    currentValue += number;
+  }
+
+  updateDisplay();
 }
 
-// ===============================
-// Decimal Input
-// ===============================
+// ========================================
+// DECIMAL
+// ========================================
 
 function handleDecimal() {
-  if (justCalculated) {
-    expression = "";
-    currentInput = "";
-    justCalculated = false;
-  }
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
 
-  // Do not allow more than one decimal
-  // in the current number.
-  if (currentInput.includes(".")) {
+  if (expressionMode === true) {
+    // Find the last part of the expression.
+    // This allows one decimal point per number.
+
+    const parts = expression.split(/[+−×÷()]/);
+
+    const lastPart = parts[parts.length - 1];
+
+    // Do not allow another decimal point
+    // in the current number.
+    if (lastPart.includes(".")) {
+      return;
+    }
+
+    // If expression is empty or the last
+    // character is an operator/open parenthesis,
+    // begin with 0.
+    if (
+      expression === "" ||
+      expression.endsWith("+") ||
+      expression.endsWith("−") ||
+      expression.endsWith("×") ||
+      expression.endsWith("÷") ||
+      expression.endsWith("(")
+    ) {
+      expression += "0.";
+    } else {
+      expression += ".";
+    }
+
+    updateDisplay();
+
     return;
   }
 
-  // If decimal is the first input,
-  // make it 0.
-  if (currentInput === "") {
-    currentInput = "0";
-    expression += "0";
+  // ======================================
+  // NORMAL MODE
+  // ======================================
+
+  if (currentValue === "Error") {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
   }
 
-  currentInput += ".";
+  if (shouldResetDisplay === true) {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
 
-  expression += ".";
+    shouldResetDisplay = false;
+  }
 
-  updateDisplay(expression);
+  // Prevent two decimal points.
+  if (currentValue.includes(".")) {
+    return;
+  }
+
+  if (currentValue === "") {
+    currentValue = "0.";
+  } else {
+    currentValue += ".";
+  }
+
+  updateDisplay();
 }
 
-// ===============================
-// Operator Input
-// ===============================
+// ========================================
+// OPERATOR
+// ========================================
 
 function handleOperator(operator) {
-  if (expression === "") {
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    // Allow negative numbers inside expressions.
+    // Example:
+    // 5 × -2
+    // (-5 + 3)
+    if (
+      operator === "−" &&
+      (expression === "" ||
+        expression.endsWith("+") ||
+        expression.endsWith("−") ||
+        expression.endsWith("×") ||
+        expression.endsWith("÷") ||
+        expression.endsWith("("))
+    ) {
+      expression += "−";
+
+      updateDisplay();
+
+      return;
+    }
+
+    // Do not allow an operator immediately
+    // after another operator.
+    if (
+      expression.endsWith("+") ||
+      expression.endsWith("−") ||
+      expression.endsWith("×") ||
+      expression.endsWith("÷")
+    ) {
+      // Replace the previous operator.
+      expression = expression.slice(0, -1) + operator;
+    }
+
+    // Do not put an operator immediately
+    // after an opening parenthesis.
+    else if (expression.endsWith("(")) {
+      return;
+    }
+
+    // Otherwise add operator.
+    else {
+      expression += operator;
+    }
+
+    updateDisplay();
+
     return;
   }
 
-  // Do not allow two operators consecutively.
-  const lastCharacter = expression.charAt(expression.length - 1);
+  // ======================================
+  // NORMAL MODE
+  // ======================================
 
+  if (currentValue === "Error") {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+    shouldResetDisplay = false;
+  }
+
+  // ======================================
+  // NEGATIVE NUMBER
+  // ======================================
+
+  // If there is already a first number and
+  // an operator has been selected, pressing
+  // minus starts a negative second number.
+  //
+  // Example:
+  // 5 × − → 5 × -
+  // 5 × −2 → 5 × -2
   if (
-    lastCharacter === "+" ||
-    lastCharacter === "-" ||
-    lastCharacter === "×" ||
-    lastCharacter === "÷"
+    operator === "−" &&
+    previousValue !== "" &&
+    currentOperator !== null &&
+    currentValue === ""
   ) {
-    expression = expression.slice(0, -1) + operator;
+    currentValue = "-";
 
-    updateDisplay(expression);
+    shouldResetDisplay = false;
+
+    updateDisplay();
 
     return;
   }
 
-  expression += operator;
+  // If there is no number yet, pressing minus
+  // starts a negative first number.
+  //
+  // Example:
+  // − → -
+  // −5 → -5
+  if (
+    operator === "−" &&
+    currentValue === "" &&
+    previousValue === "" &&
+    currentOperator === null
+  ) {
+    currentValue = "-";
 
-  currentInput = "";
+    shouldResetDisplay = false;
 
-  justCalculated = false;
+    updateDisplay();
 
-  updateDisplay(expression);
+    return;
+  }
+
+  // Cannot select operator without number.
+  if (currentValue === "") {
+    return;
+  }
+
+  // If a complete operation already exists,
+  // calculate it before selecting another operator.
+  if (previousValue !== "" && currentOperator !== null && currentValue !== "") {
+    calculateResult();
+  }
+
+  previousValue = currentValue;
+
+  currentOperator = operator;
+
+  // Empty means the second number
+  // has not been entered yet.
+  currentValue = "";
+
+  shouldResetDisplay = false;
+
+  updateDisplay();
 }
 
-// ===============================
-// Parentheses
-// ===============================
+// ========================================
+// PARENTHESES
+// ========================================
 
 function handleParentheses() {
-  if (justCalculated) {
-    expression = "";
-    currentInput = "";
-    justCalculated = false;
-  }
+  // ======================================
+  // START EXPRESSION MODE
+  // ======================================
 
-  const lastCharacter = expression.charAt(expression.length - 1);
+  if (expressionMode === false) {
+    expressionMode = true;
 
-  let openParentheses = 0;
-  let closeParentheses = 0;
-
-  for (let i = 0; i < expression.length; i++) {
-    if (expression[i] === "(") {
-      openParentheses++;
+    // If we already have a current number,
+    // use it as the beginning of the expression.
+    if (currentValue !== "") {
+      expression = currentValue;
     }
 
-    if (expression[i] === ")") {
-      closeParentheses++;
+    // If we have a previous calculation state,
+    // combine it into the expression.
+    else if (previousValue !== "" && currentOperator !== null) {
+      expression = previousValue + currentOperator;
+    } else {
+      expression = "";
     }
+
+    // Clear the old state because the expression
+    // is now controlled by the expression variable.
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+
+    shouldResetDisplay = false;
   }
 
-  // If nothing has been entered,
-  // insert an opening parenthesis.
+  // ======================================
+  // DECIDE WHICH PARENTHESIS TO ADD
+  // ======================================
+
+  // If expression is empty,
+  // the first parenthesis must be "(".
   if (expression === "") {
-    expression = "(";
-    currentInput = "";
+    expression += "(";
 
-    updateDisplay(expression);
+    updateDisplay();
 
     return;
   }
 
-  // If the previous character is an operator
-  // or an opening parenthesis, insert "(".
+  // Get the last character.
+  const lastCharacter = expression.charAt(expression.length - 1);
+
+  // If the last character is an operator
+  // or an opening parenthesis, add "(".
   if (
     lastCharacter === "+" ||
-    lastCharacter === "-" ||
+    lastCharacter === "−" ||
     lastCharacter === "×" ||
     lastCharacter === "÷" ||
     lastCharacter === "("
   ) {
     expression += "(";
-    currentInput = "";
-
-    updateDisplay(expression);
-
-    return;
   }
 
-  // If there are more opening parentheses than
-  // closing parentheses, close the expression.
-  if (openParentheses > closeParentheses) {
+  // Otherwise add ")".
+  else {
     expression += ")";
-
-    currentInput = "";
-
-    updateDisplay(expression);
-
-    return;
   }
 
-  // Otherwise start a new group.
-  expression += " (";
-
-  currentInput = "";
-
-  updateDisplay(expression);
+  updateDisplay();
 }
 
-// ===============================
-// Percentage Logic
-// ===============================
+// ========================================
+// CALCULATE RESULT
+// ========================================
 
-function handlePercent() {
-  if (expression === "") {
-    return;
-  }
+function calculateResult() {
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
 
-  // The last part must be a number.
-  const match = expression.match(/(\d+\.?\d*)$/);
-
-  if (!match) {
-    return;
-  }
-
-  const number = match[1];
-
-  // Find the number before the current number.
-  const beforeCurrentNumber = expression.slice(
-    0,
-    expression.length - number.length,
-  );
-
-  const lastOperator = beforeCurrentNumber.charAt(
-    beforeCurrentNumber.length - 1,
-  );
-
-  /*
-    IMPORTANT:
-
-    + and -
-
-    100 + 10%
-    
-    means:
-
-    10% of 100
-
-    = 10
-
-    Therefore:
-
-    100 + 10 = 110
-  */
-
-  if (lastOperator === "+" || lastOperator === "-") {
-    const expressionWithoutCurrentNumber = beforeCurrentNumber.slice(0, -1);
-
-    const firstNumberMatch =
-      expressionWithoutCurrentNumber.match(/(\d+\.?\d*)$/);
-
-    if (firstNumberMatch) {
-      const firstNumber = Number(firstNumberMatch[1]);
-
-      const percentageNumber = Number(number);
-
-      const percentageValue = (firstNumber * percentageNumber) / 100;
-
-      expression =
-        expressionWithoutCurrentNumber + lastOperator + percentageValue;
-
-      currentInput = String(percentageValue);
-
-      updateDisplay(expression);
-
+  if (expressionMode === true) {
+    // Cannot calculate an empty expression.
+    if (expression === "") {
       return;
     }
-  }
 
-  /*
-    × and ÷
-
-    100 × 10%
-
-    means:
-
-    100 × 0.10
-
-    10% = 10 / 100 = 0.10
-  */
-
-  if (lastOperator === "×" || lastOperator === "÷") {
-    const percentageValue = Number(number) / 100;
-
-    expression = beforeCurrentNumber + percentageValue;
-
-    currentInput = String(percentageValue);
-
-    updateDisplay(expression);
-
-    return;
-  }
-
-  /*
-    If there is no operator, the percentage
-    behaves normally.
-
-    Example:
-
-    50%
-
-    becomes:
-
-    0.5
-  */
-
-  const percentageValue = Number(number) / 100;
-
-  expression = beforeCurrentNumber + percentageValue;
-
-  currentInput = String(percentageValue);
-
-  updateDisplay(expression);
-}
-
-// ===============================
-// Percentage Preparation
-// ===============================
-
-function prepareExpressionForCalculation(value) {
-  /*
-    At this point percentage values have already
-    been converted by handlePercent().
-
-    Therefore the expression can be evaluated normally.
-  */
-
-  return value;
-}
-
-// ===============================
-// Calculate Expression
-// ===============================
-
-function calculateExpression() {
-  if (expression === "") {
-    return;
-  }
-
-  try {
-    let calculationExpression = prepareExpressionForCalculation(expression);
-
-    /*
-      Convert calculator symbols into JavaScript
-      mathematical operators.
-    */
-
-    calculationExpression = calculationExpression.replace(/×/g, "*");
-
-    calculationExpression = calculationExpression.replace(/÷/g, "/");
-
-    /*
-      Check that parentheses are balanced.
-    */
-
+    // Check that parentheses are balanced.
     let openParentheses = 0;
+
     let closeParentheses = 0;
 
-    for (let i = 0; i < calculationExpression.length; i++) {
-      if (calculationExpression[i] === "(") {
+    for (let i = 0; i < expression.length; i++) {
+      if (expression[i] === "(") {
         openParentheses++;
       }
 
-      if (calculationExpression[i] === ")") {
+      if (expression[i] === ")") {
         closeParentheses++;
       }
     }
 
     if (openParentheses !== closeParentheses) {
-      throw new Error("Invalid parentheses");
+      showError();
+
+      return;
     }
 
-    /*
-      Calculate the expression.
-    */
+    // Expression cannot end with an operator.
+    const lastCharacter = expression.charAt(expression.length - 1);
 
-    const result = Function(
-      `"use strict"; return (${calculationExpression})`,
-    )();
+    if (
+      lastCharacter === "+" ||
+      lastCharacter === "−" ||
+      lastCharacter === "×" ||
+      lastCharacter === "÷" ||
+      lastCharacter === "("
+    ) {
+      showError();
 
+      return;
+    }
+
+    // Convert calculator symbols to JavaScript operators.
+    const calculationExpression = expression
+      .replaceAll("×", "*")
+      .replaceAll("÷", "/")
+      .replaceAll("−", "-");
+
+    let result;
+
+    try {
+      /*
+       * The expression is generated only from
+       * calculator buttons, so the calculator
+       * controls what can be evaluated.
+       */
+
+      result = Function("return " + calculationExpression)();
+    } catch (error) {
+      showError();
+
+      return;
+    }
+
+    // Prevent invalid results.
     if (!Number.isFinite(result)) {
-      throw new Error("Invalid calculation");
+      showError();
+
+      return;
     }
 
-    /*
-      Remove unnecessary decimal zeros.
-    */
+    // Show result.
+    currentValue = String(result);
 
-    const formattedResult = Number(result.toFixed(10));
+    previousValue = "";
 
-    expression = String(formattedResult);
+    currentOperator = null;
 
-    currentInput = String(formattedResult);
-
-    justCalculated = true;
-
-    updateDisplay(expression);
-  } catch (error) {
     expression = "";
-    currentInput = "";
 
-    justCalculated = false;
+    expressionMode = false;
 
-    updateDisplay("Error");
+    shouldResetDisplay = true;
+
+    updateDisplay();
+
+    return;
   }
+
+  // ======================================
+  // NORMAL CALCULATOR MODE
+  // ======================================
+
+  if (previousValue === "" || currentOperator === null || currentValue === "") {
+    return;
+  }
+
+  const firstNumber = Number(previousValue);
+
+  const secondNumber = Number(currentValue);
+
+  let result;
+
+  // Addition
+  if (currentOperator === "+") {
+    result = firstNumber + secondNumber;
+  }
+
+  // Subtraction
+  else if (currentOperator === "−") {
+    result = firstNumber - secondNumber;
+  }
+
+  // Multiplication
+  else if (currentOperator === "×") {
+    result = firstNumber * secondNumber;
+  }
+
+  // Division
+  else if (currentOperator === "÷") {
+    if (secondNumber === 0) {
+      showError();
+
+      return;
+    }
+
+    result = firstNumber / secondNumber;
+  }
+
+  // Safety check
+  if (!Number.isFinite(result)) {
+    showError();
+
+    return;
+  }
+
+  currentValue = String(result);
+
+  previousValue = "";
+
+  currentOperator = null;
+
+  shouldResetDisplay = true;
+
+  updateDisplay();
 }
 
-// ===============================
-// Clear Button
-// ===============================
+// ========================================
+// CLEAR
+// ========================================
 
 function clearCalculator() {
+  currentValue = "";
+
+  previousValue = "";
+
+  currentOperator = null;
+
+  shouldResetDisplay = false;
+
   expression = "";
 
-  currentInput = "";
+  expressionMode = false;
 
-  justCalculated = false;
-
-  updateDisplay("0");
+  updateDisplay();
 }
 
-// ===============================
-// Backspace Button
-// ===============================
+// ========================================
+// BACKSPACE
+// ========================================
 
 function handleBackspace() {
-  if (justCalculated) {
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    if (expression === "") {
+      return;
+    }
+
+    // Remove the last character.
+    expression = expression.slice(0, -1);
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ======================================
+  // ERROR
+  // ======================================
+
+  if (currentValue === "Error") {
     clearCalculator();
 
     return;
   }
 
-  if (expression === "") {
+  // ======================================
+  // CURRENT NUMBER
+  // ======================================
+
+  if (currentValue !== "") {
+    currentValue = currentValue.slice(0, -1);
+
+    updateDisplay();
+
     return;
   }
 
-  /*
-    Remove the last character.
+  // ======================================
+  // OPERATOR
+  // ======================================
 
-    Example:
+  if (currentValue === "" && currentOperator !== null) {
+    currentValue = previousValue;
 
-    123 + 45
+    previousValue = "";
 
-    becomes:
+    currentOperator = null;
 
-    123 + 4
-  */
+    shouldResetDisplay = false;
 
-  expression = expression.slice(0, -1);
+    updateDisplay();
 
-  /*
-    Rebuild currentInput from the end
-    of the expression.
-  */
-
-  const numberMatch = expression.match(/(\d+\.?\d*)$/);
-
-  if (numberMatch) {
-    currentInput = numberMatch[1];
-  } else {
-    currentInput = "";
-  }
-
-  if (expression === "") {
-    updateDisplay("0");
-  } else {
-    updateDisplay(expression);
+    return;
   }
 }
 
-// ===============================
-// Number Buttons
-// ===============================
+// ========================================
+// ERROR
+// ========================================
+
+function showError() {
+  currentValue = "Error";
+
+  previousValue = "";
+
+  currentOperator = null;
+
+  expression = "";
+
+  expressionMode = false;
+
+  shouldResetDisplay = false;
+
+  updateDisplay();
+}
+
+// ========================================
+// PERCENT
+// ========================================
+
+function handlePercent() {
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    // Get the current number at the end
+    // of the expression.
+    const parts = expression.split(/[+−×÷()]/);
+
+    const lastPart = parts[parts.length - 1];
+
+    if (lastPart === "") {
+      return;
+    }
+
+    const number = Number(lastPart);
+
+    if (!Number.isFinite(number)) {
+      return;
+    }
+
+    /*
+     * Percentage behavior inside an expression:
+     *
+     * Addition:
+     * 100 + 10% = 110
+     * 10% means 10 percent of 100.
+     *
+     * Subtraction:
+     * 100 - 10% = 90
+     * 10% means 10 percent of 100.
+     *
+     * Multiplication:
+     * 100 × 10% = 10
+     * 10% becomes 0.10.
+     *
+     * Division:
+     * 100 ÷ 10% = 1000
+     * 10% becomes 0.10.
+     */
+
+    const expressionBeforeNumber = expression.slice(
+      0,
+      expression.length - lastPart.length,
+    );
+
+    const previousCharacter = expressionBeforeNumber.charAt(
+      expressionBeforeNumber.length - 1,
+    );
+
+    let percentValue;
+
+    // ======================================
+    // ADDITION
+    // ======================================
+
+    if (previousCharacter === "+") {
+      const previousParts = expressionBeforeNumber
+        .slice(0, -1)
+        .split(/[+−×÷()]/);
+
+      const previousNumber = Number(previousParts[previousParts.length - 1]);
+
+      if (!Number.isFinite(previousNumber)) {
+        return;
+      }
+
+      percentValue = previousNumber * (number / 100);
+    }
+
+    // ======================================
+    // SUBTRACTION
+    // ======================================
+    else if (previousCharacter === "−") {
+      const previousParts = expressionBeforeNumber
+        .slice(0, -1)
+        .split(/[+−×÷()]/);
+
+      const previousNumber = Number(previousParts[previousParts.length - 1]);
+
+      if (!Number.isFinite(previousNumber)) {
+        return;
+      }
+
+      percentValue = previousNumber * (number / 100);
+    }
+
+    // ======================================
+    // MULTIPLICATION
+    // ======================================
+    else if (previousCharacter === "×") {
+      percentValue = number / 100;
+    }
+
+    // ======================================
+    // DIVISION
+    // ======================================
+    else if (previousCharacter === "÷") {
+      percentValue = number / 100;
+    }
+
+    // ======================================
+    // NO OPERATOR
+    // ======================================
+    else {
+      percentValue = number / 100;
+    }
+
+    expression =
+      expression.slice(0, expression.length - lastPart.length) + percentValue;
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ======================================
+  // NORMAL MODE
+  // ======================================
+
+  if (currentValue === "") {
+    return;
+  }
+
+  if (currentValue === "Error") {
+    return;
+  }
+
+  const number = Number(currentValue);
+
+  if (!Number.isFinite(number)) {
+    showError();
+
+    return;
+  }
+
+  currentValue = String(number / 100);
+
+  updateDisplay();
+}
+
+// ========================================
+// NUMBER BUTTON EVENTS
+// ========================================
 
 numberButtons.forEach(function (button) {
   button.addEventListener("click", function () {
-    handleNumber(button.textContent);
+    const number = button.textContent.trim();
+
+    handleNumber(number);
   });
 });
 
-// ===============================
-// Operator Buttons
-// ===============================
+// ========================================
+// DECIMAL BUTTON
+// ========================================
 
-addButton.addEventListener("click", function () {
-  handleOperator("+");
-});
+if (decimalButton) {
+  decimalButton.addEventListener("click", handleDecimal);
+}
 
-subtractButton.addEventListener("click", function () {
-  handleOperator("-");
-});
+// ========================================
+// MULTIPLICATION
+// ========================================
 
-multiplyButton.addEventListener("click", function () {
-  handleOperator("×");
-});
+if (multiplyButton) {
+  multiplyButton.addEventListener("click", function () {
+    handleOperator("×");
+  });
+}
 
-divideButton.addEventListener("click", function () {
-  handleOperator("÷");
-});
+// ========================================
+// DIVISION
+// ========================================
 
-// ===============================
-// Decimal Button
-// ===============================
+if (divideButton) {
+  divideButton.addEventListener("click", function () {
+    handleOperator("÷");
+  });
+}
 
-decimalButton.addEventListener("click", function () {
-  handleDecimal();
-});
+// ========================================
+// SUBTRACTION
+// ========================================
 
-// ===============================
-// Parentheses Button
-// ===============================
+if (subtractButton) {
+  subtractButton.addEventListener("click", function () {
+    handleOperator("−");
+  });
+}
 
-parenthesesButton.addEventListener("click", function () {
-  handleParentheses();
-});
+// ========================================
+// ADDITION
+// ========================================
 
-// ===============================
-// Percentage Button
-// ===============================
+if (addButton) {
+  addButton.addEventListener("click", function () {
+    handleOperator("+");
+  });
+}
 
-percentButton.addEventListener("click", function () {
-  handlePercent();
-});
+// ========================================
+// EQUALS
+// ========================================
 
-// ===============================
-// Equals Button
-// ===============================
+if (equalsButton) {
+  equalsButton.addEventListener("click", calculateResult);
+}
 
-equalsButton.addEventListener("click", function () {
-  calculateExpression();
-});
+// ========================================
+// CLEAR
+// ========================================
 
-// ===============================
-// Clear Button
-// ===============================
+if (clearButton) {
+  clearButton.addEventListener("click", clearCalculator);
+}
 
-clearButton.addEventListener("click", function () {
-  clearCalculator();
-});
+// ========================================
+// BACKSPACE
+// ========================================
 
-// ===============================
-// Backspace Button
-// ===============================
+if (backspaceButton) {
+  backspaceButton.addEventListener("click", handleBackspace);
+}
 
-backspaceButton.addEventListener("click", function () {
-  handleBackspace();
-});
+// ========================================
+// PERCENT
+// ========================================
 
-// ===============================
-// Initial Display
-// ===============================
+if (percentButton) {
+  percentButton.addEventListener("click", handlePercent);
+}
 
-updateDisplay("0");
+// ========================================
+// PARENTHESES
+// ========================================
+
+if (parenthesesButton) {
+  parenthesesButton.addEventListener("click", handleParentheses);
+}
+
+// ========================================
+// INITIAL DISPLAY
+// ========================================
+
+updateDisplay();
