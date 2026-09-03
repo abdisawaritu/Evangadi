@@ -1429,92 +1429,167 @@
 // // └── stack
 // //       information about where the error happened
 
-// // new Error("Database connection failed")
+// // // new Error("Database connection failed")
 
-// // means:
+// // // means:
 
-// // "Create an object that describes an error."
+// // // "Create an object that describes an error."
 
-// // It does not, by itself, mean:
+// // // It does not, by itself, mean:
 
-// // "Stop the program and send this error to catch."
+// // // "Stop the program and send this error to catch."
 
-// // throw  stop the normal execution here and signal an exception /error
+// // // throw  stop the normal execution here and signal an exception /error
 
-// async function loginUser(username, password) {
-//   const user = await database.findUser(username);
+// // async function loginUser(username, password) {
+// //   const user = await database.findUser(username);
 
-//   if (!user) {
-//     throw new Error("User not found");
-//   }
+// //   if (!user) {
+// //     throw new Error("User not found");
+// //   }
 
-//   if (user.password !== password) {
-//     throw new Error("Invalid password");
-//   }
+// //   if (user.password !== password) {
+// //     throw new Error("Invalid password");
+// //   }
 
-//   return user;
-// }
+// //   return user;
+// // }
 
-// async function login() {
-//   try {
-//     const user = await loginUser("Abdi", "12345");
+// // async function login() {
+// //   try {
+// //     const user = await loginUser("Abdi", "12345");
 
-//     console.log("Login successful");
-//     console.log(user);
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// }
-// // data base failure
-// async function getProducts() {
-//   const products = await database.getProducts();
+// //     console.log("Login successful");
+// //     console.log(user);
+// //   } catch (error) {
+// //     console.log(error.message);
+// //   }
+// // }
+// // // data base failure
+// // async function getProducts() {
+// //   const products = await database.getProducts();
 
-//   if (!products) {
-//     throw new Error("Could not retrieve products");
-//   }
+// //   if (!products) {
+// //     throw new Error("Could not retrieve products");
+// //   }
 
-//   return products;
-// }
+// //   return products;
+// // }
 
-// app.get("/products", async (req, res) => {
-//   try {
-//     const products = await getProducts();
+// // app.get("/products", async (req, res) => {
+// //   try {
+// //     const products = await getProducts();
 
-//     res.json(products);
-//   } catch (error) {
-//     console.error(error);
+// //     res.json(products);
+// //   } catch (error) {
+// //     console.error(error);
 
-//     res.status(500).json({
-//       message: error.message,
-//     });
-//   }
+// //     res.status(500).json({
+// //       message: error.message,
+// //     });
+// //   }
+// // });
+
+// // validation
+// // real full stack examples
+// // autothriztion
+
+// // // created error objects
+// // // throws
+// //  promise become rejected
+// //  .message aviaabi
+
+// // Callback function   is the function that is exectued after the function is finites another function  executing  hence it names called  the callback function
+// // In javascript  functions can take functions as arguments , and can be returned by other fucntiosn  any function that is passed as an argument is called callback function .
+
+// // example
+// // console.log("Abebe");
+// // console.log("kebede");
+// // setTimeout(abebe, 0);
+// // console.log("Almaz");
+// // function abebe() {
+// //   console.log("chala");
+// // } // this function is called immediately after the setTimeout finishes itworks
+// // Hey setTimeout , here is the function I want to execute later
+
+// // using the web api  setTimeout
+
+// // Promises
+
+// let abebe = new Promise(function (resolve, reject) {
+//   // if(true){
+//   //   resolve("the promise is fulfilled")
+//   // }
+//   if (1 === 1) {
+//   reject("the promise is rejects ");
+//   } // there is some error if we uncaught
 // });
+// abebe.then(
+//   // function (result) {
+//   //   console.log("resolved result is :", result);
+//   // },
+//   // function (error) {
+//   //   console.log("the rejected error is ", error);
+//   // },
+// //   (result) => {
+// //     console.log("resolved result is :", result);
+// //   },
+// // );)
+// )
 
-// validation
-// real full stack examples
-// autothriztion
+// // states of promise (states  of water ) someinformation  at some value
+// // pending , fulfilled , rejected.
 
-// // created error objects
-// // throws
-//  promise become rejected
-//  .message aviaabi
+// // how to consume the promise how to use the data , result that came back
+// // .then()  used to receive results  or error from the promise
+// // two function as argumentns the  function 1  and function 2  function one works for fulfilled results  , ther others function run when promise is rejected to get the resuls
 
-// Callback function   is the function that is exectued after the function is finites another function  executing  hence it names called  the callback function
-// In javascript  functions can take functions as arguments , and can be returned by other fucntiosn  any function that is passed as an argument is called callback function .
+// // catch()   Method  to handler the all the or error from the promise
 
-// example
-console.log("Abebe");
-console.log("kebede");
-setTimeout(abebe, 0);
-console.log("Almaz");
-function abebe() {
-  console.log("chala");
-}  // this function is called immediately after the setTimeout finishes itworks 
-// Hey setTimeout , here is the function I want to execute later 
+// abebe.catch(handlerError);
+// function handlerError(error) {
+//   console.log(error);
+// }
 
-// using the web api  setTimeout 
+// async-await
+// to create the asychronous operation
+// async function  always return a promise if the  fucntion have async function
+// async function someFunction (){
+//   return "abebe"
+// }
+// const re = someFunction();
+// console.log(re)
 
-// Promises 
+function anotherFunWithawait() {
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Abebe still eating beso");
+    }, 1000);
+  });
+  promise.then(console.log);
+}
+
+anotherFunWithawait();
+
+// with async await
+
+async function anotherFun() {
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Abebe finished eating beso");
+    }, 1000);
+  });
+  let result = await promise;
+  console.log(result)
+}
+anotherFun();
 
 
 
+// .catch(()=>{
+
+// }) this is equvalent to 
+
+// .then(null , () =>{
+
+// })  since is  the next then is executed  since then can continues 
