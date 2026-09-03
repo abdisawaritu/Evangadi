@@ -235,24 +235,62 @@ function handleDecimal() {
 // OPERATOR
 // ========================================
 
+// ========================================
+// OPERATOR
+// ========================================
+
 function handleOperator(operator) {
+  // ======================================
+  // ERROR
+  // ======================================
+
+  if (currentValue === "Error") {
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+    expression = "";
+    expressionMode = false;
+    shouldResetDisplay = false;
+  }
+
+  // ======================================
+  // FIRST NEGATIVE NUMBER
+  // ======================================
+
+  // Allow the minus operator to start
+  // a negative number.
+  //
+  // Example:
+  // −5
+  // −5 + 3
+  if (expressionMode === false && currentValue === "" && operator === "−") {
+    currentValue = "−";
+
+    updateDisplay();
+
+    return;
+  }
+
   // ======================================
   // EXPRESSION MODE
   // ======================================
 
   if (expressionMode === true) {
-    // Allow negative numbers inside expressions.
+    const lastCharacter = expression.charAt(expression.length - 1);
+
+    // Allow minus to act as a negative sign.
+    //
     // Example:
-    // 5 × -2
-    // (-5 + 3)
+    // 5 × −2
+    // 5 + −2
+    // (−5 + 3)
     if (
       operator === "−" &&
-      (expression === "" ||
-        expression.endsWith("+") ||
-        expression.endsWith("−") ||
-        expression.endsWith("×") ||
-        expression.endsWith("÷") ||
-        expression.endsWith("("))
+      (lastCharacter === "+" ||
+        lastCharacter === "−" ||
+        lastCharacter === "×" ||
+        lastCharacter === "÷" ||
+        lastCharacter === "(")
     ) {
       expression += "−";
 
@@ -261,25 +299,27 @@ function handleOperator(operator) {
       return;
     }
 
-    // Do not allow an operator immediately
-    // after another operator.
+    // If an operator is already at the end,
+    // replace it with the newly selected operator.
+    //
+    // Example:
+    // 5 + → 5 ×
     if (
-      expression.endsWith("+") ||
-      expression.endsWith("−") ||
-      expression.endsWith("×") ||
-      expression.endsWith("÷")
+      lastCharacter === "+" ||
+      lastCharacter === "−" ||
+      lastCharacter === "×" ||
+      lastCharacter === "÷"
     ) {
-      // Replace the previous operator.
       expression = expression.slice(0, -1) + operator;
     }
 
-    // Do not put an operator immediately
+    // Do not put an operator directly
     // after an opening parenthesis.
-    else if (expression.endsWith("(")) {
+    else if (lastCharacter === "(") {
       return;
     }
 
-    // Otherwise add operator.
+    // Add the new operator to the expression.
     else {
       expression += operator;
     }
@@ -290,34 +330,26 @@ function handleOperator(operator) {
   }
 
   // ======================================
-  // NORMAL MODE
+  // START EXPRESSION MODE
   // ======================================
 
-  if (currentValue === "Error") {
+  // We have a number and the user has
+  // pressed the first operator.
+  //
+  // Example:
+  // 5 +
+  //
+  // Instead of storing the calculation as
+  // previousValue/currentOperator, we now
+  // begin building the complete expression.
+  if (currentValue !== "") {
+    expressionMode = true;
+
+    expression = currentValue + operator;
+
     currentValue = "";
     previousValue = "";
     currentOperator = null;
-    shouldResetDisplay = false;
-  }
-
-  // ======================================
-  // NEGATIVE NUMBER
-  // ======================================
-
-  // If there is already a first number and
-  // an operator has been selected, pressing
-  // minus starts a negative second number.
-  //
-  // Example:
-  // 5 × − → 5 × -
-  // 5 × −2 → 5 × -2
-  if (
-    operator === "−" &&
-    previousValue !== "" &&
-    currentOperator !== null &&
-    currentValue === ""
-  ) {
-    currentValue = "-";
 
     shouldResetDisplay = false;
 
@@ -326,49 +358,8 @@ function handleOperator(operator) {
     return;
   }
 
-  // If there is no number yet, pressing minus
-  // starts a negative first number.
-  //
-  // Example:
-  // − → -
-  // −5 → -5
-  if (
-    operator === "−" &&
-    currentValue === "" &&
-    previousValue === "" &&
-    currentOperator === null
-  ) {
-    currentValue = "-";
-
-    shouldResetDisplay = false;
-
-    updateDisplay();
-
-    return;
-  }
-
-  // Cannot select operator without number.
-  if (currentValue === "") {
-    return;
-  }
-
-  // If a complete operation already exists,
-  // calculate it before selecting another operator.
-  if (previousValue !== "" && currentOperator !== null && currentValue !== "") {
-    calculateResult();
-  }
-
-  previousValue = currentValue;
-
-  currentOperator = operator;
-
-  // Empty means the second number
-  // has not been entered yet.
-  currentValue = "";
-
-  shouldResetDisplay = false;
-
-  updateDisplay();
+  // There is no number to operate on.
+  return;
 }
 
 // ========================================
