@@ -278,12 +278,18 @@ function handleOperator(operator) {
   if (expressionMode === true) {
     const lastCharacter = expression.charAt(expression.length - 1);
 
-    // Allow minus to act as a negative sign.
+    // ======================================
+    // NEGATIVE NUMBER
+    // ======================================
+
+    // Allow minus to act as a negative sign
+    // after an operator or opening parenthesis.
     //
     // Example:
     // 5 × −2
     // 5 + −2
     // (−5 + 3)
+
     if (
       operator === "−" &&
       (lastCharacter === "+" ||
@@ -299,27 +305,50 @@ function handleOperator(operator) {
       return;
     }
 
+    // ======================================
+    // PREVENT TWO OPERATORS
+    // ======================================
+
     // If an operator is already at the end,
-    // replace it with the newly selected operator.
+    // do not add another operator.
     //
     // Example:
-    // 5 + → 5 ×
+    // 5 + ×
+    //
+    // The expression remains:
+    // 5 +
+
     if (
       lastCharacter === "+" ||
       lastCharacter === "−" ||
       lastCharacter === "×" ||
       lastCharacter === "÷"
     ) {
-      expression = expression.slice(0, -1) + operator;
+      return;
     }
+
+    // ======================================
+    // AFTER OPENING PARENTHESIS
+    // ======================================
 
     // Do not put an operator directly
     // after an opening parenthesis.
+    //
+    // Example:
+    // (
+    // +  → not allowed
     else if (lastCharacter === "(") {
       return;
     }
 
-    // Add the new operator to the expression.
+    // ======================================
+    // ADD OPERATOR
+    // ======================================
+
+    // Add the new operator normally.
+    //
+    // Example:
+    // 5 + 3 ×
     else {
       expression += operator;
     }
@@ -338,10 +367,7 @@ function handleOperator(operator) {
   //
   // Example:
   // 5 +
-  //
-  // Instead of storing the calculation as
-  // previousValue/currentOperator, we now
-  // begin building the complete expression.
+
   if (currentValue !== "") {
     expressionMode = true;
 
