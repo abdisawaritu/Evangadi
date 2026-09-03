@@ -243,7 +243,6 @@ function handleOperator(operator) {
   if (expressionMode === true) {
     // Do not allow an operator immediately
     // after another operator.
-
     if (
       expression.endsWith("+") ||
       expression.endsWith("−") ||
@@ -648,7 +647,6 @@ function handlePercent() {
   if (expressionMode === true) {
     // Get the current number at the end
     // of the expression.
-
     const parts = expression.split(/[+−×÷()]/);
 
     const lastPart = parts[parts.length - 1];
@@ -663,7 +661,92 @@ function handlePercent() {
       return;
     }
 
-    const percentValue = number / 100;
+    /*
+     * Percentage behavior inside an expression:
+     *
+     * Addition:
+     * 100 + 10% = 110
+     * 10% means 10 percent of 100.
+     *
+     * Subtraction:
+     * 100 - 10% = 90
+     * 10% means 10 percent of 100.
+     *
+     * Multiplication:
+     * 100 × 10% = 10
+     * 10% becomes 0.10.
+     *
+     * Division:
+     * 100 ÷ 10% = 1000
+     * 10% becomes 0.10.
+     */
+
+    const expressionBeforeNumber = expression.slice(
+      0,
+      expression.length - lastPart.length,
+    );
+
+    const previousCharacter = expressionBeforeNumber.charAt(
+      expressionBeforeNumber.length - 1,
+    );
+
+    let percentValue;
+
+    // ======================================
+    // ADDITION
+    // ======================================
+
+    if (previousCharacter === "+") {
+      const previousParts = expressionBeforeNumber
+        .slice(0, -1)
+        .split(/[+−×÷()]/);
+
+      const previousNumber = Number(previousParts[previousParts.length - 1]);
+
+      if (!Number.isFinite(previousNumber)) {
+        return;
+      }
+
+      percentValue = previousNumber * (number / 100);
+    }
+
+    // ======================================
+    // SUBTRACTION
+    // ======================================
+    else if (previousCharacter === "−") {
+      const previousParts = expressionBeforeNumber
+        .slice(0, -1)
+        .split(/[+−×÷()]/);
+
+      const previousNumber = Number(previousParts[previousParts.length - 1]);
+
+      if (!Number.isFinite(previousNumber)) {
+        return;
+      }
+
+      percentValue = previousNumber * (number / 100);
+    }
+
+    // ======================================
+    // MULTIPLICATION
+    // ======================================
+    else if (previousCharacter === "×") {
+      percentValue = number / 100;
+    }
+
+    // ======================================
+    // DIVISION
+    // ======================================
+    else if (previousCharacter === "÷") {
+      percentValue = number / 100;
+    }
+
+    // ======================================
+    // NO OPERATOR
+    // ======================================
+    else {
+      percentValue = number / 100;
+    }
 
     expression =
       expression.slice(0, expression.length - lastPart.length) + percentValue;
