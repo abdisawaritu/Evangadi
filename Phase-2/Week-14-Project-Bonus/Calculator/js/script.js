@@ -8,6 +8,10 @@ let currentOperator = null;
 
 let shouldResetDisplay = false;
 
+// New state for parentheses expressions
+let expression = "";
+let expressionMode = false;
+
 // ========================================
 // GET HTML ELEMENTS
 // ========================================
@@ -41,17 +45,32 @@ const backspaceButton = document.getElementById("backspaceButton");
 // ========================================
 
 function updateDisplay() {
-  // If there is a complete calculation
-  // being prepared, show first number + operator.
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    if (expression === "") {
+      display.textContent = "0";
+    } else {
+      display.textContent = expression;
+    }
+
+    return;
+  }
+
+  // ======================================
+  // NORMAL CALCULATOR MODE
+  // ======================================
+
+  // First number + operator
   if (previousValue !== "" && currentOperator !== null && currentValue === "") {
     display.textContent = previousValue + " " + currentOperator;
 
     return;
   }
 
-  // If there is a first number,
-  // an operator and a second number,
-  // show the complete expression.
+  // First number + operator + second number
   if (previousValue !== "" && currentOperator !== null && currentValue !== "") {
     display.textContent =
       previousValue + " " + currentOperator + " " + currentValue;
@@ -59,7 +78,7 @@ function updateDisplay() {
     return;
   }
 
-  // Normal display.
+  // Normal number
   if (currentValue === "") {
     display.textContent = "0";
   } else {
@@ -72,11 +91,38 @@ function updateDisplay() {
 // ========================================
 
 function handleNumber(number) {
-  // ----------------------------------------
-  // If the calculator is showing Error,
-  // start a completely new calculation.
-  // ----------------------------------------
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
 
+  if (expressionMode === true) {
+    // If expression is empty, start with number
+    if (expression === "") {
+      expression = number;
+    }
+
+    // If expression ends with a closing parenthesis,
+    // automatically add multiplication.
+    else if (expression.endsWith(")")) {
+      expression += "×" + number;
+    }
+
+    // Otherwise add number normally
+    else {
+      expression += number;
+    }
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ======================================
+  // NORMAL MODE
+  // ======================================
+
+  // If Error is displayed,
+  // start a new calculation.
   if (currentValue === "Error") {
     currentValue = "";
     previousValue = "";
@@ -84,11 +130,8 @@ function handleNumber(number) {
     shouldResetDisplay = false;
   }
 
-  // ----------------------------------------
-  // If a result was just calculated,
-  // pressing a number starts a new calculation.
-  // ----------------------------------------
-
+  // If result was just calculated,
+  // start a new calculation.
   if (shouldResetDisplay === true) {
     currentValue = "";
     previousValue = "";
@@ -97,19 +140,12 @@ function handleNumber(number) {
     shouldResetDisplay = false;
   }
 
-  // ----------------------------------------
-  // Prevent 0000...
-  // ----------------------------------------
-
+  // Prevent multiple zeros.
   if (currentValue === "0" && number === "0") {
     return;
   }
 
-  // ----------------------------------------
-  // If current value is 0 and user enters
-  // another number, replace the 0.
-  // ----------------------------------------
-
+  // Replace initial zero.
   if (currentValue === "0" && number !== "0") {
     currentValue = number;
   } else {
@@ -124,15 +160,55 @@ function handleNumber(number) {
 // ========================================
 
 function handleDecimal() {
-  // If Error is displayed, start fresh.
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    // Find the last part of the expression.
+    // This allows one decimal point per number.
+
+    const parts = expression.split(/[+−×÷()]/);
+
+    const lastPart = parts[parts.length - 1];
+
+    // Do not allow another decimal point
+    // in the current number.
+    if (lastPart.includes(".")) {
+      return;
+    }
+
+    // If expression is empty or the last
+    // character is an operator/open parenthesis,
+    // begin with 0.
+    if (
+      expression === "" ||
+      expression.endsWith("+") ||
+      expression.endsWith("−") ||
+      expression.endsWith("×") ||
+      expression.endsWith("÷") ||
+      expression.endsWith("(")
+    ) {
+      expression += "0.";
+    } else {
+      expression += ".";
+    }
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ======================================
+  // NORMAL MODE
+  // ======================================
+
   if (currentValue === "Error") {
     currentValue = "";
     previousValue = "";
     currentOperator = null;
   }
 
-  // If result was already calculated,
-  // start a new number.
   if (shouldResetDisplay === true) {
     currentValue = "";
     previousValue = "";
@@ -141,13 +217,11 @@ function handleDecimal() {
     shouldResetDisplay = false;
   }
 
-  // Do not allow two decimal points.
+  // Prevent two decimal points.
   if (currentValue.includes(".")) {
     return;
   }
 
-  // If user starts with decimal,
-  // create 0.
   if (currentValue === "") {
     currentValue = "0.";
   } else {
@@ -162,10 +236,43 @@ function handleDecimal() {
 // ========================================
 
 function handleOperator(operator) {
-  // ----------------------------------------
-  // If Error is displayed,
-  // reset the calculator.
-  // ----------------------------------------
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    // Do not allow an operator immediately
+    // after another operator.
+
+    if (
+      expression.endsWith("+") ||
+      expression.endsWith("−") ||
+      expression.endsWith("×") ||
+      expression.endsWith("÷")
+    ) {
+      // Replace the previous operator.
+      expression = expression.slice(0, -1) + operator;
+    }
+
+    // Do not put an operator immediately
+    // after an opening parenthesis.
+    else if (expression.endsWith("(")) {
+      return;
+    }
+
+    // Otherwise add operator.
+    else {
+      expression += operator;
+    }
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ======================================
+  // NORMAL MODE
+  // ======================================
 
   if (currentValue === "Error") {
     currentValue = "";
@@ -174,49 +281,98 @@ function handleOperator(operator) {
     shouldResetDisplay = false;
   }
 
-  // ----------------------------------------
-  // Cannot select an operator
-  // without a number.
-  // ----------------------------------------
-
+  // Cannot select operator without number.
   if (currentValue === "") {
     return;
   }
 
-  // ----------------------------------------
-  // If there is already a complete operation,
+  // If a complete operation already exists,
   // calculate it before selecting another operator.
-  // ----------------------------------------
-
   if (previousValue !== "" && currentOperator !== null && currentValue !== "") {
     calculateResult();
   }
 
-  // ----------------------------------------
-  // Save current number as previous number.
-  // ----------------------------------------
-
   previousValue = currentValue;
-
-  // ----------------------------------------
-  // Save operator.
-  // ----------------------------------------
 
   currentOperator = operator;
 
-  // ----------------------------------------
-  // Clear currentValue.
-  //
-  // IMPORTANT:
-  // We use "" here, NOT "0".
-  //
-  // This means the second number has not
-  // been entered yet.
-  // ----------------------------------------
-
+  // Empty means the second number
+  // has not been entered yet.
   currentValue = "";
 
   shouldResetDisplay = false;
+
+  updateDisplay();
+}
+
+// ========================================
+// PARENTHESES
+// ========================================
+
+function handleParentheses() {
+  // ======================================
+  // START EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === false) {
+    expressionMode = true;
+
+    // If we already have a current number,
+    // use it as the beginning of the expression.
+    if (currentValue !== "") {
+      expression = currentValue;
+    }
+
+    // If we have a previous calculation state,
+    // combine it into the expression.
+    else if (previousValue !== "" && currentOperator !== null) {
+      expression = previousValue + currentOperator;
+    } else {
+      expression = "";
+    }
+
+    // Clear the old state because the expression
+    // is now controlled by the expression variable.
+    currentValue = "";
+    previousValue = "";
+    currentOperator = null;
+
+    shouldResetDisplay = false;
+  }
+
+  // ======================================
+  // DECIDE WHICH PARENTHESIS TO ADD
+  // ======================================
+
+  // If expression is empty,
+  // the first parenthesis must be "(".
+  if (expression === "") {
+    expression += "(";
+
+    updateDisplay();
+
+    return;
+  }
+
+  // Get the last character.
+  const lastCharacter = expression.charAt(expression.length - 1);
+
+  // If the last character is an operator
+  // or an opening parenthesis, add "(".
+  if (
+    lastCharacter === "+" ||
+    lastCharacter === "−" ||
+    lastCharacter === "×" ||
+    lastCharacter === "÷" ||
+    lastCharacter === "("
+  ) {
+    expression += "(";
+  }
+
+  // Otherwise add ")".
+  else {
+    expression += ")";
+  }
 
   updateDisplay();
 }
@@ -226,10 +382,102 @@ function handleOperator(operator) {
 // ========================================
 
 function calculateResult() {
-  // ----------------------------------------
-  // Make sure calculation has everything
-  // it needs.
-  // ----------------------------------------
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    // Cannot calculate an empty expression.
+    if (expression === "") {
+      return;
+    }
+
+    // Check that parentheses are balanced.
+    let openParentheses = 0;
+
+    let closeParentheses = 0;
+
+    for (let i = 0; i < expression.length; i++) {
+      if (expression[i] === "(") {
+        openParentheses++;
+      }
+
+      if (expression[i] === ")") {
+        closeParentheses++;
+      }
+    }
+
+    if (openParentheses !== closeParentheses) {
+      showError();
+
+      return;
+    }
+
+    // Expression cannot end with an operator.
+    const lastCharacter = expression.charAt(expression.length - 1);
+
+    if (
+      lastCharacter === "+" ||
+      lastCharacter === "−" ||
+      lastCharacter === "×" ||
+      lastCharacter === "÷" ||
+      lastCharacter === "("
+    ) {
+      showError();
+
+      return;
+    }
+
+    // Convert calculator symbols to JavaScript operators.
+    const calculationExpression = expression
+      .replaceAll("×", "*")
+      .replaceAll("÷", "/")
+      .replaceAll("−", "-");
+
+    let result;
+
+    try {
+      /*
+       * The expression is generated only from
+       * calculator buttons, so the calculator
+       * controls what can be evaluated.
+       */
+
+      result = Function("return " + calculationExpression)();
+    } catch (error) {
+      showError();
+
+      return;
+    }
+
+    // Prevent invalid results.
+    if (!Number.isFinite(result)) {
+      showError();
+
+      return;
+    }
+
+    // Show result.
+    currentValue = String(result);
+
+    previousValue = "";
+
+    currentOperator = null;
+
+    expression = "";
+
+    expressionMode = false;
+
+    shouldResetDisplay = true;
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ======================================
+  // NORMAL CALCULATOR MODE
+  // ======================================
 
   if (previousValue === "" || currentOperator === null || currentValue === "") {
     return;
@@ -241,36 +489,22 @@ function calculateResult() {
 
   let result;
 
-  // ----------------------------------------
-  // ADDITION
-  // ----------------------------------------
-
+  // Addition
   if (currentOperator === "+") {
     result = firstNumber + secondNumber;
   }
 
-  // ----------------------------------------
-  // SUBTRACTION
-  // ----------------------------------------
-  // IMPORTANT:
-  // The HTML button uses the mathematical
-  // minus character "−", not the normal
-  // keyboard hyphen "-".
-  // ----------------------------------------
+  // Subtraction
   else if (currentOperator === "−") {
     result = firstNumber - secondNumber;
   }
 
-  // ----------------------------------------
-  // MULTIPLICATION
-  // ----------------------------------------
+  // Multiplication
   else if (currentOperator === "×") {
     result = firstNumber * secondNumber;
   }
 
-  // ----------------------------------------
-  // DIVISION
-  // ----------------------------------------
+  // Division
   else if (currentOperator === "÷") {
     if (secondNumber === 0) {
       showError();
@@ -281,19 +515,12 @@ function calculateResult() {
     result = firstNumber / secondNumber;
   }
 
-  // ----------------------------------------
-  // SAFETY CHECK
-  // ----------------------------------------
-
+  // Safety check
   if (!Number.isFinite(result)) {
     showError();
 
     return;
   }
-
-  // ----------------------------------------
-  // Show result
-  // ----------------------------------------
 
   currentValue = String(result);
 
@@ -319,6 +546,10 @@ function clearCalculator() {
 
   shouldResetDisplay = false;
 
+  expression = "";
+
+  expressionMode = false;
+
   updateDisplay();
 }
 
@@ -327,10 +558,26 @@ function clearCalculator() {
 // ========================================
 
 function handleBackspace() {
-  // ----------------------------------------
-  // If Error is displayed,
-  // clear the calculator.
-  // ----------------------------------------
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    if (expression === "") {
+      return;
+    }
+
+    // Remove the last character.
+    expression = expression.slice(0, -1);
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ======================================
+  // ERROR
+  // ======================================
 
   if (currentValue === "Error") {
     clearCalculator();
@@ -338,10 +585,9 @@ function handleBackspace() {
     return;
   }
 
-  // ----------------------------------------
-  // If there is a current number,
-  // remove its last character.
-  // ----------------------------------------
+  // ======================================
+  // CURRENT NUMBER
+  // ======================================
 
   if (currentValue !== "") {
     currentValue = currentValue.slice(0, -1);
@@ -351,11 +597,9 @@ function handleBackspace() {
     return;
   }
 
-  // ----------------------------------------
-  // If currentValue is empty but an operator
-  // exists, remove the operator and restore
-  // the previous number.
-  // ----------------------------------------
+  // ======================================
+  // OPERATOR
+  // ======================================
 
   if (currentValue === "" && currentOperator !== null) {
     currentValue = previousValue;
@@ -383,6 +627,10 @@ function showError() {
 
   currentOperator = null;
 
+  expression = "";
+
+  expressionMode = false;
+
   shouldResetDisplay = false;
 
   updateDisplay();
@@ -393,12 +641,46 @@ function showError() {
 // ========================================
 
 function handlePercent() {
-  // Do nothing if there is no number.
+  // ======================================
+  // EXPRESSION MODE
+  // ======================================
+
+  if (expressionMode === true) {
+    // Get the current number at the end
+    // of the expression.
+
+    const parts = expression.split(/[+−×÷()]/);
+
+    const lastPart = parts[parts.length - 1];
+
+    if (lastPart === "") {
+      return;
+    }
+
+    const number = Number(lastPart);
+
+    if (!Number.isFinite(number)) {
+      return;
+    }
+
+    const percentValue = number / 100;
+
+    expression =
+      expression.slice(0, expression.length - lastPart.length) + percentValue;
+
+    updateDisplay();
+
+    return;
+  }
+
+  // ======================================
+  // NORMAL MODE
+  // ======================================
+
   if (currentValue === "") {
     return;
   }
 
-  // Do nothing if Error.
   if (currentValue === "Error") {
     return;
   }
@@ -417,30 +699,11 @@ function handlePercent() {
 }
 
 // ========================================
-// PARENTHESES
-// ========================================
-
-function handleParentheses() {
-  // Parentheses calculation is not yet
-  // implemented in this calculator stage.
-  //
-  // We keep the button safely connected
-  // so clicking it does not cause an error.
-
-  if (currentValue === "Error") {
-    clearCalculator();
-  }
-}
-
-// ========================================
 // NUMBER BUTTON EVENTS
 // ========================================
 
 numberButtons.forEach(function (button) {
   button.addEventListener("click", function () {
-    // We get the value directly from the
-    // button text instead of dataset.number.
-
     const number = button.textContent.trim();
 
     handleNumber(number);
@@ -456,7 +719,7 @@ if (decimalButton) {
 }
 
 // ========================================
-// OPERATOR BUTTON EVENTS
+// MULTIPLICATION
 // ========================================
 
 if (multiplyButton) {
@@ -465,17 +728,29 @@ if (multiplyButton) {
   });
 }
 
+// ========================================
+// DIVISION
+// ========================================
+
 if (divideButton) {
   divideButton.addEventListener("click", function () {
     handleOperator("÷");
   });
 }
 
+// ========================================
+// SUBTRACTION
+// ========================================
+
 if (subtractButton) {
   subtractButton.addEventListener("click", function () {
     handleOperator("−");
   });
 }
+
+// ========================================
+// ADDITION
+// ========================================
 
 if (addButton) {
   addButton.addEventListener("click", function () {
@@ -484,7 +759,7 @@ if (addButton) {
 }
 
 // ========================================
-// EQUAL BUTTON
+// EQUALS
 // ========================================
 
 if (equalsButton) {
@@ -492,7 +767,7 @@ if (equalsButton) {
 }
 
 // ========================================
-// CLEAR BUTTON
+// CLEAR
 // ========================================
 
 if (clearButton) {
@@ -500,7 +775,7 @@ if (clearButton) {
 }
 
 // ========================================
-// BACKSPACE BUTTON
+// BACKSPACE
 // ========================================
 
 if (backspaceButton) {
@@ -508,7 +783,7 @@ if (backspaceButton) {
 }
 
 // ========================================
-// PERCENT BUTTON
+// PERCENT
 // ========================================
 
 if (percentButton) {
@@ -516,7 +791,7 @@ if (percentButton) {
 }
 
 // ========================================
-// PARENTHESES BUTTON
+// PARENTHESES
 // ========================================
 
 if (parenthesesButton) {
