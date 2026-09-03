@@ -1,0 +1,555 @@
+/* ========================================
+   GLOBAL RESET
+======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #07111f;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* ========================================
+   MAIN GAME CONTAINER
+======================================== */
+
+.game-container {
+  width: 100%;
+  max-width: 560px;
+  min-height: 680px;
+  background: #172437;
+  border: 1px solid #285a7a;
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ========================================
+   COMMON SCREEN
+======================================== */
+
+.screen {
+  width: 100%;
+  min-height: 680px;
+  padding: 45px 40px;
+}
+
+/* ========================================
+   START SCREEN
+======================================== */
+
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ========================================
+   GAME LOGO
+======================================== */
+
+.game-logo {
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.game-logo h1 {
+  font-size: clamp(3.8rem, 12vw, 6rem);
+  font-weight: 900;
+  letter-spacing: 4px;
+  line-height: 1;
+  color: #42df78;
+  text-shadow: 0 0 25px rgba(66, 223, 120, 0.35);
+}
+
+.game-logo h1 span {
+  color: #55dfff;
+}
+
+.game-logo p {
+  margin-top: 18px;
+  color: #94a4ba;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+/* ========================================
+   BEST SCORE
+======================================== */
+
+.best-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-width: 150px;
+  padding: 12px 22px;
+
+  border: 1px solid #80621e;
+  border-radius: 30px;
+
+  background: #252c32;
+  color: #ffb31a;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  margin-bottom: 25px;
+}
+
+.trophy {
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   PRIMARY BUTTON
+======================================== */
+
+.primary-button {
+  width: min(100%, 350px);
+  min-height: 78px;
+
+  border: none;
+  border-radius: 22px;
+
+  background: #35d66e;
+  color: #071b11;
+
+  font-size: 1.55rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  box-shadow:
+    0 8px 0 #15934a,
+    0 15px 30px rgba(53, 214, 110, 0.2);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.primary-button:hover {
+  background: #43e57b;
+}
+
+.primary-button:active {
+  transform: translateY(6px);
+  box-shadow:
+    0 2px 0 #15934a,
+    0 8px 18px rgba(53, 214, 110, 0.2);
+}
+
+.button-icon {
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   INSTRUCTIONS
+======================================== */
+
+.instructions {
+  width: 100%;
+  margin-top: 40px;
+
+  padding: 20px;
+
+  background: #101b2d;
+  border: 1px solid #29384c;
+  border-radius: 18px;
+}
+
+.instructions p {
+  color: #94a4ba;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.instructions strong {
+  color: #ffffff;
+}
+
+/* ========================================
+   GAME SCREEN
+======================================== */
+
+.game-screen {
+  padding: 25px;
+}
+
+/* ========================================
+   GAME HEADER
+======================================== */
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.score-container,
+.best-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-container {
+  align-items: flex-start;
+}
+
+.best-container {
+  align-items: flex-end;
+}
+
+.score-label {
+  color: #8292a8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+#score,
+#bestScore {
+  margin-top: 3px;
+  color: #42df78;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+/* ========================================
+   GAME BOARD
+======================================== */
+
+.game-board {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  background: #0b1626;
+
+  border: 2px solid #29445d;
+  border-radius: 18px;
+
+  position: relative;
+  overflow: hidden;
+
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.3),
+    0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* ========================================
+   SNAKE / FOOD PLACEHOLDERS
+======================================== */
+
+/*
+  JavaScript will later create these elements.
+
+  These classes are already prepared so that
+  the JavaScript game engine can use them.
+*/
+
+.snake {
+  position: absolute;
+  width: 5%;
+  height: 5%;
+  background: #42df78;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(66, 223, 120, 0.35);
+}
+
+.snake-head {
+  background: #5df58f;
+}
+
+.food {
+  position: absolute;
+  width: 5%;
+  height: 5%;
+  background: #ff4d4d;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.45);
+}
+
+/* ========================================
+   GAME CONTROLS
+======================================== */
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 22px;
+  gap: 8px;
+}
+
+.horizontal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.control-button {
+  width: 58px;
+  height: 50px;
+
+  border: 1px solid #344961;
+  border-radius: 12px;
+
+  background: #111e30;
+  color: #d8e2ef;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.control-button:hover {
+  background: #1d3047;
+}
+
+.control-button:active {
+  transform: scale(0.94);
+}
+
+/* ========================================
+   GAME OVER SCREEN
+======================================== */
+
+.game-over-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.game-over-content {
+  width: 100%;
+}
+
+/* ========================================
+   GAME OVER TITLE
+======================================== */
+
+.game-over-content h2 {
+  color: #ff4848;
+
+  font-size: clamp(2.8rem, 10vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: 3px;
+
+  text-shadow: 0 0 20px rgba(255, 72, 72, 0.4);
+
+  margin-bottom: 20px;
+}
+
+/* ========================================
+   FINAL SCORE
+======================================== */
+
+.final-score {
+  margin-bottom: 30px;
+}
+
+#finalScore {
+  color: #f4f8fc;
+  font-size: clamp(5rem, 18vw, 8rem);
+  font-weight: 900;
+
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+/* ========================================
+   GAME STATISTICS
+======================================== */
+
+.game-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+
+  margin-bottom: 25px;
+}
+
+.stat-box {
+  min-height: 88px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: #101b2d;
+  border: 1px solid #29384c;
+  border-radius: 16px;
+}
+
+.stat-value {
+  color: #42df78;
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+.stat-label {
+  margin-top: 5px;
+
+  color: #8292a8;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ========================================
+   RESTART INSTRUCTION
+======================================== */
+
+.restart-instruction {
+  margin-top: 25px;
+
+  color: #8292a8;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   KEYBOARD FOCUS
+======================================== */
+
+button:focus-visible {
+  outline: 3px solid #55dfff;
+  outline-offset: 3px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .game-container {
+    min-height: calc(100vh - 20px);
+    border-radius: 22px;
+  }
+
+  .screen {
+    min-height: calc(100vh - 20px);
+    padding: 35px 22px;
+  }
+
+  .game-screen {
+    padding: 20px;
+  }
+
+  .game-logo {
+    margin-top: 5px;
+    margin-bottom: 25px;
+  }
+
+  .game-logo p {
+    font-size: 0.95rem;
+  }
+
+  .instructions {
+    margin-top: 30px;
+  }
+
+  .primary-button {
+    min-height: 68px;
+    font-size: 1.35rem;
+  }
+
+  #score,
+  #bestScore {
+    font-size: 1.7rem;
+  }
+
+  .control-button {
+    width: 54px;
+    height: 48px;
+  }
+
+  .game-over-content h2 {
+    letter-spacing: 2px;
+  }
+
+  .game-stats {
+    gap: 8px;
+  }
+
+  .stat-box {
+    min-height: 80px;
+  }
+
+  .stat-value {
+    font-size: 1.45rem;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE DEVICES
+======================================== */
+
+@media (max-width: 380px) {
+  body {
+    padding: 5px;
+  }
+
+  .game-container {
+    border-radius: 18px;
+  }
+
+  .screen {
+    padding: 25px 15px;
+  }
+
+  .game-screen {
+    padding: 15px;
+  }
+
+  .instructions {
+    padding: 15px;
+  }
+
+  .instructions p {
+    font-size: 0.85rem;
+  }
+
+  .control-button {
+    width: 48px;
+    height: 44px;
+  }
+}
