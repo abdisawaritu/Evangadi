@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="A classic Snake game built with HTML, CSS, and Vanilla JavaScript."
+    />
+
+    <title>Snake Game</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <main class="game-container">
+      <!-- ========================================
+           START SCREEN
+      ========================================= -->
+
+      <section id="startScreen" class="screen start-screen">
+        <div class="game-logo">
+          <h1>SNAKE<span>.</span></h1>
+
+          <p>Classic arcade — smooth & hungry</p>
+        </div>
+
+        <!-- Best Score -->
+        <div class="best-score">
+          <span class="trophy">★</span>
+          <span>Best</span>
+          <span id="startBestScore">0</span>
+        </div>
+
+        <!-- Play Button -->
+        <button type="button" id="playButton" class="primary-button">
+          <span class="button-icon">▶</span>
+          <span>Play</span>
+        </button>
+
+        <!-- Instructions -->
+        <div class="instructions">
+          <p>
+            <strong>Arrows / WASD</strong>
+            steer the snake
+          </p>
+
+          <p>
+            <strong>Swipe / D-pad</strong>
+            on touch screens
+          </p>
+
+          <p>
+            <strong>P or Esc</strong>
+            pause
+          </p>
+
+          <p>
+            <strong>Space / Enter</strong>
+            start / restart
+          </p>
+        </div>
+      </section>
+
+      <!-- ========================================
+           GAME SCREEN
+      ========================================= -->
+
+      <section id="gameScreen" class="screen game-screen" hidden>
+        <!-- Game Header -->
+        <header class="game-header">
+          <div class="score-container">
+            <span class="score-label">Score</span>
+            <span id="score">0</span>
+          </div>
+
+          <div class="best-container">
+            <span class="score-label">Best</span>
+            <span id="bestScore">0</span>
+          </div>
+        </header>
+
+        <!-- Game Board -->
+        <div id="gameBoard" class="game-board" aria-label="Snake game board">
+          <!--
+            Snake and food will be created
+            dynamically with JavaScript.
+          -->
+        </div>
+
+        <!-- Game Controls -->
+        <div class="game-controls">
+          <button
+            type="button"
+            class="control-button"
+            id="upButton"
+            aria-label="Move up"
+          >
+            ▲
+          </button>
+
+          <div class="horizontal-controls">
+            <button
+              type="button"
+              class="control-button"
+              id="leftButton"
+              aria-label="Move left"
+            >
+              ◀
+            </button>
+
+            <button
+              type="button"
+              class="control-button"
+              id="downButton"
+              aria-label="Move down"
+            >
+              ▼
+            </button>
+
+            <button
+              type="button"
+              class="control-button"
+              id="rightButton"
+              aria-label="Move right"
+            >
+              ▶
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================
+           GAME OVER SCREEN
+      ========================================= -->
+
+      <section id="gameOverScreen" class="screen game-over-screen" hidden>
+        <div class="game-over-content">
+          <h2>GAME OVER</h2>
+
+          <!-- Final Score -->
+          <div class="final-score">
+            <span id="finalScore">0</span>
+          </div>
+
+          <!-- Game Statistics -->
+          <div class="game-stats">
+            <div class="stat-box">
+              <span id="applesEaten" class="stat-value"> 0 </span>
+
+              <span class="stat-label"> Apples </span>
+            </div>
+
+            <div class="stat-box">
+              <span id="snakeLength" class="stat-value"> 1 </span>
+
+              <span class="stat-label"> Length </span>
+            </div>
+
+            <div class="stat-box">
+              <span id="gameOverBestScore" class="stat-value"> 0 </span>
+
+              <span class="stat-label"> Best </span>
+            </div>
+          </div>
+
+          <!-- Play Again -->
+          <button type="button" id="playAgainButton" class="primary-button">
+            <span class="button-icon">↻</span>
+            <span>Play Again</span>
+          </button>
+
+          <!-- Restart Instruction -->
+          <p class="restart-instruction">Space / Enter to restart</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
