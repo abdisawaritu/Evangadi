@@ -35,7 +35,7 @@ const equalsButton = document.getElementById("equalsButton");
 const backspaceButton = document.getElementById("backspaceButton");
 
 // ==========================================
-// SELECT NUMBER BUTTONS
+// NUMBER BUTTONS
 // ==========================================
 
 const numberButtons = document.querySelectorAll(".number-button");
@@ -45,7 +45,33 @@ const numberButtons = document.querySelectorAll(".number-button");
 // ==========================================
 
 function updateDisplay() {
-  display.textContent = currentInput;
+  if (firstNumber !== null && operator !== null) {
+    display.textContent =
+      String(firstNumber) +
+      " " +
+      getDisplayOperator(operator) +
+      " " +
+      currentInput;
+  } else {
+    display.textContent = currentInput;
+  }
+}
+
+// ==========================================
+// CONVERT JAVASCRIPT OPERATOR
+// TO CALCULATOR DISPLAY OPERATOR
+// ==========================================
+
+function getDisplayOperator(operator) {
+  if (operator === "*") {
+    return "×";
+  }
+
+  if (operator === "/") {
+    return "÷";
+  }
+
+  return operator;
 }
 
 // ==========================================
@@ -53,6 +79,8 @@ function updateDisplay() {
 // ==========================================
 
 function handleNumberInput(value) {
+  // If we are entering the second number,
+  // currentInput starts from 0.
   if (currentInput === "0") {
     if (value === "00") {
       currentInput = "0";
@@ -64,8 +92,6 @@ function handleNumberInput(value) {
   }
 
   updateDisplay();
-
-  console.log("Current input:", currentInput);
 }
 
 // ==========================================
@@ -92,8 +118,6 @@ decimalButton.addEventListener("click", function () {
   currentInput = currentInput + ".";
 
   updateDisplay();
-
-  console.log("Current input:", currentInput);
 });
 
 // ==========================================
@@ -101,19 +125,23 @@ decimalButton.addEventListener("click", function () {
 // ==========================================
 
 function handleOperator(selectedOperator) {
+  // Save the number currently on the display
+  // as the first number.
   firstNumber = Number(currentInput);
 
+  // Save the selected operator.
   operator = selectedOperator;
 
+  // Prepare the input for the second number.
   currentInput = "0";
 
+  // IMPORTANT:
+  // updateDisplay() now shows:
+  //
+  // firstNumber + operator + currentInput
+  //
+  // instead of showing only 0.
   updateDisplay();
-
-  console.log("First number:", firstNumber);
-
-  console.log("Operator:", operator);
-
-  console.log("Current input:", currentInput);
 }
 
 // ==========================================
@@ -153,30 +181,42 @@ divideButton.addEventListener("click", function () {
 // ==========================================
 
 function calculateResult() {
+  // Do nothing if an operation has not
+  // been selected yet.
   if (firstNumber === null || operator === null) {
     return;
   }
 
+  // currentInput is the second number.
   const secondNumber = Number(currentInput);
 
   let result;
 
-  // Addition
+  // ----------------------------------------
+  // ADDITION
+  // ----------------------------------------
+
   if (operator === "+") {
     result = firstNumber + secondNumber;
   }
 
-  // Subtraction
+  // ----------------------------------------
+  // SUBTRACTION
+  // ----------------------------------------
   else if (operator === "-") {
     result = firstNumber - secondNumber;
   }
 
-  // Multiplication
+  // ----------------------------------------
+  // MULTIPLICATION
+  // ----------------------------------------
   else if (operator === "*") {
     result = firstNumber * secondNumber;
   }
 
-  // Division
+  // ----------------------------------------
+  // DIVISION
+  // ----------------------------------------
   else if (operator === "/") {
     if (secondNumber === 0) {
       currentInput = "Error";
@@ -193,20 +233,19 @@ function calculateResult() {
     result = firstNumber / secondNumber;
   }
 
-  // Store the result
+  // ----------------------------------------
+  // SAVE RESULT
+  // ----------------------------------------
+
   currentInput = String(result);
 
-  // Clear the previous operation
+  // The previous operation is finished.
   firstNumber = null;
 
   operator = null;
 
-  // Show result
+  // Display the result.
   updateDisplay();
-
-  console.log("Second number:", secondNumber);
-
-  console.log("Result:", result);
 }
 
 // ==========================================
@@ -218,23 +257,49 @@ equalsButton.addEventListener("click", function () {
 });
 
 // ==========================================
-// OTHER BUTTONS
+// CLEAR BUTTON
 // ==========================================
 
 clearButton.addEventListener("click", function () {
-  console.log("Clear button clicked");
+  currentInput = "0";
+
+  firstNumber = null;
+
+  operator = null;
+
+  updateDisplay();
 });
 
-parenthesesButton.addEventListener("click", function () {
-  console.log("Parentheses button clicked");
-});
-
-percentButton.addEventListener("click", function () {
-  console.log("Percentage button clicked");
-});
+// ==========================================
+// BACKSPACE BUTTON
+// ==========================================
 
 backspaceButton.addEventListener("click", function () {
-  console.log("Backspace button clicked");
+  if (currentInput === "Error") {
+    currentInput = "0";
+  } else if (currentInput.length > 1) {
+    currentInput = currentInput.slice(0, -1);
+  } else {
+    currentInput = "0";
+  }
+
+  updateDisplay();
+});
+
+// ==========================================
+// PARENTHESES BUTTON
+// ==========================================
+
+parenthesesButton.addEventListener("click", function () {
+  console.log("Parentheses will be implemented later.");
+});
+
+// ==========================================
+// PERCENT BUTTON
+// ==========================================
+
+percentButton.addEventListener("click", function () {
+  console.log("Percentage will be implemented later.");
 });
 
 // ==========================================
