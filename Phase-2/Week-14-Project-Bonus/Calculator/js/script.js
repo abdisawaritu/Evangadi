@@ -101,14 +101,10 @@ decimalButton.addEventListener("click", function () {
 // ==========================================
 
 function handleOperator(selectedOperator) {
-  // Convert the current input from string to number
   firstNumber = Number(currentInput);
 
-  // Store the selected operator
   operator = selectedOperator;
 
-  // Reset current input so the user can enter
-  // the second number
   currentInput = "0";
 
   updateDisplay();
@@ -153,12 +149,77 @@ divideButton.addEventListener("click", function () {
 });
 
 // ==========================================
-// OTHER BUTTONS
+// CALCULATE RESULT
+// ==========================================
+
+function calculateResult() {
+  if (firstNumber === null || operator === null) {
+    return;
+  }
+
+  const secondNumber = Number(currentInput);
+
+  let result;
+
+  // Addition
+  if (operator === "+") {
+    result = firstNumber + secondNumber;
+  }
+
+  // Subtraction
+  else if (operator === "-") {
+    result = firstNumber - secondNumber;
+  }
+
+  // Multiplication
+  else if (operator === "*") {
+    result = firstNumber * secondNumber;
+  }
+
+  // Division
+  else if (operator === "/") {
+    if (secondNumber === 0) {
+      currentInput = "Error";
+
+      firstNumber = null;
+
+      operator = null;
+
+      updateDisplay();
+
+      return;
+    }
+
+    result = firstNumber / secondNumber;
+  }
+
+  // Store the result
+  currentInput = String(result);
+
+  // Clear the previous operation
+  firstNumber = null;
+
+  operator = null;
+
+  // Show result
+  updateDisplay();
+
+  console.log("Second number:", secondNumber);
+
+  console.log("Result:", result);
+}
+
+// ==========================================
+// EQUALS BUTTON
 // ==========================================
 
 equalsButton.addEventListener("click", function () {
-  console.log("Equals button clicked");
+  calculateResult();
 });
+
+// ==========================================
+// OTHER BUTTONS
+// ==========================================
 
 clearButton.addEventListener("click", function () {
   console.log("Clear button clicked");
