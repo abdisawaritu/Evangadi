@@ -4,6 +4,10 @@
 
 let currentInput = "0";
 
+let firstNumber = null;
+
+let operator = null;
+
 // ==========================================
 // SELECT CALCULATOR DOM ELEMENTS
 // ==========================================
@@ -31,7 +35,7 @@ const equalsButton = document.getElementById("equalsButton");
 const backspaceButton = document.getElementById("backspaceButton");
 
 // ==========================================
-// SELECT ALL NUMBER BUTTONS
+// SELECT NUMBER BUTTONS
 // ==========================================
 
 const numberButtons = document.querySelectorAll(".number-button");
@@ -49,8 +53,6 @@ function updateDisplay() {
 // ==========================================
 
 function handleNumberInput(value) {
-  // If the current input is 0,
-  // replace it with the clicked value.
   if (currentInput === "0") {
     if (value === "00") {
       currentInput = "0";
@@ -67,7 +69,7 @@ function handleNumberInput(value) {
 }
 
 // ==========================================
-// NUMBER BUTTON CLICK EVENTS
+// NUMBER BUTTON EVENTS
 // ==========================================
 
 numberButtons.forEach(function (button) {
@@ -79,12 +81,10 @@ numberButtons.forEach(function (button) {
 });
 
 // ==========================================
-// DECIMAL INPUT
+// DECIMAL BUTTON
 // ==========================================
 
 decimalButton.addEventListener("click", function () {
-  // Do not allow another decimal point
-  // if the current number already contains one.
   if (currentInput.includes(".")) {
     return;
   }
@@ -97,24 +97,64 @@ decimalButton.addEventListener("click", function () {
 });
 
 // ==========================================
-// OTHER BUTTONS
+// HANDLE ARITHMETIC OPERATOR
+// ==========================================
+
+function handleOperator(selectedOperator) {
+  // Convert the current input from string to number
+  firstNumber = Number(currentInput);
+
+  // Store the selected operator
+  operator = selectedOperator;
+
+  // Reset current input so the user can enter
+  // the second number
+  currentInput = "0";
+
+  updateDisplay();
+
+  console.log("First number:", firstNumber);
+
+  console.log("Operator:", operator);
+
+  console.log("Current input:", currentInput);
+}
+
+// ==========================================
+// ADDITION
 // ==========================================
 
 addButton.addEventListener("click", function () {
-  console.log("Addition button clicked");
+  handleOperator("+");
 });
+
+// ==========================================
+// SUBTRACTION
+// ==========================================
 
 subtractButton.addEventListener("click", function () {
-  console.log("Subtraction button clicked");
+  handleOperator("-");
 });
+
+// ==========================================
+// MULTIPLICATION
+// ==========================================
 
 multiplyButton.addEventListener("click", function () {
-  console.log("Multiplication button clicked");
+  handleOperator("*");
 });
 
+// ==========================================
+// DIVISION
+// ==========================================
+
 divideButton.addEventListener("click", function () {
-  console.log("Division button clicked");
+  handleOperator("/");
 });
+
+// ==========================================
+// OTHER BUTTONS
+// ==========================================
 
 equalsButton.addEventListener("click", function () {
   console.log("Equals button clicked");
