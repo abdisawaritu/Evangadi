@@ -459,6 +459,14 @@ function moveSnake() {
   else if (direction === "down") {
     newHead.y++;
   }
+  // ======================================
+  // CHECK COLLISION
+  // ======================================
+
+  if (checkCollision(newHead)) {
+    endGame();
+    return;
+  }
 
   // Add the new head to the
   // beginning of the snake array.
@@ -700,6 +708,44 @@ function startGame() {
       startGameLoop();
     }
   });
+}
+// ========================================
+// COLLISION DETECTION
+// ========================================
+
+function checkCollision(head) {
+  // ======================================
+  // BOUNDARY COLLISION
+  // ======================================
+
+  // Check if the snake head goes outside
+  // the game board.
+
+  if (
+    head.x < 0 ||
+    head.x >= BOARD_SIZE ||
+    head.y < 0 ||
+    head.y >= BOARD_SIZE
+  ) {
+    return true;
+  }
+
+  // ======================================
+  // SELF COLLISION
+  // ======================================
+
+  // Check if the snake head occupies
+  // the same position as any body segment.
+
+  for (let i = 1; i < snake.length; i++) {
+    if (head.x === snake[i].x && head.y === snake[i].y) {
+      return true;
+    }
+  }
+
+  // No collision detected.
+
+  return false;
 }
 
 // ========================================
