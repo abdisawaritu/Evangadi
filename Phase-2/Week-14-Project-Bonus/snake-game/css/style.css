@@ -283,6 +283,79 @@ body {
     inset 0 0 30px rgba(0, 0, 0, 0.3),
     0 8px 25px rgba(0, 0, 0, 0.25);
 }
+/* ========================================
+   GAME START MESSAGE
+======================================== */
+
+.game-start-message {
+  position: absolute;
+
+  top: 15px;
+  left: 0;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 20;
+
+  pointer-events: none;
+}
+
+.game-start-message[hidden] {
+  display: none;
+}
+
+#gameStartText {
+  color: #55dfff;
+
+  font-size: 1.8rem;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  text-shadow: 0 0 15px rgba(85, 223, 255, 0.5);
+}
+
+/* ========================================
+   GAME COUNTDOWN
+======================================== */
+
+.countdown {
+  position: absolute;
+
+  top: 20px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 10;
+
+  pointer-events: none;
+
+  text-align: center;
+
+  white-space: nowrap;
+}
+
+.countdown span {
+  color: #ffffff;
+
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.4),
+    0 0 20px rgba(66, 223, 120, 0.35);
+}
 
 /* ========================================
    SNAKE

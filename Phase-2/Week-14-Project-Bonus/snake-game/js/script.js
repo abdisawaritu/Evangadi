@@ -14,32 +14,33 @@ let gameState = "start";
 // SNAKE STATE
 // ========================================
 
-// The snake is stored as an array.
-//
-// Each object represents one snake segment.
+// The snake is stored as an array of objects.
 //
 // Example:
 // [
-//   { x: 10, y: 10 },  ← head
+//   { x: 10, y: 10 },
 //   { x: 9, y: 10 },
-//   { x: 8, y: 10 }    ← tail
+//   { x: 8, y: 10 }
 // ]
 
 let snake = [];
 
 // Current movement direction.
+
 let direction = "right";
 
 // The direction requested by the player.
+
 let nextDirection = "right";
 
 // ========================================
 // FOOD STATE
 // ========================================
 
-// The current food position.
+// Current food position.
 //
-// Food will be implemented in a later stage.
+// Example:
+// { x: 15, y: 10 }
 
 let food = null;
 
@@ -60,10 +61,17 @@ let bestScore = 0;
 const BOARD_SIZE = 20;
 
 // Time between snake movements in milliseconds.
-//
-// Movement will be implemented in a later stage.
 
 const GAME_SPEED = 120;
+
+// ========================================
+// GAME LOOP
+// ========================================
+
+// Stores the interval responsible for
+// continuously moving the snake.
+
+let gameLoop = null;
 
 // ========================================
 // GET HTML ELEMENTS
@@ -74,7 +82,7 @@ const GAME_SPEED = 120;
 const gameContainer = document.querySelector(".game-container");
 
 // ========================================
-// START SCREEN
+// START SCREEN ELEMENTS
 // ========================================
 
 const startScreen = document.getElementById("startScreen");
@@ -84,7 +92,7 @@ const playButton = document.getElementById("playButton");
 const startBestScore = document.getElementById("startBestScore");
 
 // ========================================
-// GAME SCREEN
+// GAME SCREEN ELEMENTS
 // ========================================
 
 const gameScreen = document.getElementById("gameScreen");
@@ -95,15 +103,21 @@ const scoreDisplay = document.getElementById("score");
 
 const gameBestScoreDisplay = document.getElementById("bestScore");
 
+// Game start message
+
+const gameStartMessage = document.getElementById("gameStartMessage");
+
+const gameStartText = document.getElementById("gameStartText");
+
 // ========================================
-// GAME-OVER SCREEN
+// GAME-OVER SCREEN ELEMENTS
 // ========================================
 
 const gameOverScreen = document.getElementById("gameOverScreen");
 
 const finalScoreDisplay = document.getElementById("finalScore");
 
-const finalLengthDisplay = document.getElementById("snakeLength");
+const finalLengthDisplay = document.getElementById("finalLength");
 
 const finalBestScoreDisplay = document.getElementById("gameOverBestScore");
 
@@ -117,6 +131,10 @@ function initializeGame() {
   // The game starts from the start screen.
 
   gameState = "start";
+
+  // Stop any existing game loop.
+
+  stopGameLoop();
 
   // Reset snake.
 
@@ -143,118 +161,6 @@ function initializeGame() {
   // Show start screen.
 
   showStartScreen();
-}
-
-// ========================================
-// INITIALIZE GAME BOARD
-// ========================================
-
-function initializeBoard() {
-  // Remove anything that currently exists
-  // inside the board.
-
-  gameBoard.innerHTML = "";
-
-  // Create the board cells.
-
-  for (let row = 0; row < BOARD_SIZE; row++) {
-    for (let column = 0; column < BOARD_SIZE; column++) {
-      const cell = document.createElement("div");
-
-      cell.classList.add("game-cell");
-
-      cell.dataset.row = row;
-
-      cell.dataset.column = column;
-
-      gameBoard.appendChild(cell);
-    }
-  }
-}
-
-// ========================================
-// INITIALIZE SNAKE
-// ========================================
-
-function initializeSnake() {
-  // Create the initial three-segment snake.
-
-  snake = [
-    {
-      x: 10,
-      y: 10,
-    },
-
-    {
-      x: 9,
-      y: 10,
-    },
-
-    {
-      x: 8,
-      y: 10,
-    },
-  ];
-
-  // Initial direction.
-
-  direction = "right";
-
-  nextDirection = "right";
-}
-
-// ========================================
-// RENDER SNAKE
-// ========================================
-
-function renderSnake() {
-  // First remove any previous snake
-  // styling from the board cells.
-
-  const snakeCells = gameBoard.querySelectorAll(".snake");
-
-  snakeCells.forEach(function (cell) {
-    cell.classList.remove("snake");
-    cell.classList.remove("snake-head");
-  });
-
-  // Add the snake to the correct cells.
-
-  snake.forEach(function (segment, index) {
-    const cell = gameBoard.querySelector(
-      `[data-row="${segment.y}"][data-column="${segment.x}"]`,
-    );
-
-    if (!cell) {
-      return;
-    }
-
-    cell.classList.add("snake");
-
-    // The first segment is the head.
-
-    if (index === 0) {
-      cell.classList.add("snake-head");
-    }
-  });
-}
-
-// ========================================
-// INITIALIZE BOARD AND SNAKE
-// ========================================
-
-function initializeGameBoard() {
-  // Create the board.
-
-  initializeBoard();
-
-  // Create the initial snake.
-
-  initializeSnake();
-
-  // Display the snake.
-
-  renderSnake();
 }
 
 // ========================================
@@ -328,19 +234,362 @@ function updateScoreDisplays() {
 }
 
 // ========================================
+// INITIALIZE SNAKE
+// ========================================
+
+function initializeSnake() {
+  // Create a three-segment snake
+  // in the center of the board.
+
+  const center = Math.floor(BOARD_SIZE / 2);
+
+  snake = [
+    { x: center, y: center },
+    { x: center - 1, y: center },
+    { x: center - 2, y: center },
+  ];
+
+  // Initial direction.
+
+  direction = "right";
+
+  nextDirection = "right";
+}
+
+// ========================================
+// RENDER SNAKE
+// ========================================
+
+function renderSnake() {
+  // Remove the previous snake elements.
+
+  const oldSnake = gameBoard.querySelectorAll(".snake");
+
+  oldSnake.forEach(function (segment) {
+    segment.remove();
+  });
+
+  // Create one HTML element for every
+  // segment in the snake array.
+
+  snake.forEach(function (segment, index) {
+    const snakeElement = document.createElement("div");
+
+    snakeElement.classList.add("snake");
+
+    // The first segment is the head.
+
+    if (index === 0) {
+      snakeElement.classList.add("snake-head");
+    }
+
+    // Position the segment according
+    // to its grid coordinates.
+
+    snakeElement.style.left = `${(segment.x / BOARD_SIZE) * 100}%`;
+
+    snakeElement.style.top = `${(segment.y / BOARD_SIZE) * 100}%`;
+
+    gameBoard.appendChild(snakeElement);
+  });
+}
+
+// ========================================
+// FOOD GENERATION
+// ========================================
+
+function generateFood() {
+  // Create a random position.
+
+  let newFood;
+
+  // Keep generating a position until
+  // it does not overlap the snake.
+
+  do {
+    newFood = {
+      x: Math.floor(Math.random() * BOARD_SIZE),
+
+      y: Math.floor(Math.random() * BOARD_SIZE),
+    };
+  } while (
+    snake.some(function (segment) {
+      return segment.x === newFood.x && segment.y === newFood.y;
+    })
+  );
+
+  // Store the generated food.
+
+  food = newFood;
+}
+
+// ========================================
+// RENDER FOOD
+// ========================================
+
+function renderFood() {
+  // Remove the previous food element.
+
+  const oldFood = gameBoard.querySelector(".food");
+
+  if (oldFood) {
+    oldFood.remove();
+  }
+
+  // If there is no food,
+  // there is nothing to render.
+
+  if (!food) {
+    return;
+  }
+
+  // Create the food element.
+
+  const foodElement = document.createElement("div");
+
+  foodElement.classList.add("food");
+
+  // Position food according to
+  // its grid coordinates.
+
+  foodElement.style.left = `${(food.x / BOARD_SIZE) * 100}%`;
+
+  foodElement.style.top = `${(food.y / BOARD_SIZE) * 100}%`;
+
+  // Add food to the game board.
+
+  gameBoard.appendChild(foodElement);
+}
+
+// ========================================
+// RENDER GAME BOARD
+// ========================================
+
+function renderGameBoard() {
+  // Remove only the previous snake elements.
+
+  const oldSnake = gameBoard.querySelectorAll(".snake");
+
+  oldSnake.forEach(function (segment) {
+    segment.remove();
+  });
+
+  // Remove only the previous food element.
+
+  const oldFood = gameBoard.querySelector(".food");
+
+  if (oldFood) {
+    oldFood.remove();
+  }
+
+  // Render snake.
+
+  renderSnake();
+
+  // Render food.
+
+  renderFood();
+}
+// ========================================
+// GAME COUNTDOWN
+// ========================================
+
+// ========================================
+// GAME START COUNTDOWN
+// ========================================
+
+// ========================================
+// MOVE SNAKE
+// ========================================
+
+function moveSnake() {
+  // Only move when the game is playing.
+
+  if (gameState !== "playing") {
+    return;
+  }
+
+  // Apply the requested direction.
+
+  direction = nextDirection;
+
+  // Get the current head.
+
+  const head = snake[0];
+
+  // Create a new head based on
+  // the current direction.
+
+  const newHead = {
+    x: head.x,
+    y: head.y,
+  };
+
+  // Move right.
+
+  if (direction === "right") {
+    newHead.x++;
+  }
+
+  // Move left.
+  else if (direction === "left") {
+    newHead.x--;
+  }
+
+  // Move up.
+  else if (direction === "up") {
+    newHead.y--;
+  }
+
+  // Move down.
+  else if (direction === "down") {
+    newHead.y++;
+  }
+
+  // Add the new head to the
+  // beginning of the snake array.
+
+  snake.unshift(newHead);
+
+  // Remove the last segment.
+
+  snake.pop();
+
+  // Render the updated snake.
+
+  renderSnake();
+}
+
+// ========================================
+// START GAME LOOP
+// ========================================
+
+function startGameLoop() {
+  // Prevent multiple game loops
+  // from running at the same time.
+
+  if (gameLoop !== null) {
+    return;
+  }
+
+  gameLoop = setInterval(function () {
+    moveSnake();
+  }, GAME_SPEED);
+}
+
+// ========================================
+// STOP GAME LOOP
+// ========================================
+
+function stopGameLoop() {
+  if (gameLoop !== null) {
+    clearInterval(gameLoop);
+
+    gameLoop = null;
+  }
+}
+
+// ========================================
+// START GAME
+// ========================================
+// ========================================
+// GAME START COUNTDOWN
+// ========================================
+
+// ========================================
+// GAME START COUNTDOWN
+// ========================================
+
+function startCountdown() {
+  return new Promise(function (resolve) {
+    // Make the message visible.
+
+    gameStartMessage.hidden = false;
+
+    // GET READY
+
+    gameStartText.textContent = "GET READY";
+
+    // 3
+
+    setTimeout(function () {
+      gameStartText.textContent = "3";
+    }, 1000);
+
+    // 2
+
+    setTimeout(function () {
+      gameStartText.textContent = "2";
+    }, 2000);
+
+    // 1
+
+    setTimeout(function () {
+      gameStartText.textContent = "1";
+    }, 3000);
+
+    // GO!
+
+    setTimeout(function () {
+      gameStartText.textContent = "GO!";
+    }, 4000);
+
+    // Hide the message after GO!
+
+    setTimeout(function () {
+      gameStartMessage.hidden = true;
+
+      resolve();
+    }, 4500);
+  });
+}
+
+// ========================================
 // START GAME
 // ========================================
 
 function startGame() {
   gameState = "playing";
 
-  // Initialize the board and snake.
+  // Initialize the snake.
 
-  initializeGameBoard();
+  initializeSnake();
+
+  // Generate the first food.
+
+  generateFood();
 
   // Show the game screen.
 
   showGameScreen();
+
+  // Render the initial game board.
+
+  renderGameBoard();
+
+  // Update score displays.
+
+  updateScoreDisplays();
+
+  // Make sure the start message is visible.
+
+  if (gameStartMessage && gameStartText) {
+    gameStartMessage.hidden = false;
+
+    gameStartText.textContent = "GET READY";
+  }
+
+  // Start the countdown before
+  // allowing the snake to move.
+
+  startCountdown().then(function () {
+    // Start the snake movement
+    // after the countdown finishes.
+
+    if (gameState === "playing") {
+      startGameLoop();
+    }
+  });
 }
 
 // ========================================
@@ -348,6 +597,10 @@ function startGame() {
 // ========================================
 
 function endGame() {
+  // Stop the snake movement.
+
+  stopGameLoop();
+
   gameState = "gameOver";
 
   updateScoreDisplays();
