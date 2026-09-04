@@ -472,6 +472,19 @@ function moveSnake() {
     newHead.y++;
   }
 
+  // ========================================
+  // COLLISION DETECTION
+  // ========================================
+
+  // Check collision BEFORE adding the
+  // new head to the snake.
+
+  if (checkCollision(newHead)) {
+    endGame();
+
+    return;
+  }
+
   // Add the new head to the
   // beginning of the snake array.
 
@@ -515,8 +528,8 @@ function moveSnake() {
   // If food was NOT eaten,
   // remove the last segment.
   //
-  // If food WAS eaten, we do not remove
-  // the tail, so the snake grows by one.
+  // If food WAS eaten, the tail remains,
+  // so the snake grows by one segment.
 
   if (!ateFood) {
     snake.pop();
@@ -759,11 +772,11 @@ function startGame() {
 // ========================================
 
 function checkCollision(head) {
-  // ======================================
+  // ========================================
   // BOUNDARY COLLISION
-  // ======================================
+  // ========================================
 
-  // Check if the snake head goes outside
+  // Check if the head has moved outside
   // the game board.
 
   if (
@@ -775,14 +788,14 @@ function checkCollision(head) {
     return true;
   }
 
-  // ======================================
+  // ========================================
   // SELF COLLISION
-  // ======================================
+  // ========================================
 
-  // Check if the snake head occupies
-  // the same position as any body segment.
+  // Check whether the new head position
+  // is already occupied by the snake body.
 
-  for (let i = 1; i < snake.length; i++) {
+  for (let i = 0; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
       return true;
     }
