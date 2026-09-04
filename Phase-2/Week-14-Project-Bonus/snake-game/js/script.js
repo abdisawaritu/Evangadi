@@ -51,6 +51,9 @@ let food = null;
 let score = 0;
 
 let bestScore = 0;
+// Number of food items eaten during the current game.
+
+let applesEaten = 0;
 
 // ========================================
 // GAME SETTINGS
@@ -136,6 +139,7 @@ const finalLengthDisplay = document.getElementById("finalLength");
 const finalBestScoreDisplay = document.getElementById("gameOverBestScore");
 
 const playAgainButton = document.getElementById("playAgainButton");
+const applesEatenDisplay = document.getElementById("applesEaten");
 
 // ========================================
 // INITIAL GAME STATE
@@ -166,7 +170,13 @@ function initializeGame() {
 
   // Reset score.
 
+  // Reset score.
+
   score = 0;
+
+  // Reset apples eaten.
+
+  applesEaten = 0;
 
   // Update score displays.
 
@@ -240,11 +250,13 @@ function updateScoreDisplays() {
     finalLengthDisplay.textContent = snake.length;
   }
 
-  // Update final best score.
+  // Update apples eaten.
 
-  if (finalBestScoreDisplay) {
-    finalBestScoreDisplay.textContent = bestScore;
+  if (applesEatenDisplay) {
+    applesEatenDisplay.textContent = applesEaten;
   }
+
+  // Update final best score.
 }
 
 // ========================================
@@ -459,27 +471,60 @@ function moveSnake() {
   else if (direction === "down") {
     newHead.y++;
   }
-  // ======================================
-  // CHECK COLLISION
-  // ======================================
-
-  if (checkCollision(newHead)) {
-    endGame();
-    return;
-  }
 
   // Add the new head to the
   // beginning of the snake array.
 
   snake.unshift(newHead);
 
-  // Remove the last segment.
+  // ========================================
+  // FOOD CONSUMPTION
+  // ========================================
 
-  snake.pop();
+  // Check whether the new head
+  // is occupying the same cell as food.
 
-  // Render the updated snake.
+  const ateFood = food && newHead.x === food.x && newHead.y === food.y;
 
-  renderSnake();
+  // If the snake ate the food.
+
+  if (ateFood) {
+    // Increase the score.
+
+    score++;
+
+    // Increase the number of apples eaten.
+
+    applesEaten++;
+
+    // Generate new food at another
+    // position that does not overlap
+    // the snake.
+
+    generateFood();
+
+    // Update the score displays.
+
+    updateScoreDisplays();
+  }
+
+  // ========================================
+  // SNAKE GROWTH
+  // ========================================
+
+  // If food was NOT eaten,
+  // remove the last segment.
+  //
+  // If food WAS eaten, we do not remove
+  // the tail, so the snake grows by one.
+
+  if (!ateFood) {
+    snake.pop();
+  }
+
+  // Render the updated snake and food.
+
+  renderGameBoard();
 }
 
 // ========================================
