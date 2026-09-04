@@ -7,14 +7,14 @@
 // "start"     → start screen
 // "playing"   → game is running
 // "gameOver"  → game has ended
+
 let gameState = "start";
 
 // ========================================
 // SNAKE STATE
 // ========================================
 
-// The snake will be stored as an array
-// of positions.
+// The snake will be stored as an array.
 //
 // Example later:
 // [
@@ -26,15 +26,9 @@ let gameState = "start";
 let snake = [];
 
 // Current movement direction.
-//
-// We will use these later when implementing
-// keyboard controls and automatic movement.
 let direction = "right";
 
 // The direction requested by the player.
-//
-// Keeping this separate helps us handle
-// rapid keyboard input correctly later.
 let nextDirection = "right";
 
 // ========================================
@@ -45,6 +39,7 @@ let nextDirection = "right";
 //
 // Example later:
 // { x: 15, y: 10 }
+
 let food = null;
 
 // ========================================
@@ -60,9 +55,11 @@ let bestScore = 0;
 // ========================================
 
 // Number of cells in the game board.
+
 const BOARD_SIZE = 20;
 
 // Time between snake movements in milliseconds.
+
 const GAME_SPEED = 120;
 
 // ========================================
@@ -70,15 +67,19 @@ const GAME_SPEED = 120;
 // ========================================
 
 // Main game container
+
 const gameContainer = document.querySelector(".game-container");
 
 // Start screen
+
 const startScreen = document.getElementById("startScreen");
 
 // Game screen
+
 const gameScreen = document.getElementById("gameScreen");
 
 // Game-over screen
+
 const gameOverScreen = document.getElementById("gameOverScreen");
 
 // ========================================
@@ -117,25 +118,33 @@ const playAgainButton = document.getElementById("playAgainButton");
 
 function initializeGame() {
   // The game starts from the start screen.
+
   gameState = "start";
 
   // Reset snake.
+
   snake = [];
 
   // Reset direction.
+
   direction = "right";
+
   nextDirection = "right";
 
   // Reset food.
+
   food = null;
 
   // Reset score.
+
   score = 0;
 
-  // Update the score displays.
+  // Update score displays.
+
   updateScoreDisplays();
 
-  // Make sure the correct screen is visible.
+  // Show start screen.
+
   showStartScreen();
 }
 
@@ -145,19 +154,25 @@ function initializeGame() {
 
 function showStartScreen() {
   startScreen.hidden = false;
+
   gameScreen.hidden = true;
+
   gameOverScreen.hidden = true;
 }
 
 function showGameScreen() {
   startScreen.hidden = true;
+
   gameScreen.hidden = false;
+
   gameOverScreen.hidden = true;
 }
 
 function showGameOverScreen() {
   startScreen.hidden = true;
+
   gameScreen.hidden = true;
+
   gameOverScreen.hidden = false;
 }
 
@@ -166,17 +181,42 @@ function showGameOverScreen() {
 // ========================================
 
 function updateScoreDisplays() {
-  scoreDisplay.textContent = score;
+  // Update current score only if
+  // the element exists in the HTML.
 
-  gameBestScoreDisplay.textContent = bestScore;
+  if (scoreDisplay) {
+    scoreDisplay.textContent = score;
+  }
 
-  startBestScore.textContent = `Best ${bestScore}`;
+  // Update game best score.
 
-  finalScoreDisplay.textContent = score;
+  if (gameBestScoreDisplay) {
+    gameBestScoreDisplay.textContent = bestScore;
+  }
 
-  finalLengthDisplay.textContent = snake.length;
+  // Update start-screen best score.
 
-  finalBestScoreDisplay.textContent = bestScore;
+  if (startBestScore) {
+    startBestScore.textContent = `Best ${bestScore}`;
+  }
+
+  // Update final score.
+
+  if (finalScoreDisplay) {
+    finalScoreDisplay.textContent = score;
+  }
+
+  // Update final snake length.
+
+  if (finalLengthDisplay) {
+    finalLengthDisplay.textContent = snake.length;
+  }
+
+  // Update final best score.
+
+  if (finalBestScoreDisplay) {
+    finalBestScoreDisplay.textContent = bestScore;
+  }
 }
 
 // ========================================
