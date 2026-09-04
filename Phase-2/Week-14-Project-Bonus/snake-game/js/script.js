@@ -95,6 +95,10 @@ const startBestScore = document.getElementById("startBestScore");
 // GAME SCREEN ELEMENTS
 // ========================================
 
+// ========================================
+// GAME SCREEN ELEMENTS
+// ========================================
+
 const gameScreen = document.getElementById("gameScreen");
 
 const gameBoard = document.getElementById("gameBoard");
@@ -102,6 +106,16 @@ const gameBoard = document.getElementById("gameBoard");
 const scoreDisplay = document.getElementById("score");
 
 const gameBestScoreDisplay = document.getElementById("bestScore");
+
+// D-pad buttons
+
+const upButton = document.getElementById("upButton");
+
+const downButton = document.getElementById("downButton");
+
+const leftButton = document.getElementById("leftButton");
+
+const rightButton = document.getElementById("rightButton");
 
 // Game start message
 
@@ -488,10 +502,106 @@ function stopGameLoop() {
     gameLoop = null;
   }
 }
+// ========================================
+// DIRECTION CONTROL
+// ========================================
+
+function changeDirection(newDirection) {
+  // Do not allow direction changes
+  // when the game is not running.
+
+  if (gameState !== "playing") {
+    return;
+  }
+
+  // Prevent the snake from immediately
+  // moving in the opposite direction.
+
+  if (newDirection === "up" && direction !== "down") {
+    nextDirection = "up";
+  }
+
+  if (newDirection === "down" && direction !== "up") {
+    nextDirection = "down";
+  }
+
+  if (newDirection === "left" && direction !== "right") {
+    nextDirection = "left";
+  }
+
+  if (newDirection === "right" && direction !== "left") {
+    nextDirection = "right";
+  }
+}
+
+// ========================================
+// KEYBOARD CONTROLS
+// ========================================
+
+document.addEventListener("keydown", function (event) {
+  switch (event.key) {
+    case "ArrowUp":
+    case "w":
+    case "W":
+      event.preventDefault();
+      changeDirection("up");
+      break;
+
+    case "ArrowDown":
+    case "s":
+    case "S":
+      event.preventDefault();
+      changeDirection("down");
+      break;
+
+    case "ArrowLeft":
+    case "a":
+    case "A":
+      event.preventDefault();
+      changeDirection("left");
+      break;
+
+    case "ArrowRight":
+    case "d":
+    case "D":
+      event.preventDefault();
+      changeDirection("right");
+      break;
+  }
+});
+
+// ========================================
+// D-PAD CONTROLS
+// ========================================
+
+if (upButton) {
+  upButton.addEventListener("click", function () {
+    changeDirection("up");
+  });
+}
+
+if (downButton) {
+  downButton.addEventListener("click", function () {
+    changeDirection("down");
+  });
+}
+
+if (leftButton) {
+  leftButton.addEventListener("click", function () {
+    changeDirection("left");
+  });
+}
+
+if (rightButton) {
+  rightButton.addEventListener("click", function () {
+    changeDirection("right");
+  });
+}
 
 // ========================================
 // START GAME
 // ========================================
+
 // ========================================
 // GAME START COUNTDOWN
 // ========================================
