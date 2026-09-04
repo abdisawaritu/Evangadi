@@ -14,13 +14,15 @@ let gameState = "start";
 // SNAKE STATE
 // ========================================
 
-// The snake will be stored as an array.
+// The snake is stored as an array.
 //
-// Example later:
+// Each object represents one snake segment.
+//
+// Example:
 // [
-//   { x: 10, y: 10 },
+//   { x: 10, y: 10 },  ← head
 //   { x: 9, y: 10 },
-//   { x: 8, y: 10 }
+//   { x: 8, y: 10 }    ← tail
 // ]
 
 let snake = [];
@@ -37,8 +39,7 @@ let nextDirection = "right";
 
 // The current food position.
 //
-// Example later:
-// { x: 15, y: 10 }
+// Food will be implemented in a later stage.
 
 let food = null;
 
@@ -59,6 +60,8 @@ let bestScore = 0;
 const BOARD_SIZE = 20;
 
 // Time between snake movements in milliseconds.
+//
+// Movement will be implemented in a later stage.
 
 const GAME_SPEED = 120;
 
@@ -70,29 +73,21 @@ const GAME_SPEED = 120;
 
 const gameContainer = document.querySelector(".game-container");
 
-// Start screen
+// ========================================
+// START SCREEN
+// ========================================
 
 const startScreen = document.getElementById("startScreen");
-
-// Game screen
-
-const gameScreen = document.getElementById("gameScreen");
-
-// Game-over screen
-
-const gameOverScreen = document.getElementById("gameOverScreen");
-
-// ========================================
-// START SCREEN ELEMENTS
-// ========================================
 
 const playButton = document.getElementById("playButton");
 
 const startBestScore = document.getElementById("startBestScore");
 
 // ========================================
-// GAME SCREEN ELEMENTS
+// GAME SCREEN
 // ========================================
+
+const gameScreen = document.getElementById("gameScreen");
 
 const gameBoard = document.getElementById("gameBoard");
 
@@ -101,14 +96,16 @@ const scoreDisplay = document.getElementById("score");
 const gameBestScoreDisplay = document.getElementById("bestScore");
 
 // ========================================
-// GAME-OVER SCREEN ELEMENTS
+// GAME-OVER SCREEN
 // ========================================
+
+const gameOverScreen = document.getElementById("gameOverScreen");
 
 const finalScoreDisplay = document.getElementById("finalScore");
 
-const finalLengthDisplay = document.getElementById("finalLength");
+const finalLengthDisplay = document.getElementById("snakeLength");
 
-const finalBestScoreDisplay = document.getElementById("finalBestScore");
+const finalBestScoreDisplay = document.getElementById("gameOverBestScore");
 
 const playAgainButton = document.getElementById("playAgainButton");
 
@@ -149,6 +146,118 @@ function initializeGame() {
 }
 
 // ========================================
+// INITIALIZE GAME BOARD
+// ========================================
+
+function initializeBoard() {
+  // Remove anything that currently exists
+  // inside the board.
+
+  gameBoard.innerHTML = "";
+
+  // Create the board cells.
+
+  for (let row = 0; row < BOARD_SIZE; row++) {
+    for (let column = 0; column < BOARD_SIZE; column++) {
+      const cell = document.createElement("div");
+
+      cell.classList.add("game-cell");
+
+      cell.dataset.row = row;
+
+      cell.dataset.column = column;
+
+      gameBoard.appendChild(cell);
+    }
+  }
+}
+
+// ========================================
+// INITIALIZE SNAKE
+// ========================================
+
+function initializeSnake() {
+  // Create the initial three-segment snake.
+
+  snake = [
+    {
+      x: 10,
+      y: 10,
+    },
+
+    {
+      x: 9,
+      y: 10,
+    },
+
+    {
+      x: 8,
+      y: 10,
+    },
+  ];
+
+  // Initial direction.
+
+  direction = "right";
+
+  nextDirection = "right";
+}
+
+// ========================================
+// RENDER SNAKE
+// ========================================
+
+function renderSnake() {
+  // First remove any previous snake
+  // styling from the board cells.
+
+  const snakeCells = gameBoard.querySelectorAll(".snake");
+
+  snakeCells.forEach(function (cell) {
+    cell.classList.remove("snake");
+    cell.classList.remove("snake-head");
+  });
+
+  // Add the snake to the correct cells.
+
+  snake.forEach(function (segment, index) {
+    const cell = gameBoard.querySelector(
+      `[data-row="${segment.y}"][data-column="${segment.x}"]`,
+    );
+
+    if (!cell) {
+      return;
+    }
+
+    cell.classList.add("snake");
+
+    // The first segment is the head.
+
+    if (index === 0) {
+      cell.classList.add("snake-head");
+    }
+  });
+}
+
+// ========================================
+// INITIALIZE BOARD AND SNAKE
+// ========================================
+
+function initializeGameBoard() {
+  // Create the board.
+
+  initializeBoard();
+
+  // Create the initial snake.
+
+  initializeSnake();
+
+  // Display the snake.
+
+  renderSnake();
+}
+
+// ========================================
 // SCREEN MANAGEMENT
 // ========================================
 
@@ -181,8 +290,7 @@ function showGameOverScreen() {
 // ========================================
 
 function updateScoreDisplays() {
-  // Update current score only if
-  // the element exists in the HTML.
+  // Update current score.
 
   if (scoreDisplay) {
     scoreDisplay.textContent = score;
@@ -226,10 +334,13 @@ function updateScoreDisplays() {
 function startGame() {
   gameState = "playing";
 
-  showGameScreen();
+  // Initialize the board and snake.
 
-  // More game initialization will be added
-  // in the next stages.
+  initializeGameBoard();
+
+  // Show the game screen.
+
+  showGameScreen();
 }
 
 // ========================================
