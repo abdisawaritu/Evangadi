@@ -220,43 +220,53 @@ function showGameOverScreen() {
 // ========================================
 
 function updateScoreDisplays() {
-  // Update current score.
+  // ========================================
+  // CURRENT SCORE
+  // ========================================
 
   if (scoreDisplay) {
     scoreDisplay.textContent = score;
   }
 
-  // Update game best score.
+  // ========================================
+  // BEST SCORE
+  // ========================================
 
   if (gameBestScoreDisplay) {
     gameBestScoreDisplay.textContent = bestScore;
   }
 
-  // Update start-screen best score.
+  // ========================================
+  // START SCREEN BEST SCORE
+  // ========================================
 
   if (startBestScore) {
-    startBestScore.textContent = `Best ${bestScore}`;
+    startBestScore.textContent = bestScore;
   }
 
-  // Update final score.
+  // ========================================
+  // GAME OVER SCORE
+  // ========================================
 
   if (finalScoreDisplay) {
     finalScoreDisplay.textContent = score;
   }
 
-  // Update final snake length.
+  // ========================================
+  // GAME OVER SNAKE LENGTH
+  // ========================================
 
   if (finalLengthDisplay) {
     finalLengthDisplay.textContent = snake.length;
   }
 
-  // Update apples eaten.
+  // ========================================
+  // GAME OVER BEST SCORE
+  // ========================================
 
-  if (applesEatenDisplay) {
-    applesEatenDisplay.textContent = applesEaten;
+  if (finalBestScoreDisplay) {
+    finalBestScoreDisplay.textContent = bestScore;
   }
-
-  // Update final best score.
 }
 
 // ========================================
@@ -502,25 +512,38 @@ function moveSnake() {
   // If the snake ate the food.
 
   if (ateFood) {
-    // Increase the score.
+    // ========================================
+    // INCREASE SCORE
+    // ========================================
 
     score++;
 
-    // Increase the number of apples eaten.
+    // ========================================
+    // INCREASE APPLES EATEN
+    // ========================================
 
     applesEaten++;
 
-    // Generate new food at another
-    // position that does not overlap
-    // the snake.
+    // ========================================
+    // UPDATE HIGH SCORE
+    // ========================================
+
+    if (score > bestScore) {
+      bestScore = score;
+    }
+
+    // ========================================
+    // GENERATE NEW FOOD
+    // ========================================
 
     generateFood();
 
-    // Update the score displays.
+    // ========================================
+    // UPDATE ALL SCORE DISPLAYS
+    // ========================================
 
     updateScoreDisplays();
   }
-
   // ========================================
   // SNAKE GROWTH
   // ========================================
@@ -726,6 +749,12 @@ function startCountdown() {
 
 function startGame() {
   gameState = "playing";
+
+  
+  // Reset game statistics.
+
+  score = 0;
+  applesEaten = 0;
 
   // Initialize the snake.
 
