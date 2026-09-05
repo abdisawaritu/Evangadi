@@ -6,6 +6,7 @@
 // Possible values:
 // "start"     → start screen
 // "playing"   → game is running
+// "paused"    → game is temporarily stopped
 // "gameOver"  → game has ended
 
 let gameState = "start";
@@ -66,6 +67,7 @@ const BOARD_SIZE = 20;
 // Time between snake movements in milliseconds.
 
 const GAME_SPEED = 120;
+let gameInterval = null;
 
 // ========================================
 // GAME LOOP
@@ -105,6 +107,7 @@ const startBestScore = document.getElementById("startBestScore");
 const gameScreen = document.getElementById("gameScreen");
 
 const gameBoard = document.getElementById("gameBoard");
+const pauseMessage = document.getElementById("pauseMessage");
 
 const scoreDisplay = document.getElementById("score");
 
@@ -207,12 +210,19 @@ function showGameScreen() {
   gameOverScreen.hidden = true;
 }
 
-function showGameOverScreen() {
+function showGameScreen() {
   startScreen.hidden = true;
 
-  gameScreen.hidden = true;
+  gameScreen.hidden = false;
 
-  gameOverScreen.hidden = false;
+  gameOverScreen.hidden = true;
+
+  // Make sure the pause message is hidden
+  // when a new game starts.
+
+  if (pauseMessage) {
+    pauseMessage.hidden = true;
+  }
 }
 
 // ========================================
@@ -575,6 +585,9 @@ function moveSnake() {
 function startGameLoop() {
   // Prevent multiple game loops
   // from running at the same time.
+  if (gameInterval !== null) {
+    clearInterval(gameInterval);
+  }
 
   if (gameLoop !== null) {
     return;
@@ -583,6 +596,71 @@ function startGameLoop() {
   gameLoop = setInterval(function () {
     moveSnake();
   }, GAME_SPEED);
+}
+// ========================================
+// PAUSE GAME
+// ========================================
+
+function pauseGame() {
+  // Pause only when the game is running.
+
+  if (gameState !== "playing") {
+    return;
+  }
+
+  // Change the game state.
+
+  gameState = "paused";
+
+  // Stop the game loop.
+
+  if (gameInterval !== null) {
+    clearInterval(gameInterval);
+
+    gameInterval = null;
+  }
+
+  // Show the pause message.
+
+  if (pauseMessage) {
+    pauseMessage.hidden = false;
+  }
+}
+// ========================================
+// RESUME GAME
+// ========================================
+
+function resumeGame() {
+  // Resume only when the game is paused.
+
+  if (gameState !== "paused") {
+    return;
+  }
+
+  // Change the game state back to playing.
+
+  gameState = "playing";
+
+  // Hide the pause message.
+
+  if (pauseMessage) {
+    pauseMessage.hidden = true;
+  }
+
+  // Restart the game loop.
+
+  startGameLoop();
+}
+// ========================================
+// TOGGLE PAUSE
+// ========================================
+
+function togglePause() {
+  if (gameState === "playing") {
+    pauseGame();
+  } else if (gameState === "paused") {
+    resumeGame();
+  }
 }
 
 // ========================================
@@ -661,6 +739,11 @@ document.addEventListener("keydown", function (event) {
       event.preventDefault();
       changeDirection("right");
       break;
+  }
+  if (event.key === "p" || event.key === "P" || event.key === "Escape") {
+    event.preventDefault();
+
+    togglePause();
   }
 });
 
@@ -844,13 +927,28 @@ function checkCollision(head) {
 // ========================================
 
 function endGame() {
-  // Stop the snake movement.
-
+  gameState = "gameOver";
   stopGameLoop();
 
-  gameState = "gameOver";
+  // Stop the game loop.
+
+  if (gameInterval !== null) {
+    clearInterval(gameInterval);
+
+    gameInterval = null;
+  }
+
+  // Hide pause message.
+
+  if (pauseMessage) {
+    pauseMessage.hidden = true;
+  }
+
+  // Update final statistics.
 
   updateScoreDisplays();
+
+  // Show game-over screen.
 
   showGameOverScreen();
 }
