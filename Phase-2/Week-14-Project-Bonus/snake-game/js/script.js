@@ -134,7 +134,7 @@ const gameOverScreen = document.getElementById("gameOverScreen");
 
 const finalScoreDisplay = document.getElementById("finalScore");
 
-const finalLengthDisplay = document.getElementById("finalLength");
+const finalLengthDisplay = document.getElementById("snakeLength");
 
 const finalBestScoreDisplay = document.getElementById("gameOverBestScore");
 
@@ -266,6 +266,11 @@ function updateScoreDisplays() {
 
   if (finalBestScoreDisplay) {
     finalBestScoreDisplay.textContent = bestScore;
+  }
+  // Update apples eaten.
+
+  if (applesEatenDisplay) {
+    applesEatenDisplay.textContent = applesEaten;
   }
 }
 
@@ -750,7 +755,6 @@ function startCountdown() {
 function startGame() {
   gameState = "playing";
 
-  
   // Reset game statistics.
 
   score = 0;
