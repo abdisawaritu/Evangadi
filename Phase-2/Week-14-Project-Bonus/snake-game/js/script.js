@@ -67,7 +67,6 @@ const BOARD_SIZE = 20;
 // Time between snake movements in milliseconds.
 
 const GAME_SPEED = 120;
-let gameInterval = null;
 
 // ========================================
 // GAME LOOP
@@ -198,14 +197,6 @@ function showStartScreen() {
   startScreen.hidden = false;
 
   gameScreen.hidden = true;
-
-  gameOverScreen.hidden = true;
-}
-
-function showGameScreen() {
-  startScreen.hidden = true;
-
-  gameScreen.hidden = false;
 
   gameOverScreen.hidden = true;
 }
@@ -468,32 +459,24 @@ function moveSnake() {
 
   const head = snake[0];
 
-  // Create a new head based on
-  // the current direction.
+  // Create the new head.
 
   const newHead = {
     x: head.x,
     y: head.y,
   };
 
-  // Move right.
+  // ========================================
+  // MOVE SNAKE
+  // ========================================
 
   if (direction === "right") {
     newHead.x++;
-  }
-
-  // Move left.
-  else if (direction === "left") {
+  } else if (direction === "left") {
     newHead.x--;
-  }
-
-  // Move up.
-  else if (direction === "up") {
+  } else if (direction === "up") {
     newHead.y--;
-  }
-
-  // Move down.
-  else if (direction === "down") {
+  } else if (direction === "down") {
     newHead.y++;
   }
 
@@ -501,17 +484,14 @@ function moveSnake() {
   // COLLISION DETECTION
   // ========================================
 
-  // Check collision BEFORE adding the
-  // new head to the snake.
-
   if (checkCollision(newHead)) {
     endGame();
-
     return;
   }
 
-  // Add the new head to the
-  // beginning of the snake array.
+  // ========================================
+  // ADD NEW HEAD
+  // ========================================
 
   snake.unshift(newHead);
 
@@ -519,83 +499,45 @@ function moveSnake() {
   // FOOD CONSUMPTION
   // ========================================
 
-  // Check whether the new head
-  // is occupying the same cell as food.
-
   const ateFood = food && newHead.x === food.x && newHead.y === food.y;
 
-  // If the snake ate the food.
-
   if (ateFood) {
-    // ========================================
-    // INCREASE SCORE
-    // ========================================
+    // Increase score.
 
     score++;
 
-    // ========================================
-    // INCREASE APPLES EATEN
-    // ========================================
+    // Increase apples eaten.
 
     applesEaten++;
 
-    // ========================================
-    // UPDATE HIGH SCORE
-    // ========================================
+    // Update high score.
 
     if (score > bestScore) {
       bestScore = score;
     }
 
-    // ========================================
-    // GENERATE NEW FOOD
-    // ========================================
+    // Generate new food.
 
     generateFood();
 
-    // ========================================
-    // UPDATE ALL SCORE DISPLAYS
-    // ========================================
+    // Update displays.
 
     updateScoreDisplays();
   }
+
   // ========================================
   // SNAKE GROWTH
   // ========================================
-
-  // If food was NOT eaten,
-  // remove the last segment.
-  //
-  // If food WAS eaten, the tail remains,
-  // so the snake grows by one segment.
 
   if (!ateFood) {
     snake.pop();
   }
 
-  // Render the updated snake and food.
+  // ========================================
+  // RENDER
+  // ========================================
 
   renderGameBoard();
-}
-
-// ========================================
-// START GAME LOOP
-// ========================================
-
-function startGameLoop() {
-  // Prevent multiple game loops
-  // from running at the same time.
-  if (gameInterval !== null) {
-    clearInterval(gameInterval);
-  }
-
-  if (gameLoop !== null) {
-    return;
-  }
-
-  gameLoop = setInterval(function () {
-    moveSnake();
-  }, GAME_SPEED);
 }
 // ========================================
 // PAUSE GAME
@@ -614,11 +556,7 @@ function pauseGame() {
 
   // Stop the game loop.
 
-  if (gameInterval !== null) {
-    clearInterval(gameInterval);
-
-    gameInterval = null;
-  }
+  stopGameLoop();
 
   // Show the pause message.
 
@@ -666,6 +604,18 @@ function togglePause() {
 // ========================================
 // STOP GAME LOOP
 // ========================================
+function startGameLoop() {
+  // Make sure an old game loop
+  // cannot continue running.
+
+  stopGameLoop();
+
+  // Start the game loop.
+
+  gameLoop = setInterval(function () {
+    moveSnake();
+  }, GAME_SPEED);
+}
 
 function stopGameLoop() {
   if (gameLoop !== null) {
@@ -674,6 +624,7 @@ function stopGameLoop() {
     gameLoop = null;
   }
 }
+
 // ========================================
 // DIRECTION CONTROL
 // ========================================
@@ -892,15 +843,27 @@ function checkCollision(head) {
   // BOUNDARY COLLISION
   // ========================================
 
-  // Check if the head has moved outside
-  // the game board.
+  // Left wall
 
-  if (
-    head.x < 0 ||
-    head.x >= BOARD_SIZE ||
-    head.y < 0 ||
-    head.y >= BOARD_SIZE
-  ) {
+  if (head.x < 0) {
+    return true;
+  }
+
+  // Right wall
+
+  if (head.x >= BOARD_SIZE) {
+    return true;
+  }
+
+  // Top wall
+
+  if (head.y < 0) {
+    return true;
+  }
+
+  // Bottom wall
+
+  if (head.y >= BOARD_SIZE) {
     return true;
   }
 
@@ -908,16 +871,18 @@ function checkCollision(head) {
   // SELF COLLISION
   // ========================================
 
-  // Check whether the new head position
-  // is already occupied by the snake body.
+  // Check the new head against
+  // every existing body segment.
 
-  for (let i = 0; i < snake.length; i++) {
+  for (let i = 1; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
       return true;
     }
   }
 
-  // No collision detected.
+  // ========================================
+  // NO COLLISION
+  // ========================================
 
   return false;
 }
@@ -925,34 +890,39 @@ function checkCollision(head) {
 // ========================================
 // END GAME
 // ========================================
-
 function endGame() {
+  // ========================================
+  // CHANGE GAME STATE
+  // ========================================
+
   gameState = "gameOver";
+
+  // ========================================
+  // STOP GAME LOOP
+  // ========================================
+
   stopGameLoop();
 
-  // Stop the game loop.
-
-  if (gameInterval !== null) {
-    clearInterval(gameInterval);
-
-    gameInterval = null;
-  }
-
-  // Hide pause message.
+  // ========================================
+  // HIDE PAUSE MESSAGE
+  // ========================================
 
   if (pauseMessage) {
     pauseMessage.hidden = true;
   }
 
-  // Update final statistics.
+  // ========================================
+  // UPDATE FINAL STATISTICS
+  // ========================================
 
   updateScoreDisplays();
 
-  // Show game-over screen.
+  // ========================================
+  // SHOW GAME OVER SCREEN
+  // ========================================
 
   showGameOverScreen();
 }
-
 // ========================================
 // START BUTTON
 // ========================================
@@ -969,8 +939,18 @@ if (playAgainButton) {
   playAgainButton.addEventListener("click", startGame);
 }
 
+function showGameOverScreen() {
+  startScreen.hidden = true;
+
+  gameScreen.hidden = true;
+
+  gameOverScreen.hidden = false;
+}
+
 // ========================================
 // INITIALIZE
 // ========================================
 
 initializeGame();
+
+
