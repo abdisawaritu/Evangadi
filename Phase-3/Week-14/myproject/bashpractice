@@ -1,0 +1,22 @@
+echo" Hello , I'm  about to create  a basic web project folder structure  "
+# create  the root project folder
+mkdir  projects 
+# navigae  into the project folder 
+cd projects 
+# create HTML file in Root 
+touch index.html 
+# create subfolders
+mkdir  js css 
+# create  Jf ile in the js folder 
+cd js 
+touch script.js
+cd ..
+# create css file in the css folder 
+cd css 
+touch  style.css
+cd .. 
+
+echo " project strucutre  created successfully "
+
+echo " important for team Projects " 
+

@@ -1,0 +1,1 @@
+ hi,  just wrote using script.sh file 
