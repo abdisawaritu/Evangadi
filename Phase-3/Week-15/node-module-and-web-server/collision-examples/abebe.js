@@ -16,3 +16,5 @@ function AAsomeFunction (){
 //  using the IIFE 
 // wrapping your code inside  function 
 // modularity  (commonJs  and  ES6 )
+
+// commonJs standard .
