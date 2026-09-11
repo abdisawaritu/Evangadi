@@ -5,3 +5,9 @@ console.log("Hello world ");
 // node --watch filename
 // nodemon filename  by installing the  the nodemon package using  npm package
 console.log(4 + 5);
+
+// modular structure is the design principles . 
+// the problem we came up when we are not using the modular structure .
+// global namespace collision 
+// lack of code reusability 
+
