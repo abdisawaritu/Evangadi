@@ -32,5 +32,74 @@
 // import fs from "fs";
 
 const fs = require("fs");
-// console.log(fs)
-fs.writeFileSync("hello.txt", "hello NOde.js");
+// // reading a file
+// // const data = fs.readFileSync("data.txt", "utf8");
+// // console.log(data);
+// // const data = fs.readFileSync("data.txt", "utf8");
+
+// // console.log(data);
+// // console.log("Done");
+
+// fs.readFile("data.txt", "utf8", (err, data) => {
+//   if (err) {
+//     console.log(err);
+//     return;
+//   }
+
+//   console.log(data);
+// });
+
+// console.log("Done");
+
+// creating /writing a file   writeFileSync()
+
+// fs.writeFileSync("message.txt", "Hello Node.js");
+// fs.writeFileSync("message.txt", "First message");
+// fs.appendFileSync("message.txt", "\nAnother message");
+// // fs.mkdirSync("uploads");
+// fs.mkdirSync("uploads/images", { recursive: true });
+// // fs.existsSync("data.txt");
+// if (fs.existsSync("data.txt")) {
+//   console.log("File exists");
+// } else {
+//   console.log("File does not exist");
+// }
+// const information = fs.statSync("data.txt");
+
+// console.log(information);
+
+// const files = fs.readdirSync(".");
+
+// console.log(files);
+// fs.unlinkSync("new.txt");
+// // fs.rmdirSync("uploads");
+// fs.rmSync("uploads", { recursive: true });
+// // asychronous and sychronous operation
+// writeFile();
+// writeFileSync();
+
+// appendFile();
+// appendFileSync();
+
+// mkdir();
+// mkdirSync();
+
+// readdir();
+// readdirSync();
+
+// rename();
+// renameSync();
+
+// unlink();
+// // unlinkSync();
+
+fs.readFile("data.txt", "utf8", (err, datat) => {
+  if (err) console.log(err);
+  console.log(datat.toString());
+});
+
+// write a file
+fs.writeFile("text.txt", "March Batch", (error) => {
+  if (error) console.log(error);
+  console.log("file has been saved");
+});
