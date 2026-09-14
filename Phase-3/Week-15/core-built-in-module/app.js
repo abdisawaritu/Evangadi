@@ -1,105 +1,132 @@
-// const os = require("os");
-// // console.log(os)// to see what we export from os module in  the form of object importnat points is here object manipulation
-// // console.log(os.platform());
-// // console.log(os.homedir());
-// // console.log(os.type());
-// // // console.log(os.cpus())
-// // console.log(os.arch());
-// // console.log(os.type())
-// // console.log(os.release())
-// // console.log(os.uptime())
-// // console.log(os.userInfo())
-// // console.log(os.cpus().length);
-// // console.log(os.totalmem());
-// const totalMemory = os.totalmem();
+// // const os = require("os");
+// // // console.log(os)// to see what we export from os module in  the form of object importnat points is here object manipulation
+// // // console.log(os.platform());
+// // // console.log(os.homedir());
+// // // console.log(os.type());
+// // // // console.log(os.cpus())
+// // // console.log(os.arch());
+// // // console.log(os.type())
+// // // console.log(os.release())
+// // // console.log(os.uptime())
+// // // console.log(os.userInfo())
+// // // console.log(os.cpus().length);
+// // // console.log(os.totalmem());
+// // const totalMemory = os.totalmem();
 
-// console.log((totalMemory / 1024 / 1024 / 1024).toFixed(2) + " GB");
-// console.log(os.freemem());
-// const freeMemory = os.freemem();
+// // console.log((totalMemory / 1024 / 1024 / 1024).toFixed(2) + " GB");
+// // console.log(os.freemem());
+// // const freeMemory = os.freemem();
 
-// console.log((freeMemory / 1024 / 1024 / 1024).toFixed(2) + " GB");
-// console.log(os.tmpdir());
-// console.log(os.hostname());
-// const uptime = os.uptime();
+// // console.log((freeMemory / 1024 / 1024 / 1024).toFixed(2) + " GB");
+// // console.log(os.tmpdir());
+// // console.log(os.hostname());
+// // const uptime = os.uptime();
 
-// console.log((uptime / 60 / 60).toFixed(2) + " hours");
-// import os from "os ";  by using ES modules
+// // console.log((uptime / 60 / 60).toFixed(2) + " hours");
+// // import os from "os ";  by using ES modules
 
-// console.log(os.freemem()) /
-//   console.log((freeMemory / 1024 / 1024 / 1024).toFixed(2) + " GB");
+// // console.log(os.freemem()) /
+// //   console.log((freeMemory / 1024 / 1024 / 1024).toFixed(2) + " GB");
 
-// fs module
-// import fs from "fs";
+// // fs module
+// // import fs from "fs";
 
-const fs = require("fs");
-// // reading a file
-// // const data = fs.readFileSync("data.txt", "utf8");
-// // console.log(data);
-// // const data = fs.readFileSync("data.txt", "utf8");
+// const fs = require("fs");
+// // // reading a file
+// // // const data = fs.readFileSync("data.txt", "utf8");
+// // // console.log(data);
+// // // const data = fs.readFileSync("data.txt", "utf8");
 
-// // console.log(data);
+// // // console.log(data);
+// // // console.log("Done");
+
+// // fs.readFile("data.txt", "utf8", (err, data) => {
+// //   if (err) {
+// //     console.log(err);
+// //     return;
+// //   }
+
+// //   console.log(data);
+// // });
+
 // // console.log("Done");
 
-// fs.readFile("data.txt", "utf8", (err, data) => {
-//   if (err) {
-//     console.log(err);
-//     return;
-//   }
+// // creating /writing a file   writeFileSync()
 
-//   console.log(data);
+// // fs.writeFileSync("message.txt", "Hello Node.js");
+// // fs.writeFileSync("message.txt", "First message");
+// // fs.appendFileSync("message.txt", "\nAnother message");
+// // // fs.mkdirSync("uploads");
+// // fs.mkdirSync("uploads/images", { recursive: true });
+// // // fs.existsSync("data.txt");
+// // if (fs.existsSync("data.txt")) {
+// //   console.log("File exists");
+// // } else {
+// //   console.log("File does not exist");
+// // }
+// // const information = fs.statSync("data.txt");
+
+// // console.log(information);
+
+// // const files = fs.readdirSync(".");
+
+// // console.log(files);
+// // fs.unlinkSync("new.txt");
+// // // fs.rmdirSync("uploads");
+// // fs.rmSync("uploads", { recursive: true });
+// // // asychronous and sychronous operation
+// // writeFile();
+// // writeFileSync();
+
+// // appendFile();
+// // appendFileSync();
+
+// // mkdir();
+// // mkdirSync();
+
+// // readdir();
+// // readdirSync();
+
+// // rename();
+// // renameSync();
+
+// // unlink();
+// // // unlinkSync();
+
+// // reading A file
+
+// fs.readFile("data.txt", "utf8", (err, datat) => {
+//   if (err) console.log(err);
+//   console.log(datat.toString());
 // });
 
-// console.log("Done");
+// // write a file
+// fs.writeFile("text.txt", "March Batch", (error) => {
+//   if (error) console.log(error);
+//   console.log("file has been saved");
+// });
 
-// creating /writing a file   writeFileSync()
+// use case  we use readand write during the server creating
 
-// fs.writeFileSync("message.txt", "Hello Node.js");
-// fs.writeFileSync("message.txt", "First message");
-// fs.appendFileSync("message.txt", "\nAnother message");
-// // fs.mkdirSync("uploads");
-// fs.mkdirSync("uploads/images", { recursive: true });
-// // fs.existsSync("data.txt");
-// if (fs.existsSync("data.txt")) {
-//   console.log("File exists");
-// } else {
-//   console.log("File does not exist");
-// }
-// const information = fs.statSync("data.txt");
+const path = require("path");
+// import path from "path"
 
-// console.log(information);
+// const folder = "public";
+// const file = "index.html";
 
-// const files = fs.readdirSync(".");
+// // const fullPath = folder + "/" + file;
 
-// console.log(files);
-// fs.unlinkSync("new.txt");
-// // fs.rmdirSync("uploads");
-// fs.rmSync("uploads", { recursive: true });
-// // asychronous and sychronous operation
-// writeFile();
-// writeFileSync();
+// const fullPath = path.join(folder, file);
+// console.log(fullPath)
+// const result = path.join("project", "images", "logo.png");
+// console.log(result)
 
-// appendFile();
-// appendFileSync();
+// const filePath = path.join( __dirname , "public"  , "index.html")
+// console.log(filePath)
 
-// mkdir();
-// mkdirSync();
+// const result = path.parse("/project/images/logo.png");
 
-// readdir();
-// readdirSync();
-
-// rename();
-// renameSync();
-
-// unlink();
-// // unlinkSync();
-
-fs.readFile("data.txt", "utf8", (err, datat) => {
-  if (err) console.log(err);
-  console.log(datat.toString());
-});
-
-// write a file
-fs.writeFile("text.txt", "March Batch", (error) => {
-  if (error) console.log(error);
-  console.log("file has been saved");
-});
+// console.log(result);
+// // path modules 
+// console.log(__filename)
+// console.log(__dirname)  // global variable 
