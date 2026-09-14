@@ -9,3 +9,4 @@ node_modules/
 *.log
 commonjs/node_modules/
 ES6/node_modules/
+nodeModuleProject/node_modules/
