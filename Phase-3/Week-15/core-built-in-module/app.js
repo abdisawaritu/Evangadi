@@ -97,36 +97,125 @@
 
 // fs.readFile("data.txt", "utf8", (err, datat) => {
 //   if (err) console.log(err);
-//   console.log(datat.toString());
+// //   console.log(datat.toString());
+// // });
+
+// // // write a file
+// // fs.writeFile("text.txt", "March Batch", (error) => {
+// //   if (error) console.log(error);
+// //   console.log("file has been saved");
+// // });
+
+// // use case  we use readand write during the server creating
+
+// const path = require("path");
+// // import path from "path"
+
+// // const folder = "public";
+// // const file = "index.html";
+
+// // // const fullPath = folder + "/" + file;
+
+// // const fullPath = path.join(folder, file);
+// // console.log(fullPath)
+// // const result = path.join("project", "images", "logo.png");
+// // console.log(result)
+
+// // const filePath = path.join( __dirname , "public"  , "index.html")
+// // console.log(filePath)
+
+// // const result = path.parse("/project/images/logo.png");
+
+// // console.log(result);
+// // // path modules
+// // console.log(__filename)
+// // console.log(__dirname)  // global variable
+
+// // Os module
+// // const os = require("os");
+
+// // console.log("platform", os.platform());
+// // console.log("Os Name", os.type());
+// // console.log("CPU Architecture", os.arch());
+// // console.log("Cpu cores", os.cpus().length);
+// // console.log("System uptime", os.uptime());
+// // console.log("Total Memory", os.totalmem());
+// // console.log("Free Memory", os.freemem());
+
+// // Path Module
+
+// // global variable
+
+// console.log(__dirname);
+// console.log(__filename);
+
+// const filePath = path.join(__dirname, "data.txt");
+// console.log("filePath ", filePath);
+
+// const baseName = path.basename(filePath);
+// console.log("baseName", baseName);
+
+// //  for the ES6
+// // we cant get the global pro like fileNae and dirName
+// // instead we use the ff to get the file path
+
+// const dirName = path.dirname(filePath);
+// console.log("Directory name ", dirName);
+
+// URL NOde MOdule
+// is the built  in Node.js module that provides functionality for :
+//    - parsing the URLs
+//    - creaing URLs , MOdifyingURL
+//    - extracting information from the URLs
+//    - Working with query paramters
+
+// npm install url we done need this
+// Importing the url mode  using the commonJs
+const url = require("url");
+
+const myUrl = new URL("https://example.com/products?id=25&category=phone");
+
+console.log("Protocol:", myUrl.protocol);
+console.log("Hostname:", myUrl.hostname);
+console.log("Port:", myUrl.port);
+console.log("Host:", myUrl.host);
+console.log("Pathname:", myUrl.pathname);
+console.log("Search:", myUrl.search);
+
+console.log("Product ID:", myUrl.searchParams.get("id"));
+console.log("Category:", myUrl.searchParams.get("category"));
+for (const [key, value] of myUrl.searchParams) {
+  console.log(key, value);
+}
+// to create the a URL
+const myU = new URL("https://example.com");
+
+// events Module
+const EventEmitter = require("events");
+
+const emitter = new EventEmitter();
+
+emitter.on("login", () => {
+  console.log("User logged in");
+});
+
+emitter.emit("login");
+
+emitter.on("eventName", listenerFunction);
+// emitter.emit("login"); used for triggering of an event
+
+// const EventEmitter = require("events");
+
+// const emitter = new EventEmitter();
+
+// emitter.on("login", (username) => {
+//   console.log(`${username} logged in`);
 // });
 
-// // write a file
-// fs.writeFile("text.txt", "March Batch", (error) => {
-//   if (error) console.log(error);
-//   console.log("file has been saved");
-// });
+// emitter.emit("login", "Abdi");
 
-// use case  we use readand write during the server creating
+// events are sychronous  operation
 
-const path = require("path");
-// import path from "path"
-
-// const folder = "public";
-// const file = "index.html";
-
-// // const fullPath = folder + "/" + file;
-
-// const fullPath = path.join(folder, file);
-// console.log(fullPath)
-// const result = path.join("project", "images", "logo.png");
-// console.log(result)
-
-// const filePath = path.join( __dirname , "public"  , "index.html")
-// console.log(filePath)
-
-// const result = path.parse("/project/images/logo.png");
-
-// console.log(result);
-// // path modules 
-// console.log(__filename)
-// console.log(__dirname)  // global variable 
+// using the ES6  module verstion
+// import EventEmitter from "events "
+// const emitter = new EventEmitter();
