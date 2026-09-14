@@ -1,1 +1,11 @@
 // to untrack the node-modules  since its a big files 
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Log files
+*.log
+commonjs/node_modules/
+ES6/node_modules/
