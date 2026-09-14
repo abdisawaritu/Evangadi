@@ -10,11 +10,15 @@ const firstResult = myFirstMultipler(14);
 const secondResult = mySecondMultiper(14);
 // console.log(firstResult, secondResult);
 
+
+// Question 3 
+
 const fs = require("fs");
 fs.writeFileSync(
   "results.txt",
   `The value of 14  when passed through the myMultipler function is ( ${firstResult})\n`,
 );
+// Question 4 
 
 fs.appendFileSync(
   "results.txt",
@@ -50,3 +54,5 @@ fs.appendFileSync(
 //     );
 //   },
 // );
+
+ 
