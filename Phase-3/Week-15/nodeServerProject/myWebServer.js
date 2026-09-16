@@ -12,9 +12,8 @@ const server = http.createServer((req, res) => {
       "apple-html-css-replica",
       "about.html",
     );
-    
 
-    console.log(filePath);
+    // console.log(filePath);
     fs.readFile(filePath, (error, data) => {
       if (error) {
         res.writeHead(500);
@@ -36,3 +35,18 @@ server.listen(5000, (error) => {
     console.log("server running ");
   }
 });
+
+//steps
+// 1 npm init
+// 2 npm  init -y  to install 
+// 3. npm install express
+
+// const express = require("express");
+// const servers  = express();// creating the applictiono 
+// servers.get("/"   ,   (req, res)=>{
+//   res.send("Request received and prossed")
+// })
+
+// servers.listen(1234 , ()=>{
+//   console.log("server is running ");
+// })
