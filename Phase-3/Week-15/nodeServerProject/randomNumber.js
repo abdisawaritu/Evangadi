@@ -3,6 +3,6 @@ function random() {
 }
 
 const result = random();
-console.log(result);
+// console.log(result);
 
 module.exports = { random };
