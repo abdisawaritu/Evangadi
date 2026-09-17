@@ -41,12 +41,34 @@ server.listen(5000, (error) => {
 // 2 npm  init -y  to install 
 // 3. npm install express
 
-// const express = require("express");
-// const servers  = express();// creating the applictiono 
-// servers.get("/"   ,   (req, res)=>{
-//   res.send("Request received and prossed")
-// })
+const express = require("express");
+const servers  = express();// creating the applictiono 
+servers.get("/"   ,   (req, res)=>{
+  res.send("Request received and prossed")
+})
 
-// servers.listen(1234 , ()=>{
-//   console.log("server is running ");
+servers.listen(1234 , ()=>{
+  console.log("server is running ");
+})
+// servers.get("/" (req , res)=>{
+//   const nums = random();
+//   res.send(`random Number : ${nums}`)
 // })
+// file and folder serving 
+app.get("/", (req, res) => {
+  const filePath = path.join(__dirname, "static", "about.html");
+
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      res.status(404).send("Page not found");
+    }
+  });
+});
+
+app.listen(1234, () => {
+  console.log("Server running");
+});
+
+
+
+
