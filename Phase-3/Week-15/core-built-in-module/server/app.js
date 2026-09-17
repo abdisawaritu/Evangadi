@@ -37,3 +37,13 @@
 // How to serve the static page  using the webserver
 
 const http = require("http");
+const server = http.createServer((req, res) => {
+  
+
+
+
+
+
+
+});
+server.listen(3000);
