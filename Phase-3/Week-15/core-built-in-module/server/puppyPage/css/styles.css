@@ -1,0 +1,142 @@
+/* reseting the default properties of chrome browser */
+/* body {
+  font-family: "Montserrat", sans-serif;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; */
+  /* font-family: "Montserrat", sans-serif; */
+  /* removing the extra padding and margin  */
+  /* dont add the padding and margin if added  */
+/* } */
+/* .three-puppies ,  .more-puppies {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+}
+.more-puppies {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+} */
+/* .three-puppies , .more-puppies{
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+
+} */
+/* .common-puppies {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  width: 960px;
+  
+  margin: 60px auto;
+} */
+/* .puppy-2{
+  order: -1;
+} */
+/* .more-text{
+  background-color: red;
+  width: 300px;
+    font-size: 20px;
+  position:absolute ; */
+/* top: 100px; */
+/* right: 50px;; */
+
+/* bottom: 100px; */
+
+/* .missing_puppy{
+  color: green;
+  font-size: 40px;
+  position: absolute;
+  top: 50px;
+  left: 100px;
+
+} */
+
+/* .header{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0%;
+  height: 50px;
+  background-color: gold;
+} */
+/* .missing_puppy {
+  background-color: rgb(164, 80, 92);
+  
+  width: 310px;
+  height: 310px; */
+  /* display: flex;
+   justify-content: center;
+   align-items: center; */
+  /* background-image: url("../images/puppy-2.jpg"); */
+/* } */
+/* .missing_puppy{
+    background-color: #;
+   } */
+
+
+/* .three-puppies{
+      width: 33%;
+    } */
+
+/* .blue-background {
+  background-color: #085070 !important;  
+  text-align: center;
+  color: white;
+  font-size: 30px;
+}
+.blue-background{
+  background-color: red;
+}
+.footer {
+  padding-top: 50px;
+  padding-bottom: 60px;
+}
+.more-text {
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+.missing_puppy p {
+  text-align: center;
+
+  font-size: 60px;
+  padding: 45px; */
+
+  /* width: 70%;
+      border: 2px solid blue; */
+/* } */
+
+*{
+  margin: 0;
+  padding: 0;
+}
+img{
+  width: 100%;
+}
+
+.blueBG{
+  background-color: #085070 ; 
+  /* font-size: 40px; */
+}
+.missing-puppies{
+  background-color: rgb(164, 80, 92);
+}
+
+
+
+
+
+
+
+
