@@ -96,14 +96,15 @@
 //   console.log("Puppy server is running on PORT:  http://localhost:3000");
 // });
 
+// 
+
+
+// building the webserver through the express framework  by using the middleware concpets 
+
+// express is the constributed modules  so we have to install manually through npm i express --save
+
 const express = require("express");
-
-const app = express(); // to create server  or the appliction creating the server appliction throught the express module and framework
-
-app.listen(3000, (error) => {
-  if (error) {
-    console.log(error);
-    return;
-  }
-  console.log("the server is running on port :3000 http://locahost:3000 ");
-});
+const app = express(); // wecan call seerver instea of app
+app.listen(3000 , ()=>{
+  console.log("listening on http://localhost:3000")
+})
