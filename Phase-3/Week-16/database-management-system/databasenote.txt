@@ -1,0 +1,17 @@
+Introduction to database and database management system (DBMS)
+
+      - what is DB  (database)
+              A database is an organised collection of information or data  typically stored electrocially in a computer system   in the digital form using  computer technology rather than as a physical paper record.
+
+        - How do we control DB
+                 - A database is usually controlled by a dbms 
+        - what is the dbms 
+             - Is a software for easy, efficent and reialbe data processing and management 
+             used for 
+                -creation of database 
+                - store  data /information 
+                - retrieval of information from the database
+                - controlling redundany and inconsisteney 
+                - efficenet memeory management 
+                - access control and ease is accessing data
+     - Data  + DBMS  + other related apps ===== Database system (Database)
