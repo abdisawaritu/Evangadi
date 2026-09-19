@@ -103,8 +103,44 @@
 
 // express is the constributed modules  so we have to install manually through npm i express --save
 
+// const express = require("express");
+// const app = express(); // wecan call seerver instea of app
+// // app.post // to send the data to the database and backend 
+
+// // app.get("/"  , (req, res)=>{
+// //   res.send("It is working  through the express framework")
+
+// // })
+
+// app.use(express.static("puppyPage"))
+
+// app.get("*"  , (req , res)=>{
+//   res.send ("Page not found ")
+// })
+
+
+
+
+// app.listen(3000 , ()=>{
+//   console.log("listening on http://localhost:3000")
+// })
+
+
 const express = require("express");
-const app = express(); // wecan call seerver instea of app
-app.listen(3000 , ()=>{
-  console.log("listening on http://localhost:3000")
-})
+
+const app = express();
+
+app.use(express.static("puppyPage"));
+
+// Custom 404 response
+app.use((req, res) => {
+  res.status(404).send(`
+    <h1>404 - Page Not Found</h1>
+    <p>Sorry, the page you are looking for does not exist.</p>
+    <a href="/">Go back to Home</a>
+  `);
+});
+
+app.listen(3000, () => {
+  console.log("Listening on http://localhost:3000");
+});
