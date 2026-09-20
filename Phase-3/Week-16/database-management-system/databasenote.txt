@@ -14,4 +14,4 @@ Introduction to database and database management system (DBMS)
                 - controlling redundany and inconsisteney 
                 - efficenet memeory management 
                 - access control and ease is accessing data
-     - Data  + DBMS  + other related apps ===== Database system (Database)
+     - Data  + DBMS  + other related apps ===== Database system (Database)  We have covered (MySQL)

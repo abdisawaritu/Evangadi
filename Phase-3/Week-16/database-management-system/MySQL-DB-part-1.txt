@@ -1,0 +1,76 @@
+Introduction to database and database management system (DBMS)
+
+      - what is DB  (database)
+              A database is an organised collection of information or data  typically stored electrocially in a computer system   in the digital form using  computer technology rather than as a physical paper record.
+
+        - How do we control DB
+                 - A database is usually controlled by a dbms 
+        - what is the dbms 
+             - Is a software for easy, efficent and reialbe data processing and management 
+             used for 
+                -creation of database 
+                - store  data /information 
+                - retrieval of information from the database
+                - controlling redundany and inconsisteney 
+                - efficenet memeory management 
+                - access control and ease is accessing data
+     - Data  + DBMS  + other related apps ===== Database system (Database)  We have covered (MySQL) 
+
+
+     5.2  Main catergories of database: relational and non-relational Database;
+
+         - relational  Database (RDBMS)
+                - store  data in tables  with rows and column 
+                - enforce relationships  between   using keys 
+                -  structured schema (strict structure) strict data 
+                - Uses SQL  FOR queiries (languages)
+                - Strong  data integrity
+                - slow interms of performace 
+                (it requires join of the different table to get the data from two or more three tables ) 
+                -  it needs join the table from different tables  to get some data this operation takes a little time  time 
+                - strict data 
+
+                     - Example  
+                     - MySQL 
+
+         -  Non-relational Database (NoSQL)
+               - storing data  in formats like JSON  (key-values ) pairs 
+               -  there is  no relation at all between tables 
+               - Schema-less or dynamic  schema  (loose format );
+               - where data is not strict  the use case    social media 
+               - flexible  data bunch of data 
+               - easily accessible , fast ,  nested data 
+               - performacie data are in documents 
+               - non strict  data
+               - no table , no relation , it does not need the join all the data are inside the json like object as nested so data accessib is simple and it takes a little time-
+               - all the data are  at one place easily accessible 
+               - so incase of  non relational database  no table , no  relational 
+                   -Example  MongoDB
+5.3   Working with databases  using NODE JS:  http verbs  / Methods to communicate with  webserver 
+            - GET   -  read data  and recieve it 
+            - POST   -  to create  new data  send data to backend  from fronted   forms  then webserver  stores to data  send  data to dtabase base
+            -PUT and PATCH 
+                -PUT 
+                  - update  data 
+                  - replaces the entries data  with an new  representation in a single data 
+                  - the clients sends  the entries  updated representation of the resouce to the server
+                  - rarely used its not common to use 
+
+            - PATCH 
+              -  updataed data only  if it exists 
+              -  partially updates the data  
+              - we use this  https method commonly to updated the specific data  from the databases 
+              - the clients sends only specific  changes to be appled to the resoucres  commonly used unlikde th PUT
+
+            - DELETE   
+                 - remove data from database through the webserver
+
+                 CRUD OPERATION 
+                 C   CREATE    POST 
+                 R   READ      GET 
+                 U   UPDATED    PUT 
+                 D    DELETE   DELETE        HTTPS METHODS 
+
+
+
+
