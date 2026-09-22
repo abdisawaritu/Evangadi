@@ -115,7 +115,45 @@ Introduction to database and database management system (DBMS)
 - CONNECTING  WITH  MYSQL USING NODE 
 
 
-- 
+5.4  Working with databases using NodeJs   : SQL  query and MySQL database;
+
+SQL (structure query language )
+    -  is the standard language  for accessing the databases ;
+    -   SQL   statements 
+         1. CREATE 
+         2  INSERT 
+         3  SELECT 
+         4  UPDATE
+         5  DELETE
+
+- MySQL     database
+    - A widely use  relational database  management system(RDBMS) 
+    -  Free and Open -source 
+    -  Ideal for both small and large applications 
+5.5  Working with databses using NodeJs: MySQL  driver and connection  with MySQL databases  using NodeJs:
+
+  - MySQL driver
+      -  3rd  parts module used to  communicate  between MySQL DB and Node Js ; 
+          npm i  mysql      or nmp  i mysql2
+
+
+      -connect  to the DB from NodeJs
+         - on mysql  Db unders phymyadim  
+          --create the  databases 
+          -- add username and password for the created databases and give the privilite for the user on that  databases
+      - ON  NodeJS 
+         - istall and import   the  moduele that the appliction needs   the mysql2  
+         - use createConnection method and add the credential infomration in object form 
+         -connect to the DB using the connect method 
+
+
+
+
+
+
+
+
+
 
 
 
