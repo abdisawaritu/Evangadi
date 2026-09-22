@@ -26,5 +26,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3001, (error) => {
-  console.log("server is running on : https://");
+  console.log("server is running on : https://localhost:3001");
 });
