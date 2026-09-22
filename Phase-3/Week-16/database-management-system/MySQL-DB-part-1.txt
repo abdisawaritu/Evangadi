@@ -71,6 +71,55 @@ Introduction to database and database management system (DBMS)
                  U   UPDATED    PUT 
                  D    DELETE   DELETE        HTTPS METHODS 
 
+                 - Matching the crud operation with the https methods or verbs 
+
+                 - GET  -  read  and recieve   fetch the data  from the database 
+                 - fetch the data from the database  this is request we have to do 
+                 - create   post      new  data  add to the database 
+                 - updated  modify the data  
+                 - put   replace the whole data   from the database 
+                 - patch    change part of the record only  from database 
+                 -  delete 
+
+
+                  // the patters we use 
+
+                  app.get  or post  or put or patch or delete ("/user"     (req, res){
+                        // run the quereis sql quires here  
+                        //  write the queries programmatically 
+                        // select *  from user 
+
+                        //  every routes answer to question 
+                        // which https method we use 
+                        //  write the   quereis to do the methods 
+                        // which https vers we use to  for 
+                        // which sql statement   we write 
+                        // those two question handerls every api routes  
+                        // to create the api routes  ends points of the api 
+                        // for comminication of the database with node    node with frontend   two differnet software share data through the api 
+
+                  })
+
+5.4    Working with database using NODe JD :  SQl queries and MySQL  database
+- sql quere are the most common  way used by  almost all relation databases to communicate what data  the database provide or storre 
+- that means  we need to have a database ready  and we also need away to connect  with the database fromthe  node server  /
+
+-  CREATE 
+- INSERT 
+- SELECT   WE USE MOST OF THE TIME WE USE THE  SELECTION STATEMENTS 
+- UPDATE 
+- DELETE     THE MOST COMONLY USED SQL QUERES   THE CRUD OPERATION ON THE DATABASE  THROUGH PROGRAMMING AND MANULLY 
+
+- MySQL   DATABASE (SOFTWARE )
+- MySQL   DRIVER 
+- CONNECTING  WITH  MYSQL USING NODE 
+
+
+- 
+
+
+
+
 
 
 
