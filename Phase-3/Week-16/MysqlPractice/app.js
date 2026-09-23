@@ -1,7 +1,13 @@
 const express = require("express");
 const mysql = require("mysql2");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const mysqlConnection = mysql.createConnection({
   user: "mydbuser",
@@ -139,5 +145,27 @@ app.get("/create-table", (req, res) => {
         });
       });
     });
+  });
+});
+
+app.post("/add-product", (req, res) => {
+  const product_url = req.body.product_url;
+  const product_name = req.body.product_name;
+
+  const sql = `
+        INSERT INTO products (product_url, product_name)
+        VALUES (?, ?)
+    `;
+
+  mysqlConnection.query(sql, [product_url, product_name], (error, results) => {
+    if (error) {
+      console.log("Error inserting product:", error.message);
+
+      return res.status(500).send("Error adding product");
+    }
+
+    console.log("Product inserted successfully");
+
+    res.send("Product added successfully");
   });
 });
