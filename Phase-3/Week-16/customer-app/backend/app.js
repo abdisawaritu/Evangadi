@@ -77,3 +77,8 @@ app.get("/create-table", (req, res) => {
   });
   res.send("Tables Created Successfully");
 });
+
+app.post("/insert-customers-info", (req, res) => {
+  console.log(req.body);
+  res.end("received");
+});

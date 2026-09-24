@@ -1,13 +1,18 @@
 const express = require("express");
 const mysql = require("mysql2");
+const cors = require("cors");
 // console.log(mysql);
 
 const app = express();
+app.use(cors()); // the backend can accepts aany request that come with frontend without breaking the rule of the cors cross origin  resourece sharing  we can also make the backedn to reply  to some specific endpoints that to the  request all the  frontend sended 
 
 // middle ware to extract information from the html body  name attribute of the form
 
-app.use(express.urlencoded({ extended: true })); // this is the middleware to extract information  from the html body name attribute of the form then the data are placed on the request body after gettting the data  from name attribue   we gonna insert the  data to the tables
+app.use(express.urlencoded({ extended: true })); // this is the middleware to extract information  from the html body name attribute of the form then the data are placed on the request body after gettting the data  from name attribue   we gonna insert the  data to the tables this middle ware  only from the html requestion not from the json  or js  only data from the html is extracted 
+
+app.use(express.json()) // we use this middle ware to extract from the  frontend   and store it on the  body  
 // prepareing the name based on the documentation  of the to communicated and agreements
+
 
 const databaseConnection = mysql.createConnection({
   user: "may22db",
@@ -52,11 +57,15 @@ app.post("/add-customer", (req, res) => {
   console.log(req.body);
 
   // we can destruction the object of req.body
-  // extraction from the req.body using the object destruction 
+  // extraction from the req.body using the object destruction
 
   const { name, address, company } = req.body;
 
   // here the primary key is the auto_increments
+
+  // best practice to use parameterized  quries to prevent the sql injection and also to maie more securea nd effience t  
+  // ?  its a place holder for the values  we want  to insert,  and the values is passed  as an array in the second argeument of the query method 
+  // parametrised  queries 
 
   let insertCustomerName = `INSERT  INTO customers  (name)   values  (?)`;
   let insertAddress = `INSERT  INTO  address  (customer_id , city)   values  (? , ?)`;
@@ -253,3 +262,8 @@ app.get("/create-table", (req, res) => {
 
 //#  API   documentation for the customer management system
 //  this document provides  an overview of the REST FULL api  endpoints for the cusomter  managment systes. this api allow for the creaeteion retrrevial , updateing and deleetion of the cusomere information  which includes ther name , address and assoicatie compary.  for ther agreement between fronted and backend
+
+// selection of the dat from the tables  and fetch the given data on the fronted       by taking the data from the database using the selection query  and get  requeestion from the backend node js of the expreess 
+
+
+//SELECT 
