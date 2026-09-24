@@ -4,6 +4,11 @@ const mysql = require("mysql2");
 
 const app = express();
 
+// middle ware to extract information from the html body  name attribute of the form
+
+app.use(express.urlencoded({ extended: true })); // this is the middleware to extract information  from the html body name attribute of the form then the data are placed on the request body after gettting the data  from name attribue   we gonna insert the  data to the tables
+// prepareing the name based on the documentation  of the to communicated and agreements
+
 const databaseConnection = mysql.createConnection({
   user: "may22db",
   password: "may22db",
@@ -42,6 +47,53 @@ app.listen(3000, () => {
 // CRUD OPERATIOIN
 
 // #1 .Route : /add-customer     => to insert  customer  inot the tables
+
+app.post("/add-customer", (req, res) => {
+  console.log(req.body);
+
+  // we can destruction the object of req.body
+  // extraction from the req.body using the object destruction 
+
+  const { name, address, company } = req.body;
+
+  // here the primary key is the auto_increments
+
+  let insertCustomerName = `INSERT  INTO customers  (name)   values  (?)`;
+  let insertAddress = `INSERT  INTO  address  (customer_id , city)   values  (? , ?)`;
+  let insertCompany =
+    "INSERT  INTO  company  (customer_id , company)   values  (? , ?)";
+  // executing the query by the similar method with the tables  creatin
+  databaseConnection.query(
+    insertCustomerName,
+    [name],
+    (error, result, fields) => {
+      if (error) {
+        console.log(error);
+      } else {
+        let id = result.insertId;
+        databaseConnection.query(
+          insertAddress,
+          [id, address],
+          (error, result, fields) => {
+            if (error) {
+              console.log(error);
+            }
+          },
+        );
+        databaseConnection.query(
+          insertCompany,
+          [id, company],
+          (error, result, fields) => {
+            if (error) console.log(error);
+          },
+        );
+      }
+    },
+  );
+
+  res.send("the form received");
+});
+
 //  #2. Route : /cusomters  => to retrieve  data from the tables
 //  #3 .Route : /update  =>  to updated the data from the databases tables
 //  #4 . /remove-user   =>  to delete all data from table
@@ -183,6 +235,21 @@ app.get("/create-table", (req, res) => {
 //   } catch (error) {
 //     console.error(error);
 
-//     res.status(500).send("Failed to create tables");  // this is  the modern approach to create the tables using async-await 
+//     res.status(500).send("Failed to create tables");  // this is  the modern approach to create the tables using async-await
 //   }
 // });
+
+// we need to insert the data to the table from the frontend
+// using the post request from the  frontend then store it on the table
+// the form can be simple html
+// the form to property action  and method
+// we use post request  to request to the webser   what page process the data at the server  where to send and why which method to send
+// write the post request that handle the post data  write the hanlder function
+// app.post()
+
+// customery registr form
+//  We need the route
+//  to communicate api  we need a documenetation for the real world appliction
+
+//#  API   documentation for the customer management system
+//  this document provides  an overview of the REST FULL api  endpoints for the cusomter  managment systes. this api allow for the creaeteion retrrevial , updateing and deleetion of the cusomere information  which includes ther name , address and assoicatie compary.  for ther agreement between fronted and backend
