@@ -114,8 +114,43 @@ app.get("/customers", (req, res) => {
   });
 });
 
-//  #3 .Route : /update  =>  to updated the data from the databases tables
+//  #3 .Route : /update  =>  to updated the data from the databases tables end points  at the backend
+app.put("/update", (req, res) => {
+  const { newName, id } = req.body;
+  // let update  `update  customers set name = ${newName}  where customer_id  = ${id}`
+
+  databaseConnection.query(update, (err) => {
+    if (err) console.log(err);
+    else {
+      res.send("Updated successfully");
+    }
+  });
+});
+
 //  #4 . /remove-user   =>  to delete all data from table
+
+app.delete("/delete"   , (req,res)=>{
+
+  const {id}  = req.body;
+  // let delete = `delete from customers where customer_id   =  `${id}`
+  // let deleteaddress = `delete from address where customer-ID  = ${id}`
+
+  // let deltetcompany = `detelet from comapuy wher cusote_id ` ${id}
+
+  // deleting in reverse order  the order of the deletion is matters most during inserta as well the deltation of the dat from databas and to the database
+
+  //  databaseConnection.query (delete , (error) =>{
+  //   if (error) console.log(error)
+  //  })
+  // databaseConnection.query (deleteADDress , (error) =>{
+  //   if (error) console.log(error)
+  //  })
+  // databaseConnection.query (deleteComanry , (error) =>{
+  //   if (error) console.log(error)
+  //  })
+
+
+})
 
 app.get("/create-table", (req, res) => {
   let customer = `CREATE TABLE IF NOT EXISTS customers   (
