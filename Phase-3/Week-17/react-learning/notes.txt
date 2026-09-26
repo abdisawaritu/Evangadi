@@ -1,0 +1,40 @@
+7.1  Introduction : why we are learning  ReactJS?
+         - React learning curve 
+             - React  has an easier  learning curve 
+             - developers don't need to spend  a ton  to time  re-learning  the programming language 
+             - react already built on top of what programming language we know --->  Javascript 
+          - React has  high demand
+                - efficent performance ( Virtual DOM )
+                - component based architecture : resuable UI component  (heart of react)  // what we call modules a big application   modularity  very importatant concepts in js libaray  reusability 
+                - can create large web  appliction that can change data without reloading the page .
+                -React Native  for mobile developement : react can bee used to create the mobile applictions 
+                -react simplifies  the process of buildig complex , interactive UIs  by offering  a structured , effience  and declarative approach to fronted  developements (modularity concepts )
+
+    7.2  What is the ReactJS  mean ?
+      - A  JS Library  for buildig user interfaces . like that of  the jquery   it's open scoure  
+      - open source JS library 
+      - used for building the user interfaces 
+      -Developed and Maintained by facebook (meta);
+      -React is a libaray  that  aims  to increase  the preformace  of application   and simplify   the development of visual  interface .
+           -REact js  is used for handling  the view of he full MVC  stack for web and mobile 
+     - MVC  is design principle when we build large application 
+     MODEL  VIEW  AND  CONTROLLER  separate  folder during building application  react is under view  
+     // controller used for validation folder 
+     //  model   related to database logic 
+     //  client  view frontend    
+
+
+     - How does reactJS work?  what makes it faster ? 
+
+     -ReactDom (virtual dom );
+          - A virtual DOM  is a lighweight  JS representaion of the DOM (copy of the real DOM ) 
+          - Updating  the virtual DOM  is comparatively faster than updating  the actual or real DOM 
+          -therefore REAct is free to make unneceessar changes to the virtual dom relatively cheaply compared to "real" DOM (store on memory in small size )
+
+
+i.e    
+  1.  the entire virtual dom is updated 
+  2. the virtual dom gets compared  to what is looked like before you updated it compare it withe what is before updating with itself  . react figures out which objects have changed 
+  3. the changed  objects,  and the changed objects only, get UPdtaed on the real DOM 
+  4 . change  on the real DOM Cause the screren to change   (concepts and used for the interview question )
+
