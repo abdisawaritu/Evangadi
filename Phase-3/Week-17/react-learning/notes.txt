@@ -38,3 +38,23 @@ i.e
   3. the changed  objects,  and the changed objects only, get UPdtaed on the real DOM 
   4 . change  on the real DOM Cause the screren to change   (concepts and used for the interview question )
 
+  7.4  Getting started  with react development . installing react , configureing npm,  using the vite 
+
+  pre-requreiemts 
+     - istalling the NODE 
+     -npm  comes with node 
+
+  -Vite (modern fast build tools )
+          - gives us the boilerplate for the react development 
+               -it installs  the latest version of  
+                   - react and react-dom 
+                   -react-scripts 
+                   -developement dependecies  that manages all other dev depencencies  that start, test and build the app.
+
+            -sytanx   to create the app 
+               - npm create vite@latest 
+
+            -sytacn to run the app 
+                -cd my-app
+                -npm start 
+                -npm run dev
