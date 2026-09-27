@@ -19,7 +19,7 @@
 
 const root = ReactDOM.createRoot(
   document.getElementsByClassName("my-contanier"),
-); // we dont this is we use jsx 
+); // we dont this is we use jsx
 
 const fruits = ["banana ", "Mango", "pineapple"];
 
@@ -37,6 +37,7 @@ setInterval(() => {
     React.createElement("li", null, fruits[1]),
     React.createElement("li", null, fruits[2]),
   );
+  root.render(test);
 
   document.getElementById("fruits-list").innerHTML = `
 
