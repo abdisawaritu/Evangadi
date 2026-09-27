@@ -58,3 +58,43 @@ i.e
                 -cd my-app
                 -npm start 
                 -npm run dev
+
+
+7.7  what is JSX (Javascript XML)
+      - Is a syntax extension to JS
+      - used in react 
+
+     - Why we need JSX 
+        -JSX  makes it easier to write or add html in react 
+        - JSX allow us inpout html  elements in dom without using  appendchild()
+        - as JSX is an expression , we can use it indie of if statmente  and ofr loops  , assign it to varibles , accetps it as arguments , or return it from function 
+
+      - what Is XML  (Extn M L)   
+          - definition 
+            -  is a Markup languages just like html 
+            - a way of taggin data in an orgainzed formation 
+            -  the tages are created by the writer 
+              <weather>  
+                 <city> newyork </city>
+                 <temperature >22 C</temperature>
+              
+              </weather>
+
+              JSON (Javascript object notation )
+
+              {
+               "weather" : {
+                  "city" :  "New York" , 
+                  "temperature": "22C"               }
+              }
+
+
+   Rules for JSX 
+      - All JSX must have a root element (one parent element) all inside container 
+      - All tags  must be closed. img br hr  selfclosing are closed  
+      -All tags must be properly nested 
+      - Tag name  are case sensititive   section Section are differnt tags that must mimic  the html tags predefined tags names  
+
+      - Tag names cannot contains  spaces  during creation of tags 
+      - the attribute class has to be change to "className" and   the for it change to htmlfor   class ==== className   for === htmlfor
+
