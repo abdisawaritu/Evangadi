@@ -1,4 +1,5 @@
 # Logs
+# these files and folder is not tracked by  git they are ingored 
 logs
 *.log
 npm-debug.log*
