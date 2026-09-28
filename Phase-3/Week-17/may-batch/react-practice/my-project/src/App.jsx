@@ -1,31 +1,28 @@
-import { useState } from "react";
-import heroImg from "./assets/hero.png";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
 import "./App.css";
+import Test from "./components/Test";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <div className="abebe">
-          <ul>
-            <li>Almaz</li>
-            <li>Kebede</li>
-          </ul>
-        </div>
-      </div>
-
-      <class-room>
-        <student country="USA">
-          <SEX>M</SEX>
-          <age>31</age>
-        </student>
-      </class-room>
+      <Test />
+      <Test />
+      <Test />
+      <Test />
+      <Test />   {/*  this is called what is the reusability mean  by changing the data through the props */}
     </>
   );
 }
 
 export default App;
+
+
+// write the functional componets using the arrow function 
+
+
+
+
+
+
+
+
+
