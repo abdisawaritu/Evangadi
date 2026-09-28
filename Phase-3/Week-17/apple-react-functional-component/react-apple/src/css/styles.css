@@ -287,7 +287,7 @@ img {
 }
 /*First Section*/
 .first-hightlight-wrapper{
-	background-image: url("./assets/images/home/ipodPronew-sm.jpg");
+	background-image: url("../images/home/ipodPronew-sm.jpg");
 	height: 580px;
 	background-position: bottom;
 	background-repeat: no-repeat;
@@ -387,7 +387,7 @@ img {
 	}
 	/* First section */
 	.first-hightlight-wrapper {
-		background-image: url("./assets/images/home/ipodPronew.jpg");
+		background-image: url("../images/home/ipodPronew.jpg");
 		min-height: 692px;
 	}	
 	.ipod-caption {
