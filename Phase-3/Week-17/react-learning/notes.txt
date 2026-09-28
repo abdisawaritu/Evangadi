@@ -90,7 +90,7 @@ i.e
 
 
    Rules for JSX 
-      - All JSX must have a root element (one parent element) all inside container 
+      - All JSX must have a root element (one parent element) all inside container  return a single root  wrap the sibilings  in  div or  fragment   <>     </>   this is called the fragemen used to wrap the jsx return  only return on  single root 
       - All tags  must be closed. img br hr  selfclosing are closed  
       -All tags must be properly nested 
       - Tag name  are case sensititive   section Section are differnt tags that must mimic  the html tags predefined tags names  
