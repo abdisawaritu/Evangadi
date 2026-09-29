@@ -6,14 +6,16 @@ import Footer from "./components/Footer/Footer";
 import IpadPro from "./components/ipadPro/IpadPro";
 import Alert from "./components/Alert/Alert";
 import MacBookAir from "./components/MacBookAir/MacBookAir";
+import Iphone11Pro from "./components/Iphone11Pro/Iphone11Pro";
 
 function App() {
   return (
     <>
       <Header />
-      <Alert/>
+      <Alert />
       <IpadPro />
-      <MacBookAir/>
+      <MacBookAir />
+      <Iphone11Pro />
       <Footer />
     </>
   );
