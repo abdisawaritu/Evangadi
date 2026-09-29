@@ -1,0 +1,22 @@
+8.2  React Componenents .definition and types 
+      -Components are like function  that return the JSX elements 
+      -Components is the building block of the react App.(all the components are connnected together to build the whole applictions)
+      -Components are independent and reusable bits of code .(like we talk on node like a Module);
+
+
+  -Convention on components 
+     - components must start with upper case 
+     -keep one components in one file (only one component on one file )
+     -keep the file and components/functions  name the same  the file name and the functional components name are the same 
+
+- Types of the React Components 
+    1. Functional Components (on Modern way to write and build the react appliction  on the modern react)
+    2. Class Based Components 
+
+
+    -Functional Components (Recommendend used in Modern react appliction build)
+        - Is a JS functions that may or may not take a data (properties or props)  as a parameter  but return a React  element (JSX)
+          -EXampe 
+          function App(){
+            return <h1>Hello functional React </h1>
+          }
