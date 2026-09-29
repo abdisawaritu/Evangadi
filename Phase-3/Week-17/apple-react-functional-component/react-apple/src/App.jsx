@@ -8,6 +8,7 @@ import Alert from "./components/Alert/Alert";
 import MacBookAir from "./components/MacBookAir/MacBookAir";
 import Iphone11Pro from "./components/Iphone11Pro/Iphone11Pro";
 import Iphone11 from "./components/Iphone11/Iphone11";
+import TvAndWatch from "./components/TvAndWatchSection/TvAndWatch";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <MacBookAir />
       <Iphone11Pro />
       <Iphone11/>
+      <TvAndWatch/>
       <Footer />
     </>
   );
