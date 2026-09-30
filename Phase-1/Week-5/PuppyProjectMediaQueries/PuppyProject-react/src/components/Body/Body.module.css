@@ -1,0 +1,83 @@
+/* ========================= */
+/* Banner */
+/* ========================= */
+
+.banner {
+  margin-bottom: 44px;
+}
+
+/* ========================= */
+/* Common Puppy Boxes */
+/* ========================= */
+
+.threePuppies > *,
+.twoMorePuppies > * {
+  width: 100%;
+  max-width: 490px;
+  margin: 20px auto;
+}
+
+.puppyone {
+  margin: 44px auto 75px;
+}
+
+.puppyFour {
+  margin-top: 67px;
+}
+
+.missingPuppies p {
+  display: none;
+}
+
+/* ========================= */
+/* More Puppies */
+/* ========================= */
+
+.morePuppies h2 {
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: bold;
+  padding: 75px 0;
+}
+
+/* ========================= */
+/* Tablet / Desktop */
+/* ========================= */
+
+@media (min-width: 768px) {
+  .commonPuppies {
+    display: flex;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+
+  .puppyone,
+  .puppyTwo,
+  .missingPuppies {
+    margin: 0 auto;
+  }
+
+  .missingPuppies {
+    background-color: #f04d64;
+    display: flex;
+  }
+
+  .missingPuppies p {
+    display: flex;
+    font-size: 2.8rem;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+  }
+
+  .puppyThree,
+  .puppyFour {
+    margin: 0;
+  }
+
+  .puppyFour {
+    margin-left: 30px;
+  }
+}

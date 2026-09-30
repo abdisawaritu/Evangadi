@@ -1,0 +1,15 @@
+/* ========================= */
+/* Footer */
+/* ========================= */
+
+
+
+.footerTitle {
+  padding: 64px 0 80px;
+  margin-top: 84px;
+}
+.blueBackground div {
+  background-color: #085070;
+  color: white;
+  text-align: center;
+}

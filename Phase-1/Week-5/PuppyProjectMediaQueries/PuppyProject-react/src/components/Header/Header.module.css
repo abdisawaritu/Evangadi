@@ -1,0 +1,13 @@
+/* ========================= */
+/* Header */
+/* ========================= */
+
+.blueBackground div {
+  background-color: #085070;
+  color: white;
+  text-align: center;
+}
+
+.puppyLovers h1 {
+  padding: 25px;
+}
