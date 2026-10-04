@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 import "./StudentCard.css";
-import students from "../../assets/data.js";
+// import students from "../../assets/data.js";
 
 class StudentCard extends Component {
   // data preparing array of studnet objects

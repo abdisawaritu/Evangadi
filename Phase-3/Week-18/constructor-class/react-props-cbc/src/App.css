@@ -1,0 +1,18 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+
+h1 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.card {
+  text-align: center;
+  border: solid yellow;
+  border-radius: 16px;
+  width: 30%;
+  margin: 20px auto;
+}
