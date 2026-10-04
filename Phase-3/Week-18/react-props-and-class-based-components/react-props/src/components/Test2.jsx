@@ -2,7 +2,12 @@ import { Component } from "react"
 
  class Test2  extends   Component {
   render (){
-    return <div></div>;
+    return (
+        <>
+        <h1>child component</h1>
+        <br />
+        </>
+    )
   }
 }
 

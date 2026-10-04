@@ -5,8 +5,13 @@ class App extends Component {
   render() {
     return (
       <>
-        <p>Abebe beso bela</p>
-        <h1>chala chube chebete</h1>
+        <User   />
+        <User  />
+        <User  />
+        <User  />
+        <User  />
+
+         {/* when we call the components the data are passed here to make one componenet reusable with differnt data  using the props  */}
       </>
     );
   }
@@ -14,14 +19,32 @@ class App extends Component {
 
 export default App;
 
-// export class app extends Component {
-//   render() {
-//     return (
-//       <div>
 
-//       </div>
-//     )
-//   }
-// }
+// Component  - base class parent class
+// child class is the  our componennt we want to create that extends the React.Components 
 
-// export default app
+// import {Component } from "react";
+
+// class Header extends Component    {
+
+//      return (
+
+//       <>
+//       // it return the Jsx 
+//       // now in class component  the render method retukkrn the jsx    using the render (){
+//         return (
+//           <>
+//           <h1>Test the class based components </h1>
+//           </>
+//         )
+//       }
+      
+//       </>
+//      )
+
+
+
+
+// //}
+
+
