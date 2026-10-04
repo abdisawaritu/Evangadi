@@ -1,15 +1,12 @@
-import { Component } from "react";
-import User from "./components/User/User";
+import { Component } from "react"; // named importing fromt the named  exporting
+import User from "./components/User/User"; // defualt importing from the default exporting
 
 class App extends Component {
   render() {
     return (
       <>
-        <User />
-        <User />
-        <User />
-        <User />
-        <User />
+        <p>Abebe beso bela</p>
+        <h1>chala chube chebete</h1>
       </>
     );
   }
