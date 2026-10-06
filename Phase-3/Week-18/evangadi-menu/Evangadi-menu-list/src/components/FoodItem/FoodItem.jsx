@@ -8,12 +8,8 @@ class FoodItem extends Component {
   render() {
     return (
       <div className={styles["foods-container"]}>
-        {menu.map((food) => {
-          return (
-            <>
-              <SingleFood key={food.id} {...food} />
-            </>
-          );
+        {menu?.map((food, index) => {
+          return <SingleFood key={index} {...food} />;
         })}
       </div>
     );
