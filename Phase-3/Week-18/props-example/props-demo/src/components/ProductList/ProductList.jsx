@@ -1,10 +1,12 @@
 import ProductCard from "../ProductCard/ProductCard";
 import styles from "./ProductList.module.css";
+import products from "../../assets/data.js";
 
 function ProductList() {
+  console.log(products);
   // let numbers = [1, 2, 3, 4, 5];
   // let products = [{ title: "", description: "" }, {}, {}, {}];
-  
+
   return (
     <>
       <div className={styles.contanier}>
@@ -29,8 +31,18 @@ function ProductList() {
         />
       </div>
 
-      {numbers.map((number) => {
-        return <h1>{number}</h1>;
+      {products.map((product) => {
+        const { id, title, imgLink, price, description ,color } = product;
+        return (
+          <ProductCard
+            key={id}
+            title={title}
+            imgUrl={imgLink}
+            price={price}
+            description={description}
+            color = {color}
+          />
+        );
       })}
     </>
   );

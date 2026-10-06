@@ -1,11 +1,11 @@
 import styles from  "./ProductCard.module.css";
 function ProductCard(props) {
   console.log(props);
-  const {title, description , imgUrl , price} = props;
+  const {title, description , imgUrl , price , color} = props;
   return (
     <>
       <div className={styles["product-card"]}>
-        <div className={styles["card-header  green-header"]}>
+        <div className={styles["card-header  {color}]}>
           <h2 className={styles["product-title"]}> {title} </h2>
         </div>
 
