@@ -1,0 +1,129 @@
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background:
+    radial-gradient(circle at top left, #e0eaff, transparent 45%),
+    linear-gradient(135deg, #f8fafc, #eef2ff);
+  font-family: Inter, Arial, sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 32px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  box-shadow: 0 20px 55px rgba(31, 41, 55, 0.10);
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: #e8edff;
+  color: #4338ca;
+  font-size: 38px;
+  font-weight: 400;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #6366f1;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.title {
+  margin: 0;
+  color: #111827;
+  font-size: 32px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  margin: 12px 0 28px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.counterDisplay {
+  margin-bottom: 24px;
+  padding: 22px 16px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.primaryButton,
+.resetButton {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.primaryButton {
+  color: #ffffff;
+  background: #4f46e5;
+  border: 1px solid #4f46e5;
+  box-shadow: 0 6px 14px rgba(79, 70, 229, 0.20);
+}
+
+.primaryButton:hover {
+  background: #4338ca;
+  box-shadow: 0 8px 18px rgba(79, 70, 229, 0.25);
+  transform: translateY(-1px);
+}
+
+.resetButton {
+  margin-top: 12px;
+  color: #374151;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+}
+
+.resetButton:hover {
+  background: #f3f4f6;
+}
+
+.primaryButton:focus-visible,
+.resetButton:focus-visible {
+  outline: 3px solid #a5b4fc;
+  outline-offset: 3px;
+}
+
+.footer {
+  margin: 28px 0 0;
+  color: #9ca3af;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 32px 22px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+}

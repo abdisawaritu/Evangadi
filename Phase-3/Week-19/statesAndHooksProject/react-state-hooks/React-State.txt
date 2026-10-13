@@ -1,0 +1,19 @@
+11.1   Definition of State : what is the difference between state and props  in react 
+
+
+     - Props (short for "Properties")
+        -are external input to react components 
+        - Used to pass data from a parent components  to a child components 
+        -Immutable within receiveing  components  only read and render without changing 
+        -Undirectional flow (Parent -->  child) for data flowing 
+
+    -  State(changing through the event  in react )
+    - components specific  used for interactiviy   through events  
+        - an Interal data storage mechanism within a react components 
+        - It represents  the dynamic  values that is changed over a time (through event )
+        - Used to store  and manage data that can be modified  within a componnets 
+        - when the state changes, React  re-renders  the components to reflect those changes  through the event 
+
+        // Question why we are not going to use the Normal variable rather that state to change the   data 
+
+        
