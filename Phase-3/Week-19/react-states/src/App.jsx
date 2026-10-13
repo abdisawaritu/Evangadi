@@ -2,6 +2,7 @@ import "./App.css";
 import MyComponentDidUpdate from "./components/ReactLifeCycleMethods/MyComponentDidUpdate";
 import MyComponentWillUnmount from "./components/ReactLifeCycleMethods/MyComponentWillUnmount";
 import MyWillMountAndDidMount from "./components/ReactLifeCycleMethods/MyWillMountAndDidMount";
+import ReducerCounter from "./components/ReducerCounter";
 import HandlingEvents from "./components/StatesExample/HandlingEvents";
 import InitializingState from "./components/StatesExample/InitializingState";
 import NormalVariable from "./components/StatesExample/NormalVariable";
@@ -20,7 +21,9 @@ function App() {
       <UpdatingStates /> */}
       {/* <MyWillMountAndDidMount />
       <MyComponentDidUpdate /> */}
-      <MyComponentWillUnmount />
+      {/* <MyComponentWillUnmount /> */}
+
+      <ReducerCounter />
     </>
   );
 }
