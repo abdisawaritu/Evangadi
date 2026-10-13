@@ -13,3 +13,10 @@ class Bob extends Component {
 }
 
 export default Bob;
+
+
+// binding event handler with the event in react 
+
+// event handler (running function when event fired or triggered )
+
+
