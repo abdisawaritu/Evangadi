@@ -8,10 +8,27 @@ import InitializingState from "./components/StatesExample/InitializingState";
 import NormalVariable from "./components/StatesExample/NormalVariable";
 import PassingPropsToStates from "./components/StatesExample/PassingPropsToStates";
 import UpdatingStates from "./components/StatesExample/UpdatingStates";
+import UserContext from "./context/UserContext";
+import UserProfile from "./components/UserProfile";
+import WelcomeMessage from "./components/WelcomeMessage";
+import ProductList from "./components/ProductList";
 
 function App() {
+  const user = {
+    name: "Abdi",
+    role: "Full Stack Developer",
+  };
+
   return (
     <>
+      {/* <UserContext.Provider value={user}>
+        <div>
+          <h1>My Application</h1>
+
+          <UserProfile />
+          <WelcomeMessage />
+        </div>
+      </UserContext.Provider> */}
       {/* <NormalVariable />
       <InitializingState />
 
@@ -23,7 +40,8 @@ function App() {
       <MyComponentDidUpdate /> */}
       {/* <MyComponentWillUnmount /> */}
 
-      <ReducerCounter />
+      {/* <ReducerCounter /> */}
+      <ProductList/>
     </>
   );
 }
