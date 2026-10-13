@@ -7,7 +7,7 @@ function UseEffectForTitle() {
   // Runs when the component mounts.
   useEffect(() => {
     alert("Component is mounted");
-  }, []);
+  }, []);  
 
   // Updates the browser tab title when count changes.
   useEffect(() => {
