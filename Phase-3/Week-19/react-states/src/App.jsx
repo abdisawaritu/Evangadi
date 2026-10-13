@@ -1,4 +1,7 @@
 import "./App.css";
+import MyComponentDidUpdate from "./components/ReactLifeCycleMethods/MyComponentDidUpdate";
+import MyComponentWillUnmount from "./components/ReactLifeCycleMethods/MyComponentWillUnmount";
+import MyWillMountAndDidMount from "./components/ReactLifeCycleMethods/MyWillMountAndDidMount";
 import HandlingEvents from "./components/StatesExample/HandlingEvents";
 import InitializingState from "./components/StatesExample/InitializingState";
 import NormalVariable from "./components/StatesExample/NormalVariable";
@@ -15,8 +18,9 @@ function App() {
 
       <HandlingEvents />
       <UpdatingStates /> */}
-
-      
+      {/* <MyWillMountAndDidMount />
+      <MyComponentDidUpdate /> */}
+      <MyComponentWillUnmount />
     </>
   );
 }
