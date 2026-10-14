@@ -25,14 +25,14 @@ function App() {
 
   return (
     <>
-      {/* <UserContext.Provider value={user}>
+      <UserContext.Provider value={user}>
         <div>
           <h1>My Application</h1>
 
           <UserProfile />
           <WelcomeMessage />
         </div>
-      </UserContext.Provider> */}
+      </UserContext.Provider>
       {/* <NormalVariable />
       <InitializingState />
 
@@ -45,7 +45,7 @@ function App() {
       {/* <MyComponentWillUnmount /> */}
 
       {/* <ReducerCounter /> */}
-      <ProductList/>
+      {/* <ProductList/> */}
       {/* <FocusInput/> */}
       {/* <RefValueExample/> */}
       {/* <TitleCounter/> */}
