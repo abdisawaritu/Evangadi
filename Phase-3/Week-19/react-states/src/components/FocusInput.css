@@ -1,0 +1,30 @@
+
+.focus-input-page {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.focus-input-page input {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.focus-input-page input:focus {
+  outline: 2px solid #6478e8;
+  border-color: #6478e8;
+}
+
+.focus-input-page button {
+  padding: 10px 16px;
+  color: white;
+  background: #5268d9;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

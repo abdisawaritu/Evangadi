@@ -12,11 +12,15 @@ import UserContext from "./context/UserContext";
 import UserProfile from "./components/UserProfile";
 import WelcomeMessage from "./components/WelcomeMessage";
 import ProductList from "./components/ProductList";
+import FocusInput from "./components/FocusInput";
+import RefValueExample from "./components/RefValueExample";
+import TitleCounter from "./components/TitleCounter";
 
 function App() {
   const user = {
     name: "Abdi",
     role: "Full Stack Developer",
+    department: "Engineering",
   };
 
   return (
@@ -42,6 +46,9 @@ function App() {
 
       {/* <ReducerCounter /> */}
       <ProductList/>
+      {/* <FocusInput/> */}
+      {/* <RefValueExample/> */}
+      {/* <TitleCounter/> */}
     </>
   );
 }

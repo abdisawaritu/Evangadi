@@ -9,6 +9,7 @@ function UserProfile() {
       <h2>User Profile</h2>
       <p>Name: {user.name}</p>
       <p>Role: {user.role}</p>
+      <p>Department: {user.department}</p>
     </section>
   );
 }
