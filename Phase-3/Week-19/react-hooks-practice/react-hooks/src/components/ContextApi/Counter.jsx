@@ -1,6 +1,13 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { MyCountext } from "./MyProvider";
+
 const Counter = () => {
-  const [count, setCount] = useState(0);
+    const {count , setCount} = useContext(MyCountext)
+
+
+    // console.log(useContext(MyCountext))
+   
+  
   const increment = () => {
     setCount((prevCount) => prevCount + 1);
   };
