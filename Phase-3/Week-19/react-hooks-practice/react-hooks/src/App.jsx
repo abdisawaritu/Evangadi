@@ -1,6 +1,9 @@
 import "./App.css";
+import ConnectionStatus from "./components/ConnectionStatus";
 import Counter from "./components/ContextApi/Counter";
 import CounterDisplay from "./components/ContextApi/CounterDisplay";
+import Products from "./components/Products";
+import QuantityCounter from "./components/QuantityCounter";
 import Auth from "./components/UseEffect/Auth";
 import LifeCycle from "./components/UseEffect/LifeCycle";
 import Component1 from "./components/UseReducer/Component1";
@@ -21,10 +24,13 @@ function App() {
       {/* <Auth/> */}
       {/* <Counter /> */}
       {/* <CounterDisplay /> */}
-      <CounterProvider>
+      {/* <CounterProvider>
         <Component1 />
         <Component2 />
-      </CounterProvider>
+      </CounterProvider> */}
+      <QuantityCounter/>
+      <ConnectionStatus/>
+      <Products/>
 
       {/* <Welcome>Hello , welcome to react :</Welcome> */}
     </>
