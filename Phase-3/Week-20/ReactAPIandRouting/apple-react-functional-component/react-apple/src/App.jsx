@@ -1,0 +1,30 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import "./App.css";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import IpadPro from "./components/ipadPro/IpadPro";
+import Alert from "./components/Alert/Alert";
+import MacBookAir from "./components/MacBookAir/MacBookAir";
+import Iphone11Pro from "./components/Iphone11Pro/Iphone11Pro";
+import Iphone11 from "./components/Iphone11/Iphone11";
+import TvAndWatch from "./components/TvAndWatchSection/TvAndWatch";
+import Arcade from "./components/Arcade/Arcade";
+
+function App() {
+  return (
+    <>
+      <Header />
+      <Alert />
+      <IpadPro />
+      <MacBookAir />
+      <Iphone11Pro />
+      <Iphone11/>
+      <TvAndWatch/>
+      <Arcade/>
+      <Footer />
+    </>
+  );
+}
+
+export default App;
