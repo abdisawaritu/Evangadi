@@ -1,5 +1,6 @@
 import "./App.css";
 import Alert from "./components/Alert/Alert";
+import AppleYoutbube from "./components/AppleYoutube/AppleYoutbube";
 import FifthSection from "./components/FifthSection/FifthSection";
 import FirstSection from "./components/FirstSection/FirstSection";
 import Footer from "./components/Footer/Footer";
@@ -21,6 +22,10 @@ function App() {
       <FourthSection/>
       <FifthSection/>
       <SixSection/>
+
+
+      {/* Apple youtube  */}
+      {/* <AppleYoutbube/>    */}
       <Footer/>
     </>
   );
