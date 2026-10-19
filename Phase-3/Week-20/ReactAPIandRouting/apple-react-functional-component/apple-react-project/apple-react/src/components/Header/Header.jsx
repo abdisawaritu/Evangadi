@@ -24,13 +24,13 @@ const Header = () => {
               >
                 ☰
               </button>
-              <Link className="navbar-brand mx-auto" to="#">
+              <Link className="navbar-brand mx-auto" to="/">
                 <img src={logo} />
               </Link>
               <div className="navbar-collapse collapse">
                 <ul className="navbar-nav nav-justified w-100 nav-fill">
                   <li className="nav-item">
-                    <Link className="nav-link js-scroll-trigger" to="/mac/">
+                    <Link className="nav-link js-scroll-trigger" to="/mac">
                       Mac
                     </Link>
                   </li>
