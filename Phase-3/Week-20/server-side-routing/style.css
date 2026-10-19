@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+li a {
+  text-decoration: none;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  font-size: 20px;
+  background-color: red;
+  padding: 20px;
+  list-style: none;
+}
+
+h1 {
+  text-align: center;
+}
