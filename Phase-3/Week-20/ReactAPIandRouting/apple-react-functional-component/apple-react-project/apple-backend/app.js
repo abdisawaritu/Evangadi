@@ -3,6 +3,8 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 
+require("dotenv").config();
+
 // ======================================
 // Create Express application
 // ======================================
@@ -31,7 +33,7 @@ app.use(express.json());
 // ======================================
 
 const mysqlConnection = mysql.createConnection({
-  user: "mydbuser",
+  user: process.env.DB_USER,
 
   host: "localhost",
 
