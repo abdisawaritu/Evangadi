@@ -1,8 +1,5 @@
 import "./App.css";
-import Header from "./components/Header/Header";
 import Home from "./pages/Home/Home";
-import Footer from "./components/Footer/Footer";
-
 import { Routes, Route } from "react-router";
 import Mac from "./pages/Mac/Mac";
 import Ipad from "./pages/Ipad/Ipad";
@@ -18,10 +15,6 @@ import SharedLayout from "./components/SharedLayout/SharedLayout";
 function App() {
   return (
     <>
-      <br />
-      <br />
-      <br />
-
       {/*  Home page : all the section between Header and Footer */}
       <Routes>
         <Route path="/" element={<SharedLayout />}>
@@ -33,7 +26,11 @@ function App() {
           <Route path="/watch" element={<Watch />} />
           <Route path="/music" element={<Music />} />
           <Route path="/iphone" element={<Iphone />} />
-          <Route path="/productpage" element={<ProductPage />} />
+          {/* <Route path="/productpage" element={<ProductPage />} /> */}
+
+          {/* dynamic route to show the single page  */}
+          <Route  path="/iphone/:id"  element={<ProductPage/>}/>
+
         </Route>
 
         {/*  admin route */}

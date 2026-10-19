@@ -58,7 +58,7 @@ const AppleYoutbube = () => {
     //   });
   }, []  );
   // to avoid the   quoates are not end at only when the components mounts
-  // console.log(youtubeVideos);
+  console.log(youtubeVideos);
 
   return (
     <>
