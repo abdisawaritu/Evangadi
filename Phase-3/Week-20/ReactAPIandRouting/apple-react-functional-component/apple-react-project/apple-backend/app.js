@@ -526,11 +526,9 @@ app.post("/add-product", async (req, res) => {
   }
 });
 
-
 // ===================
-// Get all iphones  from databases and show on frontend 
+// Get all iphones  from databases and show on frontend
 //====================
-
 
 // Get all iPhones data from the database
 app.get("/iphones", (req, res) => {
@@ -549,16 +547,32 @@ app.get("/iphones", (req, res) => {
       } else {
         console.log(err);
       }
-    }
+    },
   );
 });
 
-
-
 // ============
-// Get single Product 
+// Get single Product
+// ============
+// get single product
+app.get("/iphones/:product_id", (req, res) => {
+  const productID = req.params.product_id;
+  // console.log(productID);
 
-// 
+  mysqlConnection.query(
+    `SELECT *
+        FROM products
+        JOIN product_description ON products.product_id = product_description.product_id
+        JOIN product_price ON products.product_id = product_price.product_id
+        WHERE products.product_id = ${productID}`,
+    (err, rows) => {
+      if (!err) res.json({ products: rows });
+      else console.log(err);
+    },
+  );
+});
+
+//
 
 // ======================================
 // START SERVER
