@@ -1,41 +1,28 @@
 import "./App.css";
-import Alert from "./components/Alert/Alert";
-import AppleYoutbube from "./components/AppleYoutube/AppleYoutbube";
-import FifthSection from "./components/FifthSection/FifthSection";
-import FirstSection from "./components/FirstSection/FirstSection";
-import Footer from "./components/Footer/Footer";
-import FourthSection from "./components/FourthSection/FourthSection";
-
 import Header from "./components/Header/Header";
-import SecondSection from "./components/SecondSection/SecondSection";
-import SixSection from "./components/SixSection/SixSection";
-import ThirdSection from "./components/ThirdSection/ThirdSection";
+import Home from "./pages/Home/Home";
+import Footer from "./components/Footer/Footer";
+
+import { Routes, Route } from "react-router";
+import Mac from "./pages/Mac/Mac";
+import Ipad from "./pages/Ipad/Ipad";
 
 function App() {
   return (
     <>
       <Header />
-      <Alert/>
-      <FirstSection/>
-      <SecondSection/>
-      <ThirdSection/>
-      <FourthSection/>
-      <FifthSection/>
-      <SixSection/>
+      <br />
+      <br />
+      {/*  Home page : all the section between Header and Footer */}
+      <Routes>
+        <Route index element={<Home/>} />
+        <Route path="/mac" element={<Mac />} />
+        <Route path="/ipad" element={<Ipad />} />
+      </Routes>
 
-
-      {/* Apple youtube  */}
-      {/* <AppleYoutbube/>    */}
-      <Footer/>
+      <Footer />
     </>
   );
 }
 
 export default App;
-
-
-
-
-
-
-
