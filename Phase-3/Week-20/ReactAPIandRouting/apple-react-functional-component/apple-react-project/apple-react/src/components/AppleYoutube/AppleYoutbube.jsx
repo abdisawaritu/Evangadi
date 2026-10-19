@@ -21,13 +21,13 @@ const AppleYoutbube = () => {
           {
             params: {
               part: "snippet",
-              channelId: "UCE_M8A5yxnLfW0KghEeajjw",
+              channelId: "UCxA7AzkI2Sndf8S1G5rSkwQ",
               maxResults: 9,
               order: "date",
               key: Yt_key,
-            },
 
-            
+              // evangadi channel id : UCxA7AzkI2Sndf8S1G5rSkwQ
+            },
           },
         );
         console.log(response);
