@@ -543,9 +543,9 @@ app.get("/iphones", (req, res) => {
     INNER JOIN product_price r
       ON p.product_id = r.product_id
     `,
-    (err, rows) => {
+    (err, result) => {
       if (!err) {
-        res.json({ products: rows });
+        res.json({ products: result });
       } else {
         console.log(err);
       }
@@ -558,8 +558,10 @@ app.get("/iphones", (req, res) => {
 // ============
 // get single product
 app.get("/iphones/:product_id", (req, res) => {
+
   const productID = req.params.product_id;
-  // console.log(productID);
+  console.log(req.params)
+  console.log(productID);
 
   mysqlConnection.query(
     `SELECT *

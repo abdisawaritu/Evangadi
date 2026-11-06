@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import "./AppleYoutube.css";
 
 import axios from "axios";
+// kep the api key
 const Yt_key = import.meta.env.VITE_YT_KEY;
 
 const AppleYoutbube = () => {
   // state to keep the data
   const [youtubeVideos, setYoutubeVideos] = useState([]);
 
-  // kep the api key
+  
   
 
   // send the request
