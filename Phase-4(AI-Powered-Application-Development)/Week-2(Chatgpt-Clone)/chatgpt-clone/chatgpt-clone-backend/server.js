@@ -1,20 +1,13 @@
 import express from "express";
 import connectDB from "./db/db.config.js";
+import mainRouter from "./src/api/main.routes.js";
+import { errorHandler } from "./src/middleware/error-handler.js";
 const app = express();
+// the server requests start from this  points
+app.use(express.json());
+app.use("/api", mainRouter);
 
-app.post("/api/conversation", (req, res) => {
-  res.send(
-    "Hello from the backend!  from the conversation routes POST request",
-  );
-});
-
-app.get("/api/chat/conversation", (req, res) => {
-  res.json({
-    message:
-      "Hello from the backend!  from the conversation routes  and get request ",
-  });
-});
-
+app.use(errorHandler);
 async function startServer() {
   try {
     const connection = await connectDB.getConnection();
