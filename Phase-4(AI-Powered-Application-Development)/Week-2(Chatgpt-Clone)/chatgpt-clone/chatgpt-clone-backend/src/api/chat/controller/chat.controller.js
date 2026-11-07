@@ -1,17 +1,22 @@
-import { createConversationService } from "../services/chat.services.js";
+import createConversationService from "../services/chat.services.js";
 export async function createConversationController(req, res) {
-  // console.log("Received request body:", req.body);
+  const { question } = req.body;
+  //   console.log("Received request body:", req.body);
   //  throw new Error("This is a test error from createConversationController"); // Simulate an error for testing
 
   try {
-    const result = await createConversationService();
+    const result = await createConversationService(question);
     //   const { question } = req.body;
     //   console.log("Received question:", question);
     // res.json({
     //   message:
     //     "Hello from the backend!  from the conversation api post routes create conversation controller",
     // });
-    res.send(result);
+    res.status(201).json({
+      success: "true",
+      message: "conversation sucessfully saved ",
+      data: result,
+    });
   } catch (error) {
     throw error; // This will be caught by the errorHandler middleware
   }

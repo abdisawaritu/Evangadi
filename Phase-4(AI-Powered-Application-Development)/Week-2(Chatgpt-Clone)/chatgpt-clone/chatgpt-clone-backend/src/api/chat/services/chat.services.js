@@ -1,9 +1,8 @@
-async function createConversationController(req, res) {
+export default async function createConversationController(question) {
   try {
-    console.log("Received request body:", req.body);
-    return "Chat saved to the database successfully!"; // Simulate a successful save operation
+    return ` Chat Saved to Db with question${question}`; // Simulate a successful save operation
   } catch (error) {
     throw error; // This will be caught by the errorHandler middleware
   }
 }
-export { createConversationController };
+// export { createConversationController };
