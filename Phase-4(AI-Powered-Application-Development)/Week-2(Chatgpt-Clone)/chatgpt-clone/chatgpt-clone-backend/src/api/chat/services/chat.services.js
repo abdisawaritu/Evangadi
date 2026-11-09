@@ -1,6 +1,7 @@
 import { Connection } from "mysql2";
 import db from "../../../../db/db.config.js";
 import { GoogleGenAI } from "@google/genai";
+import { SYSTEM_INSTRUCTION } from "../../../../config/ai.config.js";
 
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
 
@@ -46,11 +47,13 @@ const generateAssistantAnswer = async ({ historyRows, question }) => {
 
   const chat = geminiClient.chats.create({
     model: GEMINI_MODEL,
+
     config: {
-      temperature: 0.7,
-      maxOutputTokens: 1024,
+      temperature: 0.4,
+      maxOutputTokens: 4096,
+      systemInstruction: SYSTEM_INSTRUCTION,
     },
-    //
+
     history: formattedHistory,
   });
 

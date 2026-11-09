@@ -5,8 +5,8 @@ import {
 } from "./controller/chat.controller.js ";
 const chatRouter = express.Router();
 // /api/chat/conversation
-chatRouter.post("/conversation", createConversationController);
+chatRouter.post("/conversations", createConversationController);
 
-chatRouter.get("/conversation", getConversationsController);
+chatRouter.get("/conversations", getConversationsController);
 
 export default chatRouter;
