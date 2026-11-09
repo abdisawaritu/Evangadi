@@ -1,4 +1,13 @@
 import createConversationService from "../services/chat.services.js";
+
+
+
+// const createGeminiClient = () => {
+//   if (!process.env.GEMINI_API_KEY) {
+//     throw new Error("GEMINI_API_KEY environment variable");
+//   }
+//   return new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+// };
 export async function createConversationController(req, res) {
   const { question } = req.body;
   //   console.log("Received request body:", req.body);
