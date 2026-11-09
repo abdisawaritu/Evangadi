@@ -1,26 +1,14 @@
-import createConversationService from "../services/chat.services.js";
+import {
+  createConversationService,
+  getRecentConversationRows,
+} from "../services/chat.services.js";
 
-
-
-// const createGeminiClient = () => {
-//   if (!process.env.GEMINI_API_KEY) {
-//     throw new Error("GEMINI_API_KEY environment variable");
-//   }
-//   return new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-// };
 export async function createConversationController(req, res) {
   const { question } = req.body;
-  //   console.log("Received request body:", req.body);
-  //  throw new Error("This is a test error from createConversationController"); // Simulate an error for testing
 
   try {
     const result = await createConversationService(question);
-    //   const { question } = req.body;
-    //   console.log("Received question:", question);
-    // res.json({
-    //   message:
-    //     "Hello from the backend!  from the conversation api post routes create conversation controller",
-    // });
+
     res.status(201).json({
       success: "true",
       message: "conversation sucessfully saved ",
@@ -31,9 +19,16 @@ export async function createConversationController(req, res) {
   }
 }
 
-export async function getConversationController(req, res) {
-  res.json({
-    message:
-      "Hello from the backend!  from the conversation routes  and get request ",
-  });
+export async function getConversationsController(req, res) {
+  try {
+    const result = await getRecentConversationRows(100);
+
+    res.status(200).json({
+      success: true,
+      message: "Conversations fetched successfully.",
+      data: result,
+    });
+  } catch (error) {
+    throw error;
+  }
 }

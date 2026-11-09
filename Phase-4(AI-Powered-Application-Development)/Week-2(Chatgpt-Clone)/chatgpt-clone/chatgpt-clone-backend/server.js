@@ -5,6 +5,7 @@ import { errorHandler } from "./src/middleware/error-handler.js";
 const app = express();
 // the server requests start from this  points
 app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 app.use("/api", mainRouter);
 
 app.use(errorHandler);

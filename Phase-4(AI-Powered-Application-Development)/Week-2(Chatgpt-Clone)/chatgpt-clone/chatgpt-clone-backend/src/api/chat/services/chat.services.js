@@ -2,30 +2,36 @@ import { Connection } from "mysql2";
 import db from "../../../../db/db.config.js";
 import { GoogleGenAI } from "@google/genai";
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash-lite";
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
 
-const geminiClient = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const geminiClient = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
 
-const getRecentConversationRows = async (limit = 5) => {
+export const getRecentConversationRows = async (limit = 5) => {
   const normalizedLimit = Number.parseInt(limit, 10);
   const safeLimit =
     Number.isNaN(normalizedLimit) || normalizedLimit <= 0
       ? 20
       : normalizedLimit;
+
   const [rows] = await db.execute(
     `SELECT id, role, content, created_at
     FROM conversations
     ORDER BY id DESC
     LIMIT ${safeLimit}`,
   );
+
   return rows.reverse();
 };
+
 const generateAssistantAnswer = async ({ historyRows, question }) => {
   // Format history for Gemini startChat
   const formattedHistory = historyRows.map((row) => ({
     role: row.role === "assistant" ? "model" : "user",
     parts: [{ text: row.content }],
   }));
+
   // sample history format
   // [
   //     {
@@ -34,28 +40,38 @@ const generateAssistantAnswer = async ({ historyRows, question }) => {
   //     },
   //     {
   //         role: 'model',
-  //         parts: [{ text: 'Hello, I\'m a model.' }],
+  //         parts: [{ text: 'Hello, I'm a model.' }],
   //     },
   // ]
 
   const chat = geminiClient.chats.create({
     model: GEMINI_MODEL,
+    config: {
+      temperature: 0.7,
+      maxOutputTokens: 1024,
+    },
     //
     history: formattedHistory,
   });
+
   const result = await chat.sendMessage({ message: question });
+
   console.log(result.usageMetadata.totalTokenCount);
+
   return {
     text: result.text,
     totalTokens: result.usageMetadata.totalTokenCount,
   };
 };
+
 const getMessageById = async (messageId) => {
   const [rows] = await db.execute(
     "SELECT id, role, content, token_count, created_at FROM conversations WHERE id = ? LIMIT 1",
     [messageId],
   );
+
   if (!rows[0]) return null;
+
   return {
     id: rows[0].id,
     role: rows[0].role,
@@ -65,7 +81,7 @@ const getMessageById = async (messageId) => {
   };
 };
 
-export default async function createConversationController(question) {
+export const createConversationService = async (question) => {
   try {
     // validation for the question
     if (!question.trim()) {
@@ -73,11 +89,13 @@ export default async function createConversationController(question) {
       error.status = 400;
       throw error;
     }
-    // save the question  to the database
+
+    // save the question to the database
     // save to db
     // await db.execute("INSERT INTO conversations (content) VALUES (?)", [
     //   question,
     // ]);
+
     // get recent conversations
     const historyRows = await getRecentConversationRows(5);
 
@@ -86,6 +104,7 @@ export default async function createConversationController(question) {
       'INSERT INTO conversations (content, role) VALUES (?, "user")',
       [question],
     );
+
     const { text, totalTokens } = await generateAssistantAnswer({
       historyRows,
       question,
@@ -97,6 +116,7 @@ export default async function createConversationController(question) {
     );
 
     const userConversation = await getMessageById(result.insertId);
+
     const assistantConversation = await getMessageById(
       createAssistantMessageResult.insertId,
     );
@@ -108,6 +128,4 @@ export default async function createConversationController(question) {
   } catch (error) {
     throw error; // This will be caught by the errorHandler middleware
   }
-}
-
-// export { createConversationController };
+};
