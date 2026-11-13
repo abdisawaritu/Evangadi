@@ -1,0 +1,24 @@
+{
+  "name": "week-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon raw-request.js",
+    "dev": "nodemon raw-request.js",
+    "build": "node raw-request.js",
+    "deploy": "npm run build && npm run start",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@google/genai": "^3.0.0",
+    "dotenv": "^18.0.10",
+    "nodemon": "^3.1.14"
+  }
+}

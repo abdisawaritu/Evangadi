@@ -1,0 +1,41 @@
+<form id="event-inquiry">
+
+    <label for="name">
+        Full Name
+    </label>
+    <input id="name" name="name" required>
+
+    <label for="email">
+        Email Address
+    </label>
+    <input
+        type="email"
+        id="email"
+        name="email"
+        required
+    >
+
+    <label for="event-type">
+        Event Type
+    </label>
+    <select id="event-type" name="eventType">
+        <option value="">Select event type</option>
+        <option value="exhibition">Exhibition</option>
+        <option value="conference">Conference</option>
+        <option value="corporate">Corporate event</option>
+    </select>
+
+    <label for="message">
+        Tell us about your event
+    </label>
+    <textarea
+        id="message"
+        name="message"
+        required
+    ></textarea>
+
+    <button type="submit">
+        Submit inquiry
+    </button>
+
+</form>
