@@ -2,7 +2,8 @@ import "dotenv/config";
 import express from "express";
 import { errorHandler } from "./src/middleware/error-handler.js";
 import { db } from "./db/config.js";
-// import { mainRouter } from "./src/api/routes.js";
+import { authenticateUser } from "./src/middleware/authentication.js";
+import { mainRouter } from "./src/api/routes.js";
 
 import cors from "cors";
 
@@ -15,11 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Health check
-app.get("/health", (req, res) => {
+app.get("/health", authenticateUser, (req, res) => {
+  console.log(req.user);
   res.json({ status: "ok", timestamp: new Date() });
 });
-  //  main router
-// app.use("/api", mainRouter);
+//  main router
+app.use("/api", mainRouter);
 
 app.use(errorHandler);
 
@@ -30,7 +32,7 @@ const startServer = async () => {
     const connection = await db.getConnection();
 
     console.log("Database connection established successfully.");
-    connection.release();  //  the connection is released  after  successfully connected.
+    connection.release(); //  the connection is released  after  successfully connected.
 
     app.listen(port, (err) => {
       if (err) {

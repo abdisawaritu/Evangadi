@@ -17,13 +17,13 @@ export const authenticateUser = (req, res, next) => {
   const token = authHeader.split(' ')[1];
 
   try {
-    const payload = jwt.verify(token, JWT_SECRET);
+    const payload = jwt.verify(token, JWT_SECRET); // extraction of the payload
     req.user = {
       id: payload.id,
       firstName: payload.firstName,
       lastName: payload.lastName,
     };
-    next();
+    next();  // give to all middleware come  from  next to this middleware 
   } catch (error) {
     throw new UnauthenticatedError('Authentication invalid');
   }

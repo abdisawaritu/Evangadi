@@ -25,7 +25,7 @@ export const registerValidation = [
   body('password')
     .notEmpty()
     .withMessage('Password is required')
-    .isLength({ min: 6 })
+    .isLength({ min: 8 })
     .withMessage('Password must be at least 6 characters long'),
 
   validationErrorHandler,
