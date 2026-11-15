@@ -3,7 +3,6 @@
  * Add new `<Route>` entries here, then wire navigation in `Sidebar.jsx` and
  * `Layout.jsx` (`getTitle` / `getSubtitle`) so the shell stays in sync.
  */
-import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Layout from "./components/Layout/Layout";
