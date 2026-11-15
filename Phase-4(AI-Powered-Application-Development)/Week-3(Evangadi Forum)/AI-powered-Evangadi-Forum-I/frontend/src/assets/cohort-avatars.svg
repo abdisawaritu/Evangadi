@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="40" viewBox="0 0 104 40" fill="none">
+  <defs>
+    <clipPath id="avatar-one"><circle cx="20" cy="20" r="18"/></clipPath>
+    <clipPath id="avatar-two"><circle cx="50" cy="20" r="18"/></clipPath>
+    <clipPath id="avatar-three"><circle cx="80" cy="20" r="18"/></clipPath>
+  </defs>
+  <g>
+    <circle cx="20" cy="20" r="18" fill="#CBD5E1"/>
+    <g clip-path="url(#avatar-one)">
+      <rect x="2" y="2" width="36" height="36" fill="#BAE6FD"/>
+      <path d="M1 40c1-10 8-15 19-15s18 5 19 15" fill="#2563EB"/>
+      <ellipse cx="20" cy="18" rx="8" ry="10" fill="#9A5E3B"/>
+      <path d="M11 17c0-8 4-12 9-12s9 4 9 12c-2-2-4-4-6-7-2 3-6 5-12 7Z" fill="#1E293B"/>
+    </g>
+    <circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2"/>
+  </g>
+  <g>
+    <circle cx="50" cy="20" r="18" fill="#CBD5E1"/>
+    <g clip-path="url(#avatar-two)">
+      <rect x="32" y="2" width="36" height="36" fill="#FED7AA"/>
+      <path d="M31 40c1-10 8-15 19-15s18 5 19 15" fill="#7C3AED"/>
+      <ellipse cx="50" cy="18" rx="8" ry="10" fill="#F0BE91"/>
+      <path d="M41 18c0-8 4-12 9-12 6 0 9 5 9 12l-3-4c-4 0-8-2-11-5-1 4-2 6-4 9Z" fill="#422006"/>
+    </g>
+    <circle cx="50" cy="20" r="18" stroke="#fff" stroke-width="2"/>
+  </g>
+  <g>
+    <circle cx="80" cy="20" r="18" fill="#CBD5E1"/>
+    <g clip-path="url(#avatar-three)">
+      <rect x="62" y="2" width="36" height="36" fill="#FDE68A"/>
+      <path d="M61 40c1-10 8-15 19-15s18 5 19 15" fill="#047857"/>
+      <ellipse cx="80" cy="18" rx="8" ry="10" fill="#D99B6C"/>
+      <path d="M71 17c0-8 4-12 9-12 6 0 9 5 9 12-2-2-4-5-5-8-3 3-7 6-13 8Z" fill="#292524"/>
+    </g>
+    <circle cx="80" cy="20" r="18" stroke="#fff" stroke-width="2"/>
+  </g>
+</svg>
