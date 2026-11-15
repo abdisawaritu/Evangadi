@@ -14,7 +14,50 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
+import cohortAvatars from "../../assets/cohort-avatars.svg";
 import styles from "./Auth.module.css";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function getFieldError(field, value, isLogin) {
+  if (field === "email") {
+    const normalizedEmail = value.trim().toLowerCase();
+    if (!normalizedEmail) return "Email is required.";
+    if (!EMAIL_PATTERN.test(normalizedEmail)) {
+      return "Please enter a valid email address.";
+    }
+  }
+
+  if (field === "password") {
+    if (!value.trim()) return "Password is required.";
+    if (!isLogin && value.length < 6) {
+      return "Password must be at least 6 characters long.";
+    }
+  }
+
+  if (!isLogin && (field === "firstName" || field === "lastName")) {
+    const name = value.trim();
+    const label = field === "firstName" ? "First name" : "Last name";
+    if (!name) return `${label} is required.`;
+    if (name.length < 3) {
+      return `${label} must be at least 3 characters long.`;
+    }
+  }
+
+  return null;
+}
+
+function validateForm(values, isLogin) {
+  const fields = isLogin
+    ? ["email", "password"]
+    : ["firstName", "lastName", "email", "password"];
+
+  return fields.reduce((errors, field) => {
+    const message = getFieldError(field, values[field], isLogin);
+    if (message) errors[field] = message;
+    return errors;
+  }, {});
+}
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -29,59 +72,65 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // Error and loading state
-  const [error, setError] = useState(null);
+  // Keep validation state independent for each form mode.
+  const [loginErrors, setLoginErrors] = useState({});
+  const [registerErrors, setRegisterErrors] = useState({});
+  const [submissionError, setSubmissionError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
+  const activeErrors = isLogin ? loginErrors : registerErrors;
+
+  const handleFieldChange = (field, value, setFieldValue) => {
+    setFieldValue(value);
+
+    const setFormErrors = isLogin ? setLoginErrors : setRegisterErrors;
+    setFormErrors((currentErrors) => {
+      const currentError = currentErrors[field];
+      if (!currentError) return currentErrors;
+
+      const nextError = getFieldError(field, value, isLogin);
+      if (nextError === currentError) return currentErrors;
+
+      const nextErrors = { ...currentErrors };
+      if (nextError) {
+        nextErrors[field] = nextError;
+      } else {
+        delete nextErrors[field];
+      }
+      return nextErrors;
+    });
+
+    setSubmissionError(null);
+  };
+
+  const handleModeToggle = () => {
+    setIsLogin((currentMode) => !currentMode);
+    setLoginErrors({});
+    setRegisterErrors({});
+    setSubmissionError(null);
+    setSuccessMessage(null);
+  };
 
   // Handle form submission for both login and registration
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
+    setSubmissionError(null);
     setSuccessMessage(null);
     const normalizedEmail = email.trim().toLowerCase();
-    // regex for email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!normalizedEmail) {
-      setError("Email is required.");
-      return;
-    }
-
-    if (!emailPattern.test(normalizedEmail)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-
-    if (!password.trim()) {
-      setError("Password is required.");
-      return;
-    }
-
     const trimmedFirstName = firstName.trim();
     const trimmedLastName = lastName.trim();
 
-    if (!isLogin) {
-      if (!trimmedFirstName) {
-        setError("First name is required.");
-        return;
-      }
-      if (trimmedFirstName.length < 3) {
-        setError("First name must be at least 3 characters long.");
-        return;
-      }
-      if (!trimmedLastName) {
-        setError("Last name is required.");
-        return;
-      }
-      if (trimmedLastName.length < 3) {
-        setError("Last name must be at least 3 characters long.");
-        return;
-      }
-      if (password.length < 6) {
-        setError("Password must be at least 6 characters long.");
-        return;
-      }
+    const errors = validateForm(
+      { firstName, lastName, email, password },
+      isLogin,
+    );
+    if (isLogin) {
+      setLoginErrors(errors);
+    } else {
+      setRegisterErrors(errors);
+    }
+    if (Object.keys(errors).length > 0) {
+      return;
     }
 
     setLoading(true);
@@ -120,11 +169,12 @@ export default function Auth() {
         // Automatically switch to login form after 1.5 seconds
         setTimeout(() => {
           setIsLogin(true);
+          setRegisterErrors({});
           setSuccessMessage(null);
         }, 1500);
       }
     } catch (err) {
-      setError(err.message || "An unexpected error occurred.");
+      setSubmissionError(err.message || "An unexpected error occurred.");
     } finally {
       setLoading(false);
     }
@@ -136,18 +186,12 @@ export default function Auth() {
       <section className={styles.auth__info}>
         <div className={styles.auth__infoContent}>
           <header className={styles.auth__infoHeader}>
-            <div
+            <button
+              type="button"
               className={styles.auth__infoBranding}
               onClick={() => navigate("/")}
               title="Go to Home"
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  navigate("/");
-                }
-              }}
+              aria-label="Evangadi Forum home"
             >
               <div className={styles.auth__infoLogo} aria-hidden>
                 <MessageSquare
@@ -161,7 +205,7 @@ export default function Auth() {
                   Learn together. Ask with context.
                 </p>
               </div>
-            </div>
+            </button>
             <p className={styles.auth__infoDescription}>
               Sign in to post technical questions, follow threads, and search
               the forum with both keyword and AI similarity modes, built for
@@ -202,15 +246,12 @@ export default function Auth() {
           <div className={styles.auth__infoFooter}>
             <div className={styles.auth__infoFooterContent}>
               <div className={styles.auth__infoAvatars}>
-                {[1, 2, 3].map((i) => (
-                  <img
-                    key={i}
-                    src={`https://picsum.photos/seed/${i + 50}/100/100`}
-                    className={styles.auth__infoAvatar}
-                    alt="u"
-                    referrerPolicy="no-referrer"
-                  />
-                ))}
+                <img
+                  src={cohortAvatars}
+                  className={styles.auth__infoAvatar}
+                  alt=""
+                  aria-hidden="true"
+                />
               </div>
               <span className={styles.auth__infoBadge}>
                 Evangadi cohorts · weekly stand-ups · office-hour style help
@@ -255,8 +296,26 @@ export default function Auth() {
                         placeholder="First name"
                         className={styles.auth__input}
                         value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        aria-invalid={Boolean(activeErrors.firstName)}
+                        aria-describedby={
+                          activeErrors.firstName ? "firstName-error" : undefined
+                        }
+                        onChange={(e) =>
+                          handleFieldChange(
+                            "firstName",
+                            e.target.value,
+                            setFirstName,
+                          )
+                        }
                       />
+                      {activeErrors.firstName && (
+                        <p
+                          id="firstName-error"
+                          className={styles.auth__fieldError}
+                        >
+                          {activeErrors.firstName}
+                        </p>
+                      )}
                     </div>
 
                     <div className={styles.auth__inputGroup}>
@@ -269,8 +328,26 @@ export default function Auth() {
                         placeholder="Last name"
                         className={styles.auth__input}
                         value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
+                        aria-invalid={Boolean(activeErrors.lastName)}
+                        aria-describedby={
+                          activeErrors.lastName ? "lastName-error" : undefined
+                        }
+                        onChange={(e) =>
+                          handleFieldChange(
+                            "lastName",
+                            e.target.value,
+                            setLastName,
+                          )
+                        }
                       />
+                      {activeErrors.lastName && (
+                        <p
+                          id="lastName-error"
+                          className={styles.auth__fieldError}
+                        >
+                          {activeErrors.lastName}
+                        </p>
+                      )}
                     </div>
                   </>
                 )}
@@ -285,8 +362,19 @@ export default function Auth() {
                     placeholder="Enter your email address"
                     className={styles.auth__input}
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    aria-invalid={Boolean(activeErrors.email)}
+                    aria-describedby={
+                      activeErrors.email ? "email-error" : undefined
+                    }
+                    onChange={(e) =>
+                      handleFieldChange("email", e.target.value, setEmail)
+                    }
                   />
+                  {activeErrors.email && (
+                    <p id="email-error" className={styles.auth__fieldError}>
+                      {activeErrors.email}
+                    </p>
+                  )}
                 </div>
 
                 <div className={styles.auth__inputGroup}>
@@ -302,7 +390,17 @@ export default function Auth() {
                       placeholder="••••••••"
                       className={`${styles.auth__input} ${styles.auth__inputPassword}`}
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      aria-invalid={Boolean(activeErrors.password)}
+                      aria-describedby={
+                        activeErrors.password ? "password-error" : undefined
+                      }
+                      onChange={(e) =>
+                        handleFieldChange(
+                          "password",
+                          e.target.value,
+                          setPassword,
+                        )
+                      }
                     />
                     <button
                       type="button"
@@ -320,13 +418,24 @@ export default function Auth() {
                       )}
                     </button>
                   </div>
+                  {activeErrors.password && (
+                    <p id="password-error" className={styles.auth__fieldError}>
+                      {activeErrors.password}
+                    </p>
+                  )}
                 </div>
 
-                {successMessage && (
-                  <div className={styles.auth__success}>{successMessage}</div>
+                {submissionError && (
+                  <div className={styles.auth__error} role="alert">
+                    {submissionError}
+                  </div>
                 )}
 
-                {error && <div className={styles.auth__error}>{error}</div>}
+                {successMessage && (
+                  <div className={styles.auth__success} role="status">
+                    {successMessage}
+                  </div>
+                )}
 
                 <div className={styles.auth__buttonContainer}>
                   <button
@@ -364,7 +473,8 @@ export default function Auth() {
                     ? "Don't have an account?"
                     : "Already have an account?"}
                   <button
-                    onClick={() => setIsLogin(!isLogin)}
+                    type="button"
+                    onClick={handleModeToggle}
                     className={styles.auth__formFooterLink}
                   >
                     {isLogin ? "Create an account" : "Back to sign in"}
