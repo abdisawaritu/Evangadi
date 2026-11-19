@@ -9,13 +9,15 @@ export const createAnswerValidation = [
     .withMessage("Question id must be a positive integer")
     .toInt(),
   body("content")
-    .notEmpty()
-    .withMessage("Answer content is required")
     .isString()
     .withMessage("Answer content must be a string")
+    .bail()
+    .trim()
+    .notEmpty()
+    .withMessage("Answer content is required")
+    .bail()
     .isLength({ min: 20 })
-    .withMessage("Answer content must be at least 20 characters")
-    .trim(),
+    .withMessage("Answer content must be at least 20 characters"),
   validationErrorHandler,
 ];
 

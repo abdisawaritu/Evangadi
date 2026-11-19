@@ -6,10 +6,6 @@ import {
   searchQuestionsSemanticService,
   getSingleQuestionService,
 } from "../service/question.service.js";
-import {
-  generateQuestionDraftCoachService,
-  assessAnswerAgainstQuestionService,
-} from "../service/geminiTextCoach.service.js";
 
 /**
  * Handles creating a new question.
@@ -56,18 +52,20 @@ export const createQuestionController = async (req, res, next) => {
  */
 export const getQuestionsController = async (req, res, next) => {
   try {
+    const mineQuery = req.query.mine;
     const filters = {
       search: req.query.search,
-      mine: req.query.mine,
+      mine:
+        mineQuery === true || mineQuery === "true" || mineQuery === "1",
       userId: req.user.id, // Pass the authenticated user's ID
     };
 
-    const questions = await getQuestionsService(filters);
+    const result = await getQuestionsService(filters);
 
     res.status(StatusCodes.OK).json({
       success: true,
       message: "Questions retrieved successfully.",
-      data: questions,
+      ...result,
     });
   } catch (error) {
     next(error);
@@ -102,13 +100,11 @@ export const getSingleQuestionController = async (req, res, next) => {
 
 export const searchQuestionsSemanticController = async (req, res, next) => {
   try {
+    const { k, threshold } = req.query;
     const result = await searchQuestionsSemanticService({
       query: req.query.query,
-      k: req.query.k ? Number(req.query.k) : 5,
-      threshold:
-        req.query.threshold !== undefined
-          ? Number(req.query.threshold)
-          : undefined,
+      k: k === undefined ? undefined : Number(k),
+      threshold: threshold === undefined ? undefined : Number(threshold),
     });
     res.status(StatusCodes.OK).json({
       success: true,
@@ -135,8 +131,8 @@ export const getSimilarQuestionsController = async (req, res, next) => {
 
     const result = await getSimilarQuestionsService({
       questionHash,
-      k,
-      threshold,
+      k: k === undefined ? undefined : Number(k),
+      threshold: threshold === undefined ? undefined : Number(threshold),
     });
 
     res.status(StatusCodes.OK).json({
@@ -155,6 +151,9 @@ export const getSimilarQuestionsController = async (req, res, next) => {
 export const generateQuestionDraftCoachController = async (req, res, next) => {
   try {
     const { title, content } = req.body;
+    const { generateQuestionDraftCoachService } = await import(
+      "../service/geminiTextCoach.service.js"
+    );
     const data = await generateQuestionDraftCoachService({ title, content });
     res.status(StatusCodes.OK).json({
       success: true,
@@ -174,6 +173,9 @@ export const assessAnswerAgainstQuestionController = async (req, res, next) => {
     const { questionHash } = req.params;
     const { answerText } = req.body;
     const { question } = await getSingleQuestionService({ questionHash });
+    const { assessAnswerAgainstQuestionService } = await import(
+      "../service/geminiTextCoach.service.js"
+    );
     const data = await assessAnswerAgainstQuestionService({
       questionTitle: question.title,
       questionContent: question.content,

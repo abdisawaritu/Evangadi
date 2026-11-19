@@ -1,15 +1,19 @@
 import { StatusCodes } from 'http-status-codes';
+import CustomAPIError from '../utils/errors/index.js';
 
 export const errorHandler = (err, req, res, next) => {
-  let customError = {
-    statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-    msg: err.message || 'Something went wrong try again later',
-  };
-
   if (err?.code === 'ER_DUP_ENTRY') {
-    customError.statusCode = StatusCodes.BAD_REQUEST;
-    customError.msg = 'Duplicate value entered for a unique field';
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: 'Duplicate value entered for a unique field' });
   }
 
-  return res.status(customError.statusCode).json({ msg: customError.msg });
+  if (err instanceof CustomAPIError) {
+    return res.status(err.statusCode).json({ msg: err.message });
+  }
+
+  console.error('Unhandled API error:', err);
+  return res
+    .status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json({ msg: 'Something went wrong try again later' });
 };

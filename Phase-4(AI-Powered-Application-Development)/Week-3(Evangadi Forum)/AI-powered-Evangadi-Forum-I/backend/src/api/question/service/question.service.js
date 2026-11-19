@@ -1,15 +1,16 @@
 import crypto from "crypto";
-import { safeExecute } from "../../../../db/config.js";
+import { db, safeExecute } from "../../../../db/config.js";
 import {
   BadRequestError,
   NotFoundError,
-} from "../../../../utils/errors/index.js";
+  ServiceUnavailableError,
+} from "../../../utils/errors/index.js";
 import {
   findSimilarQuestionsByQuestionId,
   findSimilarQuestionsByText,
   generateQuestionEmbedding,
-  getVectorConfig,
   normalizeQuestionText,
+  normalizeVectorSearchOptions,
   storeQuestionVector,
 } from "./vector.service.js";
 
@@ -23,84 +24,80 @@ const generateQuestionHash = () => crypto.randomBytes(8).toString("hex");
 - @param {string} payload.content - Content/body of the question
 - @returns {Promise<Object>} Object containing the created question
  */
-export const createQuestionWithVectorService = async (payload) => {
-  // Extract required fields from the payload
+export const createQuestionWithVectorService = async (
+  payload,
+  embeddingGenerator = generateQuestionEmbedding,
+) => {
   const { userId, title, content } = payload;
-
-  // Prepare the SQL statement for inserting a new question
+  const sourceText = normalizeQuestionText({ title, content });
   const insertQuestionSql =
     "INSERT INTO questions (question_hash, user_id, title, content) VALUES (?, ?, ?, ?)";
-
-  // Generate a unique hash for the question
   const questionHash = generateQuestionHash();
-  let questionResult;
+
+  let embeddingResult;
   try {
-    questionResult = await safeExecute(insertQuestionSql, [
+    embeddingResult = await embeddingGenerator(sourceText);
+  } catch (error) {
+    console.error("Failed to generate question embedding:", error);
+    throw new ServiceUnavailableError(
+      "Question embedding is unavailable; the question was not created.",
+    );
+  }
+
+  const connection = await db.getConnection();
+  let transactionStarted = false;
+  try {
+    await connection.beginTransaction();
+    transactionStarted = true;
+    const [questionResult] = await connection.execute(insertQuestionSql, [
       questionHash,
       userId,
       title,
       content,
     ]);
-  } catch (error) {
-    // handle   specific  foreign  key  constraint  for  non-existent  user
-    if (error?.code === "ER_NO_REFERENCED_ROW_2") {
-      throw new BadRequestError("User does not exist.");
-    }
-    // re-throw  any other unexpected errors
-    throw error;
-  }
+    const questionId = questionResult.insertId;
 
-  // retrieve  the auto-generated ID if  the newly  inserted question
-  const questionId = questionResult.insertId;
-
-  // Construct the result object representing the created question
-  const creationResult = {
-    id: questionId,
-    questionHash,
-    title,
-    content,
-    userId,
-  };
-
-  // Normalize the question text (e.g., title) to prepare it for vector embedding
-  const sourceText = normalizeQuestionText({
-    title: payload.title,
-  });
-
-  try {
-    // Generate the vector embedding for the normalized question text
-    const embeddingResult = await generateQuestionEmbedding(sourceText, {
-      questionId: creationResult.id,
-    });
-
-    // Store the generated vector embedding in the database with a 'ready' status
     await storeQuestionVector({
-      questionId: creationResult.id,
+      questionId,
       sourceText,
       embedding: embeddingResult.embedding,
       status: "ready",
+      connection,
     });
+
+    await connection.commit();
+    transactionStarted = false;
+
+    return {
+      question: {
+        id: questionId,
+        questionHash,
+        title,
+        content,
+        userId,
+      },
+    };
   } catch (error) {
-    // Log detailed error information if vector generation or storage fails
-    console.error("=== FAILED TO STORE VECTOR FOR QUESTION ===");
-    console.error("Question ID:", creationResult.id);
-    console.error("Operation: question creation");
-    console.error("Error:", error);
-    console.error("===========================================");
+    if (transactionStarted) {
+      try {
+        await connection.rollback();
+      } catch (rollbackError) {
+        console.error("Failed to roll back question creation:", rollbackError);
+        throw new AggregateError(
+          [error, rollbackError],
+          "Question creation failed and its transaction could not be rolled back.",
+        );
+      }
+    }
 
-    // Explicitly record the failure state in the database so it can be retried or tracked later
-    await storeQuestionVector({
-      questionId: creationResult.id,
-      sourceText,
-      embedding: [],
-      status: "failed",
-    }).catch((e) => console.error("Failed to save failed status", e));
+    if (error?.code === "ER_NO_REFERENCED_ROW_2") {
+      throw new BadRequestError("User does not exist.");
+    }
+
+    throw error;
+  } finally {
+    connection.release();
   }
-
-  // Return the created question object
-  return {
-    question: creationResult,
-  };
 };
 
 const buildQuestionFilters = (filters) => {
@@ -113,7 +110,7 @@ const buildQuestionFilters = (filters) => {
     params.push(searchTerm, searchTerm);
   }
 
-  if (filters.mine && filters.userId) {
+  if (filters.mine === true && filters.userId) {
     conditions.push("q.user_id = ?");
     params.push(filters.userId);
   }
@@ -264,30 +261,26 @@ export const getSingleQuestionService = async ({ questionHash }) => {
  * Performs semantic search on questions using vector similarity.
  * @param {Object} params - Search parameters
  * @param {string} params.query - The search query text
- * @param {number} [params.k=5] - Maximum number of similar questions to return
+ * @param {number} [params.k] - Maximum number of similar questions to return
  * @param {number} [params.threshold] - Similarity threshold (uses config default if not provided)
  * @returns {Promise<Object>} Object containing similar questions and search metadata
  */
 export const searchQuestionsSemanticService = async ({
   query,
-  k = 5,
+  k,
   threshold,
 }) => {
   const sourceText = normalizeQuestionText({ title: query });
-  const vectorConfig = getVectorConfig();
-  const searchThreshold =
-    threshold !== undefined ? threshold : vectorConfig.recommendThreshold;
+  const options = normalizeVectorSearchOptions({ k, threshold });
   const result = await findSimilarQuestionsByText({
     sourceText,
-    threshold: searchThreshold,
-    k,
+    ...options,
   });
   return {
     data: result.similarQuestions,
     meta: {
       query,
-      k,
-      threshold: searchThreshold,
+      ...options,
       total: result.similarQuestions.length,
     },
   };
@@ -297,7 +290,7 @@ export const searchQuestionsSemanticService = async ({
 
 export const getSimilarQuestionsService = async ({
   questionHash,
-  k = 5,
+  k,
   threshold,
 }) => {
   const questionRows = await safeExecute(
@@ -310,22 +303,18 @@ export const getSimilarQuestionsService = async ({
   }
 
   const questionId = questionRows[0].id;
-  const vectorConfig = getVectorConfig();
-  const searchThreshold =
-    threshold !== undefined ? threshold : vectorConfig.recommendThreshold;
+  const options = normalizeVectorSearchOptions({ k, threshold });
 
   const similarQuestions = await findSimilarQuestionsByQuestionId({
     questionId,
-    threshold: searchThreshold,
-    k,
+    ...options,
   });
 
   return {
     data: similarQuestions,
     meta: {
       questionHash,
-      k,
-      threshold: searchThreshold,
+      ...options,
       total: similarQuestions.length,
     },
   };

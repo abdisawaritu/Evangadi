@@ -1,7 +1,6 @@
 import express from "express";
 import authRoutes from "./auth/routes/auth.routes.js";
 import questionRoutes from "./question/routes/question.routes.js";
-import RagAnswerBody from "./../../../frontend/src/components/RagAnswerBody/RagAnswerBody";
 
 import answerRoutes from "./answer/routes/answer.routes.js";
 

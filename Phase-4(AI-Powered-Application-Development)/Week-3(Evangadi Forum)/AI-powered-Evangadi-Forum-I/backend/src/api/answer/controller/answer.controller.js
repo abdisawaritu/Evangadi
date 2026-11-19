@@ -1,11 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import {
-  createAnswerService,
-  deleteAnswerService,
-  getAnswersService,
-  getSingleAnswerService,
-  updateAnswerService,
-} from '../service/answer.service.js';
+import { createAnswerService } from '../service/answer.service.js';
 
 /**
  * Handles creating a new answer.
