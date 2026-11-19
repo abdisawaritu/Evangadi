@@ -34,16 +34,16 @@ const startServer = async () => {
     console.log("Database connection established successfully.");
     connection.release(); //  the connection is released  after  successfully connected.
 
-    app.listen(port, (err) => {
-      if (err) {
-        console.error("Failed to start the server:", err.message);
-        process.exit(1);
-      } else {
-        console.log(`Server is running on port:  ${port}`);
-      }
+    const server = app.listen(port, () => {
+      console.log(`Server is running on port: ${port}`);
+    });
+    server.on("error", (error) => {
+      console.error("Failed to start the server:", error.message);
+      process.exitCode = 1;
     });
   } catch (error) {
     console.error("Database connection failed:", error.message);
+    process.exitCode = 1;
   }
 };
 
