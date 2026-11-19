@@ -1,0 +1,164 @@
+{
+  "id": "fd5c97e2-8613-44a7-8cb0-5d4cb67a9015",
+  "name": "Evangadi Forum - Local Milestone 2",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3777",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "authorToken",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "contributorToken",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "authorEmail",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "contributorEmail",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "authorPassword",
+      "value": "ExampleOnly-ChangeMe123!",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "contributorPassword",
+      "value": "ExampleOnly-ChangeMe123!",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "authorId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "contributorId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "questionId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "questionHash",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "comparisonQuestionId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "comparisonQuestionHash",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "answerId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "searchTerm",
+      "value": "JavaScript",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "searchQuery",
+      "value": "How should I handle JavaScript API errors?",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "questionTitle",
+      "value": "How do I handle a JavaScript API error?",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "questionContent",
+      "value": "When my request fails, how should I inspect and handle the error response?",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "comparisonQuestionTitle",
+      "value": "How can I test a JavaScript API response?",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "comparisonQuestionContent",
+      "value": "I want to understand how to test an API response and handle failures.",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "answerContent",
+      "value": "Check the response status, handle error codes explicitly, and show a useful message when a request fails.",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "draftTitle",
+      "value": "Why does my API request return an error?",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "draftContent",
+      "value": "My JavaScript client receives an error response. I expected the request to succeed and have checked the endpoint URL.",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "nonexistentQuestionHash",
+      "value": "ffffffffffffffff",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "nonexistentQuestionId",
+      "value": "2147483647",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_using": "Postman/11"
+}

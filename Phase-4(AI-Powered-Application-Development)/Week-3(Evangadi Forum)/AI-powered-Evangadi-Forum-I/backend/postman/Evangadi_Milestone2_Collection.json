@@ -1,0 +1,727 @@
+{
+  "info": {
+    "_postman_id": "45ce357b-2e60-4ad0-9db0-2d13d8f13502",
+    "name": "Evangadi Forum - Milestone 2 API Tests",
+    "description": "Sequential end-to-end checks for the implemented Milestone 2 endpoints. Register/login requests populate the environment variables used by protected requests. Run only against a local or dedicated development backend.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "00 - Setup and Authentication",
+      "item": [
+        {
+          "name": "Register Question Author",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set('authorEmail', `evangadi.author.${Date.now()}@example.test`);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Forum\",\n  \"lastName\": \"Author\",\n  \"email\": \"{{authorEmail}}\",\n  \"password\": \"{{authorPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/auth/register",
+            "description": "Creates a unique test account. Registration does not return a JWT; run Login Question Author next."
+          },
+          "auth": {
+            "type": "noauth"
+          }
+        },
+        {
+          "name": "Register Answer Contributor",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set('contributorEmail', `evangadi.contributor.${Date.now()}@example.test`);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Forum\",\n  \"lastName\": \"Contributor\",\n  \"email\": \"{{contributorEmail}}\",\n  \"password\": \"{{contributorPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/auth/register",
+            "description": "Creates a second test user so the collection can check cross-user question and answer ownership."
+          },
+          "auth": {
+            "type": "noauth"
+          }
+        },
+        {
+          "name": "Login Question Author",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{authorEmail}}\",\n  \"password\": \"{{authorPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/auth/login",
+            "description": "Saves the returned token as token and authorToken, and saves the user ID as authorId."
+          },
+          "auth": {
+            "type": "noauth"
+          }
+        },
+        {
+          "name": "Login Answer Contributor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{contributorEmail}}\",\n  \"password\": \"{{contributorPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/auth/login",
+            "description": "Saves the returned token as token and contributorToken. Subsequent requests inherit this token unless overridden."
+          },
+          "auth": {
+            "type": "noauth"
+          }
+        },
+        {
+          "name": "Register Invalid User - Expected 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"A\",\n  \"lastName\": \"B\",\n  \"email\": \"not-an-email\",\n  \"password\": \"short\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/auth/register"
+          },
+          "auth": {
+            "type": "noauth"
+          }
+        },
+        {
+          "name": "Login with Wrong Password - Expected 401",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{authorEmail}}\",\n  \"password\": \"Wrong-Test-Password-123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/auth/login"
+          },
+          "auth": {
+            "type": "noauth"
+          }
+        }
+      ]
+    },
+    {
+      "name": "01 - T-09 Create Questions and Embeddings",
+      "item": [
+        {
+          "name": "Create Target Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"{{questionTitle}}\",\n  \"content\": \"{{questionContent}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/questions",
+            "description": "Creates the target question using authorToken. On success, saves questionId and questionHash. The backend must also store its embedding."
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{authorToken}}",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Similarity Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"{{comparisonQuestionTitle}}\",\n  \"content\": \"{{comparisonQuestionContent}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/questions",
+            "description": "Creates a second question under the contributor account so similar-question search has another candidate."
+          }
+        },
+        {
+          "name": "Create Question with Invalid Fields - Expected 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Tiny\",\n  \"content\": \"Too short\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/questions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - T-10 Question Retrieval",
+      "item": [
+        {
+          "name": "List Matching Questions - mine=false",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions?search={{searchTerm}}&mine=false",
+            "description": "Searches titles and contents across users. Expected to include both test questions."
+          }
+        },
+        {
+          "name": "List My Questions - Contributor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions?search={{searchTerm}}&mine=true",
+            "description": "Uses the contributor token and should include the comparison question, not the target question."
+          }
+        },
+        {
+          "name": "List My Questions - Question Author",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions?search={{searchTerm}}&mine=true",
+            "description": "Uses authorToken and should include the target question, not the comparison question."
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{authorToken}}",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Get Target Question Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/{{questionHash}}",
+            "description": "Initially returns the target question with an empty answers array. Run again after Create Answer to see its answer."
+          }
+        },
+        {
+          "name": "Get Question with Invalid Hash - Expected 400",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/not-a-valid-hash"
+          }
+        },
+        {
+          "name": "Get Nonexistent Question - Expected 404",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/{{nonexistentQuestionHash}}"
+          }
+        },
+        {
+          "name": "List Questions without Token - Expected 401",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions",
+            "description": "Confirms that question retrieval is protected."
+          },
+          "auth": {
+            "type": "noauth"
+          }
+        },
+        {
+          "name": "List Questions with Invalid mine - Expected 400",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions?mine=not-a-boolean"
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - T-11 Semantic and Similar Search",
+      "item": [
+        {
+          "name": "Semantic Search Questions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/search?query={{searchQuery}}&k=5&threshold=0.25",
+            "description": "Generates a Gemini query embedding and compares it with stored question vectors. Requires Gemini configuration and at least one stored vector."
+          }
+        },
+        {
+          "name": "Find Questions Similar to Target",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/{{questionHash}}/similar?k=5&threshold=0",
+            "description": "Uses the target's stored vector, includes the comparison question when available, and must exclude the target itself."
+          }
+        },
+        {
+          "name": "Semantic Search without Query - Expected 400",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/search?k=5"
+          }
+        },
+        {
+          "name": "Similar Search with Invalid Hash - Expected 400",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/not-a-valid-hash/similar"
+          }
+        },
+        {
+          "name": "Semantic Search with Invalid Options - Expected 400",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/search?query={{searchQuery}}&k=99&threshold=2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - T-12 Create Answer",
+      "item": [
+        {
+          "name": "Attempt to Answer Own Question - Expected 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": {{questionId}},\n  \"content\": \"{{answerContent}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/answers",
+            "description": "Uses authorToken, the owner of the target question. The service must reject this request."
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{authorToken}}",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Answer with Short Content - Expected 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": {{questionId}},\n  \"content\": \"Too short.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/answers"
+          }
+        },
+        {
+          "name": "Create Answer as Contributor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": {{questionId}},\n  \"content\": \"{{answerContent}}\",\n  \"userId\": {{authorId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/answers",
+            "description": "The userId field is deliberately included as a spoofing check. The saved answer author must still be contributorId from the JWT."
+          }
+        },
+        {
+          "name": "Create Answer for Nonexistent Question - Expected 404",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": {{nonexistentQuestionId}},\n  \"content\": \"{{answerContent}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/answers",
+            "description": "The default ID is unlikely to exist in a development database. Change nonexistentQuestionId if it is already in use."
+          }
+        },
+        {
+          "name": "Get Target Question after Answer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/{{questionHash}}",
+            "description": "Confirms that the created answer appears under its target question."
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - T-17 Draft Coach",
+      "item": [
+        {
+          "name": "Coach a Question Draft",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"{{draftTitle}}\",\n  \"content\": \"{{draftContent}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/questions/draft-coach",
+            "description": "Expected 200 with data.tips (3-5 strings). Gemini unavailable or malformed output should return 503, not generic suggestions."
+          }
+        },
+        {
+          "name": "Coach Invalid Draft - Expected 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \" \",\n  \"content\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/questions/draft-coach"
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - T-18 Answer Fit",
+      "item": [
+        {
+          "name": "Evaluate Answer Fit",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answerText\": \"{{answerContent}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/questions/{{questionHash}}/answer-fit",
+            "description": "Expected 200 with data.level equal to strong, partial, or weak and a short data.note. Gemini failures/malformed output should return 503."
+          }
+        },
+        {
+          "name": "Answer Fit with Invalid Hash - Expected 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answerText\": \"{{answerContent}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/questions/not-a-valid-hash/answer-fit"
+          }
+        },
+        {
+          "name": "Answer Fit with Short Answer - Expected 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answerText\": \"Too short.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/questions/{{questionHash}}/answer-fit"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const checks = {",
+          "  'Register Question Author': { status: 201, shape: 'registration' },",
+          "  'Register Answer Contributor': { status: 201, shape: 'registration' },",
+          "  'Login Question Author': { status: 200, shape: 'login', capture: 'author' },",
+          "  'Login Answer Contributor': { status: 200, shape: 'login', capture: 'contributor' },",
+          "  'Register Invalid User - Expected 400': { status: 400, shape: 'error' },",
+          "  'Login with Wrong Password - Expected 401': { status: 401, shape: 'error' },",
+          "  'Create Target Question': { status: 201, shape: 'question', capture: 'target' },",
+          "  'Create Similarity Question': { status: 201, shape: 'question', capture: 'comparison' },",
+          "  'Create Question with Invalid Fields - Expected 400': { status: 400, shape: 'error' },",
+          "  'List Matching Questions - mine=false': { status: 200, shape: 'list' },",
+          "  'List My Questions - Contributor': { status: 200, shape: 'list' },",
+          "  'List My Questions - Question Author': { status: 200, shape: 'list' },",
+          "  'Get Target Question Details': { status: 200, shape: 'details' },",
+          "  'Get Question with Invalid Hash - Expected 400': { status: 400, shape: 'error' },",
+          "  'Get Nonexistent Question - Expected 404': { status: 404, shape: 'error' },",
+          "  'List Questions without Token - Expected 401': { status: 401, shape: 'error' },",
+          "  'List Questions with Invalid mine - Expected 400': { status: 400, shape: 'error' },",
+          "  'Semantic Search Questions': { status: 200, shape: 'list' },",
+          "  'Find Questions Similar to Target': { status: 200, shape: 'list' },",
+          "  'Semantic Search without Query - Expected 400': { status: 400, shape: 'error' },",
+          "  'Similar Search with Invalid Hash - Expected 400': { status: 400, shape: 'error' },",
+          "  'Semantic Search with Invalid Options - Expected 400': { status: 400, shape: 'error' },",
+          "  'Attempt to Answer Own Question - Expected 400': { status: 400, shape: 'error' },",
+          "  'Create Answer with Short Content - Expected 400': { status: 400, shape: 'error' },",
+          "  'Create Answer as Contributor': { status: 201, shape: 'answer', capture: 'answer' },",
+          "  'Create Answer for Nonexistent Question - Expected 404': { status: 404, shape: 'error' },",
+          "  'Get Target Question after Answer': { status: 200, shape: 'details' },",
+          "  'Coach a Question Draft': { status: 200, shape: 'draft' },",
+          "  'Coach Invalid Draft - Expected 400': { status: 400, shape: 'error' },",
+          "  'Evaluate Answer Fit': { status: 200, shape: 'fit' },",
+          "  'Answer Fit with Invalid Hash - Expected 400': { status: 400, shape: 'error' },",
+          "  'Answer Fit with Short Answer - Expected 400': { status: 400, shape: 'error' }",
+          "};",
+          "const check = checks[pm.info.requestName];",
+          "if (check) {",
+          "  pm.test(`HTTP ${check.status} expected`, function () {",
+          "    pm.response.to.have.status(check.status);",
+          "  });",
+          "  if (pm.response.code === check.status) {",
+          "    let body;",
+          "    try { body = pm.response.json(); } catch (error) { body = null; }",
+          "    pm.test('Response matches the expected JSON shape', function () {",
+          "      pm.expect(body).to.be.an('object');",
+          "      if (check.shape === 'error') pm.expect(body.msg).to.be.a('string');",
+          "      if (check.shape !== 'error') pm.expect(body.success).to.eql(true);",
+          "      if (check.shape === 'registration') pm.expect(body.user.id).to.exist;",
+          "      if (check.shape === 'login') { pm.expect(body.token).to.be.a('string'); pm.expect(body.user.id).to.exist; }",
+          "      if (check.shape === 'question') { pm.expect(body.data.id).to.exist; pm.expect(body.data.questionHash).to.match(/^[a-f0-9]{16}$/); }",
+          "      if (check.shape === 'list') { pm.expect(body.data).to.be.an('array'); pm.expect(body.meta).to.be.an('object'); }",
+          "      if (check.shape === 'details') { pm.expect(body.question).to.be.an('object'); pm.expect(body.answers).to.be.an('array'); }",
+          "      if (check.shape === 'answer') { pm.expect(body.data.id).to.exist; pm.expect(body.data.author.id).to.exist; }",
+          "      if (check.shape === 'draft') { pm.expect(body.data.tips).to.be.an('array'); pm.expect(body.data.tips.length).to.be.within(3, 5); }",
+          "      if (check.shape === 'fit') { pm.expect(['strong', 'partial', 'weak']).to.include(body.data.level); pm.expect(body.data.note).to.be.a('string').and.not.empty; }",
+          "    });",
+          "    if (check.capture === 'author') { pm.environment.set('authorToken', body.token); pm.environment.set('authorId', body.user.id); pm.environment.set('token', body.token); }",
+          "    if (check.capture === 'contributor') { pm.environment.set('contributorToken', body.token); pm.environment.set('contributorId', body.user.id); pm.environment.set('token', body.token); }",
+          "    if (check.capture === 'target') { pm.environment.set('questionId', body.data.id); pm.environment.set('questionHash', body.data.questionHash); }",
+          "    if (check.capture === 'comparison') { pm.environment.set('comparisonQuestionId', body.data.id); pm.environment.set('comparisonQuestionHash', body.data.questionHash); }",
+          "    if (check.capture === 'answer') pm.environment.set('answerId', body.data.id);",
+          "  }",
+          "}"
+        ]
+      }
+    }
+  ]
+}
