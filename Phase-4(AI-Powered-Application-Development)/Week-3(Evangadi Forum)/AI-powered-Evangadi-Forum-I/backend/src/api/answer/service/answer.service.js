@@ -56,7 +56,7 @@ const getQuestionOwner = async (questionId) => {
  */
 export const createAnswerService = async ({ questionId, userId, content }) => {
   const question = await getQuestionOwner(questionId);
-  if (question.user_id === userId) {
+  if (Number(question.user_id) === Number(userId)) {
     throw new BadRequestError("You cannot answer your own question");
   }
 

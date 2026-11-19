@@ -1,58 +1,117 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { ServiceUnavailableError } from "../../../utils/errors/index.js";
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_TEXT_MODEL = process.env.GEMINI_TEXT_MODEL || "gemini-3.8-flash";
+const DRAFT_COACH_RESPONSE_SCHEMA = {
+  type: Type.OBJECT,
+  properties: {
+    tips: {
+      type: Type.ARRAY,
+      minItems: "3",
+      maxItems: "5",
+      items: { type: Type.STRING, maxLength: "119" },
+    },
+  },
+  required: ["tips"],
+};
+const ANSWER_FIT_RESPONSE_SCHEMA = {
+  type: Type.OBJECT,
+  properties: {
+    level: {
+      type: Type.STRING,
+      enum: ["strong", "partial", "weak"],
+    },
+    note: {
+      type: Type.STRING,
+      minLength: "1",
+      maxLength: "199",
+    },
+  },
+  required: ["level", "note"],
+};
 
-if (!GEMINI_API_KEY) {
-  throw new Error("GEMINI_API_KEY environment variable is required");
-}
-
-const ai = new GoogleGenAI({ GEMINI_API_KEY });
-const textModel = genAI.getGenerativeModel({ model: GEMINI_TEXT_MODEL });
-
-/**
- * Strip optional markdown fence and parse JSON object from model text.
- * @param {string} raw
- * @returns {object|null}
- */
 function parseJsonObjectFromGeminiText(raw) {
-  if (!raw || typeof raw !== "string") return null;
-  let t = raw.trim();
-  if (t.startsWith("```")) {
-    t = t.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "");
+  if (typeof raw !== "string" || !raw.trim()) {
+    return null;
   }
+
+  let text = raw.trim();
+  if (text.startsWith("```")) {
+    text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "");
+  }
+
   try {
-    const v = JSON.parse(t);
-    return v && typeof v === "object" && !Array.isArray(v) ? v : null;
+    const parsed = JSON.parse(text);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? parsed
+      : null;
   } catch {
     return null;
   }
 }
 
-async function fetchGeminiJsonTextResponse(userPrompt) {
+async function fetchGeminiJsonTextResponse(prompt, responseSchema) {
+  const apiKey = process.env.GEMINI_API_KEY?.trim();
+  if (!apiKey) {
+    throw new ServiceUnavailableError(
+      "Gemini AI is not configured. Please try again later.",
+    );
+  }
 
-
+  try {
+    const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      model: GEMINI_TEXT_MODEL|| "gemini-3.8-flash",
-      contents: userPrompt,
+      model: GEMINI_TEXT_MODEL,
+      contents: prompt,
       config: {
-        maxOutputTokens:300
-      }
+        maxOutputTokens: 300,
+        responseMimeType: "application/json",
+        responseSchema,
+      },
     });
-    console.log(response.text);
-  
-  const text = response?.text;
-  return typeof text === "string" ? text : "";
+    return typeof response?.text === "string" ? response.text : "";
+  } catch {
+    throw new ServiceUnavailableError(
+      "Gemini text generation is temporarily unavailable. Please try again later.",
+    );
+  }
+}
+
+async function requestGeminiJson(prompt, responseSchema, generateText) {
+  let raw;
+  try {
+    raw = await generateText(prompt, responseSchema);
+  } catch (error) {
+    if (error instanceof ServiceUnavailableError) {
+      throw error;
+    }
+    throw new ServiceUnavailableError(
+      "Gemini text generation is temporarily unavailable. Please try again later.",
+    );
+  }
+
+  const parsed = parseJsonObjectFromGeminiText(raw);
+  if (!parsed) {
+    throw new ServiceUnavailableError(
+      "Gemini returned an invalid response. Please try again later.",
+    );
+  }
+  return parsed;
 }
 
 /**
- * Short coaching tips for a question draft (forum / coursework context).
- * @param {{ title: string; content: string }} param
+ * Provides constructive suggestions for improving a question draft.
+ * The optional text generator supports deterministic service tests.
+ *
+ * @param {{ title: string, content: string }} draft
+ * @param {(prompt: string) => Promise<string>} generateText
  * @returns {Promise<{ tips: string[] }>}
  */
-export const generateQuestionDraftCoachService = async ({ title, content }) => {
-  const userPrompt = `You help learners write clearer technical forum posts.
+export const generateQuestionDraftCoachService = async (
+  { title, content },
+  generateText = fetchGeminiJsonTextResponse,
+) => {
+  const prompt = `You help learners write clearer technical forum posts.
 
 Question TITLE:
 ${title}
@@ -61,43 +120,47 @@ Question BODY (markdown allowed):
 ${content}
 
 Reply with ONLY valid JSON (no markdown fences), exactly this shape:
-{"tips":["...","..."]}
+{"tips":["...","...","..."]}
 Rules:
-- tips: array of 3 to 5 short strings (each under 120 characters).
-- Focus on: missing context (error message, expected vs actual), reproducibility, a sharper title idea if needed, tone for peers.
-- Do not claim the question is "correct" or grade homework; give constructive checklist-style tips only.`;
+- Provide 3 to 5 short suggestions, each under 120 characters.
+- Focus on missing context (error message, expected vs actual), reproducibility, a sharper title if needed, and constructive tone.
+- Give useful, clear, constructive checklist-style suggestions.
+- Do not claim the question is correct or grade homework.`;
 
-  try {
-    const raw = await fetchGeminiJsonTextResponse(userPrompt);
-    const parsed = parseJsonObjectFromGeminiText(raw);
-    let tips = Array.isArray(parsed?.tips)
-      ? parsed.tips
-          .filter(t => typeof t === 'string' && t.trim())
-          .map(t => t.trim())
-      : [];
-    tips = tips.slice(0, 5);
-    if (tips.length === 0) {
-      tips = [
-        'Add any error messages or exact behavior you see.',
-        'Say what you already tried and what you expected instead.',
-      ];
-    }
-    return { tips };
-  } catch (error) {
-    console.error('generateQuestionDraftCoachService:', error);
+  const parsed = await requestGeminiJson(
+    prompt,
+    DRAFT_COACH_RESPONSE_SCHEMA,
+    generateText,
+  );
+  if (
+    !Array.isArray(parsed.tips) ||
+    parsed.tips.length < 3 ||
+    parsed.tips.length > 5 ||
+    !parsed.tips.every(
+      (tip) => typeof tip === "string" && tip.trim().length > 0 && tip.trim().length < 120,
+    )
+  ) {
     throw new ServiceUnavailableError(
-      'AI draft suggestions are temporarily unavailable. Please try again later.',
+      "Gemini returned invalid draft suggestions. Please try again later.",
     );
   }
+
+  return { tips: parsed.tips.map((tip) => tip.trim()) };
 };
 
-
-export const assessAnswerAgainstQuestionService = async ({
-  questionTitle,
-  questionContent,
-  answerText,
-}) => {
-  const userPrompt = `You review whether a forum ANSWER draft addresses the QUESTION (relevance and completeness of engagement - not whether every detail is factually correct).
+/**
+ * Evaluates whether an answer draft addresses the supplied question.
+ * The optional text generator supports deterministic service tests.
+ *
+ * @param {{ questionTitle: string, questionContent: string, answerText: string }} input
+ * @param {(prompt: string) => Promise<string>} generateText
+ * @returns {Promise<{ level: "strong" | "partial" | "weak", note: string }>}
+ */
+export const assessAnswerAgainstQuestionService = async (
+  { questionTitle, questionContent, answerText },
+  generateText = fetchGeminiJsonTextResponse,
+) => {
+  const prompt = `You review whether a forum ANSWER draft addresses the QUESTION (relevance and completeness of engagement - not whether every detail is factually correct).
 
 QUESTION TITLE:
 ${questionTitle}
@@ -109,29 +172,28 @@ ANSWER DRAFT:
 ${answerText}
 
 Reply with ONLY valid JSON (no markdown fences), exactly this shape:
-{"level":"strong"|"partial"|"weak","note":"one short sentence"}
+{"level":"strong","note":"one short sentence"}
 Rules:
-- level: "strong" if the draft clearly engages with the question; "partial" if somewhat related but missing key parts of the ask; "weak" if off-topic, empty-substance, or too vague.
-- note: one sentence, plain language, no markdown, under 200 characters. Frame as fit/relevance, not grading.`;
+- level must be "strong", "partial", or "weak".
+- Use strong if the draft clearly engages with the question; partial if it is somewhat related but misses key parts; weak if it is off-topic, empty-substance, or too vague.
+- note must be one short sentence in plain language, under 200 characters.
+- Evaluate fit and relevance, not grading.`;
 
-  try {
-    const raw = await fetchGeminiJsonTextResponse(userPrompt);
-    const parsed = parseJsonObjectFromGeminiText(raw);
-    const levelRaw = parsed?.level;
-    const noteRaw = parsed?.note;
-    const level =
-      levelRaw === "strong" || levelRaw === "partial" || levelRaw === "weak"
-        ? levelRaw
-        : "partial";
-    const note =
-      typeof noteRaw === "string" && noteRaw.trim()
-        ? noteRaw.trim().slice(0, 280)
-        : "Could not summarize fit; treat this as a partial match.";
-    return { level, note };
-  } catch (error) {
-    console.error("assessAnswerAgainstQuestionService:", error);
+  const parsed = await requestGeminiJson(
+    prompt,
+    ANSWER_FIT_RESPONSE_SCHEMA,
+    generateText,
+  );
+  if (
+    !["strong", "partial", "weak"].includes(parsed.level) ||
+    typeof parsed.note !== "string" ||
+    !parsed.note.trim() ||
+    parsed.note.trim().length >= 200
+  ) {
     throw new ServiceUnavailableError(
-      "AI fit check is temporarily unavailable. Please try again later.",
+      "Gemini returned an invalid answer-fit evaluation. Please try again later.",
     );
   }
+
+  return { level: parsed.level, note: parsed.note.trim() };
 };
