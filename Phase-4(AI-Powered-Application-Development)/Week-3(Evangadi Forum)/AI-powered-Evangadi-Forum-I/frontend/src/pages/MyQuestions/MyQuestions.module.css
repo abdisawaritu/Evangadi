@@ -1,0 +1,205 @@
+.myQuestions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.myQuestions__hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.myQuestions__heroCopy {
+  max-width: 42rem;
+}
+
+.myQuestions__eyebrow {
+  margin-bottom: var(--spacing-xs);
+  color: var(--primary-dark);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.myQuestions__title {
+  margin-bottom: var(--spacing-sm);
+  font-size: clamp(1.75rem, 3vw, var(--text-3xl));
+  letter-spacing: -0.025em;
+}
+
+.myQuestions__description {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+}
+
+.myQuestions__newQuestion {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  min-height: 2.25rem;
+  padding: 0.5rem var(--spacing-md);
+  color: var(--text-inverse);
+  background-color: var(--primary);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  transition: background-color var(--transition-fast);
+}
+
+.myQuestions__newQuestion:hover {
+  color: var(--text-inverse);
+  background-color: var(--primary-hover);
+}
+
+.myQuestions__newQuestion:focus-visible,
+.myQuestions__question:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.myQuestions__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.myQuestions__question {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  align-items: start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--text-primary);
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.myQuestions__question:hover {
+  color: var(--text-primary);
+  background-color: var(--surface-hover);
+}
+
+.myQuestions__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  color: #155e75;
+  background-color: #a5f3fc;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-full);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+}
+
+.myQuestions__questionBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.myQuestions__questionHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.myQuestions__questionTitle {
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  line-height: 1.45;
+}
+
+.myQuestions__yoursBadge {
+  flex-shrink: 0;
+  padding: 0.125rem 0.375rem;
+  color: var(--primary-dark);
+  background-color: var(--primary-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.625rem;
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+}
+
+.myQuestions__excerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.myQuestions__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-md);
+  color: var(--text-tertiary);
+  font-size: var(--text-xs);
+}
+
+.myQuestions__answerCount {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.myQuestions__statePanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 13rem;
+  padding: var(--spacing-xl);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.myQuestions__stateMessage {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .myQuestions__hero {
+    flex-direction: column;
+    padding: var(--spacing-lg);
+  }
+
+  .myQuestions__newQuestion {
+    align-self: flex-start;
+  }
+
+  .myQuestions__question {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+  }
+
+  .myQuestions__avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
