@@ -11,51 +11,6 @@ export default function Navbar({ title, subtitle, user, onLogout }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Initialize searchTerm from URL if we are already on the dashboard
-  const [searchTerm, setSearchTerm] = useState(() => {
-    const params = new URLSearchParams(location.search);
-    return params.get("q") || params.get("semantic") || "";
-  });
-
-  // Keep input in sync with URL if it changes externally
-  useEffect(() => {
-    if (location.pathname === "/dashboard") {
-      const params = new URLSearchParams(location.search);
-      setSearchTerm(params.get("q") || params.get("semantic") || "");
-    } else {
-      setSearchTerm("");
-    }
-  }, [location.search, location.pathname]);
-
-  // Debounced keyword search: updates `?q=` on the dashboard (500ms quiet period).
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      if (searchTerm.trim() !== "") {
-        navigate(`/dashboard?q=${encodeURIComponent(searchTerm)}`);
-      } else if (
-        location.pathname === "/dashboard" &&
-        !new URLSearchParams(location.search).get("semantic")
-      ) {
-        navigate("/dashboard");
-      }
-    }, 500);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm, navigate, location.pathname]);
-
-  const handleSemanticSearch = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim().length >= 3) {
-      navigate(`/dashboard?semantic=${encodeURIComponent(searchTerm)}`);
-    }
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/dashboard?q=${encodeURIComponent(searchTerm)}`);
-    }
-  };
 
   return (
     <header className={styles.navbar}>
@@ -66,31 +21,11 @@ export default function Navbar({ title, subtitle, user, onLogout }) {
         ) : null}
       </div>
 
-      <form className={styles.navbar__search} onSubmit={handleSearchSubmit}>
-        <div className={styles["navbar__search-icon"]}>
-          <Search size={16} />
-        </div>
-        <input
-          id="search"
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search questions by keyword…"
-          className={styles["navbar__search-input"]}
-          aria-label="Search questions by keyword"
-        />
-        {searchTerm.length >= 3 && (
-          <button
-            type="button"
-            onClick={handleSemanticSearch}
-            className={styles["navbar__semantic-button"]}
-            title="Use AI Semantic Search"
-          >
-            <Sparkles size={14} />
-            <span className={styles["navbar__semantic-text"]}>AI Search</span>
-          </button>
-        )}
-      </form>
+      <NavbarSearch
+        key={location.key}
+        location={location}
+        navigate={navigate}
+      />
 
       <div className={styles.navbar__actions}>
         <div className={styles.navbar__user}>
@@ -123,5 +58,85 @@ export default function Navbar({ title, subtitle, user, onLogout }) {
         )}
       </div>
     </header>
+  );
+}
+
+function NavbarSearch({ location, navigate }) {
+  const [searchTerm, setSearchTerm] = useState(() => {
+    if (location.pathname !== "/dashboard") return "";
+    const params = new URLSearchParams(location.search);
+    return params.get("q") || params.get("semantic") || "";
+  });
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const hasCurrentKeyword = params.has("q");
+    const hasCurrentSemantic = params.has("semantic");
+    const currentKeyword = params.get("q") || "";
+    const currentSemantic = params.get("semantic") || "";
+    const normalizedSearch = searchTerm.trim();
+
+    if (
+      (hasCurrentKeyword && normalizedSearch === currentKeyword) ||
+      (hasCurrentSemantic && normalizedSearch === currentSemantic)
+    ) {
+      return undefined;
+    }
+
+    const timeout = setTimeout(() => {
+      if (normalizedSearch) {
+        navigate(`/dashboard?q=${encodeURIComponent(normalizedSearch)}`);
+      } else if (
+        location.pathname === "/dashboard" &&
+        (currentKeyword || currentSemantic)
+      ) {
+        navigate("/dashboard");
+      }
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [location.pathname, location.search, navigate, searchTerm]);
+
+  const handleSemanticSearch = () => {
+    const query = searchTerm.trim();
+    if (query.length >= 5) {
+      navigate(`/dashboard?semantic=${encodeURIComponent(query)}`);
+    }
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const query = searchTerm.trim();
+    if (query) {
+      navigate(`/dashboard?q=${encodeURIComponent(query)}`);
+    }
+  };
+
+  return (
+    <form className={styles.navbar__search} onSubmit={handleSearchSubmit}>
+      <div className={styles["navbar__search-icon"]}>
+        <Search size={16} />
+      </div>
+      <input
+        id="search"
+        type="text"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+        placeholder="Search questions by keyword…"
+        className={styles["navbar__search-input"]}
+        aria-label="Search questions by keyword"
+      />
+      {searchTerm.trim().length >= 5 && (
+        <button
+          type="button"
+          onClick={handleSemanticSearch}
+          className={styles["navbar__semantic-button"]}
+          title="Use AI Semantic Search"
+        >
+          <Sparkles size={14} />
+          <span className={styles["navbar__semantic-text"]}>AI Search</span>
+        </button>
+      )}
+    </form>
   );
 }
