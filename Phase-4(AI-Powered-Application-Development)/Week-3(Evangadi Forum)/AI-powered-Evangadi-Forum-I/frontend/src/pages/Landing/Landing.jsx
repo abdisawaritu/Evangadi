@@ -5,6 +5,7 @@
  */
 import { motion as Motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer/Footer.jsx";
 import {
   Sparkles,
   MessageSquare,
@@ -38,7 +39,7 @@ export default function Landing() {
 
   return (
     <div className={styles.landing}>
-      <header className={styles.landing__header}>
+      <header className={styles.landing__header} id="overview">
         <div className={styles.landing__headerInner}>
           <button
             type="button"
@@ -472,37 +473,7 @@ export default function Landing() {
         )}
       </main>
 
-      <footer className={styles.landing__footer}>
-        <div className={styles.landing__footerInner}>
-          <div>
-            <p className={styles.landing__footerBrand}>Evangadi Forum</p>
-            <p className={styles.landing__footerMeta}>
-              © {new Date().getFullYear()} · Learner-led Q&A
-            </p>
-          </div>
-          <div className={styles.landing__footerLinks}>
-            <button
-              type="button"
-              className={styles.landing__footerLink}
-              onClick={() => navigate("/auth")}
-            >
-              Sign in
-            </button>
-            <span className={styles.landing__footerDot} aria-hidden>
-              ·
-            </span>
-            <a href="#" className={styles.landing__footerLinkAnchor}>
-              Privacy
-            </a>
-            <span className={styles.landing__footerDot} aria-hidden>
-              ·
-            </span>
-            <a href="#" className={styles.landing__footerLinkAnchor}>
-              Terms
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer variant="landing" />
     </div>
   );
 }

@@ -30,8 +30,8 @@ function getFieldError(field, value, isLogin) {
 
   if (field === "password") {
     if (!value.trim()) return "Password is required.";
-    if (!isLogin && value.length < 6) {
-      return "Password must be at least 6 characters long.";
+    if (!isLogin && value.length < 8) {
+      return "Password must be at least 8 characters long.";
     }
   }
 

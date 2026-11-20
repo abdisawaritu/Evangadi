@@ -2,6 +2,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { ServiceUnavailableError } from "../../../utils/errors/index.js";
 
 const GEMINI_TEXT_MODEL = process.env.GEMINI_TEXT_MODEL || "gemini-3.8-flash";
+const GEMINI_TEXT_REQUEST_TIMEOUT_MS = 55_000;
 const DRAFT_COACH_RESPONSE_SCHEMA = {
   type: Type.OBJECT,
   properties: {
@@ -50,6 +51,43 @@ function parseJsonObjectFromGeminiText(raw) {
   }
 }
 
+function getSafeGeminiErrorDetails(error, apiKey, durationMs) {
+  const providerMessage =
+    error?.error?.message ||
+    error?.response?.data?.error?.message ||
+    error?.message ||
+    "No provider error message";
+  let message = String(providerMessage);
+
+  if (apiKey) {
+    message = message
+      .split(apiKey)
+      .join("[REDACTED]")
+      .split(encodeURIComponent(apiKey))
+      .join("[REDACTED]");
+  }
+  message = message
+    .replace(
+      /((?:x-goog-api-key|api[_-]?key|key)\s*[:=]\s*["']?)[^,\s"'&]+/gi,
+      "$1[REDACTED]",
+    )
+    .slice(0, 600);
+
+  return {
+    model: GEMINI_TEXT_MODEL,
+    status:
+      error?.status ??
+      error?.statusCode ??
+      error?.response?.status ??
+      error?.error?.code ??
+      null,
+    code: error?.code ?? error?.error?.status ?? null,
+    name: error?.name ?? "Error",
+    message,
+    durationMs,
+  };
+}
+
 async function fetchGeminiJsonTextResponse(prompt, responseSchema) {
   const apiKey = process.env.GEMINI_API_KEY?.trim();
   if (!apiKey) {
@@ -58,6 +96,7 @@ async function fetchGeminiJsonTextResponse(prompt, responseSchema) {
     );
   }
 
+  const startedAt = Date.now();
   try {
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
@@ -67,10 +106,32 @@ async function fetchGeminiJsonTextResponse(prompt, responseSchema) {
         maxOutputTokens: 300,
         responseMimeType: "application/json",
         responseSchema,
+        httpOptions: {
+          timeout: GEMINI_TEXT_REQUEST_TIMEOUT_MS,
+          retryOptions: { attempts: 1 },
+        },
       },
     });
     return typeof response?.text === "string" ? response.text : "";
-  } catch {
+  } catch (error) {
+    const errorDetails = getSafeGeminiErrorDetails(
+      error,
+      apiKey,
+      Date.now() - startedAt,
+    );
+    console.error(
+      "Gemini text generation request failed:",
+      errorDetails,
+    );
+    if (
+      errorDetails.status === 429 ||
+      errorDetails.code === "RESOURCE_EXHAUSTED" ||
+      errorDetails.code === "RATE_LIMIT_EXCEEDED"
+    ) {
+      throw new ServiceUnavailableError(
+        "Gemini is rate limited or over quota. Please try again later.",
+      );
+    }
     throw new ServiceUnavailableError(
       "Gemini text generation is temporarily unavailable. Please try again later.",
     );

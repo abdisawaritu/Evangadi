@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Landing from "./pages/Landing/Landing";
 import MyQuestions from "./pages/MyQuestions/MyQuestions";
 import PostQuestion from "./pages/PostQuestion/PostQuestion";
+import QuestionDetails from "./pages/QuestionDetails/QuestionDetails";
 
 function App() {
   return (
@@ -49,10 +50,10 @@ function App() {
               }
             />
             <Route
-              path="/question/:id"
+              path="/question/:questionHash"
               element={
                 <ProtectedRoute>
-                  <h1>Question Detail Page</h1>
+                  <QuestionDetails />
                 </ProtectedRoute>
               }
             />
